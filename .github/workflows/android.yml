@@ -1,5 +1,5 @@
-name: 📦构建027魔改版本
-run-name: 📦 ${{ github.actor }} @ 构建027魔改版本
+name: 📦构建028魔改版本
+run-name: 📦 ${{ github.actor }} @ 构建028魔改版本
 
 on:
   push:
@@ -10,6 +10,8 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
     steps:
