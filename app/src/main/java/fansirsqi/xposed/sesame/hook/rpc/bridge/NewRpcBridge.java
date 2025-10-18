@@ -427,6 +427,10 @@ public class NewRpcBridge implements RpcBridge {
             Log.system(TAG, "New RPC\n方法: " + rpcEntity.getRequestMethod() + "\n参数: " + rpcEntity.getRequestData() + "\n数据: " + rpcEntity.getResponseString() + "\n" + "\n" + "堆栈:" + new Exception().getStackTrace()[1].toString());
             Log.printStack(TAG);
         }
-        } // 新增：对应前面的try块
+        } catch (Exception e) {
+            Log.error(TAG, "RPC请求异常: " + rpcEntity.getRequestMethod());
+            Log.printStackTrace(e);
+            return null;
+        }
     }
 }
