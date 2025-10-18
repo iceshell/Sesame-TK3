@@ -1113,6 +1113,13 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             val strTotalCollected =
                 "本次总 收:" + totalCollected + "g 帮:" + TOTAL_HELP_COLLECTED + "g 浇:" + TOTAL_WATERED + "g"
             updateLastExecText(strTotalCollected)
+            
+            // 打印森林统计报告
+            try {
+                ForestFriendManager.printReport()
+            } catch (e: Exception) {
+                Log.printStackTrace(TAG, "打印森林统计报告失败", e)
+            }
         }
     }
 

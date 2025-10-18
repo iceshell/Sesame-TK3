@@ -208,7 +208,7 @@ object RpcErrorHandler {
     fun generateReport(): String {
         val sb = StringBuilder()
         sb.appendLine("========== RPC接口统计报告 ==========")
-        sb.appendLine("生成时间: ${TimeUtil.getCommonDate()}")
+        sb.appendLine("生成时间: ${TimeUtil.getCommonDate(System.currentTimeMillis())}")
         sb.appendLine()
         
         // 暂停的接口

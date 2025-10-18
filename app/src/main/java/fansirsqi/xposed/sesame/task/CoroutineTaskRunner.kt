@@ -15,6 +15,7 @@ import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
@@ -105,6 +106,13 @@ class CoroutineTaskRunner(allModels: List<Model>) {
                 printExecutionSummary(startTime, endTime)
                 // 清空恢复尝试计数
                 recoveryAttempts.clear()
+                
+                // 打印RPC统计报告
+                try {
+                    fansirsqi.xposed.sesame.hook.RpcErrorHandler.printReport()
+                } catch (e: Exception) {
+                    Log.printStackTrace(TAG, "打印RPC统计报告失败", e)
+                }
             }
         }
     }
