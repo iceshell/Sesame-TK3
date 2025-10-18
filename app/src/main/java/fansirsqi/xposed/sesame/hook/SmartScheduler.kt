@@ -92,7 +92,7 @@ object SmartScheduler {
      */
     fun start(context: Context) {
         if (isRunning.compareAndSet(false, true)) {
-            Log.record(TAG, "🚀 启动智能定时调度器（不使用Alarm）")
+            Log.record(TAG, "🚀 启动智能定时调度器")
             
             // 启动主调度任务
             val mainJob = schedulerScope.launch {
@@ -181,7 +181,7 @@ object SmartScheduler {
      */
     private fun triggerEnergyCollection() {
         try {
-            // 通过广播触发，不使用Alarm
+            // 通过广播触发
             ApplicationHook.restartByBroadcast()
             Log.record(TAG, "✅ 已触发能量收集任务")
         } catch (e: Exception) {

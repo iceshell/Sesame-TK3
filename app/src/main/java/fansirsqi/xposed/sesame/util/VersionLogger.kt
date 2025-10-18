@@ -147,12 +147,18 @@ object VersionLogger {
         
         // 检查Android版本
         if (info.androidSdk < 21) {
-            warnings.add("⚠️ Android版本过低（${info.androidSdk}），建议升级到Android 5.0+")
+            warnings.add("⚠️ Android版本过低（API ${info.androidSdk}），建议升级到Android 5.0+")
         }
         
-        // 检查支付宝版本
-        if (info.alipayVersionCode < 10030960) {
-            warnings.add("⚠️ 支付宝版本过低（${info.alipayVersion}），建议升级到10.3.96+")
+        // 检查支付宝版本（使用版本比较，而不是versionCode）
+        try {
+            val currentVersion = fansirsqi.xposed.sesame.entity.AlipayVersion(info.alipayVersion)
+            val minVersion = fansirsqi.xposed.sesame.entity.AlipayVersion("10.3.96")
+            if (currentVersion.compareTo(minVersion) < 0) {
+                warnings.add("⚠️ 支付宝版本过低（${info.alipayVersion}），建议升级到10.3.96+")
+            }
+        } catch (e: Exception) {
+            Log.debug(TAG, "版本比较失败: ${e.message}")
         }
         
         // 输出警告

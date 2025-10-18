@@ -276,8 +276,8 @@ public class ApplicationHook {
                     // 设置AlarmSchedulerManager依赖项
                     alarmManager.setMainHandler(mainHandler);
                     alarmManager.setAppContext(appContext);
-                    // 初始化闹钟调度器
-                    alarmManager.initializeAlarmScheduler(appContext);
+                    // 注释：已改用SmartScheduler，不再使用AlarmScheduler
+                    // alarmManager.initializeAlarmScheduler(appContext);
 
                     // 初始化支付宝组件帮助类（用于任务执行前唤醒）
                     alipayComponentHelper = new AlipayComponentHelper(appContext);
@@ -285,6 +285,10 @@ public class ApplicationHook {
                     Log.runtime(TAG, "✅ 已初始化支付宝组件帮助类");
 
                     PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(packageName, 0);
+                    // 初始化支付宝版本信息
+                    if (pInfo.versionName != null && !pInfo.versionName.isEmpty()) {
+                        alipayVersion = new AlipayVersion(pInfo.versionName);
+                    }
                     Log.runtime(TAG, "handleLoadPackage alipayVersion: " + alipayVersion.getVersionString());
                     loadNativeLibs(appContext, AssetUtil.INSTANCE.getCheckerDestFile());
                     loadNativeLibs(appContext, AssetUtil.INSTANCE.getDexkitDestFile());
@@ -688,8 +692,8 @@ public class ApplicationHook {
                 // 优化：移除Alarm唤醒，使用智能调度器
                 // setWakenAtTimeAlarm(); // 已禁用，使用SmartScheduler替代
                 
-                // 启动智能调度器（不使用Alarm）
-                Log.record(TAG, "🚀 启动智能调度器（替代Alarm唤醒）");
+                // 启动智能调度器
+                Log.record(TAG, "🚀 启动智能调度器");
                 fansirsqi.xposed.sesame.hook.SmartScheduler.INSTANCE.start(appContext);
                 
                 // 启动任务健康监控
