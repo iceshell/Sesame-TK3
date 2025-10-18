@@ -503,22 +503,37 @@ public class AntSports extends ModelTask {
                 }
                 return;
             }
+            // 增加null检查，防止queryPath返回null导致崩溃
             JSONObject path = queryPath(joinedPathId);
-            JSONObject userPathStep = path.getJSONObject("userPathStep");
-            if ("COMPLETED".equals(userPathStep.getString("pathCompleteStatus"))) {
-                Log.record(TAG, "行走路线🚶🏻‍♂️路线[" + userPathStep.getString("pathName") + "]已完成");
+            if (path == null) {
+                Log.error(TAG, "行走路线🚶🏿‍♂️获取路线信息失败，pathId: " + joinedPathId);
+                return;
+            }
+            JSONObject userPathStep = path.optJSONObject("userPathStep");
+            if (userPathStep == null) {
+                Log.error(TAG, "行走路线🚶🏿‍♂️路线数据异常，缺少userPathStep字段");
+                return;
+            }
+            if ("COMPLETED".equals(userPathStep.optString("pathCompleteStatus"))) {
+                Log.record(TAG, "行走路线🚶🏻‍♂️路线[" + userPathStep.optString("pathName", "未知") + "]已完成");
                 String pathId = queryJoinPath(walkPathThemeId);
                 joinPath(pathId);
                 return;
             }
-            int minGoStepCount = path.getJSONObject("path").getInt("minGoStepCount");
-            int pathStepCount = path.getJSONObject("path").getInt("pathStepCount");
+            // 检查path字段是否存在
+            JSONObject pathInfo = path.optJSONObject("path");
+            if (pathInfo == null) {
+                Log.error(TAG, "行走路线🚶🏿‍♂️路线数据异常，缺少path字段");
+                return;
+            }
+            int minGoStepCount = pathInfo.getInt("minGoStepCount");
+            int pathStepCount = pathInfo.getInt("pathStepCount");
             int forwardStepCount = userPathStep.getInt("forwardStepCount");
             int remainStepCount = userPathStep.getInt("remainStepCount");
             int needStepCount = pathStepCount - forwardStepCount;
             if (remainStepCount >= minGoStepCount) {
                 int useStepCount = Math.min(remainStepCount, needStepCount);
-                walkGo(userPathStep.getString("pathId"), useStepCount, userPathStep.getString("pathName"));
+                walkGo(userPathStep.getString("pathId"), useStepCount, userPathStep.optString("pathName", "未知路线"));
             }
         } catch (Throwable t) {
             Log.runtime(TAG, "walk err:");
@@ -572,19 +587,35 @@ public class AntSports extends ModelTask {
     private JSONObject queryPath(String pathId) {
         JSONObject path = null;
         try {
+            // 检查pathId是否有效
+            if (pathId == null || pathId.isEmpty()) {
+                Log.error(TAG, "queryPath失败：pathId为空");
+                return null;
+            }
             Date date = new Date();
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            JSONObject jo = new JSONObject(AntSportsRpcCall.queryPath("202312191135", sdf.format(date), pathId));
+            String response = AntSportsRpcCall.queryPath("202312191135", sdf.format(date), pathId);
+            if (response == null || response.isEmpty()) {
+                Log.error(TAG, "queryPath失败：RPC响应为空，pathId: " + pathId);
+                return null;
+            }
+            JSONObject jo = new JSONObject(response);
             if (jo.optBoolean("success")) {
-                path = jo.getJSONObject("data");
-                JSONArray ja = jo.getJSONObject("data").getJSONArray("treasureBoxList");
-                for (int i = 0; i < ja.length(); i++) {
-                    JSONObject treasureBox = ja.getJSONObject(i);
-                    receiveEvent(treasureBox.getString("boxNo"));
+                path = jo.optJSONObject("data");
+                if (path != null) {
+                    JSONArray ja = path.optJSONArray("treasureBoxList");
+                    if (ja != null) {
+                        for (int i = 0; i < ja.length(); i++) {
+                            JSONObject treasureBox = ja.getJSONObject(i);
+                            receiveEvent(treasureBox.getString("boxNo"));
+                        }
+                    }
                 }
+            } else {
+                Log.error(TAG, "queryPath失败：" + jo.optString("errorMsg", "未知错误"));
             }
         } catch (Throwable t) {
-            Log.runtime(TAG, "queryPath err:");
+            Log.error(TAG, "queryPath异常，pathId: " + pathId);
             Log.printStackTrace(TAG, t);
         }
         return path;

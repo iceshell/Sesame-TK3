@@ -110,7 +110,7 @@ public class ApplicationHook {
     static Handler mainHandler;
     /**
      * -- GETTER --
-     * 获取主任务实例 - 供AlarmScheduler使用
+     * 获取主任务实例
      */
     @Getter
     static BaseTask mainTask;
@@ -548,7 +548,10 @@ public class ApplicationHook {
                 updateDay(userId);
                 String successMsg = "芝麻粒-TK 加载成功✨";
                 Log.record(successMsg);
-                Toast.show(successMsg);
+                // 只在首次初始化时显示弹窗，避免每次打开都弹窗
+                if (!init) {
+                    Toast.show(successMsg);
+                }
             }
 
             offline = false;
@@ -557,7 +560,10 @@ public class ApplicationHook {
             return true;
         } catch (Throwable th) {
             Log.printStackTrace(TAG, "startHandler", th);
-            Toast.show("芝麻粒加载失败 🎃");
+            // 只在首次初始化失败时显示弹窗
+            if (!init) {
+                Toast.show("芝麻粒加载失败 🎃");
+            }
             return false;
         }
     }

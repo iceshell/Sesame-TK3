@@ -1515,8 +1515,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             if (response.trim { it <= ' ' }.isEmpty()) {
                 Log.error(
                     TAG,
-                    "获取好友主页信息失败：响应为空, userId: " + UserMap.getMaskName(userId) + response
+                    "获取好友主页信息失败：响应为空, userId: " + UserMap.getMaskName(userId) + "，可能是网络问题或用户不存在"
                 )
+                // 添加延迟避免触发限流
+                GlobalThreadPools.sleepCompat(800L)
                 return null
             }
 
@@ -2140,12 +2142,14 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 } else {
                     consecutiveEmpty++
                     // 检查friendId是否为null或空，给出更详细的信息
-                    Log.record(TAG, "找能量第" + attempt + "次：发现好友但是自己，跳过")
-                    // 连续2次空结果就提前结束，避免浪费时间
-                    if (consecutiveEmpty >= 2) {
-                        Log.record(TAG, "连续" + consecutiveEmpty + "次无结果，提前结束找能量")
+                    Log.record(TAG, "找能量第" + attempt + "次：获取好友信息失败（可能是网络波动或用户已删除），跳过")
+                    // 增加容错次数：连续5次空结果才提前结束，避免因个别失败中断整个流程
+                    if (consecutiveEmpty >= 5) {
+                        Log.record(TAG, "连续" + consecutiveEmpty + "次获取失败，提前结束找能量（可能存在网络问题）")
                         break
                     }
+                    // 失败时增加延迟，避免触发限流
+                    GlobalThreadPools.sleepCompat(500L)
                 }
             }
             tc.countDebug("找能量收取完成")
