@@ -5,6 +5,7 @@ import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.Notify
 import fansirsqi.xposed.sesame.util.TimeUtil
 import kotlinx.coroutines.*
+import kotlin.coroutines.coroutineContext
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
@@ -117,8 +118,8 @@ object SmartScheduler {
     /**
      * 主调度循环
      */
-    private suspend fun runScheduler(context: Context) {
-        while (coroutineContext.isActive && isRunning.get()) {
+    private suspend fun runScheduler(context: Context) = coroutineScope {
+        while (isActive && isRunning.get()) {
             try {
                 val now = Calendar.getInstance()
                 
