@@ -87,7 +87,12 @@ public class NewRpcBridge implements RpcBridge {
     private void cleanupRequest(String requestKey) {
         pendingRequests.remove(requestKey);
         // 延迟清理锁，避免立即重复请求时频繁创建锁
-        GlobalThreadPools.schedule(5000, () -> {
+        GlobalThreadPools.execute(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
             requestLocks.remove(requestKey);
         });
     }
