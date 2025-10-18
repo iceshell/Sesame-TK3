@@ -134,7 +134,7 @@ object TaskHealthMonitor {
      * 运行健康检查
      */
     private suspend fun runHealthCheck() {
-        while (isActive && isMonitoring) {
+        while (coroutineContext.isActive && isMonitoring) {
             try {
                 checkTaskHealth()
                 delay(HEALTH_CHECK_INTERVAL)
@@ -298,7 +298,7 @@ fun BaseTask.withHealthMonitoring(taskId: String = this.toString()): BaseTask {
             try {
                 // 定期发送心跳
                 val heartbeatJob = kotlinx.coroutines.GlobalScope.launch {
-                    while (kotlinx.coroutines.isActive) {
+                    while (coroutineContext.isActive) {
                         TaskHealthMonitor.taskHeartbeat(taskId)
                         kotlinx.coroutines.delay(10000) // 每10秒心跳一次
                     }

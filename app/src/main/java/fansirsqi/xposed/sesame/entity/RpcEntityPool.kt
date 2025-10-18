@@ -75,9 +75,12 @@ object RpcEntityPool {
         
         totalRecycled.incrementAndGet()
         
-        // 重置实体状态（需要在RpcEntity中添加reset方法）
+        // 重置实体状态
         try {
-            entity.reset()
+            entity.hasResult = false
+            entity.hasError = false
+            entity.responseObject = null
+            entity.responseString = null
         } catch (e: Exception) {
             Log.error(TAG, "重置RpcEntity失败: ${e.message}")
             return false
@@ -87,6 +90,7 @@ object RpcEntityPool {
         if (poolSize.get() < MAX_POOL_SIZE) {
             pool.offer(entity)
             poolSize.incrementAndGet()
+            Log.debug(TAG, "回收RpcEntity成功，当前池大小: ${poolSize.get()}")
             return true
         }
         

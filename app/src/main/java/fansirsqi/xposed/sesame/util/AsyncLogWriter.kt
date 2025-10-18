@@ -204,12 +204,12 @@ object AsyncLogWriter {
         
         // 写入记录日志
         if (recordLogs.isNotEmpty()) {
-            writeToFile(Files.getRecordFile(), recordLogs)
+            writeToFile(Files.getRecordLogFile(), recordLogs)
         }
         
         // 写入运行时日志
         if (runtimeLogs.isNotEmpty()) {
-            writeToFile(Files.getRuntimeFile(), runtimeLogs)
+            writeToFile(Files.getRuntimeLogFile(), runtimeLogs)
         }
     }
     
