@@ -489,7 +489,20 @@ public class AntSports extends ModelTask {
             if (!user.optBoolean("success")) {
                 return;
             }
-            String joinedPathId = user.getJSONObject("data").getString("joinedPathId");
+            JSONObject data = user.optJSONObject("data");
+            if (data == null) {
+                Log.record(TAG, "行走路线🚶🏿‍♂️未获取到用户数据");
+                return;
+            }
+            String joinedPathId = data.optString("joinedPathId");
+            if (joinedPathId == null || joinedPathId.isEmpty()) {
+                Log.record(TAG, "行走路线🚶🏿‍♂️未加入任何路线，尝试加入新路线");
+                String pathId = queryJoinPath(walkPathThemeId);
+                if (pathId != null && !pathId.isEmpty()) {
+                    joinPath(pathId);
+                }
+                return;
+            }
             JSONObject path = queryPath(joinedPathId);
             JSONObject userPathStep = path.getJSONObject("userPathStep");
             if ("COMPLETED".equals(userPathStep.getString("pathCompleteStatus"))) {

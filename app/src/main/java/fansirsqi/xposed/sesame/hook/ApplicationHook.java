@@ -166,56 +166,6 @@ public class ApplicationHook {
     }
 
     /**
-     * 调度定时执行
-     *
-     * @param lastExecTime 上次执行时间
-     */
-    private void scheduleNextExecution(long lastExecTime) {
-        try {
-            // 检查长时间未执行的情况
-            checkInactiveTime();
-            int checkInterval = BaseModel.getCheckInterval().getValue();
-            List<String> execAtTimeList = BaseModel.getExecAtTimeList().getValue();
-            if (execAtTimeList != null && execAtTimeList.contains("-1")) {
-                Log.record(TAG, "定时执行未开启");
-                return;
-            }
-
-            long delayMillis = checkInterval; // 默认使用配置的检查间隔
-            long targetTime = 0;
-
-            try {
-                if (execAtTimeList != null) {
-                    Calendar lastExecTimeCalendar = TimeUtil.getCalendarByTimeMillis(lastExecTime);
-                    Calendar nextExecTimeCalendar = TimeUtil.getCalendarByTimeMillis(lastExecTime + checkInterval);
-                    for (String execAtTime : execAtTimeList) {
-                        Calendar execAtTimeCalendar = TimeUtil.getTodayCalendarByTimeStr(execAtTime);
-                        if (execAtTimeCalendar != null && lastExecTimeCalendar.compareTo(execAtTimeCalendar) < 0 && nextExecTimeCalendar.compareTo(execAtTimeCalendar) > 0) {
-                            Log.record(TAG, "设置定时执行:" + execAtTime);
-                            targetTime = execAtTimeCalendar.getTimeInMillis();
-                            delayMillis = targetTime - lastExecTime;
-                            break;
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                Log.runtime(TAG, "execAtTime err:：" + e.getMessage());
-                Log.printStackTrace(TAG, e);
-            }
-
-            // 使用统一的闹钟调度器
-            nextExecutionTime = targetTime > 0 ? targetTime : (lastExecTime + delayMillis);
-            alarmManager.scheduleExactExecution(delayMillis, nextExecutionTime);
-        } catch (Exception e) {
-            Log.runtime(TAG, "scheduleNextExecution：" + e.getMessage());
-            Log.printStackTrace(TAG, e);
-        }
-    }
-
-    @SuppressLint("UnsafeDynamicallyLoadedCode")
-    private void loadNativeLibs(Context context, File soFile) {
-        try {
-            File finalSoFile = AssetUtil.INSTANCE.copyStorageSoFileToPrivateDir(context, soFile);
             if (finalSoFile != null) {
                 System.load(finalSoFile.getAbsolutePath());
                 Log.runtime(TAG, "Loading " + soFile.getName() + " from :" + finalSoFile.getAbsolutePath());
@@ -433,12 +383,11 @@ public class ApplicationHook {
                                     // 计算距离上次执行的时间间隔
                                     long timeSinceLastExec = currentTime - lastExecTime;
 
-                                    if (isAlarmTriggered && timeSinceLastExec < MIN_EXEC_INTERVAL) {
-                                        Log.record(TAG, "⚠️ 闹钟触发间隔较短(" + timeSinceLastExec + "ms)，跳过执行，安排下次执行");
-                                        alarmManager.scheduleDelayedExecutionWithRetry(
-                                                BaseModel.getCheckInterval().getValue(), "跳过执行后的重新调度");
-                                        return;
-                                    }
+                                    // 已改用SmartScheduler，不再需要间隔检查
+                                    // if (isAlarmTriggered && timeSinceLastExec < MIN_EXEC_INTERVAL) {
+                                    //     Log.record(TAG, "⚠️ 闹钟触发间隔较短(" + timeSinceLastExec + "ms)，跳过执行");
+                                    //     return;
+                                    // }
 
                                     String currentUid = UserMap.getCurrentUid();
                                     String targetUid = HookUtil.INSTANCE.getUserId(classLoader);
