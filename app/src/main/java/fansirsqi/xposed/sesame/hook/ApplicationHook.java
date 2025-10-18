@@ -273,10 +273,9 @@ public class ApplicationHook {
                     appContext = (Context) param.args[0];
 
                     registerBroadcastReceiver(appContext);
-                    // 设置AlarmSchedulerManager依赖项
-                    alarmManager.setMainHandler(mainHandler);
-                    alarmManager.setAppContext(appContext);
-                    // 注释：已改用SmartScheduler，不再使用AlarmScheduler
+                    // 已完全禁用AlarmScheduler，改用SmartScheduler
+                    // alarmManager.setMainHandler(mainHandler);
+                    // alarmManager.setAppContext(appContext);
                     // alarmManager.initializeAlarmScheduler(appContext);
 
                     // 初始化支付宝组件帮助类（用于任务执行前唤醒）
@@ -452,7 +451,8 @@ public class ApplicationHook {
                                     // 方式1：直接使用数组转换
                                     TaskRunnerAdapter adapter = new TaskRunnerAdapter();
                                     adapter.run();
-                                    scheduleNextExecution(lastExecTime);
+                                    // 已改用SmartScheduler自动调度，不再手动安排下次执行
+                                    // scheduleNextExecution(lastExecTime);
                                 } catch (Exception e) {
                                     Log.record(TAG, "❌执行异常");
                                     Log.printStackTrace(TAG, e);
@@ -604,10 +604,10 @@ public class ApplicationHook {
                 destroyHandler(true); // 重新初始化时销毁旧的handler
             }
 
-            // AlarmScheduler 确保可用
-            if (!alarmManager.isAlarmSchedulerAvailable() && appContext != null) {
-                alarmManager.initializeAlarmScheduler(appContext);
-            }
+            // 已改用SmartScheduler，不再初始化AlarmScheduler
+            // if (!alarmManager.isAlarmSchedulerAvailable() && appContext != null) {
+            //     alarmManager.initializeAlarmScheduler(appContext);
+            // }
 
             Model.initAllModel(); // 在所有服务启动前装模块配置
             if (service == null) {
@@ -758,8 +758,8 @@ public class ApplicationHook {
                     Config.unload();
                     UserMap.unload();
                 }
-                // 清理AlarmScheduler协程资源
-                alarmManager.cleanupAlarmScheduler();
+                // 已禁用AlarmScheduler
+                // alarmManager.cleanupAlarmScheduler();
                 
                 // 优化：清理新组件资源
                 try {
@@ -858,7 +858,8 @@ public class ApplicationHook {
                 dayCalendar.set(Calendar.MINUTE, 0);
                 dayCalendar.set(Calendar.SECOND, 0);
                 Log.record(TAG, "初始化日期为：" + dayCalendar.get(Calendar.YEAR) + "-" + (dayCalendar.get(Calendar.MONTH) + 1) + "-" + dayCalendar.get(Calendar.DAY_OF_MONTH));
-                setWakenAtTimeAlarm();
+                // 已改用SmartScheduler，不再使用Alarm唤醒
+                // setWakenAtTimeAlarm();
                 return;
             }
 
@@ -871,7 +872,8 @@ public class ApplicationHook {
                 dayCalendar.set(Calendar.MINUTE, 0);
                 dayCalendar.set(Calendar.SECOND, 0);
                 Log.record(TAG, "日期更新为：" + nowYear + "-" + (nowMonth + 1) + "-" + nowDay);
-                setWakenAtTimeAlarm();
+                // 已改用SmartScheduler，不再使用Alarm唤醒
+                // setWakenAtTimeAlarm();
             }
         } catch (Exception e) {
             Log.printStackTrace(e);
@@ -1054,14 +1056,15 @@ public class ApplicationHook {
                             }).start();
                             break;
                         default:
-                            // 处理闹钟相关的广播
-                            if (alarmManager.isAlarmSchedulerAvailable()) {
-                                int requestCode = intent.getIntExtra("request_code", -1);
-                                Thread alarmThread = new Thread(() -> alarmManager.handleAlarmTrigger(requestCode));
-                                alarmThread.setName("AlarmTriggered_" + requestCode);
-                                alarmThread.start();
-                                Log.record(TAG, "闹钟广播触发，创建处理线程: " + alarmThread.getName());
-                            }
+                            // 已禁用AlarmScheduler，不再处理闹钟广播
+                            // if (alarmManager.isAlarmSchedulerAvailable()) {
+                            //     int requestCode = intent.getIntExtra("request_code", -1);
+                            //     Thread alarmThread = new Thread(() -> alarmManager.handleAlarmTrigger(requestCode));
+                            //     alarmThread.setName("AlarmTriggered_" + requestCode);
+                            //     alarmThread.start();
+                            //     Log.record(TAG, "闹钟广播触发，创建处理线程: " + alarmThread.getName());
+                            // }
+                            Log.debug(TAG, "忽略未知广播: " + action);
                             break;
                     }
                 }
