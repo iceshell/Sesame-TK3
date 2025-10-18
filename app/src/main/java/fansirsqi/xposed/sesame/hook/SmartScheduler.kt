@@ -181,8 +181,8 @@ object SmartScheduler {
      */
     private fun triggerEnergyCollection() {
         try {
-            // 通过广播触发
-            ApplicationHook.restartByBroadcast()
+            // 使用executeByBroadcast直接执行任务，避免重新初始化
+            ApplicationHook.executeByBroadcast()
             Log.record(TAG, "✅ 已触发能量收集任务")
         } catch (e: Exception) {
             Log.error(TAG, "触发能量收集失败: ${e.message}")

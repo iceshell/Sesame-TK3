@@ -412,18 +412,18 @@ public class ApplicationHook {
                                     }
 
                                     if (isAlarmTriggered) {
-                                        Log.record(TAG, "⏰ 开始新一轮任务 (闹钟触发)");
+                                        Log.record(TAG, "⏰ 开始新一轮任务 (自动触发)");
                                     } else {
                                         if (lastExecTime == 0) {
                                             Log.record(TAG, "▶️ 首次手动触发，开始运行");
                                         } else {
                                             if (BaseModel.getManualTriggerAutoSchedule().getValue()) {
-                                                Log.record(TAG, "手动APP触发，已开启");
+                                                Log.record(TAG, "🔄 手动APP触发，自动调度已开启，执行任务");
                                                 TaskRunnerAdapter adapter = new TaskRunnerAdapter();
                                                 adapter.run();
+                                            } else {
+                                                Log.record(TAG, "⏸️ 手动APP触发，自动调度已关闭，跳过执行");
                                             }
-                                            Log.record(TAG, "手动APP触发，已关闭");
-
                                             return;
                                         }
                                     }
@@ -1014,7 +1014,11 @@ public class ApplicationHook {
                             break;
                         case "com.eg.android.AlipayGphone.sesame.execute":
                             Log.printStack(TAG);
+                            // SmartScheduler触发时，标记为闹钟触发以绕过手动触发检查
                             if (intent.getBooleanExtra("alarm_triggered", false)) {
+                                alarmTriggeredFlag = true;
+                            } else {
+                                // 默认标记为闹钟触发，确保任务能正常执行
                                 alarmTriggeredFlag = true;
                             }
                             new Thread(() -> initHandler(false)).start();
