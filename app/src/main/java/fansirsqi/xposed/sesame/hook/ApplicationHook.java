@@ -159,7 +159,10 @@ public class ApplicationHook {
         }
     }
 
-    /**
+    @SuppressLint("UnsafeDynamicallyLoadedCode")
+    private void loadNativeLibs(Context context, File soFile) {
+        try {
+            File finalSoFile = AssetUtil.INSTANCE.copyStorageSoFileToPrivateDir(context, soFile);
             if (finalSoFile != null) {
                 System.load(finalSoFile.getAbsolutePath());
                 Log.runtime(TAG, "Loading " + soFile.getName() + " from :" + finalSoFile.getAbsolutePath());
@@ -804,8 +807,8 @@ public class ApplicationHook {
                         delayMillis = Math.max(BaseModel.getCheckInterval().getValue(), 180_000);
                     }
 
-                    // 使用统一的闹钟调度器
-                    alarmManager.scheduleDelayedExecution(delayMillis);
+                    // SmartScheduler会自动处理重试，这里只需记录
+                    Log.record(TAG, "将在 " + (delayMillis / 1000) + " 秒后重试登录");
 
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setClassName(General.PACKAGE_NAME, General.CURRENT_USING_ACTIVITY);
