@@ -131,8 +131,7 @@ class CoroutineTaskRunner(allModels: List<Model>) {
         }
     }
 
-    private suspend fun executeRound(round: Int, rounds: Int) {
-        withContext(Dispatchers.Default) {
+    private suspend fun executeRound(round: Int, rounds: Int) = withContext(Dispatchers.Default) {
             val roundStartTime = System.currentTimeMillis()
             val enabledTasksInRound = taskList.filter { it.isEnable }
             
@@ -158,9 +157,8 @@ class CoroutineTaskRunner(allModels: List<Model>) {
                 executeTaskWithTimeout(task, round)
             }
             
-            val roundTime = System.currentTimeMillis() - roundStartTime
-            Log.record(TAG, "✅ 第${round}/${rounds}轮任务完成，耗时: ${roundTime}ms")
-        }
+        val roundTime = System.currentTimeMillis() - roundStartTime
+        Log.record(TAG, "✅ 第${round}/${rounds}轮任务完成，耗时: ${roundTime}ms")
     }
 
 

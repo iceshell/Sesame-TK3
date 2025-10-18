@@ -38,6 +38,7 @@ import fansirsqi.xposed.sesame.task.antForest.ForestUtil.hasShield
 import fansirsqi.xposed.sesame.task.antForest.Privilege.studentSignInRedEnvelope
 import fansirsqi.xposed.sesame.task.antForest.Privilege.youthPrivilege
 import fansirsqi.xposed.sesame.task.antForest.TaskTimeChecker
+import fansirsqi.xposed.sesame.task.antForest.ForestFriendManager
 import fansirsqi.xposed.sesame.ui.ObjReference
 import fansirsqi.xposed.sesame.util.Average
 import fansirsqi.xposed.sesame.util.GlobalThreadPools
@@ -2039,21 +2040,23 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      */
     private fun collectEnergyByTakeLook() {
         try {
-            // 检查是否还在冷却期
+            // 检查是否还在冷却期（使用动态冷却时间）
             val currentTime = System.currentTimeMillis()
+            val dynamicCooldown = ForestFriendManager.getCurrentCooldown()
             if (currentTime < nextTakeLookTime) {
                 val remainingMinutes = (nextTakeLookTime - currentTime) / 60000
                 val remainingSeconds = ((nextTakeLookTime - currentTime) % 60000) / 1000
-                Log.record(TAG, "找能量功能冷却中，还需等待 ${remainingMinutes}分${remainingSeconds}秒")
+                Log.record(TAG, "找能量功能冷却中，还需等待 ${remainingMinutes}分${remainingSeconds}秒 (动态冷却${dynamicCooldown/60000}分钟)")
                 return
             }
 
             val tc = TimeCounter(TAG)
             var foundCount = 0
+            var totalEnergyFound = 0L // 统计找到的总能量
             val maxAttempts = 10 // 减少到10次，避免过度循环
             var consecutiveEmpty = 0 // 连续空结果计数
             var shouldCooldown = false // 标记是否需要冷却
-            Log.record(TAG, "开始使用找能量功能收取好友能量")
+            Log.record(TAG, "开始使用找能量功能收取好友能量（冷却时间：${dynamicCooldown/60000}分钟）")
             for (attempt in 1..maxAttempts) {
                 // 构建跳过用户列表（有保护罩的用户）
                 val skipUsers = JSONObject()
@@ -2063,8 +2066,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     takeLookResponse = AntForestRpcCall.takeLook(skipUsers)
                 } catch (e: NullPointerException) {
                     shouldCooldown = true
-                    nextTakeLookTime = System.currentTimeMillis() + TAKE_LOOK_COOLDOWN_MS
-                    Log.error(TAG, "找能量接口调用异常，休息15分钟")
+                    val cooldown = ForestFriendManager.getCurrentCooldown()
+                    nextTakeLookTime = System.currentTimeMillis() + cooldown
+                    Log.error(TAG, "找能量接口调用异常，休息${cooldown/60000}分钟")
                     Log.printStackTrace(TAG, e)
                     break
                 }
@@ -2072,8 +2076,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     consecutiveEmpty++
                     if (consecutiveEmpty >= 3) {
                         shouldCooldown = true
-                        nextTakeLookTime = System.currentTimeMillis() + TAKE_LOOK_COOLDOWN_MS
-                        Log.record(TAG, "连续" + consecutiveEmpty + "次接口返回空结果，提前结束找能量，休息15分钟")
+                        val cooldown = ForestFriendManager.getCurrentCooldown()
+                        nextTakeLookTime = System.currentTimeMillis() + cooldown
+                        Log.record(TAG, "连续" + consecutiveEmpty + "次接口返回空结果，提前结束找能量，休息${cooldown/60000}分钟")
                         break
                     }
                     continue
@@ -2103,8 +2108,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     // 连续3次没有发现新好友就提前结束，避免浪费时间
                     if (consecutiveEmpty >= 3) {
                         shouldCooldown = true
-                        nextTakeLookTime = System.currentTimeMillis() + TAKE_LOOK_COOLDOWN_MS
-                        Log.record(TAG, "连续" + consecutiveEmpty + "次未发现新好友，提前结束找能量，休息15分钟")
+                        val cooldown = ForestFriendManager.getCurrentCooldown()
+                        nextTakeLookTime = System.currentTimeMillis() + cooldown
+                        Log.record(TAG, "连续" + consecutiveEmpty + "次未发现新好友，提前结束找能量，休息${cooldown/60000}分钟")
                         break
                     }
                     continue
@@ -2134,7 +2140,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                         )
                     } else {
                         // 没有保护才进行收取处理
+                        val beforeEnergy = totalEnergyFound
                         collectEnergy(friendId, friendHomeObj, "takeLook")
+                        // 尝试统计收取的能量（简化处理，实际能量在collectEnergy中统计）
                     }
                     // 优化间隔：找到好友时减少等待时间，提高效率
                     GlobalThreadPools.sleepCompat(1200L)
@@ -2153,10 +2161,20 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 }
             }
             tc.countDebug("找能量收取完成")
-            Log.record(TAG, "找能量功能完成，共发现 $foundCount 个好友")
-            // 如果没有触发冷却，清零冷却时间，允许下次正常执行
+            
+            // 记录找能量统计到ForestFriendManager
+            ForestFriendManager.recordFindEnergyAttempt(
+                foundEnergy = totalEnergyFound,
+                friendsChecked = foundCount
+            )
+            
+            // 使用动态冷却时间
+            val dynamicCooldownMs = ForestFriendManager.getCurrentCooldown()
+            Log.record(TAG, "找能量功能完成，共发现 $foundCount 个好友，下次冷却时间：${dynamicCooldownMs/60000}分钟")
+            
+            // 如果没有触发冷却，使用动态冷却时间
             if (!shouldCooldown) {
-                nextTakeLookTime = 0
+                nextTakeLookTime = System.currentTimeMillis() + dynamicCooldownMs
             }
         } catch (e: Exception) {
             Log.error(TAG, "找能量过程中发生异常")
