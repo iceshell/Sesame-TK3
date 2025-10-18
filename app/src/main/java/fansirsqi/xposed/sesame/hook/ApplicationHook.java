@@ -54,7 +54,6 @@ import fansirsqi.xposed.sesame.util.Notify;
 import fansirsqi.xposed.sesame.util.PermissionUtil;
 import fansirsqi.xposed.sesame.util.TimeUtil;
 import fansirsqi.xposed.sesame.util.maps.UserMap;
-import fansirsqi.xposed.sesame.hook.rpc.debug.DebugRpc;
 import io.github.libxposed.api.XposedInterface;
 import io.github.libxposed.api.XposedModuleInterface;
 import kotlin.jvm.JvmStatic;
@@ -69,11 +68,6 @@ public class ApplicationHook {
     private static final String modelVersion = BuildConfig.VERSION_NAME;
     
 
-    /**
-     * AlarmScheduler管理器 - 统一管理所有闹钟相关功能
-     * 通过此管理器访问所有闹钟调度功能，避免直接引用 AlarmScheduler
-     */
-    private static final AlarmSchedulerManager alarmManager = new AlarmSchedulerManager();
 
     @Getter
     private static ClassLoader classLoader = null;
@@ -223,10 +217,6 @@ public class ApplicationHook {
                     appContext = (Context) param.args[0];
 
                     registerBroadcastReceiver(appContext);
-                    // 已完全禁用AlarmScheduler，改用SmartScheduler
-                    // alarmManager.setMainHandler(mainHandler);
-                    // alarmManager.setAppContext(appContext);
-                    // alarmManager.initializeAlarmScheduler(appContext);
 
                     // 初始化支付宝组件帮助类（用于任务执行前唤醒）
                     alipayComponentHelper = new AlipayComponentHelper(appContext);
@@ -383,11 +373,6 @@ public class ApplicationHook {
                                     // 计算距离上次执行的时间间隔
                                     long timeSinceLastExec = currentTime - lastExecTime;
 
-                                    // 已改用SmartScheduler，不再需要间隔检查
-                                    // if (isAlarmTriggered && timeSinceLastExec < MIN_EXEC_INTERVAL) {
-                                    //     Log.record(TAG, "⚠️ 闹钟触发间隔较短(" + timeSinceLastExec + "ms)，跳过执行");
-                                    //     return;
-                                    // }
 
                                     String currentUid = UserMap.getCurrentUid();
                                     String targetUid = HookUtil.INSTANCE.getUserId(classLoader);
@@ -400,13 +385,9 @@ public class ApplicationHook {
                                     // 方式1：直接使用数组转换
                                     TaskRunnerAdapter adapter = new TaskRunnerAdapter();
                                     adapter.run();
-                                    // 已改用SmartScheduler自动调度，不再手动安排下次执行
-                                    // scheduleNextExecution(lastExecTime);
                                 } catch (Exception e) {
                                     Log.record(TAG, "❌执行异常");
                                     Log.printStackTrace(TAG, e);
-                                } finally {
-                                    AlarmScheduler.releaseWakeLock();
                                 }
                             });
                             dayCalendar = Calendar.getInstance();
@@ -451,97 +432,6 @@ public class ApplicationHook {
         hooked = true;
     }
 
-    /**
-     * 设置定时唤醒
-     */
-    private static void setWakenAtTimeAlarm() {
-        setWakenAtTimeAlarmWithRetry(0);
-    }
-
-    /**
-     * 设置定时唤醒（带重试机制）
-     */
-    private static void setWakenAtTimeAlarmWithRetry(int retryCount) {
-        try {
-            // 检查AlarmScheduler是否已初始化
-            if (!alarmManager.isAlarmSchedulerAvailable()) {
-                if (retryCount < 3) {
-                    // 延迟重试，最多3次
-                    final int currentRetry = retryCount + 1;
-                    Log.runtime(TAG, "AlarmScheduler未初始化，延迟" + (currentRetry * 2) + "秒后重试设置定时唤醒 (第" + currentRetry + "次)");
-                    if (mainHandler != null) {
-                        mainHandler.postDelayed(() -> setWakenAtTimeAlarmWithRetry(currentRetry), currentRetry * 2000L);
-                    }
-                } else {
-                    Log.error(TAG, "AlarmScheduler初始化超时，放弃设置定时唤醒");
-                }
-                return;
-            }
-
-            List<String> wakenAtTimeList = BaseModel.getWakenAtTimeList().getValue();
-            if (wakenAtTimeList != null && wakenAtTimeList.contains("-1")) {
-                Log.record(TAG, "定时唤醒未开启");
-                return;
-            }
-
-            // 清理旧唤醒闹钟
-            unsetWakenAtTimeAlarm();
-
-            // 设置0点唤醒
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-
-            boolean success = alarmManager.scheduleWakeupAlarm(calendar.getTimeInMillis(), 0, true);
-            if (success) {
-                Log.record(TAG, "⏰ 设置0点定时唤醒成功");
-            } else {
-                Log.runtime(TAG, "⏰ 设置0点定时唤醒失败");
-            }
-
-            // 设置自定义时间点唤醒
-            if (wakenAtTimeList != null && !wakenAtTimeList.isEmpty()) {
-                Calendar nowCalendar = Calendar.getInstance();
-                int successCount = 0;
-                for (int i = 1, len = wakenAtTimeList.size(); i < len; i++) {
-                    try {
-                        String wakenAtTime = wakenAtTimeList.get(i);
-                        Calendar wakenAtTimeCalendar = TimeUtil.getTodayCalendarByTimeStr(wakenAtTime);
-                        if (wakenAtTimeCalendar != null && wakenAtTimeCalendar.compareTo(nowCalendar) > 0) {
-                            boolean customSuccess = alarmManager.scheduleWakeupAlarm(wakenAtTimeCalendar.getTimeInMillis(), i, false);
-                            if (customSuccess) {
-                                successCount++;
-                                Log.record(TAG, "⏰ 设置定时唤醒成功: " + wakenAtTime);
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.runtime(TAG, "设置自定义唤醒时间失败: " + e.getMessage());
-                    }
-                }
-                if (successCount > 0) {
-                    Log.record(TAG, "⏰ 共设置了 " + successCount + " 个自定义定时唤醒");
-                }
-            }
-        } catch (Exception e) {
-            Log.runtime(TAG, "setWakenAtTimeAlarm err:");
-            Log.printStackTrace(TAG, e);
-        }
-    }
-
-    /**
-     * 取消所有定时唤醒
-     */
-    private static void unsetWakenAtTimeAlarm() {
-        if (alarmManager.isAlarmSchedulerAvailable()) {
-            // AlarmScheduler内部没有提供仅取消唤醒闹钟的方法，
-            // 但在destroyHandler中会取消所有闹钟，这里可以依赖该逻辑
-            // 如果需要精细控制，需要在AlarmScheduler中增加按分类取消的功能
-            Log.debug(TAG, "取消定时唤醒将由destroyHandler统一处理");
-        }
-    }
 
     private static synchronized Boolean initHandler(Boolean force) {
         try {
@@ -553,10 +443,6 @@ public class ApplicationHook {
                 destroyHandler(true); // 重新初始化时销毁旧的handler
             }
 
-            // 已改用SmartScheduler，不再初始化AlarmScheduler
-            // if (!alarmManager.isAlarmSchedulerAvailable() && appContext != null) {
-            //     alarmManager.initializeAlarmScheduler(appContext);
-            // }
 
             Model.initAllModel(); // 在所有服务启动前装模块配置
             if (service == null) {
@@ -616,19 +502,6 @@ public class ApplicationHook {
 
                 Notify.start(service);
 
-//                BaseModel baseModel = Model.getModel(BaseModel.class);
-//                if (baseModel == null) {
-//                    Log.error(TAG, "BaseModel 未找到 初始化失败");
-//                    Notify.setStatusTextDisabled();
-//                    return false;
-//                }
-//
-//                if (!baseModel.getEnableField().getValue()) {
-//                    Log.record(TAG, "❌ 芝麻粒已禁用");
-//                    Toast.show("❌ 芝麻粒已禁用");
-//                    Notify.setStatusTextDisabled();
-//                    return false;
-//                }
                 try {
                     PowerManager pm = (PowerManager) service.getSystemService(Context.POWER_SERVICE);
                     wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, service.getClass().getName());
@@ -638,8 +511,6 @@ public class ApplicationHook {
                     Log.printStackTrace(t);
                 }
 
-                // 优化：移除Alarm唤醒，使用智能调度器
-                // setWakenAtTimeAlarm(); // 已禁用，使用SmartScheduler替代
                 
                 // 启动智能调度器
                 Log.record(TAG, "🚀 启动智能调度器");
@@ -707,8 +578,6 @@ public class ApplicationHook {
                     Config.unload();
                     UserMap.unload();
                 }
-                // 已禁用AlarmScheduler
-                // alarmManager.cleanupAlarmScheduler();
                 
                 // 优化：清理新组件资源
                 try {
@@ -807,8 +676,6 @@ public class ApplicationHook {
                 dayCalendar.set(Calendar.MINUTE, 0);
                 dayCalendar.set(Calendar.SECOND, 0);
                 Log.record(TAG, "初始化日期为：" + dayCalendar.get(Calendar.YEAR) + "-" + (dayCalendar.get(Calendar.MONTH) + 1) + "-" + dayCalendar.get(Calendar.DAY_OF_MONTH));
-                // 已改用SmartScheduler，不再使用Alarm唤醒
-                // setWakenAtTimeAlarm();
                 return;
             }
 
@@ -821,8 +688,6 @@ public class ApplicationHook {
                 dayCalendar.set(Calendar.MINUTE, 0);
                 dayCalendar.set(Calendar.SECOND, 0);
                 Log.record(TAG, "日期更新为：" + nowYear + "-" + (nowMonth + 1) + "-" + nowDay);
-                // 已改用SmartScheduler，不再使用Alarm唤醒
-                // setWakenAtTimeAlarm();
             }
         } catch (Exception e) {
             Log.printStackTrace(e);
@@ -987,32 +852,14 @@ public class ApplicationHook {
                                 replyIntent.setPackage(General.MODULE_PACKAGE_NAME);
                                 context.sendBroadcast(replyIntent);
                                 Log.system(TAG, "Replied with status: " + RunType.ACTIVE.getNickName());
+                                Intent intent1 = new Intent("com.eg.android.AlipayGphone.sesame.status");
+                                intent1.putExtra("EXTRA_RUN_TYPE", RunType.ACTIVE.getNickName());
+                                intent1.setPackage(General.MODULE_PACKAGE_NAME);
+                                context.sendBroadcast(intent1);
+                                Log.system(TAG, "Replied with status: " + RunType.ACTIVE.getNickName());
                             }
                             break;
-                        case "com.eg.android.AlipayGphone.sesame.rpctest":
-                            new Thread(() -> {
-                                try {
-                                    String method = intent.getStringExtra("method");
-                                    String data = intent.getStringExtra("data");
-                                    String type = intent.getStringExtra("type");
-                                    Log.runtime(TAG, "收到RPC测试请求 - Method: " + method + ", Type: " + type);
-                                    DebugRpc rpcInstance = new DebugRpc();
-                                    rpcInstance.start(method, data, type);
-                                } catch (Throwable th) {
-                                    Log.runtime(TAG, "sesame 测试RPC请求失败:");
-                                    Log.printStackTrace(TAG, th);
-                                }
-                            }).start();
-                            break;
                         default:
-                            // 已禁用AlarmScheduler，不再处理闹钟广播
-                            // if (alarmManager.isAlarmSchedulerAvailable()) {
-                            //     int requestCode = intent.getIntExtra("request_code", -1);
-                            //     Thread alarmThread = new Thread(() -> alarmManager.handleAlarmTrigger(requestCode));
-                            //     alarmThread.setName("AlarmTriggered_" + requestCode);
-                            //     alarmThread.start();
-                            //     Log.record(TAG, "闹钟广播触发，创建处理线程: " + alarmThread.getName());
-                            // }
                             Log.debug(TAG, "忽略未知广播: " + action);
                             break;
                     }
