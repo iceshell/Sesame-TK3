@@ -1,0 +1,68 @@
+> Task :app:processNormalReleaseMainManifest
+[interface-100.aar] /home/runner/.gradle/caches/9.1.0/transforms/f735c1146a7ec31908a16c9f811e8b05/transformed/jetified-interface-100/AndroidManifest.xml Warning:
+	Namespace 'io.github.libxposed.service' is used in multiple modules and/or libraries: interface-100.aar, service-100-1.0.0.aar. Please ensure that all modules and libraries have a unique namespace. For more information, See https://developer.android.com/studio/build/configure-app-module#set-namespace
+> Task :app:stripCompatibleReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libchecker.so, libdexkit.so, libmmkv.so.
+w: generateFunctionKeyMetaClasses is deprecated. It was replaced by emitting annotations on functions instead. Use generateFunctionKeyMetaAnnotations instead.
+w: intrinsicRemember is deprecated. Use plugin:androidx.compose.compiler.plugins.kotlin:featureFlag=IntrinsicRemember instead
+w: nonSkippingGroupOptimization is deprecated. Use plugin:androidx.compose.compiler.plugins.kotlin:featureFlag=OptimizeNonSkippingGroups instead
+w: experimentalStrongSkipping is deprecated. Use plugin:androidx.compose.compiler.plugins.kotlin:featureFlag=StrongSkipping instead
+w: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/TaskHealthMonitor.kt:301:55 This is a delicate API and its use requires care. Make sure you fully read and understand documentation of the declaration that is marked as a delicate API.
+w: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antFarm/AntFarm.kt:779:25 'when' is exhaustive so 'else' is redundant here.
+
+> Task :app:compileNormalReleaseKotlin
+w: generateFunctionKeyMetaClasses is deprecated. It was replaced by emitting annotations on functions instead. Use generateFunctionKeyMetaAnnotations instead.
+w: intrinsicRemember is deprecated. Use plugin:androidx.compose.compiler.plugins.kotlin:featureFlag=IntrinsicRemember instead
+w: nonSkippingGroupOptimization is deprecated. Use plugin:androidx.compose.compiler.plugins.kotlin:featureFlag=OptimizeNonSkippingGroups instead
+w: experimentalStrongSkipping is deprecated. Use plugin:androidx.compose.compiler.plugins.kotlin:featureFlag=StrongSkipping instead
+w: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/TaskHealthMonitor.kt:301:55 This is a delicate API and its use requires care. Make sure you fully read and understand documentation of the declaration that is marked as a delicate API.
+w: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antFarm/AntFarm.kt:779:25 'when' is exhaustive so 'else' is redundant here.
+
+> Task :app:compileCompatibleReleaseJavaWithJavac
+/home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antSports/AntSports.java:1083: error: cannot find symbol
+            if (Status.canSetFlagToday("walkChallenge::maxFail")) {
+                      ^
+  symbol:   method canSetFlagToday(String)
+  location: class Status
+/home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antSports/AntSports.java:1135: error: cannot find symbol
+                                if (Status.canSetFlagToday("walkChallenge::error3000")) {
+                                          ^
+  symbol:   method canSetFlagToday(String)
+  location: class Status
+2 errors
+
+> Task :app:compileCompatibleReleaseJavaWithJavac FAILED
+
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1760871128152.json
+
+FAILURE: Build failed with an exception.
+[Incubating] Problems report is available at: file:///home/runner/work/Sesame-TK3/Sesame-TK3/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.1.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+69 actionable tasks: 48 executed, 21 from cache
+
+* What went wrong:
+Execution failed for task ':app:compileCompatibleReleaseJavaWithJavac'.
+> Compilation failed; see the compiler output below.
+  /home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antSports/AntSports.java:1083: error: cannot find symbol
+              if (Status.canSetFlagToday("walkChallenge::maxFail")) {
+                        ^
+    symbol:   method canSetFlagToday(String)
+    location: class Status
+  /home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antSports/AntSports.java:1135: error: cannot find symbol
+                                  if (Status.canSetFlagToday("walkChallenge::error3000")) {
+                                            ^
+    symbol:   method canSetFlagToday(String)
+    location: class Status
+  2 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+
+BUILD FAILED in 2m 16s
+Error: Process completed with exit code 1.

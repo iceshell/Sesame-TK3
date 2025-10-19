@@ -1080,7 +1080,7 @@ public class AntSports extends ModelTask {
         
         // 熔断机制：连续失败达到上限则停止
         if (walkChallengeFailCount >= MAX_WALK_CHALLENGE_FAIL) {
-            if (Status.canSetFlagToday("walkChallenge::maxFail")) {
+            if (!Status.hasFlagToday("walkChallenge::maxFail")) {
                 Log.record(TAG, "走路挑战赛🚶连续失败" + MAX_WALK_CHALLENGE_FAIL + "次，今日停止尝试（可能是支付宝服务端问题）");
                 Status.setFlagToday("walkChallenge::maxFail");
             }
@@ -1132,7 +1132,7 @@ public class AntSports extends ModelTask {
                             if (errorCode == 3000) {
                                 // 错误码3000：支付宝服务端问题
                                 walkChallengeFailCount++;
-                                if (Status.canSetFlagToday("walkChallenge::error3000")) {
+                                if (!Status.hasFlagToday("walkChallenge::error3000")) {
                                     Log.record(TAG, "走路挑战赛🚶系统错误(" + errorCode + "/" + errorMsg + ")，这是支付宝服务端问题，建议关闭该功能");
                                     Status.setFlagToday("walkChallenge::error3000");
                                 }
