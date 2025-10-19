@@ -110,7 +110,12 @@ public class AntDodo extends ModelTask {
     }
     private void collect() {
         try {
-            JSONObject jo = new JSONObject(AntDodoRpcCall.queryAnimalStatus());
+            String response = AntDodoRpcCall.queryAnimalStatus();
+            if (response == null || response.trim().isEmpty()) {
+                Log.record(TAG, "查询神奇物种状态失败：响应为空（可能触发风控）");
+                return;
+            }
+            JSONObject jo = new JSONObject(response);
             if (ResChecker.checkRes(TAG,jo)) {
                 JSONObject data = jo.getJSONObject("data");
                 if (data.getBoolean("collect")) {
@@ -298,7 +303,12 @@ public class AntDodo extends ModelTask {
                         String propId = propIdList.getString(0);
                         String propName = prop.getJSONObject("propConfig").getString("propName");
                         int holdsNum = prop.optInt("holdsNum", 0);
-                        jo = new JSONObject(AntDodoRpcCall.consumeProp(propId, propType));
+                        String consumeResponse = AntDodoRpcCall.consumeProp(propId, propType);
+                        if (consumeResponse == null || consumeResponse.trim().isEmpty()) {
+                            Log.record(TAG, "使用道具[" + propName + "]失败：响应为空（可能触发风控）");
+                            continue;
+                        }
+                        jo = new JSONObject(consumeResponse);
                         if (!ResChecker.checkRes(TAG,jo)) {
                             Log.record(jo.getString("resultDesc"));
                             Log.runtime(jo.toString());

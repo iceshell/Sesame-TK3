@@ -128,7 +128,7 @@ object AlipayAutoLauncher {
     )
     
     /**
-     * 检查支付宝状态（多重检测）
+     * 检查支付宝状态（优化版）
      */
     private fun checkAlipayStatus(context: Context): AlipayStatus {
         var installed = false
@@ -137,35 +137,80 @@ object AlipayAutoLauncher {
         val messages = mutableListOf<String>()
         
         try {
-            // 方法1: 检查包名
+            // 方法1: 使用PackageManager检查
             val packageInfo = context.packageManager.getPackageInfo(ALIPAY_PACKAGE, 0)
             installed = true
             version = packageInfo.versionName ?: "未知"
             messages.add("版本${version}")
             
-            // 方法2: 检查进程状态
+            // 检查进程状态
             running = isAlipayRunning(context)
-            if (running) {
-                messages.add("正在运行")
-            } else {
-                messages.add("未运行")
-            }
+            messages.add(if (running) "正在运行" else "未运行")
+            
+        } catch (e: android.content.pm.PackageManager.NameNotFoundException) {
+            // 包名不存在，确认未安装
+            Log.debug(TAG, "支付宝确实未安装: ${e.message}")
+            installed = false
+            messages.add("包名不存在")
             
         } catch (e: Exception) {
-            // 方法3: 尝试查询应用信息
+            // 其他异常，使用降级方案
+            Log.debug(TAG, "检测方法1失败，尝试降级方案: ${e.message}")
+            
             try {
+                // 方法2: 使用ApplicationInfo检查
                 val appInfo = context.packageManager.getApplicationInfo(ALIPAY_PACKAGE, 0)
-                installed = true
-                version = "已安装"
-                messages.add("通过应用信息检测")
-            } catch (ex: Exception) {
+                installed = appInfo.enabled // 检查应用是否被禁用
+                version = if (installed) "已安装" else "已禁用"
+                messages.add("降级检测通过")
+                
+                // 如果已安装，检查运行状态
+                if (installed) {
+                    running = isAlipayRunning(context)
+                }
+                
+            } catch (ex: android.content.pm.PackageManager.NameNotFoundException) {
+                // 降级方案确认未安装
+                Log.debug(TAG, "降级方案确认未安装: ${ex.message}")
                 installed = false
-                messages.add("检测失败: ${e.message}")
+                messages.add("确认未安装")
+                
+            } catch (ex: Exception) {
+                // 权限不足或其他问题，使用Intent检测
+                Log.debug(TAG, "标准检测失败，尝试Intent检测: ${ex.message}")
+                
+                // 方法3: 通过Intent解析检测（最可靠）
+                installed = isAlipayInstalledByIntent(context)
+                if (installed) {
+                    version = "已安装"
+                    messages.add("Intent检测通过")
+                    running = isAlipayRunning(context)
+                } else {
+                    messages.add("所有方法均未检测到")
+                }
             }
         }
         
         val message = messages.joinToString(", ")
         return AlipayStatus(installed, running, version, message)
+    }
+    
+    /**
+     * 通过Intent解析检测支付宝是否安装（最可靠的方法）
+     */
+    private fun isAlipayInstalledByIntent(context: Context): Boolean {
+        return try {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = android.net.Uri.parse("alipays://platformapi/startapp?appId=$ANTFOREST_APPID")
+            }
+            val activities = context.packageManager.queryIntentActivities(intent, 0)
+            val isInstalled = activities.isNotEmpty()
+            Log.debug(TAG, "Intent检测结果: $isInstalled (找到${activities.size}个Activity)")
+            isInstalled
+        } catch (e: Exception) {
+            Log.debug(TAG, "Intent检测异常: ${e.message}")
+            false
+        }
     }
     
     /**

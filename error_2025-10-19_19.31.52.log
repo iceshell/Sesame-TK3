@@ -1,0 +1,79 @@
+19日 18:20:10.30 [NewRpcBridge]: new rpc response1 | id: 160549705 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+19日 18:20:10.31 [RequestManager]: 接口[alipay.tiyubiz.wenti.walk.participate]返回错误: 3000
+19日 18:21:45.04 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:110 <- task.antFarm.AntFarmFamily.enterFamily:296 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1086] {"ariverRpcTraceId":"21902c0e17608693042205113e3e81","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+19日 18:21:45.54 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:110 <- task.antFarm.AntFarmFamily.enterFamily:296 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1086] {"ariverRpcTraceId":"21902c0e17608693047255149e3e81","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+19日 18:21:46.04 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:148 <- task.antFarm.AntFarmFamily.enterFamily:349 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1086] {"ariverRpcTraceId":"21902c0e17608693052355179e3e81","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+19日 18:21:53.94 [AlipayAutoLauncher]: ⚠️ 支付宝未安装，无法自动唤醒
+19日 18:21:53.94 [AlipayAutoLauncher]:    检测详情: 检测失败: com.eg.android.AlipayGphone
+19日 18:22:16.67 [NewRpcBridge]: new rpc response1 | id: 37077646 | method: alipay.antdodo.rpc.h5.consumeProp
+ args: [{"propId":"1q721yx19xufwy16m492s1xd1a1h9900","propType":"UNIVERSAL_CARD_7_DAYS"}] |
+ data: {"error":1009,"errorMessage":"为保障您的正常访问，请进行验证后继续。","errorNo":3,"errorTip":"1009"}
+19日 18:22:16.68 [NewRpcBridge]: RPC返回null | 方法: alipay.antdodo.rpc.h5.consumeProp | 原因: 网络错误: 1009/为保障您的正常访问，请进行验证后继续。 | 重试: 1
+19日 18:24:28.23 [NewRpcBridge]: new rpc response1 | id: 207408294 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+19日 18:24:28.32 [RequestManager]: 接口[alipay.tiyubiz.wenti.walk.participate]返回错误: 3000
+19日 18:26:20.05 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:148 <- task.antFarm.AntFarmFamily.enterFamily:349 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1086] {"ariverRpcTraceId":"21902c0e17608695792044822e3e81","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+19日 18:27:25.06 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:148 <- task.antFarm.AntFarmFamily.enterFamily:349 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1086] {"ariverRpcTraceId":"21902c0e17608696442207947e3e81","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+19日 18:28:39.26 [NewRpcBridge]: new rpc response1 | id: 58530669 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+19日 18:28:40.28 [RequestManager]: 接口[alipay.tiyubiz.wenti.walk.participate]返回错误: 3000
+19日 18:30:23.02 [NewRpcBridge]: new rpc response1 | id: 125018874 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+19日 18:30:23.23 [RequestManager]: 接口[alipay.tiyubiz.wenti.walk.participate]返回错误: 3000
+19日 19:05:14.69 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:148 <- task.antFarm.AntFarmFamily.enterFamily:349 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1086] {"ariverRpcTraceId":"21d6adca17608719132587615ea463","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+19日 19:05:50.92 [NewRpcBridge]: new rpc response1 | id: 200934294 | method: alipay.antdodo.rpc.h5.consumeProp
+ args: [{"propId":"07spvc10xcucur1fchvni0ee94sz0480","propType":"UNIVERSAL_CARD_7_DAYS"}] |
+ data: {"error":1009,"errorMessage":"为保障您的正常访问，请进行验证后继续。","errorNo":3,"errorTip":"1009"}
+19日 19:05:50.94 [NewRpcBridge]: RPC返回null | 方法: alipay.antdodo.rpc.h5.consumeProp | 原因: 网络错误: 1009/为保障您的正常访问，请进行验证后继续。 | 重试: 1
+19日 19:05:50.96 [AntDodo]: Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.propList(SourceFile:108)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.runJava(SourceFile:29)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(SourceFile:92)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(SourceFile:143)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(SourceFile:258)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(SourceFile:9)
+	at Z2.E.run(SourceFile:127)
+	at e3.b.run(SourceFile:127)
+
+19日 19:05:50.97 [AntDodo]: Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.collect(SourceFile:7)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.runJava(SourceFile:32)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(SourceFile:92)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(SourceFile:143)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(SourceFile:1)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(SourceFile:258)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(SourceFile:9)
+	at Z2.E.run(SourceFile:127)
+	at e3.b.run(SourceFile:127)
+
+19日 19:05:57.28 [NewRpcBridge]: new rpc response1 | id: 235933745 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+19日 19:05:57.29 [RequestManager]: 接口[alipay.tiyubiz.wenti.walk.participate]返回错误: 3000
+19日 19:07:30.85 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:148 <- task.antFarm.AntFarmFamily.enterFamily:349 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1086] {"ariverRpcTraceId":"21d6adca17608720500213706ea463","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+19日 19:08:26.00 [NewRpcBridge]: new rpc response1 | id: 107749487 | method: alipay.antdodo.rpc.h5.consumeProp
+ args: [{"propId":"07spvc10xcucur1fchvni0ee94sz0480","propType":"UNIVERSAL_CARD_7_DAYS"}] |
+ data: {"error":1009,"errorMessage":"为保障您的正常访问，请进行验证后继续。","errorNo":3,"errorTip":"1009"}
+19日 19:08:26.02 [NewRpcBridge]: RPC返回null | 方法: alipay.antdodo.rpc.h5.consumeProp | 原因: 网络错误: 1009/为保障您的正常访问，请进行验证后继续。 | 重试: 1
+19日 19:31:18.69 [AlipayAutoLauncher]: ⚠️ 支付宝未安装，无法自动唤醒
+19日 19:31:18.69 [AlipayAutoLauncher]:    检测详情: 检测失败: com.eg.android.AlipayGphone
