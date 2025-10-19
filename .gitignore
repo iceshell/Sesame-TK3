@@ -28,7 +28,7 @@ local.properties
 proguard/
 
 # Log Files
-*.log
+# *.log  # 临时注释以允许访问日志文件进行分析
 
 # Android Studio Navigation editor temp files
 .navigation/
@@ -67,8 +67,8 @@ plugin/
 demo/*
 /.vscode/settings.json
 *.REST
-*.txt
-*.json
+# *.txt  # 临时注释以允许访问build-error.txt等文件
+# *.json  # 临时注释以允许访问配置文件
 
 # CPP source code
 #C++源代码
