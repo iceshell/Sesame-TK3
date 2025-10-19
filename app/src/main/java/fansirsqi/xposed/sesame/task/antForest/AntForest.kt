@@ -1845,8 +1845,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     bubbleIds.subList(i, min(i + batchSize, bubbleIds.size))
                 
                 val startTime = System.currentTimeMillis()
+                var energyCollected = 0
                 try {
-                    collectEnergy(
+                    val result = collectEnergy(
                         CollectEnergyEntity(
                             userId,
                             userHomeObj,
@@ -1855,10 +1856,13 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             skipPropCheck  // 🚀 传递快速通道标记
                         )
                     )
+                    // 从返回结果中获取收取的能量总量
+                    energyCollected = extractCollectedEnergy(result)
+                    
                     // 记录批量收取成功（使用try-catch确保安全）
                     try {
                         val duration = System.currentTimeMillis() - startTime
-                        EnergyCollectionOptimizer.recordBatchCollect(true, duration, 0)
+                        EnergyCollectionOptimizer.recordBatchCollect(true, duration, energyCollected)
                         EnergyCollectionOptimizer.recordRpcLatency(duration)
                     } catch (e: Exception) {
                         Log.error(TAG, "记录统计失败: ${e.message}")
@@ -1867,7 +1871,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     // 记录批量收取失败
                     try {
                         val duration = System.currentTimeMillis() - startTime
-                        EnergyCollectionOptimizer.recordBatchCollect(false, duration, 0)
+                        EnergyCollectionOptimizer.recordBatchCollect(false, duration, energyCollected)
                     } catch (ex: Exception) {
                         Log.error(TAG, "记录失败统计失败: ${ex.message}")
                     }
@@ -1878,8 +1882,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         } else {
             for (id in bubbleIds) {
                 val startTime = System.currentTimeMillis()
+                var energyCollected = 0
                 try {
-                    collectEnergy(
+                    val result = collectEnergy(
                         CollectEnergyEntity(
                             userId,
                             userHomeObj,
@@ -1888,10 +1893,13 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             skipPropCheck  // 🚀 传递快速通道标记
                         )
                     )
+                    // 从返回结果中获取收取的能量
+                    energyCollected = extractCollectedEnergy(result)
+                    
                     // 记录单个收取（使用try-catch确保安全）
                     try {
                         val duration = System.currentTimeMillis() - startTime
-                        EnergyCollectionOptimizer.recordSingleCollect(duration, 0)
+                        EnergyCollectionOptimizer.recordSingleCollect(duration, energyCollected)
                         EnergyCollectionOptimizer.recordRpcLatency(duration)
                     } catch (e: Exception) {
                         Log.error(TAG, "记录单个收取统计失败: ${e.message}")
@@ -1910,6 +1918,31 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 Log.error(TAG, "记录好友能量失败: ${e.message}")
             }
         }
+    }
+    
+    /**
+     * 从返回的JSON对象中提取收取的能量总量
+     */
+    private fun extractCollectedEnergy(userHomeObj: JSONObject?): Int {
+        if (userHomeObj == null) return 0
+        
+        try {
+            // 尝试从 bubbles 数组中获取收集的能量
+            if (userHomeObj.has("bubbles")) {
+                val bubbles = userHomeObj.getJSONArray("bubbles")
+                var totalEnergy = 0
+                for (i in 0 until bubbles.length()) {
+                    val bubble = bubbles.getJSONObject(i)
+                    val collected = bubble.optInt("collectedEnergy", 0)
+                    totalEnergy += collected
+                }
+                return totalEnergy
+            }
+        } catch (e: Exception) {
+            Log.debug(TAG, "提取收集能量失败: ${e.message}")
+        }
+        
+        return 0
     }
 
     /**

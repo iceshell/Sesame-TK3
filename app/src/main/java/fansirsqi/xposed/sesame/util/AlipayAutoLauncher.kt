@@ -57,15 +57,21 @@ object AlipayAutoLauncher {
         }
         
         try {
-            // 检查支付宝是否已安装
-            if (!isAlipayInstalled(context)) {
-                Log.record(TAG, "⚠️ 支付宝未安装，无法自动唤醒")
-                hasAutoLaunched = true // 标记为已尝试，避免重复检查
+            // 检查支付宝是否已安装（使用多重检测）
+            val alipayStatus = checkAlipayStatus(context)
+            if (!alipayStatus.installed) {
+                // 只有确认未安装时才输出error日志
+                Log.error(TAG, "⚠️ 支付宝未安装，无法自动唤醒")
+                Log.error(TAG, "   检测详情: ${alipayStatus.message}")
+                hasAutoLaunched = true
                 return
             }
             
+            // 输出检测结果
+            Log.debug(TAG, "✅ 支付宝已安装: ${alipayStatus.message}")
+            
             // 检查支付宝是否已在运行
-            if (isAlipayRunning(context)) {
+            if (alipayStatus.running) {
                 Log.record(TAG, "✅ 支付宝已在运行，跳过启动")
                 hasAutoLaunched = true
                 return
@@ -112,17 +118,54 @@ object AlipayAutoLauncher {
     }
     
     /**
-     * 检查支付宝是否已安装
+     * 支付宝状态信息
      */
-    private fun isAlipayInstalled(context: Context): Boolean {
-        return try {
+    data class AlipayStatus(
+        val installed: Boolean,
+        val running: Boolean,
+        val version: String,
+        val message: String
+    )
+    
+    /**
+     * 检查支付宝状态（多重检测）
+     */
+    private fun checkAlipayStatus(context: Context): AlipayStatus {
+        var installed = false
+        var running = false
+        var version = "未知"
+        val messages = mutableListOf<String>()
+        
+        try {
+            // 方法1: 检查包名
             val packageInfo = context.packageManager.getPackageInfo(ALIPAY_PACKAGE, 0)
-            Log.debug(TAG, "支付宝已安装，版本: ${packageInfo.versionName}")
-            true
+            installed = true
+            version = packageInfo.versionName ?: "未知"
+            messages.add("版本${version}")
+            
+            // 方法2: 检查进程状态
+            running = isAlipayRunning(context)
+            if (running) {
+                messages.add("正在运行")
+            } else {
+                messages.add("未运行")
+            }
+            
         } catch (e: Exception) {
-            Log.debug(TAG, "支付宝未安装")
-            false
+            // 方法3: 尝试查询应用信息
+            try {
+                val appInfo = context.packageManager.getApplicationInfo(ALIPAY_PACKAGE, 0)
+                installed = true
+                version = "已安装"
+                messages.add("通过应用信息检测")
+            } catch (ex: Exception) {
+                installed = false
+                messages.add("检测失败: ${e.message}")
+            }
         }
+        
+        val message = messages.joinToString(", ")
+        return AlipayStatus(installed, running, version, message)
     }
     
     /**
@@ -130,7 +173,11 @@ object AlipayAutoLauncher {
      */
     private fun isAlipayRunning(context: Context): Boolean {
         return try {
-            val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
+            if (activityManager == null) {
+                Log.debug(TAG, "ActivityManager为null")
+                return false
+            }
             
             // Android 5.0+ 使用不同的方法
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -145,20 +192,24 @@ object AlipayAutoLauncher {
                 }
             } else {
                 // Android 5.0以下使用旧方法
-                @Suppress("DEPRECATION")
-                val runningTasks = activityManager.getRunningTasks(100)
-                for (taskInfo in runningTasks) {
-                    if (taskInfo.baseActivity?.packageName == ALIPAY_PACKAGE) {
-                        Log.debug(TAG, "支付宝任务正在运行")
-                        return true
+                try {
+                    @Suppress("DEPRECATION")
+                    val runningTasks = activityManager.getRunningTasks(100)
+                    for (taskInfo in runningTasks) {
+                        if (taskInfo.baseActivity?.packageName == ALIPAY_PACKAGE) {
+                            Log.debug(TAG, "支付宝任务正在运行")
+                            return true
+                        }
                     }
+                } catch (e: SecurityException) {
+                    Log.debug(TAG, "无权限查询运行任务")
                 }
             }
             
             Log.debug(TAG, "支付宝未运行")
             false
         } catch (e: Exception) {
-            Log.error(TAG, "检查支付宝运行状态失败: ${e.message}")
+            Log.debug(TAG, "检查支付宝运行状态异常: ${e.message}")
             false
         }
     }
