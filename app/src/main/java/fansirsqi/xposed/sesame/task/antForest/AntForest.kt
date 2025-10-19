@@ -311,7 +311,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             BooleanModelField(
                 "batchRobEnergy",
                 "一键收取 | 开关",
-                false
+                true  // 默认启用一键收取
             ).also { batchRobEnergy = it })
         modelFields.addField(
             BooleanModelField(
@@ -1093,6 +1093,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             Log.record(TAG, "🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲")
             Log.record(TAG, "⏱️ 主任务耗时: ${timeInSeconds}秒 (${totalTime}ms)")
             Log.record(TAG, "📊 收取统计: 收${totalCollected}g 帮${TOTAL_HELP_COLLECTED}g 浇${TOTAL_WATERED}g")
+            
+            // 打印能量收取统计报告
+            EnergyCollectionOptimizer.printStats()
             if (waitingTaskCount > 0) {
                 Log.record(TAG, "⏰ 后台蹲点任务: $waitingTaskCount 个 (将在指定时间自动收取)")
                 // 输出详细的蹲点任务状态，帮助调试
@@ -1820,34 +1823,61 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         val bizType = "GREEN"
         if (bubbleIds.isEmpty()) return
         val isBatchCollect = batchRobEnergy!!.value
+        
         if (isBatchCollect) {
+            // 使用自适应批量大小
+            val batchSize = EnergyCollectionOptimizer.calculateOptimalBatchSize(bubbleIds.size)
+            Log.debug(TAG, "使用自适应批量大小: $batchSize (总共${bubbleIds.size}个能量球)")
+            
             var i = 0
             while (i < bubbleIds.size) {
                 val subList: MutableList<Long> =
-                    bubbleIds.subList(i, min(i + MAX_BATCH_SIZE, bubbleIds.size))
-                collectEnergy(
-                    CollectEnergyEntity(
-                        userId,
-                        userHomeObj,
-                        AntForestRpcCall.batchEnergyRpcEntity(bizType, userId, subList),
-                        fromTag,
-                        skipPropCheck  // 🚀 传递快速通道标记
+                    bubbleIds.subList(i, min(i + batchSize, bubbleIds.size))
+                    
+                val startTime = System.currentTimeMillis()
+                try {
+                    collectEnergy(
+                        CollectEnergyEntity(
+                            userId,
+                            userHomeObj,
+                            AntForestRpcCall.batchEnergyRpcEntity(bizType, userId, subList),
+                            fromTag,
+                            skipPropCheck
+                        )
                     )
-                )
-                i += MAX_BATCH_SIZE
+                    // 记录批量收取成功
+                    val duration = System.currentTimeMillis() - startTime
+                    EnergyCollectionOptimizer.recordBatchCollect(true, duration, 0)
+                    EnergyCollectionOptimizer.recordRpcLatency(duration)
+                } catch (e: Exception) {
+                    // 记录批量收取失败
+                    val duration = System.currentTimeMillis() - startTime
+                    EnergyCollectionOptimizer.recordBatchCollect(false, duration, 0)
+                    throw e
+                }
+                i += batchSize
             }
         } else {
             for (id in bubbleIds) {
+                val startTime = System.currentTimeMillis()
                 collectEnergy(
                     CollectEnergyEntity(
                         userId,
                         userHomeObj,
                         AntForestRpcCall.energyRpcEntity(bizType, userId, id),
                         fromTag,
-                        skipPropCheck  // 🚀 传递快速通道标记
+                        skipPropCheck
                     )
                 )
+                val duration = System.currentTimeMillis() - startTime
+                EnergyCollectionOptimizer.recordSingleCollect(duration, 0)
+                EnergyCollectionOptimizer.recordRpcLatency(duration)
             }
+        }
+        
+        // 记录好友能量（用于预测）
+        if (userId != null && fromTag != "self") {
+            EnergyCollectionOptimizer.recordFriendEnergy(userId)
         }
     }
 

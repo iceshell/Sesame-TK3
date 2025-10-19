@@ -20,6 +20,13 @@ class SesameApplication : Application() {
         
         val processName = getCurrentProcessName()
         Log.runtime(TAG, "🚀 应用启动 | 进程: $processName | PID: ${Process.myPid()}")
+        
+        // 自动唤醒支付宝进行能量收取
+        try {
+            fansirsqi.xposed.sesame.util.AlipayWakeUpManager.autoWakeUpOnAppStart()
+        } catch (e: Exception) {
+            Log.error(TAG, "自动唤醒支付宝失败: ${e.message}")
+        }
     }
 
     /**
