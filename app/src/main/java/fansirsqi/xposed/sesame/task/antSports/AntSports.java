@@ -66,6 +66,11 @@ public class AntSports extends ModelTask {
     
     // 运动任务黑名单
     private StringModelField sportsTaskBlacklist;
+    
+    // 走路挑战赛配置
+    private BooleanModelField walkChallenge;
+    private int walkChallengeFailCount = 0;
+    private static final int MAX_WALK_CHALLENGE_FAIL = 3;
 
 
     @Override
@@ -94,6 +99,7 @@ public class AntSports extends ModelTask {
         modelFields.addField(openTreasureBox = new BooleanModelField("openTreasureBox", "开启宝箱", false));
         modelFields.addField(sportsTasks = new BooleanModelField("sportsTasks", "开启运动任务", false));
         modelFields.addField(sportsTaskBlacklist = new StringModelField("sportsTaskBlacklist", "运动任务黑名单 | 任务名称(用,分隔)", "开通包裹查询服务,添加支付宝小组件,领取价值1.7万元配置,支付宝积分可兑券"));
+        modelFields.addField(walkChallenge = new BooleanModelField("walkChallenge", "走路挑战赛 | 开启", false));
         modelFields.addField(receiveCoinAsset = new BooleanModelField("receiveCoinAsset", "收能量🎈", false));
         modelFields.addField(donateCharityCoin = new BooleanModelField("donateCharityCoin", "捐能量🎈 | 开启", false));
         modelFields.addField(donateCharityCoinType = new ChoiceModelField("donateCharityCoinType", "捐能量🎈 | 方式", DonateCharityCoinType.ONE, DonateCharityCoinType.nickNames));
@@ -1067,6 +1073,20 @@ public class AntSports extends ModelTask {
     }
 
     private void participate() {
+        // 检查功能开关
+        if (!walkChallenge.getValue()) {
+            return;
+        }
+        
+        // 熔断机制：连续失败达到上限则停止
+        if (walkChallengeFailCount >= MAX_WALK_CHALLENGE_FAIL) {
+            if (Status.canSetFlagToday("walkChallenge::maxFail")) {
+                Log.record(TAG, "走路挑战赛🚶连续失败" + MAX_WALK_CHALLENGE_FAIL + "次，今日停止尝试（可能是支付宝服务端问题）");
+                Status.setFlagToday("walkChallenge::maxFail");
+            }
+            return;
+        }
+        
         try {
             String s = AntSportsRpcCall.queryAccount();
             JSONObject jo = new JSONObject(s);
@@ -1098,12 +1118,32 @@ public class AntSports extends ModelTask {
                         }
                         jo = new JSONObject(AntSportsRpcCall.participate(pointOptions, InstanceId, ResultId, roundId));
                         if (jo.optBoolean("success")) {
+                            // 成功则重置失败计数
+                            walkChallengeFailCount = 0;
                             jo = jo.getJSONObject("data");
                             String roundDescription = jo.getString("roundDescription");
                             int targetStepCount = jo.getInt("targetStepCount");
                             Log.other(TAG, "走路挑战🚶🏻‍♂️[" + roundDescription + "]#" + targetStepCount);
                         } else {
-                            Log.record(TAG, "走路挑战赛" + " " + jo);
+                            // 错误处理
+                            int errorCode = jo.optInt("error", 0);
+                            String errorMsg = jo.optString("errorMessage", "未知错误");
+                            
+                            if (errorCode == 3000) {
+                                // 错误码3000：支付宝服务端问题
+                                walkChallengeFailCount++;
+                                if (Status.canSetFlagToday("walkChallenge::error3000")) {
+                                    Log.record(TAG, "走路挑战赛🚶系统错误(" + errorCode + "/" + errorMsg + ")，这是支付宝服务端问题，建议关闭该功能");
+                                    Status.setFlagToday("walkChallenge::error3000");
+                                }
+                            } else if (errorCode > 0) {
+                                // 其他错误码
+                                walkChallengeFailCount++;
+                                Log.record(TAG, "走路挑战赛🚶失败: " + errorCode + "/" + errorMsg);
+                            } else {
+                                // success=false但没有error字段
+                                Log.record(TAG, "走路挑战赛" + " " + jo);
+                            }
                         }
                     }
                 } else {
@@ -1111,6 +1151,7 @@ public class AntSports extends ModelTask {
                 }
             }
         } catch (Throwable t) {
+            walkChallengeFailCount++;
             Log.runtime(TAG, "participate err:");
             Log.printStackTrace(TAG, t);
         }
