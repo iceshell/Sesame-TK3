@@ -76,21 +76,19 @@ object AlipayWakeUpManager {
     
     /**
      * 在应用启动时自动唤醒支付宝
+     * 
+     * 注意：此方法应该在Activity的onResume中调用，而不是Application.onCreate
+     * 因为Application启动时Context可能尚未完全初始化
      */
     @JvmStatic
-    fun autoWakeUpOnAppStart() {
+    fun autoWakeUpOnAppStart(context: Context) {
         try {
-            val context = ApplicationHook.getAppContext()
-            if (context != null) {
-                Log.record(TAG, "📱 芝麻粒启动，自动唤醒支付宝进行能量收取")
-                
-                // 延迟3秒后唤醒，避免应用启动时卡顿
-                android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                    wakeUpAlipayForEnergyCollection(context)
-                }, 3000)
-            } else {
-                Log.error(TAG, "无法获取Application Context")
-            }
+            Log.record(TAG, "📱 芝麻粒启动，准备自动唤醒支付宝进行能量收取")
+            
+            // 延迟3秒后唤醒，避免应用启动时卡顿
+            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                wakeUpAlipayForEnergyCollection(context)
+            }, 3000)
         } catch (e: Exception) {
             Log.error(TAG, "自动唤醒失败: ${e.message}")
         }
