@@ -671,18 +671,52 @@ public class AntSports extends ModelTask {
         return pathId;
     }
 
+    // 备用路线列表（当主路线加入失败时尝试）
+    private static final String[] BACKUP_PATH_IDS = {
+        "p0002023122214520001",  // 龙年祈福线
+        "P20221117110010160002500001001",  // 备用路线1
+        "M202308082226",         // 大美中国
+        "M202401042147",         // 公益一小步
+        "V202405271625"          // 登顶芝麻山
+    };
+    
     private void joinPath(String pathId) {
         if (pathId == null) {
             // 龙年祈福线
             pathId = "p0002023122214520001";
         }
+        
         try {
             JSONObject jo = new JSONObject(AntSportsRpcCall.joinPath(pathId));
             if (jo.optBoolean("success")) {
                 JSONObject path = queryPath(pathId);
                 Log.record(TAG, "行走路线🚶🏻‍♂️路线[" + path.getJSONObject("path").getString("name") + "]已加入");
+                return; // 成功加入，直接返回
             } else {
-                Log.record(TAG, "行走路线🚶🏻‍♂️路线[" + pathId + "]有误，无法加入！");
+                String errorMsg = jo.optString("resultDesc", "未知错误");
+                Log.record(TAG, "行走路线🚶🏻‍♂️路线[" + pathId + "]加入失败: " + errorMsg);
+                
+                // 尝试备用路线
+                Log.record(TAG, "🔄 尝试加入备用路线...");
+                for (String backupPathId : BACKUP_PATH_IDS) {
+                    // 跳过已经失败的路线
+                    if (backupPathId.equals(pathId)) {
+                        continue;
+                    }
+                    
+                    try {
+                        JSONObject backupJo = new JSONObject(AntSportsRpcCall.joinPath(backupPathId));
+                        if (backupJo.optBoolean("success")) {
+                            JSONObject path = queryPath(backupPathId);
+                            Log.record(TAG, "✅ 行走路线🚶🏻‍♂️备用路线[" + path.getJSONObject("path").getString("name") + "]加入成功");
+                            return; // 成功加入备用路线，返回
+                        }
+                    } catch (Throwable e) {
+                        Log.debug(TAG, "备用路线[" + backupPathId + "]尝试失败: " + e.getMessage());
+                    }
+                }
+                
+                Log.record(TAG, "❌ 所有路线尝试失败，请稍后重试或手动加入路线");
             }
         } catch (Throwable t) {
             Log.runtime(TAG, "joinPath err:");
