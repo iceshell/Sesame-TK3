@@ -1,0 +1,138 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preNormalReleaseBuild UP-TO-DATE
+> Task :app:mergeNormalReleaseJniLibFolders
+> Task :app:mergeNormalReleaseNativeLibs
+> Task :app:mergeNormalReleaseArtProfile
+> Task :app:checkNormalReleaseDuplicateClasses
+
+> Task :app:stripNormalReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libchecker.so, libdexkit.so, libmmkv.so.
+
+> Task :app:expandNormalReleaseL8ArtProfileWildcards FROM-CACHE
+> Task :app:extractNormalReleaseNativeSymbolTables FROM-CACHE
+> Task :app:mergeNormalReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:buildKotlinToolingMetadata
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateNormalReleaseBuildConfig
+> Task :app:generateNormalReleaseResValues FROM-CACHE
+> Task :app:checkNormalReleaseAarMetadata
+> Task :app:mapNormalReleaseSourceSetPaths
+> Task :app:generateNormalReleaseResources FROM-CACHE
+> Task :app:mergeNormalReleaseResources FROM-CACHE
+> Task :app:packageNormalReleaseResources FROM-CACHE
+> Task :app:parseNormalReleaseLocalResources FROM-CACHE
+> Task :app:createNormalReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksNormalRelease FROM-CACHE
+
+> Task :app:processNormalReleaseMainManifest
+[interface-100.aar] /home/runner/.gradle/caches/9.1.0/transforms/f735c1146a7ec31908a16c9f811e8b05/transformed/jetified-interface-100/AndroidManifest.xml Warning:
+	Namespace 'io.github.libxposed.service' is used in multiple modules and/or libraries: interface-100.aar, service-100-1.0.0.aar. Please ensure that all modules and libraries have a unique namespace. For more information, See https://developer.android.com/studio/build/configure-app-module#set-namespace
+
+> Task :app:processNormalReleaseManifest
+> Task :app:javaPreCompileNormalRelease FROM-CACHE
+> Task :app:extractProguardFiles
+> Task :app:mergeNormalReleaseStartupProfile
+> Task :app:mergeNormalReleaseShaders
+> Task :app:compileNormalReleaseShaders NO-SOURCE
+> Task :app:generateNormalReleaseAssets UP-TO-DATE
+> Task :app:mergeNormalReleaseAssets
+> Task :app:compressNormalReleaseAssets FROM-CACHE
+> Task :app:extractNormalReleaseVersionControlInfo
+> Task :app:collectNormalReleaseDependencies
+> Task :app:sdkNormalReleaseDependencyData
+> Task :app:validateSigningNormalRelease
+> Task :app:writeNormalReleaseAppMetadata
+> Task :app:writeNormalReleaseSigningConfigVersions
+> Task :app:preCompatibleReleaseBuild UP-TO-DATE
+> Task :app:mergeCompatibleReleaseJniLibFolders
+> Task :app:mergeCompatibleReleaseArtProfile
+> Task :app:processNormalReleaseManifestForPackage
+> Task :app:checkCompatibleReleaseDuplicateClasses
+> Task :app:mergeCompatibleReleaseNativeLibs
+> Task :app:expandCompatibleReleaseL8ArtProfileWildcards FROM-CACHE
+> Task :app:generateCompatibleReleaseBuildConfig
+
+> Task :app:stripCompatibleReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libchecker.so, libdexkit.so, libmmkv.so.
+> Task :app:extractCompatibleReleaseNativeSymbolTables FROM-CACHE
+> Task :app:mergeCompatibleReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:checkCompatibleReleaseAarMetadata
+> Task :app:generateCompatibleReleaseResValues FROM-CACHE
+> Task :app:mapCompatibleReleaseSourceSetPaths
+> Task :app:generateCompatibleReleaseResources FROM-CACHE
+> Task :app:mergeCompatibleReleaseResources FROM-CACHE
+> Task :app:packageCompatibleReleaseResources FROM-CACHE
+> Task :app:parseCompatibleReleaseLocalResources FROM-CACHE
+> Task :app:createCompatibleReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksCompatibleRelease FROM-CACHE
+> Task :app:processCompatibleReleaseMainManifest FROM-CACHE
+> Task :app:processCompatibleReleaseManifest
+> Task :app:javaPreCompileCompatibleRelease FROM-CACHE
+> Task :app:processCompatibleReleaseManifestForPackage
+> Task :app:mergeCompatibleReleaseStartupProfile
+> Task :app:mergeCompatibleReleaseShaders
+> Task :app:compileCompatibleReleaseShaders NO-SOURCE
+> Task :app:generateCompatibleReleaseAssets UP-TO-DATE
+> Task :app:mergeCompatibleReleaseAssets
+> Task :app:compressCompatibleReleaseAssets FROM-CACHE
+> Task :app:extractCompatibleReleaseVersionControlInfo
+> Task :app:collectCompatibleReleaseDependencies
+> Task :app:sdkCompatibleReleaseDependencyData
+> Task :app:validateSigningCompatibleRelease
+> Task :app:writeCompatibleReleaseAppMetadata
+> Task :app:writeCompatibleReleaseSigningConfigVersions
+> Task :app:processNormalReleaseResources
+> Task :app:processCompatibleReleaseResources
+
+e: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antForest/AntForest.kt:1860:62 Argument type mismatch: actual type is 'Unit', but 'JSONObject?' was expected.
+e: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antForest/AntForest.kt:1897:62 Argument type mismatch: actual type is 'Unit', but 'JSONObject?' was expected.
+e: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/util/AlipayAutoLauncher.kt:237:18 Unresolved reference 'isAlipayInstalled'.
+e: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antForest/AntForest.kt:1860:62 Argument type mismatch: actual type is 'Unit', but 'JSONObject?' was expected.
+> Task :app:compileCompatibleReleaseKotlin FAILED
+e: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/task/antForest/AntForest.kt:1897:62 Argument type mismatch: actual type is 'Unit', but 'JSONObject?' was expected.
+
+e: file:///home/runner/work/Sesame-TK3/Sesame-TK3/app/src/main/java/fansirsqi/xposed/sesame/util/AlipayAutoLauncher.kt:237:18 Unresolved reference 'isAlipayInstalled'.
+> Task :app:compileNormalReleaseKotlin FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1760867879756.json
+[Incubating] Problems report is available at: file:///home/runner/work/Sesame-TK3/Sesame-TK3/build/reports/problems/problems-report.html
+
+FAILURE: Build completed with 2 failures.
+
+1: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task ':app:compileCompatibleReleaseKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.1.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+68 actionable tasks: 47 executed, 21 from cache
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+2: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task ':app:compileNormalReleaseKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+BUILD FAILED in 1m 37s
+Error: Process completed with exit code 1.

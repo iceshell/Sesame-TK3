@@ -234,7 +234,8 @@ object AlipayAutoLauncher {
         }
         
         try {
-            if (!isAlipayInstalled(context)) {
+            val alipayStatus = checkAlipayStatus(context)
+            if (!alipayStatus.installed) {
                 Log.record(TAG, "⚠️ 支付宝未安装")
                 return
             }

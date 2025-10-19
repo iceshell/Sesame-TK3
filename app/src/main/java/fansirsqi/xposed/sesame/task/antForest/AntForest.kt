@@ -1847,7 +1847,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 val startTime = System.currentTimeMillis()
                 var energyCollected = 0
                 try {
-                    val result = collectEnergy(
+                    // 批量收取能量
+                    collectEnergy(
                         CollectEnergyEntity(
                             userId,
                             userHomeObj,
@@ -1856,8 +1857,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             skipPropCheck  // 🚀 传递快速通道标记
                         )
                     )
-                    // 从返回结果中获取收取的能量总量
-                    energyCollected = extractCollectedEnergy(result)
+                    // 从userHomeObj中获取收取的能量总量
+                    energyCollected = extractCollectedEnergy(userHomeObj)
                     
                     // 记录批量收取成功（使用try-catch确保安全）
                     try {
@@ -1884,7 +1885,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 val startTime = System.currentTimeMillis()
                 var energyCollected = 0
                 try {
-                    val result = collectEnergy(
+                    // 单个收取能量
+                    collectEnergy(
                         CollectEnergyEntity(
                             userId,
                             userHomeObj,
@@ -1893,8 +1895,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             skipPropCheck  // 🚀 传递快速通道标记
                         )
                     )
-                    // 从返回结果中获取收取的能量
-                    energyCollected = extractCollectedEnergy(result)
+                    // 从userHomeObj中获取收取的能量
+                    energyCollected = extractCollectedEnergy(userHomeObj)
                     
                     // 记录单个收取（使用try-catch确保安全）
                     try {
