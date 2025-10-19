@@ -99,20 +99,31 @@ jobs:
           compatible_file=$(basename "${{ steps.extract_apks.outputs.signed_compatible }}")
           # 提取版本号（以"Normal-"或"Compatible-"之后的部分为起点，以"-signed"之前的内容为终点）
           version=$(echo "$normal_file" | sed -E 's/.*-(Normal|Compatible)-(v[^-]+).*-signed\.apk/\2/')
+          # 获取短commit hash
+          short_sha=$(git rev-parse --short HEAD)
           echo "normal_file=$normal_file" >> $GITHUB_OUTPUT
           echo "compatible_file=$compatible_file" >> $GITHUB_OUTPUT
           echo "version=$version" >> $GITHUB_OUTPUT
+          echo "short_sha=$short_sha" >> $GITHUB_OUTPUT
 
       - name: Generate APKS Checksum
         run: |
-          sha256sum ${{ steps.extract_apks.outputs.signed_normal }} > CHECKSUMS-Sesame-Normal-${{ steps.extract_info.outputs.version }}.${{ env.SHORT_SHA }}-signed.apk.sha256
-          sha256sum ${{ steps.extract_apks.outputs.signed_compatible }} > CHECKSUMS-Sesame-Compatible-${{ steps.extract_info.outputs.version }}.${{ env.SHORT_SHA }}-signed.apk.sha256
+          sha256sum ${{ steps.extract_apks.outputs.signed_normal }} > CHECKSUMS-Sesame-Normal-${{ steps.extract_info.outputs.version }}.-signed.apk.sha256
+          sha256sum ${{ steps.extract_apks.outputs.signed_compatible }} > CHECKSUMS-Sesame-Compatible-${{ steps.extract_info.outputs.version }}.-signed.apk.sha256
 
       - name: Create Tag from Version
         if: startsWith(github.ref, 'refs/heads/main') && github.event_name == 'push'
         run: |
           VERSION_TAG="v${{ steps.extract_info.outputs.version }}"
           echo "Creating tag: $VERSION_TAG"
+          
+          # 检查tag是否存在，如果存在则删除
+          if git ls-remote --tags origin | grep -q "refs/tags/$VERSION_TAG$"; then
+            echo "Tag $VERSION_TAG already exists, deleting old tag..."
+            git push origin --delete "$VERSION_TAG" || true
+          fi
+          
+          # 创建并推送新tag
           git tag "$VERSION_TAG"
           git push origin "$VERSION_TAG"
 
@@ -143,12 +154,14 @@ jobs:
           files: |
             ${{ steps.extract_apks.outputs.signed_compatible }}
             ${{ steps.extract_apks.outputs.signed_normal }}
-            CHECKSUMS-Sesame-Normal-${{ steps.extract_info.outputs.version }}.${{ env.SHORT_SHA }}-signed.apk.sha256
-            CHECKSUMS-Sesame-Compatible-${{ steps.extract_info.outputs.version }}.${{ env.SHORT_SHA }}-signed.apk.sha256
+            CHECKSUMS-Sesame-Normal-${{ steps.extract_info.outputs.version }}.-signed.apk.sha256
+            CHECKSUMS-Sesame-Compatible-${{ steps.extract_info.outputs.version }}.-signed.apk.sha256
           tag_name: ${{ steps.extract_info.outputs.version}}
           draft: false
           append_body: true
           generate_release_notes: true
+          make_latest: true
+          fail_on_unmatched_files: true
           body: |
             ## ✨What's Changed
 
