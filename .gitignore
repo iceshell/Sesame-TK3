@@ -89,3 +89,11 @@ serve-debug/webhook.db
 # Cursor IDE
 .cursorignore
 /.cursor/rules/zh.mdc
+
+# 排除文档和参考项目文件夹（不推送到远程）
+/docs/
+/XQuickEnergy-master/
+
+# 排除临时文件
+build-error.txt
+AppIdMap.txt
