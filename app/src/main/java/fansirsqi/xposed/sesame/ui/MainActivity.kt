@@ -348,7 +348,7 @@ class MainActivity : BaseActivity() {
         StringDialog.showSelectionDialog(
             this,
             "📌 请选择配置",
-            userNameArray,
+            userNameArray.map { it as CharSequence }.toTypedArray(),
             { dialog: DialogInterface, which: Int ->
                 goSettingActivity(which)
                 dialog.dismiss()
@@ -370,14 +370,14 @@ class MainActivity : BaseActivity() {
         val latch = CountDownLatch(1)
         val dialog = StringDialog.showSelectionDialog(
             this,
-            title,
-            options,
+            title ?: "",
+            options.map { it as CharSequence }.toTypedArray(),
             { dialog1: DialogInterface, which: Int ->
                 onItemSelected.accept(which)
                 dialog1.dismiss()
                 latch.countDown()
             },
-            negativeButtonText,
+            negativeButtonText ?: "取消",
             { dialog1: DialogInterface ->
                 onNegativeButtonClick.run()
                 dialog1.dismiss()
