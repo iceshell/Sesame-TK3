@@ -1,0 +1,10 @@
+26日 23:01:23.09 Exception error: java.lang.NumberFormatException: For input string: "，"
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at java.lang.Integer.parseInt(Integer.java:650)
+	at fansirsqi.xposed.sesame.model.modelFieldExt.IntegerModelField.setConfigValue(SourceFile:14)
+	at fansirsqi.xposed.sesame.ui.WebSettingsActivity$WebViewCallback.setModel(SourceFile:87)
+	at android.os.MessageQueue.nativePollOnce(Native Method)
+	at android.os.MessageQueue.next(MessageQueue.java:335)
+	at android.os.Looper.loop(Looper.java:193)
+	at android.os.HandlerThread.run(HandlerThread.java:67)
+
