@@ -1,0 +1,28 @@
+# ktlint 配置文件
+# 官方文档: https://pinterest.github.io/ktlint/
+
+# 禁用的规则
+disabled_rules:
+  - no-wildcard-imports  # 允许通配符导入（项目中大量使用）
+  - filename  # 不强制文件名与类名一致
+
+# 启用实验性规则
+experimental:
+  enabled: true
+
+# 代码风格
+ktlint_standard_function-naming: disabled  # 暂时禁用函数命名检查（逐步修复）
+ktlint_standard_property-naming: disabled  # 暂时禁用属性命名检查
+
+# 最大行长度
+max_line_length: 120
+
+# 导入顺序
+ij_kotlin_imports_layout: "*,java.**,javax.**,kotlin.**,^"
+
+# 链式调用缩进
+ktlint_chain_wrapping: true
+
+# 尾随逗号（推荐启用）
+ktlint_trailing_comma_on_call_site: true
+ktlint_trailing_comma_on_declaration_site: true

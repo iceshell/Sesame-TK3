@@ -1,0 +1,87 @@
+# 自动化测试工作流
+name: Run Tests
+
+on:
+  push:
+    branches: [ n, main, develop ]
+  pull_request:
+    branches: [ n, main, develop ]
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整历史用于版本号
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+      
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      
+      - name: Run unit tests
+        run: ./gradlew test --stacktrace
+      
+      - name: Run ktlint check
+        run: ./gradlew ktlintCheck
+        continue-on-error: true  # 第一阶段允许失败
+      
+      - name: Generate test coverage report
+        run: ./gradlew testDebugUnitTestCoverage
+        continue-on-error: true
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: app/build/reports/tests/
+      
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: app/build/reports/coverage/
+      
+      - name: Comment test results on PR
+        if: github.event_name == 'pull_request'
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: app/build/test-results/**/*.xml
+          check_name: Unit Test Results
+
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+      
+      - name: Run lint
+        run: ./gradlew lint
+        continue-on-error: true
+      
+      - name: Upload lint results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-results
+          path: app/build/reports/lint-results.html

@@ -1,0 +1,271 @@
+package fansirsqi.xposed.sesame.hook.rpc.debug
+
+import fansirsqi.xposed.sesame.hook.RequestManager
+import fansirsqi.xposed.sesame.task.reserve.ReserveRpcCall
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
+import fansirsqi.xposed.sesame.util.Log
+import fansirsqi.xposed.sesame.util.ResChecker
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import kotlin.concurrent.thread
+
+/**
+ * RPC调试工具类
+ */
+class DebugRpc {
+    fun getName(): String = "Rpc测试"
+
+    fun start(broadcastFun: String, broadcastData: String, testType: String) {
+        thread {
+            when (testType) {
+                "Rpc" -> {
+                    val result = test(broadcastFun, broadcastData)
+                    Log.debug("收到测试消息:\n方法:$broadcastFun\n数据:$broadcastData\n结果:$result")
+                }
+                "getNewTreeItems" -> getNewTreeItems() // 获取新树上苗🌱信息
+                "getTreeItems" -> getTreeItems() // 🔍查询树苗余量
+                "queryAreaTrees" -> queryAreaTrees()
+                "getUnlockTreeItems" -> getUnlockTreeItems()
+                "walkGrid" -> walkGrid() // 走格子
+                else -> Log.debug("未知的测试类型: $testType")
+            }
+        }
+    }
+
+    private fun test(method: String, data: String): String? = RequestManager.requestString(method, data)
+
+    fun queryEnvironmentCertDetailList(alias: String, pageNum: Int, targetUserID: String): String? =
+        DebugRpcCall.queryEnvironmentCertDetailList(alias, pageNum, targetUserID)
+
+    fun sendTree(certificateId: String, friendUserId: String): String? =
+        DebugRpcCall.sendTree(certificateId, friendUserId)
+
+    private fun getNewTreeItems() {
+        try {
+            val s = ReserveRpcCall.queryTreeItemsForExchange()
+            val jo = JSONObject(s)
+            if (ResChecker.checkRes(TAG, jo)) {
+                val ja = jo.getJSONArray("treeItems")
+                for (i in 0 until ja.length()) {
+                    val item = ja.getJSONObject(i)
+                    if (!item.has("projectType")) continue
+                    if (item.getString("projectType") != "TREE") continue
+                    if (item.getString("applyAction") != "COMING") continue
+                    val projectId = item.getString("itemId")
+                    queryTreeForExchange(projectId)
+                }
+            } else {
+                Log.runtime(TAG, jo.getString("resultDesc"))
+            }
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "getTreeItems err:")
+            Log.printStackTrace(TAG, t)
+        }
+    }
+
+    /**
+     * 查询特定项目下可交换树木的信息
+     *
+     * @param projectId 项目ID
+     */
+    private fun queryTreeForExchange(projectId: String) {
+        try {
+            val response = ReserveRpcCall.queryTreeForExchange(projectId)
+            val jo = JSONObject(response)
+            if (ResChecker.checkRes(TAG, jo)) {
+                val exchangeableTree = jo.getJSONObject("exchangeableTree")
+                val currentBudget = exchangeableTree.getInt("currentBudget")
+                val region = exchangeableTree.getString("region")
+                val treeName = exchangeableTree.getString("treeName")
+                
+                val tips = if (exchangeableTree.optBoolean("canCoexchange", false)) {
+                    val coexchangeTypeIdList = exchangeableTree
+                        .getJSONObject("extendInfo")
+                        .getString("cooperate_template_id_list")
+                    "可以合种-合种类型：$coexchangeTypeIdList"
+                } else {
+                    "不可合种"
+                }
+                
+                Log.debug(TAG, "新树上苗🌱[$region-$treeName]#${currentBudget}株-$tips")
+            } else {
+                Log.record("${jo.getString("resultDesc")} projectId: $projectId")
+            }
+        } catch (e: JSONException) {
+            Log.runtime(TAG, "JSON解析错误:")
+            Log.printStackTrace(TAG, e)
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "查询树木交换信息过程中发生错误:")
+            Log.printStackTrace(TAG, t)
+        }
+    }
+
+    /**
+     * 获取可交换的树木项目列表，并对每个可用的项目查询当前预算
+     */
+    private fun getTreeItems() {
+        try {
+            val response = ReserveRpcCall.queryTreeItemsForExchange()
+            val jo = JSONObject(response)
+            if (ResChecker.checkRes(TAG, jo)) {
+                val ja = jo.getJSONArray("treeItems")
+                for (i in 0 until ja.length()) {
+                    val item = ja.getJSONObject(i)
+                    if (!item.has("projectType")) continue
+                    if (item.getString("applyAction") != "AVAILABLE") continue
+                    val projectId = item.getString("itemId")
+                    val itemName = item.getString("itemName")
+                    getTreeCurrentBudget(projectId, itemName)
+                    GlobalThreadPools.sleepCompat(100)
+                }
+            } else {
+                Log.runtime(TAG, jo.getString("resultDesc"))
+            }
+        } catch (e: JSONException) {
+            Log.runtime(TAG, "JSON解析错误:")
+            Log.printStackTrace(TAG, e)
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "获取树木项目列表过程中发生错误:")
+            Log.printStackTrace(TAG, t)
+        }
+    }
+
+    /**
+     * 树苗查询
+     *
+     * @param projectId 项目ID
+     * @param treeName 树木名称
+     */
+    private fun getTreeCurrentBudget(projectId: String, treeName: String) {
+        try {
+            val response = ReserveRpcCall.queryTreeForExchange(projectId)
+            val jo = JSONObject(response)
+            if (ResChecker.checkRes(TAG, jo)) {
+                val exchangeableTree = jo.getJSONObject("exchangeableTree")
+                val currentBudget = exchangeableTree.getInt("currentBudget")
+                val region = exchangeableTree.getString("region")
+                Log.debug(TAG, "树苗查询🌱[$region-$treeName]#剩余:$currentBudget")
+            } else {
+                Log.record("${jo.getString("resultDesc")} projectId: $projectId")
+            }
+        } catch (e: JSONException) {
+            Log.runtime(TAG, "JSON解析错误:")
+            Log.printStackTrace(TAG, e)
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "查询树木交换信息过程中发生错误:")
+            Log.printStackTrace(TAG, t)
+        }
+    }
+
+    /**
+     * 模拟网格行走过程，处理行走中的事件，如完成迷你游戏和广告任务
+     */
+    private fun walkGrid() {
+        try {
+            val s = DebugRpcCall.walkGrid()
+            val jo = JSONObject(s)
+            if (jo.getBoolean("success")) {
+                val data = jo.getJSONObject("data")
+                if (!data.has("mapAwards")) return
+                
+                val mapAwards = data.getJSONArray("mapAwards")
+                val mapAward = mapAwards.getJSONObject(0)
+                
+                if (mapAward.has("miniGameInfo")) {
+                    val miniGameInfo = mapAward.getJSONObject("miniGameInfo")
+                    val gameId = miniGameInfo.getString("gameId")
+                    val key = miniGameInfo.getString("key")
+                    
+                    GlobalThreadPools.sleepCompat(4000L)
+                    val gameResult = JSONObject(DebugRpcCall.miniGameFinish(gameId, key))
+                    
+                    if (gameResult.getBoolean("success")) {
+                        val miniGamedata = gameResult.getJSONObject("data")
+                        if (miniGamedata.has("adVO")) {
+                            val adVO = miniGamedata.getJSONObject("adVO")
+                            if (adVO.has("adBizNo")) {
+                                val adBizNo = adVO.getString("adBizNo")
+                                val taskResult = JSONObject(DebugRpcCall.taskFinish(adBizNo))
+                                
+                                if (taskResult.getBoolean("success")) {
+                                    val queryResult = JSONObject(
+                                        DebugRpcCall.queryAdFinished(adBizNo, "NEVERLAND_DOUBLE_AWARD_AD")
+                                    )
+                                    if (queryResult.getBoolean("success")) {
+                                        Log.farm("完成双倍奖励🎁")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                val leftCount = data.getInt("leftCount")
+                if (leftCount > 0) {
+                    GlobalThreadPools.sleepCompat(3000L)
+                    walkGrid() // 递归调用，继续行走
+                }
+            } else {
+                Log.record("${jo.getString("errorMsg")}$s")
+            }
+        } catch (e: JSONException) {
+            Log.runtime(TAG, "JSON解析错误:")
+            Log.printStackTrace(TAG, e)
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "行走网格过程中发生错误:")
+            Log.printStackTrace(TAG, t)
+        }
+    }
+
+    private fun queryAreaTrees() {
+        try {
+            val jo = JSONObject(ReserveRpcCall.queryAreaTrees())
+            if (!ResChecker.checkRes(TAG, jo)) return
+            
+            val areaTrees = jo.getJSONObject("areaTrees")
+            val regionConfig = jo.getJSONObject("regionConfig")
+            val regionKeys = regionConfig.keys()
+            
+            while (regionKeys.hasNext()) {
+                val regionKey = regionKeys.next()
+                if (!areaTrees.has(regionKey)) {
+                    val region = regionConfig.getJSONObject(regionKey)
+                    val regionName = region.optString("regionName")
+                    Log.debug(TAG, "未解锁地区🗺️[$regionName]")
+                }
+            }
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "queryAreaTrees err:")
+            Log.printStackTrace(TAG, t)
+        }
+    }
+
+    private fun getUnlockTreeItems() {
+        try {
+            val jo = JSONObject(ReserveRpcCall.queryTreeItemsForExchange("", "project"))
+            if (!ResChecker.checkRes(TAG, jo)) return
+            
+            val ja = jo.getJSONArray("treeItems")
+            for (i in 0 until ja.length()) {
+                val item = ja.getJSONObject(i)
+                if (!item.has("projectType")) continue
+                
+                val certCountForAlias = item.optInt("certCountForAlias", -1)
+                if (certCountForAlias == 0) {
+                    val itemName = item.optString("itemName")
+                    val region = item.optString("region")
+                    val organization = item.optString("organization")
+                    Log.debug(TAG, "未解锁项目🐘[$region-$itemName]#$organization")
+                }
+            }
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "getUnlockTreeItems err:")
+            Log.printStackTrace(TAG, t)
+        }
+    }
+
+    companion object {
+        private val TAG = DebugRpc::class.java.canonicalName
+    }
+}
