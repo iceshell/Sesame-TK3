@@ -1,0 +1,173 @@
+27日 00:13:12.76 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"2191e0aa17614951920963793e39a9","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 00:14:57.68 [NewRpcBridge]: new rpc response | id: 252442566 | method: com.alipay.adexchange.ad.facade.xlightPlugin get err:
+27日 00:14:57.85 Exception error: java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestObject(NewRpcBridge.kt:283)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(NewRpcBridge.kt:147)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(RpcBridge.kt:56)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(NewRpcBridge.kt:23)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(RpcBridge.kt:33)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(NewRpcBridge.kt:23)
+	at fansirsqi.xposed.sesame.hook.RequestManager.requestString(RequestManager.kt:67)
+	at fansirsqi.xposed.sesame.task.antStall.AntStallRpcCall.xlightPlugin(AntStallRpcCall.java:85)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.taskList(AntStall.java:634)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.runJava(AntStall.java:185)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(ModelTask.kt:119)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(Unknown Source:0)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(ModelTask.kt:136)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(ModelTask.kt:285)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(ModelTask.kt:264)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(ModelTask.kt:50)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(ModelTask.kt:239)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+27日 00:15:00.21 [NewRpcBridge]: new rpc response | id: 252442566 | method: com.alipay.adexchange.ad.facade.xlightPlugin get err:
+27日 00:15:00.44 Exception error: java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestObject(NewRpcBridge.kt:283)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(NewRpcBridge.kt:147)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(RpcBridge.kt:56)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(NewRpcBridge.kt:23)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(RpcBridge.kt:33)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(NewRpcBridge.kt:23)
+	at fansirsqi.xposed.sesame.hook.RequestManager.requestString(RequestManager.kt:67)
+	at fansirsqi.xposed.sesame.task.antStall.AntStallRpcCall.xlightPlugin(AntStallRpcCall.java:85)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.taskList(AntStall.java:634)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.runJava(AntStall.java:185)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(ModelTask.kt:119)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(Unknown Source:0)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(ModelTask.kt:136)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(ModelTask.kt:285)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(ModelTask.kt:264)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(ModelTask.kt:50)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(ModelTask.kt:239)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+27日 00:15:02.89 [NewRpcBridge]: new rpc response | id: 252442566 | method: com.alipay.adexchange.ad.facade.xlightPlugin get err:
+27日 00:15:04.90 [AntStall]: Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.taskList(AntStall.java:635)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.runJava(AntStall.java:185)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(ModelTask.kt:119)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(Unknown Source:0)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(ModelTask.kt:136)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(ModelTask.kt:285)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(ModelTask.kt:264)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(ModelTask.kt:50)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(ModelTask.kt:239)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+27日 00:15:11.91 [NewRpcBridge]: new rpc response | id: 232339674 | method: com.alipay.adexchange.ad.facade.xlightPlugin get err:
+27日 00:15:14.38 [NewRpcBridge]: new rpc response | id: 232339674 | method: com.alipay.adexchange.ad.facade.xlightPlugin get err:
+27日 00:15:16.85 [NewRpcBridge]: new rpc response | id: 232339674 | method: com.alipay.adexchange.ad.facade.xlightPlugin get err:
+27日 00:15:18.87 [AntStall]: Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.taskList(AntStall.java:635)
+	at fansirsqi.xposed.sesame.task.antStall.AntStall.runJava(AntStall.java:188)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(ModelTask.kt:119)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(Unknown Source:0)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(ModelTask.kt:136)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(ModelTask.kt:285)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(ModelTask.kt:264)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(ModelTask.kt:50)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(ModelTask.kt:239)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+27日 06:19:18.50 [CoroutineTaskRunner]: ❌ 任务[运动-Round1]宽限期(30秒)也超时，强制超时处理
+27日 06:19:18.51 [CoroutineTaskRunner]: ⏰ 任务[运动-Round1]执行超时(21798522ms > 600000ms)，准备自动恢复
+27日 06:25:02.58 [NewRpcBridge]: new rpc response1 | id: 169225947 | method: com.alipay.sportshealth.biz.rpc.sportsHealthHomeRpc.queryCoinBubbleModule
+ args: [{"bubbleId":"","canAddHome":false,"chInfo":"ch_appcenter__chsub_9patch","clientAuthStatus":"not_support","clientOS":"android","distributionChannel":"","features":["DAILY_STEPS_RANK_V2","STEP_BATTLE","CLUB_HOME_CARD","NEW_HOME_PAGE_STATIC","CLOUD_SDK_AUTH","STAY_ON_COMPLETE","EXTRA_TREASURE_BOX","NEW_HOME_PAGE_STATIC","SUPPORT_AI","SUPPORT_TAB3","SUPPORT_FLYRABBIT","PROP","PROPV2","ASIAN_GAMES"]}] |
+ data: {"error":48,"errorMessage":"当前网络不可用，请稍后重试","errorNo":3,"errorTip":"48"}
+27日 06:25:02.60 [NewRpcBridge]: RPC返回null | 方法: com.alipay.sportshealth.biz.rpc.sportsHealthHomeRpc.queryCoinBubbleModule | 原因: 网络错误: 48/当前网络不可用，请稍后重试 | 重试: 1
+27日 06:31:53.30 [处理批次25出错]: [AntForest] Throwable error: java.lang.NullPointerException
+	at fansirsqi.xposed.sesame.task.antForest.AntForest$processFriendsEnergyCoroutine$2.invokeSuspend(AntForest.kt:2244)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest$processFriendsEnergyCoroutine$2.invoke(Unknown Source:8)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest$processFriendsEnergyCoroutine$2.invoke(Unknown Source:4)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source:1)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.processFriendsEnergyCoroutine(AntForest.kt:2201)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.access$processFriendsEnergyCoroutine(AntForest.kt:87)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest$collectRankingsCoroutine$2.invokeSuspend(AntForest.kt:1970)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:266)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+27日 06:45:49.99 [NewRpcBridge]: new rpc response1 | id: 128468871 | method: com.alipay.antfarm.receiveFarmTaskAward
+ args: [{"awardType":"FAMILY_INTIMACY","requestType":"NORMAL","sceneCode":"ANTFARM","source":"H5","taskId":"FAMILY_SIGN_TASK","taskSceneCode":"ANTFARM_FAMILY_TASK"}] |
+ data: {"error":24,"errorMessage":"当前网络不可用，请稍后重试","errorNo":3,"errorTip":"24"}
+27日 06:45:50.00 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familySign:135 <- task.antFarm.AntFarmFamily.enterFamily:87 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"error":24,"errorMessage":"当前网络不可用，请稍后重试","errorNo":3,"errorTip":"24"}
+27日 06:52:20.45 [AntFarm]: Check failed: [来源: task.antFarm.AntFarm.rewardFriend:1380 <- task.antFarm.AntFarm.runSuspend:596 <- task.ModelTask.run:136 <- task.ModelTask.executeSequential:285] {"ariverRpcTraceId":"218b58cb17615191396862593e04c1","memo":"打赏信息不存在","resultCode":"387","success":false}
+27日 06:52:20.95 [AntFarm]: Check failed: [来源: task.antFarm.AntFarm.sendBackAnimal:1455 <- task.antFarm.AntFarm.runSuspend:600 <- task.ModelTask.run:136 <- task.ModelTask.executeSequential:285] {"ariverRpcTraceId":"218b58cb17615191401732641e04c1","memo":"请求失败","resultCode":"104","success":false}
+27日 06:52:26.60 [AntFarm]: Check failed: [来源: task.antFarm.AntFarm.feedAnimal:2071 <- task.antFarm.AntFarm.handleAutoFeedAnimal$lambda$0:1181 <- task.antFarm.AntFarm.$r8$lambda$neJb8BCJT90-zYteCULo0A1GVSo:0 <- task.antFarm.AntFarm$$ExternalSyntheticLambda3.run:0] {"ariverRpcTraceId":"218b58cb17615191459052987e04c1","bigEaterToolNewUserStatus":false,"memo":"请求失败","resultCode":"104","success":false}
+27日 06:55:58.12 [AntForest]: Check failed: [来源: task.antForest.AntForest.patrolKeepGoing:3638 <- task.antForest.AntForest.queryUserPatrol:3589 <- task.antForest.AntForest.runSuspend:981 <- task.antForest.AntForest$runSuspend$1.invokeSuspend:14] {"ariverRpcTraceId":"0b27545517615193571476587e00ce","resultCode":"NO_ACTIVE_PATROL","resultDesc":"保护地“休养生息”中，请静候开放","retriable":false,"stepLength":0,"success":false}
+27日 06:56:03.93 [AntForest]: Check failed: [来源: task.antForest.AntForest.patrolKeepGoing:3638 <- task.antForest.AntForest.queryUserPatrol:3589 <- task.antForest.AntForest.runSuspend:981 <- task.antForest.AntForest$runSuspend$1.invokeSuspend:14] {"ariverRpcTraceId":"0b27545517615193629606863e00ce","resultCode":"NO_ACTIVE_PATROL","resultDesc":"保护地“休养生息”中，请静候开放","retriable":false,"stepLength":0,"success":false}
+27日 06:56:06.87 [ForestChouChouLe]: Check failed: [来源: task.antForest.ForestChouChouLe.processChouChouLeScene:165 <- task.antForest.ForestChouChouLe.processKnownScenes:62 <- task.antForest.ForestChouChouLe.chouChouLe:36 <- task.antForest.AntForest.runSuspend:1068] {"ariverRpcTraceId":"0b27545517615193661577043e00ce","code":"400000056","desc":"不符合任务投放资格不能完成","success":false}
+27日 06:56:06.88 [ForestChouChouLe]: 森林抽抽乐普通版 任务完成失败: 玩一玩森林改造计划
+27日 06:56:09.80 [AntForest]: Check failed: [来源: task.antForest.AntForest.patrolKeepGoing:3638 <- task.antForest.AntForest.queryUserPatrol:3589 <- task.antForest.AntForest.runSuspend:981 <- task.antForest.AntForest$runSuspend$1.invokeSuspend:14] {"ariverRpcTraceId":"0b27545517615193687527212e00ce","resultCode":"NO_ACTIVE_PATROL","resultDesc":"保护地“休养生息”中，请静候开放","retriable":false,"stepLength":0,"success":false}
+27日 06:56:15.22 [AntForest]: Check failed: [来源: task.antForest.AntForest.patrolKeepGoing:3638 <- task.antForest.AntForest.queryUserPatrol:3589 <- task.antForest.AntForest.runSuspend:981 <- task.antForest.AntForest$runSuspend$1.invokeSuspend:14] {"ariverRpcTraceId":"0b27545517615193741927496e00ce","resultCode":"NO_ACTIVE_PATROL","resultDesc":"保护地“休养生息”中，请静候开放","retriable":false,"stepLength":0,"success":false}
+27日 06:56:24.28 [AntForest]: Check failed: [来源: task.antForest.AntForest.patrolKeepGoing:3638 <- task.antForest.AntForest.queryUserPatrol:3589 <- task.antForest.AntForest.runSuspend:981 <- task.antForest.AntForest$runSuspend$1.invokeSuspend:14] {"ariverRpcTraceId":"0b27545517615193832868078e00ce","resultCode":"NO_ACTIVE_PATROL","resultDesc":"保护地“休养生息”中，请静候开放","retriable":false,"stepLength":0,"success":false}
+27日 06:59:24.28 [NewRpcBridge]: new rpc response1 | id: 145636425 | method: alipay.antforest.forest.h5.switchUserPatrol
+ args: [{"source":"ant_forest","targetPatrolId":"800003","timezoneId":"Asia\/Shanghai"}] |
+ data: {"error":48,"errorMessage":"当前网络不可用，请稍后重试","errorNo":3,"errorTip":"48"}
+27日 06:59:24.30 [NewRpcBridge]: RPC返回null | 方法: alipay.antforest.forest.h5.switchUserPatrol | 原因: 网络错误: 48/当前网络不可用，请稍后重试 | 重试: 1
+27日 06:59:24.32 [AntForest]: Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.queryUserPatrol(AntForest.kt:3564)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.runSuspend(AntForest.kt:981)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest$runSuspend$1.invokeSuspend(Unknown Source:14)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:266)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:266)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+27日 07:00:02.34 [ForestChouChouLe]: Check failed: [来源: task.antForest.ForestChouChouLe.processChouChouLeScene:165 <- task.antForest.ForestChouChouLe.processKnownScenes:62 <- task.antForest.ForestChouChouLe.chouChouLe:36 <- task.antForest.AntForest.runSuspend:1068] {"ariverRpcTraceId":"21848e8017615196016212367ed6a4","code":"400000012","desc":"权益获取次数超过上限","success":false}
+27日 07:00:02.35 [ForestChouChouLe]: 森林抽抽乐普通版 任务完成失败: 去森林市集逛一逛
+27日 07:00:32.60 [ForestChouChouLe]: Check failed: [来源: task.antForest.ForestChouChouLe.processChouChouLeScene:165 <- task.antForest.ForestChouChouLe.processKnownScenes:62 <- task.antForest.ForestChouChouLe.chouChouLe:36 <- task.antForest.AntForest.runSuspend:1068] {"ariverRpcTraceId":"21848e8017615196318624115ed6a4","code":"B000000008","desc":"无状态转换处理","success":false}
+27日 07:00:32.61 [ForestChouChouLe]: 森林抽抽乐普通版 任务完成失败: 去物种集卡得机会
+27日 07:01:03.06 [ForestChouChouLe]: Check failed: [来源: task.antForest.ForestChouChouLe.processChouChouLeScene:165 <- task.antForest.ForestChouChouLe.processKnownScenes:62 <- task.antForest.ForestChouChouLe.chouChouLe:36 <- task.antForest.AntForest.runSuspend:1068] {"ariverRpcTraceId":"21848e8017615196623265956ed6a4","code":"400000056","desc":"不符合任务投放资格不能完成","success":false}
+27日 07:01:03.06 [ForestChouChouLe]: 森林抽抽乐普通版 任务完成失败: 玩一玩森林救援队
+27日 07:01:06.30 [ForestChouChouLe]: Check failed: [来源: task.antForest.ForestChouChouLe.processChouChouLeScene:183 <- task.antForest.ForestChouChouLe.processKnownScenes:62 <- task.antForest.ForestChouChouLe.chouChouLe:36 <- task.antForest.AntForest.runSuspend:1068] {"ariverRpcTraceId":"21848e8017615196655576174ed6a4","code":"400000030","desc":"任务已完结","success":false}
+27日 07:01:06.30 [ForestChouChouLe]: 森林抽抽乐普通版 奖励领取失败: 去得故宫限定版皮肤

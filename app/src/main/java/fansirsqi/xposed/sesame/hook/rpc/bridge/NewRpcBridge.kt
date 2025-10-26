@@ -284,12 +284,12 @@ class NewRpcBridge : RpcBridge {
                             rpcEntity.responseObject,
                             "getString",
                             "error"
-                        ) as String
+                        ) as? String ?: ""
                         val errorMessage = XposedHelpers.callMethod(
                             rpcEntity.responseObject,
                             "getString",
                             "errorMessage"
-                        ) as String
+                        ) as? String ?: ""
                         val response = rpcEntity.responseString
                         val methodName = rpcEntity.requestMethod
 

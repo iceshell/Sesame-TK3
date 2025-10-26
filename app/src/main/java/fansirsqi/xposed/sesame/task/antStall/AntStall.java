@@ -632,6 +632,10 @@ public class AntStall extends ModelTask {
                         case "ANTSTALL_XLIGHT_VARIABLE_AWARD":
                             //【木兰市集】逛精选好物
                             s = AntStallRpcCall.xlightPlugin();
+                            if (s == null || s.isEmpty()) {
+                                Log.runtime(TAG, "taskList.xlightPlugin 返回空响应，跳过");
+                                continue;
+                            }
                             jo = new JSONObject(s);
                             if (!jo.has("playingResult")) {
                                 Log.runtime(TAG, "taskList.xlightPlugin err:" + jo.optString("resultDesc"));
