@@ -57,25 +57,25 @@ class ExtendActivity : BaseActivity() {
         extendFunctions.add(
             ExtendFunctionItem(getString(R.string.query_the_remaining_amount_of_saplings)) {
                 sendItemsBroadcast("getTreeItems")
-                ToastUtil.makeText(this@ExtendActivity, debugTips, Toast.LENGTH_SHORT).show()
+                ToastUtil.makeText(this@ExtendActivity, debugTips ?: "", Toast.LENGTH_SHORT).show()
             }
         )
         extendFunctions.add(
             ExtendFunctionItem(getString(R.string.search_for_new_items_on_saplings)) {
                 sendItemsBroadcast("getNewTreeItems")
-                ToastUtil.makeText(this@ExtendActivity, debugTips, Toast.LENGTH_SHORT).show()
+                ToastUtil.makeText(this@ExtendActivity, debugTips ?: "", Toast.LENGTH_SHORT).show()
             }
         )
         extendFunctions.add(
             ExtendFunctionItem(getString(R.string.search_for_unlocked_regions)) {
                 sendItemsBroadcast("queryAreaTrees")
-                ToastUtil.makeText(this@ExtendActivity, debugTips, Toast.LENGTH_SHORT).show()
+                ToastUtil.makeText(this@ExtendActivity, debugTips ?: "", Toast.LENGTH_SHORT).show()
             }
         )
         extendFunctions.add(
             ExtendFunctionItem(getString(R.string.search_for_unlocked_items)) {
                 sendItemsBroadcast("getUnlockTreeItems")
-                ToastUtil.makeText(this@ExtendActivity, debugTips, Toast.LENGTH_SHORT).show()
+                ToastUtil.makeText(this@ExtendActivity, debugTips ?: "", Toast.LENGTH_SHORT).show()
             }
         )
         extendFunctions.add(
