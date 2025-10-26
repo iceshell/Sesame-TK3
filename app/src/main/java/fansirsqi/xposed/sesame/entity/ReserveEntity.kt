@@ -25,6 +25,13 @@ class ReserveEntity(i: String, n: String) : MapperEntity() {
          *
          * @return 包含所有 ReserveEntity 对象的不可变列表
          */
+        /**
+         * 获取保护地列表（作为MapperEntity列表）
+         * 用于Java互操作
+         */
+        @JvmStatic
+        fun getListAsMapperEntity(): List<MapperEntity> = getList()
+
         @JvmStatic
         fun getList(): List<ReserveEntity> {
             if (list == null) {

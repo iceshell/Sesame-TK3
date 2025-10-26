@@ -28,6 +28,13 @@ class VitalityStore(i: String, n: String) : MapperEntity() {
     companion object {
         private var idNameMap: MutableMap<String?, String?>? = null
 
+        /**
+         * 获取活力值商店列表（作为MapperEntity列表）
+         * 用于Java互操作
+         */
+        @JvmStatic
+        fun getListAsMapperEntity(): List<MapperEntity> = list
+
         @JvmStatic
         val list: MutableList<VitalityStore>
             get() {

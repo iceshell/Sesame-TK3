@@ -13,6 +13,14 @@ class CooperateEntity(i: String, n: String) : MapperEntity() {
     }
 
     companion object {
+        /**
+         * 获取合作用户列表（作为MapperEntity列表）
+         * 用于Java互操作
+         */
+        @JvmStatic
+        fun getListAsMapperEntity(): List<MapperEntity> = getList()
+
+        @JvmStatic
         fun getList(): List<CooperateEntity> {
             return IdMapManager.getInstance(CooperateMap::class.java).map
                 .map { (key, value) -> CooperateEntity(key, value) }

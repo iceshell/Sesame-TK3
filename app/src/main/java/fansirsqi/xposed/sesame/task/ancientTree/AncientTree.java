@@ -38,7 +38,7 @@ public class AncientTree extends ModelTask {
     public ModelFields getFields() {
         ModelFields modelFields = new ModelFields();
         modelFields.addField(ancientTreeOnlyWeek = new BooleanModelField("ancientTreeOnlyWeek", "仅星期一、三、五运行保护古树", false));
-        modelFields.addField(ancientTreeCityCodeList = new SelectModelField("ancientTreeCityCodeList", "古树区划代码列表", new LinkedHashSet<>(), AreaCode::getList));
+        modelFields.addField(ancientTreeCityCodeList = new SelectModelField("ancientTreeCityCodeList", "古树区划代码列表", new LinkedHashSet<>(), AreaCode::getListAsMapperEntity));
         return modelFields;
     }
     @Override
