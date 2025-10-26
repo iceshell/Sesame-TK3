@@ -1047,7 +1047,15 @@ public class ApplicationHook {
                     switch (action) {
                         case "com.eg.android.AlipayGphone.sesame.restart":
                             Log.printStack(TAG);
-                            new Thread(() -> initHandler(true)).start();
+                            // 检查是否只是配置重新加载
+                            boolean configReload = intent.getBooleanExtra("configReload", false);
+                            if (configReload) {
+                                // 配置重新加载：不中断当前任务，只重新加载配置
+                                new Thread(() -> initHandler(false)).start();
+                            } else {
+                                // 真正的重启：强制重新初始化
+                                new Thread(() -> initHandler(true)).start();
+                            }
                             break;
                         case "com.eg.android.AlipayGphone.sesame.execute":
                             Log.printStack(TAG);

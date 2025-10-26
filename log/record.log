@@ -1,821 +1,690 @@
-26日 22:56:20.15 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:56:21.09 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
-26日 22:56:21.09 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-26日 22:56:21.09 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc49-beta-debug
-26日 22:56:21.09 [ApplicationHook]: 📦应用版本：10.7.86.8000
-26日 22:56:21.10 [ApplicationHook]: 📶网络类型：WIFI
-26日 22:56:21.10 [ApplicationHook]: 👤用户ID：2088942482497175
-26日 22:56:21.10 [ApplicationHook]: 🕐初始化时间：26日22:56:21
-26日 22:56:21.11 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:56:21.11 [Config]: 开始加载配置
-26日 22:56:21.11 [Config]: 加载配置: 風
-26日 22:56:21.16 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:56:21.22 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-26日 22:56:21.22 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-26日 22:56:21.23 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-26日 22:56:21.23 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-26日 22:56:21.24 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-26日 22:56:21.24 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-26日 22:56:21.24 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
-26日 22:56:21.33 [AntForest]: 查询间隔原始设置值: [500-800]
-26日 22:56:21.34 [AntForest]: 查询间隔成功创建区间限制
-26日 22:56:21.34 [AntForest]: 收取间隔原始设置值: [500-800]
-26日 22:56:21.35 [AntForest]: 收取间隔成功创建区间限制
-26日 22:56:21.35 [AntForest]: 双击间隔原始设置值: [50-150]
-26日 22:56:21.35 [AntForest]: 双击间隔成功创建区间限制
-26日 22:56:21.36 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
-26日 22:56:21.37 [AntForestRpcCall]: 使用API版本: 20250813
-26日 22:56:21.38 [EnergyWaitingManager]: 精确能量球蹲点管理器已初始化（支持持久化）
-26日 22:56:21.39 [EnergyWaitingManager]: 已设置能量收取回调
-26日 22:56:21.55 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
-26日 22:56:21.55 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
-26日 22:56:21.55 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:56:21.57 [ApplicationHook]: ▶️ 首次手动触发，开始运行
-26日 22:56:21.58 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
-26日 22:56:21.58 [ApplicationHook]: 设置定时执行:2359
-26日 22:56:21.58 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
-26日 22:56:21.58 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共6个启用任务
-26日 22:56:21.59 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/6 - 森林
-26日 22:56:21.59 [AlarmScheduler]: 已设置多重保护闹钟: ID=1, 预定时间=23:59:00
-26日 22:56:21.59 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
-26日 22:56:21.59 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:56:21.60 [AlarmScheduler]: ⏰ 下次执行(Alarm) 23:59:00
-26日 22:56:21.60 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
-26日 22:56:21.64 [AlarmManager]: ⏰ 精确执行调度成功: 延迟3758427ms
-26日 22:56:21.66 [ModelTask]: 开始执行第1轮任务: 森林
-26日 22:56:21.67 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
-26日 22:56:21.68 [AntForest]: 任务计数器已重置
-26日 22:56:21.69 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
-26日 22:56:21.70 [AntForest]: 执行开始-蚂蚁森林
-26日 22:56:21.98 [AntForest]: ========================
-查询道具状态 耗时: 266 ms
-26日 22:56:22.00 [AntForest]: ========================
-使用自己道具卡 耗时: 24 ms
-26日 22:56:22.01 [AntForest]: 开始处理PK排行榜...
-26日 22:56:22.12 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
-26日 22:56:22.13 [AntForest]: ========================
-获取PK排行榜 耗时: 112 ms
-26日 22:56:22.13 [AntForest]: ========================
-收PK好友能量（同步） 耗时: 139 ms
-26日 22:56:22.14 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
-26日 22:56:22.47 [AntForest]: ========================
-获取自己主页对象信息 耗时: 335 ms
-26日 22:56:22.49 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226818]在[27日01:08:30]成熟(等待132分钟)
-26日 22:56:22.50 [AntForest]: ✅ 【正常流程】收取自己的能量完成
-26日 22:56:22.52 [AntForest]: ========================
-收取自己的能量 耗时: 40 ms
-26日 22:56:22.55 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待132分钟(能量成熟→27日01:08:30)
-26日 22:56:22.55 [AntForest]: 开始使用找能量功能收取好友能量
-26日 22:56:22.56 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226854]在[27日01:08:31]成熟(等待132分钟)
-26日 22:56:22.58 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待132分钟(能量成熟→27日01:08:31)
-26日 22:56:23.78 [AntForest]: 第3次找能量没有发现新好友，继续尝试:{}
-26日 22:56:23.78 [AntForest]: 连续3次未发现新好友，提前结束找能量，休息15分钟
-26日 22:56:23.79 [AntForest]: ========================
-找能量收取完成 耗时: 1252 ms
-26日 22:56:23.80 [AntForest]: 找能量功能完成，共发现 0 个好友
-26日 22:56:23.81 [AntForest]: ========================
-找能量收取（协程） 耗时: 1296 ms
-26日 22:56:23.82 [AntForest]: 开始处理好友排行榜...
-26日 22:56:24.26 [AntForest]: 成功获取好友排行榜数据，共发现6位好友。
-26日 22:56:24.27 [AntForest]: ========================
-获取好友排行榜 耗时: 431 ms
-26日 22:56:24.28 [AntForest]: 开始处理好友排行榜前20位好友...
-26日 22:56:24.30 [AntForest]: 📋 开始处理6个好友排行榜前20位（并发数:60）
-26日 22:56:24.30 [AntForest]: 👥 青玄| | 惠琴|*惠琴 | 𓆉|*昆 | 小凡|*立超 | 機風| | 風|*立超
-26日 22:56:24.62 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718132]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
-26日 22:56:24.63 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718174]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
-26日 22:56:25.41 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:56:25.53 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:56:26.08 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080798]在[27日00:11:39]成熟(等待75分钟)
-26日 22:56:26.11 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待75分钟(能量成熟→27日00:11:39)
-26日 22:56:26.11 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080854]在[27日00:11:40]成熟(等待75分钟)
-26日 22:56:26.15 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待75分钟(能量成熟→27日00:11:40)
-26日 22:56:26.32 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时2004ms，平均334ms/人
-26日 22:56:26.34 [AntForest]: ========================
-处理好友排行榜靠前的好友 耗时: 2065 ms
-26日 22:56:26.36 [AntForest]: 好友排行榜没有更多的好友需要处理，跳过
-26日 22:56:26.37 [AntForest]: ========================
-收取好友能量（同步） 耗时: 2562 ms
-26日 22:56:26.38 [AntForest]: ========================
-收取道具 耗时: 15 ms
-26日 22:56:26.99 [EnergyWaitingPersistence]: 📥 从持久化存储恢复4个有效任务（跳过0个过期，0个过旧）
-26日 22:56:26.99 [EnergyWaitingManager]: 🔄 从持久化存储恢复4个蹲点任务...
-26日 22:56:27.00 [EnergyWaitingPersistence]: 🔄 开始验证4个恢复的蹲点任务...
-26日 22:56:27.56 [AntForest]: ========================
-动物巡护任务 耗时: 1166 ms
-26日 22:56:27.57 已经有动物伙伴在巡护森林~
-26日 22:56:27.59 [AntForest]: ========================
-收取动物派遣能量 耗时: 38 ms
-26日 22:56:29.51 [AntForest]: ========================
-合成动物碎片 耗时: 1925 ms
-26日 22:56:30.89 [AntForest]: ========================
-森林任务 耗时: 1377 ms
-26日 22:56:31.65 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
-26日 22:56:31.98 [EnergyWaitingPersistence]: ✅ 恢复完成：成功0个，跳过4个
-26日 22:56:32.16 [AntForest]: ========================
-绿色行动 耗时: 1265 ms
-26日 22:56:32.17 [AntForest]: ========================
-给好友浇水 耗时: 9 ms
-26日 22:56:32.22 [Config]: 开始加载配置
-26日 22:56:32.22 [Config]: 加载配置: 風
-26日 22:56:32.28 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:56:32.38 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:56:33.75 [AntForest]: ========================
-能量雨 耗时: 1572 ms
-26日 22:56:34.42 [AntForest]: ========================
-森林集市 耗时: 674 ms
-26日 22:56:35.55 [AntForest]: ========================
-绿色医疗 耗时: 1105 ms
-26日 22:56:35.82 [AntForest]: ========================
-电子小票 耗时: 309 ms
-26日 22:56:35.85 开始处理森林抽抽乐
-26日 22:56:35.87 开始处理：森林抽抽乐普通版 (ActivityId: 2025101301, SceneCode: ANTFOREST_NORMAL_DRAW)
-26日 22:56:35.88 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
-26日 22:56:36.60 森林抽抽乐普通版 第 1 轮任务处理开始
-26日 22:56:36.61 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_NORMAL_DRAW_TASK, source: task_entry
-26日 22:56:36.78 森林抽抽乐普通版 发现 7 个任务
-26日 22:56:36.79 森林抽抽乐普通版 任务: 邀请好友助力得机会 [FOREST_NORMAL_DRAW_SHARE] 状态: TODO 进度: 0/2
-26日 22:56:36.80 森林抽抽乐普通版 已屏蔽任务，跳过：邀请好友助力得机会
-26日 22:56:36.80 森林抽抽乐普通版 任务: 每日签到 [FOREST_NORMAL_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
-26日 22:56:36.81 森林抽抽乐普通版 任务: 消耗活力值得机会 [NORMAL_DRAW_EXCHANGE_VITALITY] 状态: RECEIVED 进度: 2/2
-26日 22:56:36.82 森林抽抽乐普通版 任务: 去森林市集逛一逛 [FOREST_NORMAL_DRAW_XLIGHT_1] 状态: RECEIVED 进度: 2/2
-26日 22:56:36.83 森林抽抽乐普通版 任务: 去物种集卡得机会 [FOREST_NORMAL_DRAW_ANTTODO] 状态: RECEIVED 进度: 1/1
-26日 22:56:36.84 森林抽抽乐普通版 任务: 玩一玩森林救援队 [FOREST_NORMAL_DRAW_SLJYD] 状态: RECEIVED 进度: 1/1
-26日 22:56:36.85 森林抽抽乐普通版 任务: 去得故宫限定版皮肤 [FOREST_NORMAL_DRAW_XBDL] 状态: RECEIVED 进度: 1/1
-26日 22:56:36.92 森林抽抽乐普通版 开始处理抽奖
-26日 22:56:36.94 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
-26日 22:56:37.55 森林抽抽乐普通版 剩余抽奖次数：0/87
-26日 22:56:39.09 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
-26日 22:56:39.10 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
-26日 22:56:39.10 [AlarmManager]: ✅ AlarmScheduler清理完成
-26日 22:56:39.11 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:56:39.34 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
-26日 22:56:39.42 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-26日 22:56:39.55 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc49-beta-debug
-26日 22:56:39.68 [ApplicationHook]: 📦应用版本：10.7.86.8000
-26日 22:56:39.78 [ApplicationHook]: 📶网络类型：WIFI
-26日 22:56:39.82 [ApplicationHook]: 👤用户ID：2088942482497175
-26日 22:56:39.94 [ApplicationHook]: 🕐初始化时间：26日22:56:39
-26日 22:56:40.07 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:56:40.19 [Config]: 开始加载配置
-26日 22:56:40.31 [Config]: 加载配置: 風
-26日 22:56:40.65 开始处理：森林抽抽乐活动版 (ActivityId: 20251024, SceneCode: ANTFOREST_ACTIVITY_DRAW)
-26日 22:56:40.69 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:56:40.84 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
-26日 22:56:40.90 [Config]: 格式化配置: 風
-26日 22:56:40.96 ApplicationHook.rpcBridge 为空，等待5秒
-26日 22:56:41.60 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-26日 22:56:41.73 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-26日 22:56:41.78 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行20秒
-26日 22:56:41.87 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-26日 22:56:42.02 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-26日 22:56:42.15 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-26日 22:56:42.28 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-26日 22:56:42.42 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
-26日 22:56:42.64 [AntForest]: 查询间隔原始设置值: [500-800]
-26日 22:56:42.78 [AntForest]: 查询间隔成功创建区间限制
-26日 22:56:42.91 [AntForest]: 收取间隔原始设置值: [500-800]
-26日 22:56:43.05 [AntForest]: 收取间隔成功创建区间限制
-26日 22:56:43.18 [AntForest]: 双击间隔原始设置值: [50-150]
-26日 22:56:43.31 [AntForest]: 双击间隔成功创建区间限制
-26日 22:56:43.45 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
-26日 22:56:43.58 [AntForestRpcCall]: 使用API版本: 20250813
-26日 22:56:43.72 [EnergyWaitingManager]: 已设置能量收取回调
-26日 22:56:44.78 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
-26日 22:56:44.78 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
-26日 22:56:44.78 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:56:44.80 [ApplicationHook]: 手动APP触发，已关闭
-26日 22:56:46.21 森林抽抽乐活动版 第 1 轮任务处理开始
-26日 22:56:46.21 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_ACTIVITY_DRAW_TASK, source: task_entry
-26日 22:56:46.71 森林抽抽乐活动版 发现 4 个任务
-26日 22:56:46.72 森林抽抽乐活动版 任务: 邀请好友助力得机会 [FOREST_ACTIVITY_DRAW_SHARE] 状态: TODO 进度: 0/1
-26日 22:56:46.72 森林抽抽乐活动版 已屏蔽任务，跳过：邀请好友助力得机会
-26日 22:56:46.72 森林抽抽乐活动版 任务: 每日签到 [FOREST_ACTIVITY_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
-26日 22:56:46.72 森林抽抽乐活动版 任务: 去森林市集逛一逛 [FOREST_ACTIVITY_DRAW_XLIGHT_2] 状态: RECEIVED 进度: 1/1
-26日 22:56:46.73 森林抽抽乐活动版 任务: 玩一玩森林小车车 [FOREST_ACTIVITY_DRAW_SLXCC] 状态: RECEIVED 进度: 1/1
-26日 22:56:46.73 森林抽抽乐活动版 开始处理抽奖
-26日 22:56:46.74 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
-26日 22:56:46.90 森林抽抽乐活动版 剩余抽奖次数：0/10
-26日 22:56:47.70 [Config]: 开始加载配置
-26日 22:56:47.71 [Config]: 加载配置: 風
-26日 22:56:47.73 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:56:49.93 [AntForest]: ========================
-抽抽乐 耗时: 14107 ms
-26日 22:56:49.93 [AntForest]: ========================
-AntForest 耗时: 28229 ms ()
-26日 22:56:49.94 [AntForest]: ==================================================
-26日 22:56:49.94 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
-26日 22:56:49.94 [AntForest]: ⏱️ 主任务耗时: 28秒 (28265ms)
-26日 22:56:49.94 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
-26日 22:56:49.95 [AntForest]: ⏰ 后台蹲点任务: 4 个 (将在指定时间自动收取)
-26日 22:56:49.96 [AntForest]: 📋 蹲点任务状态 (4个，显示最近3个):
-  - [小凡|*立超] 球[5207080798] 剩余74分49秒 → 27日00:11:39
-  - [小凡|*立超] 球[5207080854] 剩余74分50秒 → 27日00:11:40
-  - [風|*立超] 球[5207226818] 剩余131分40秒 → 27日01:08:30
+26日 23:12:31.18 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:12:32.11 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 23:12:32.11 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 23:12:32.11 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc50-beta-debug
+26日 23:12:32.12 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 23:12:32.12 [ApplicationHook]: 📶网络类型：WIFI
+26日 23:12:32.12 [ApplicationHook]: 👤用户ID：2088942482497175
+26日 23:12:32.12 [ApplicationHook]: 🕐初始化时间：26日23:12:32
+26日 23:12:32.13 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:12:32.13 [Config]: 开始加载配置
+26日 23:12:32.13 [Config]: 加载配置: 風
+26日 23:12:32.18 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
+26日 23:12:32.22 [Config]: 格式化配置: 風
+26日 23:12:32.45 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 23:12:32.45 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 23:12:32.47 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 23:12:32.48 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 23:12:32.48 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 23:12:32.49 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 23:12:32.49 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 23:12:32.59 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 23:12:32.60 [AntForest]: 查询间隔成功创建区间限制
+26日 23:12:32.60 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 23:12:32.60 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:12:32.60 [AntForest]: 收取间隔成功创建区间限制
+26日 23:12:32.61 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 23:12:32.61 [AntForest]: 双击间隔成功创建区间限制
+26日 23:12:32.61 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 23:12:32.62 [AntForestRpcCall]: 使用API版本: 20250813
+26日 23:12:32.63 [EnergyWaitingManager]: 精确能量球蹲点管理器已初始化（支持持久化）
+26日 23:12:32.63 [EnergyWaitingManager]: 已设置能量收取回调
+26日 23:12:33.38 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 23:12:33.51 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 23:12:33.67 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:12:33.90 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+26日 23:12:33.92 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+26日 23:12:33.92 [ApplicationHook]: 设置定时执行:2359
+26日 23:12:33.92 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+26日 23:12:33.93 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共6个启用任务
+26日 23:12:33.93 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/6 - 森林
+26日 23:12:33.94 [AlarmScheduler]: 已设置多重保护闹钟: ID=1, 预定时间=23:59:00
+26日 23:12:33.94 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
+26日 23:12:33.94 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
+26日 23:12:33.95 [AlarmScheduler]: ⏰ 下次执行(Alarm) 23:59:00
+26日 23:12:33.99 [ModelTask]: 开始执行第1轮任务: 森林
+26日 23:12:33.99 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
+26日 23:12:33.99 [AlarmManager]: ⏰ 精确执行调度成功: 延迟2786089ms
+26日 23:12:33.99 [AntForest]: 任务计数器已重置
+26日 23:12:34.00 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
+26日 23:12:34.01 [AntForest]: 执行开始-蚂蚁森林
+26日 23:12:34.28 [AntForest]: ========================
+查询道具状态 耗时: 265 ms
+26日 23:12:34.32 [AntForest]: ========================
+使用自己道具卡 耗时: 50 ms
+26日 23:12:34.36 [AntForest]: 开始处理PK排行榜...
+26日 23:12:34.47 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
+26日 23:12:34.50 [AntForest]: ========================
+获取PK排行榜 耗时: 138 ms
+26日 23:12:34.52 [AntForest]: ========================
+收PK好友能量（同步） 耗时: 198 ms
+26日 23:12:34.53 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
+26日 23:12:34.79 [AntForest]: ========================
+获取自己主页对象信息 耗时: 273 ms
+26日 23:12:34.82 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226818]在[27日01:08:30]成熟(等待115分钟)
+26日 23:12:34.85 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待115分钟(能量成熟→27日01:08:30)
+26日 23:12:34.85 [AntForest]: ✅ 【正常流程】收取自己的能量完成
+26日 23:12:34.85 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226854]在[27日01:08:31]成熟(等待115分钟)
+26日 23:12:34.85 [AntForest]: ========================
+收取自己的能量 耗时: 62 ms
+26日 23:12:34.86 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待115分钟(能量成熟→27日01:08:31)
+26日 23:12:34.87 [AntForest]: 开始使用找能量功能收取好友能量
+26日 23:12:36.23 [AntForest]: 第3次找能量没有发现新好友，继续尝试:{}
+26日 23:12:36.25 [AntForest]: 连续3次未发现新好友，提前结束找能量，休息15分钟
+26日 23:12:36.26 [AntForest]: ========================
+找能量收取完成 耗时: 1380 ms
+26日 23:12:36.27 [AntForest]: 找能量功能完成，共发现 0 个好友
+26日 23:12:36.28 [AntForest]: ========================
+找能量收取（协程） 耗时: 1417 ms
+26日 23:12:36.30 [AntForest]: 开始处理好友排行榜...
+26日 23:12:36.72 [AntForest]: 成功获取好友排行榜数据，共发现6位好友。
+26日 23:12:36.73 [AntForest]: ========================
+获取好友排行榜 耗时: 423 ms
+26日 23:12:36.74 [AntForest]: 开始处理好友排行榜前20位好友...
+26日 23:12:36.74 [AntForest]: 📋 开始处理6个好友排行榜前20位（并发数:60）
+26日 23:12:36.75 [AntForest]: 👥 青玄| | 惠琴|*惠琴 | 𓆉|*昆 | 小凡|*立超 | 機風| | 風|*立超
+26日 23:12:37.01 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080798]在[27日00:11:39]成熟(等待59分钟)
+26日 23:12:37.13 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待59分钟(能量成熟→27日00:11:39)
+26日 23:12:37.18 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080854]在[27日00:11:40]成熟(等待59分钟)
+26日 23:12:37.27 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待59分钟(能量成熟→27日00:11:40)
+26日 23:12:37.30 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:12:37.37 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:12:38.16 [EnergyWaitingPersistence]: 📥 从持久化存储恢复4个有效任务（跳过0个过期，0个过旧）
+26日 23:12:38.17 [EnergyWaitingManager]: 🔄 从持久化存储恢复4个蹲点任务...
+26日 23:12:38.18 [EnergyWaitingPersistence]: 🔄 开始验证4个恢复的蹲点任务...
+26日 23:12:38.37 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718132]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
+26日 23:12:38.38 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718174]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
+26日 23:12:38.42 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时1659ms，平均276ms/人
+26日 23:12:38.43 [AntForest]: ========================
+处理好友排行榜靠前的好友 耗时: 1699 ms
+26日 23:12:38.46 [AntForest]: 好友排行榜没有更多的好友需要处理，跳过
+26日 23:12:38.47 [AntForest]: ========================
+收取好友能量（同步） 耗时: 2199 ms
+26日 23:12:38.50 [AntForest]: ========================
+收取道具 耗时: 13 ms
+26日 23:12:39.61 [AntForest]: ========================
+动物巡护任务 耗时: 1124 ms
+26日 23:12:39.61 已经有动物伙伴在巡护森林~
+26日 23:12:39.62 [AntForest]: ========================
+收取动物派遣能量 耗时: 13 ms
+26日 23:12:39.92 [AntForest]: ========================
+合成动物碎片 耗时: 290 ms
+26日 23:12:41.01 [AntForest]: ========================
+森林任务 耗时: 1101 ms
+26日 23:12:41.21 [EnergyWaitingPersistence]: ✅ 恢复完成：成功0个，跳过4个
+26日 23:12:42.00 [AntForest]: ========================
+绿色行动 耗时: 982 ms
+26日 23:12:42.01 [AntForest]: ========================
+给好友浇水 耗时: 16 ms
+26日 23:12:43.09 [AntForest]: ========================
+能量雨 耗时: 1076 ms
+26日 23:12:43.85 [AntForest]: ========================
+森林集市 耗时: 738 ms
+26日 23:12:44.02 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
+26日 23:12:44.19 [AntForest]: ========================
+绿色医疗 耗时: 358 ms
+26日 23:12:44.55 [Config]: 开始加载配置
+26日 23:12:44.56 [Config]: 加载配置: 風
+26日 23:12:44.61 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
+26日 23:12:44.62 [AntForest]: ========================
+电子小票 耗时: 440 ms
+26日 23:12:44.66 开始处理森林抽抽乐
+26日 23:12:44.67 开始处理：森林抽抽乐普通版 (ActivityId: 2025101301, SceneCode: ANTFOREST_NORMAL_DRAW)
+26日 23:12:44.68 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
+26日 23:12:45.01 森林抽抽乐普通版 第 1 轮任务处理开始
+26日 23:12:45.02 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_NORMAL_DRAW_TASK, source: task_entry
+26日 23:12:45.66 森林抽抽乐普通版 发现 7 个任务
+26日 23:12:45.67 森林抽抽乐普通版 任务: 邀请好友助力得机会 [FOREST_NORMAL_DRAW_SHARE] 状态: TODO 进度: 0/2
+26日 23:12:45.68 森林抽抽乐普通版 已屏蔽任务，跳过：邀请好友助力得机会
+26日 23:12:45.70 森林抽抽乐普通版 任务: 每日签到 [FOREST_NORMAL_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
+26日 23:12:45.72 森林抽抽乐普通版 任务: 消耗活力值得机会 [NORMAL_DRAW_EXCHANGE_VITALITY] 状态: RECEIVED 进度: 2/2
+26日 23:12:45.79 森林抽抽乐普通版 任务: 去森林市集逛一逛 [FOREST_NORMAL_DRAW_XLIGHT_1] 状态: RECEIVED 进度: 2/2
+26日 23:12:45.82 森林抽抽乐普通版 任务: 去物种集卡得机会 [FOREST_NORMAL_DRAW_ANTTODO] 状态: RECEIVED 进度: 1/1
+26日 23:12:45.84 森林抽抽乐普通版 任务: 玩一玩森林救援队 [FOREST_NORMAL_DRAW_SLJYD] 状态: RECEIVED 进度: 1/1
+26日 23:12:45.85 森林抽抽乐普通版 任务: 去得故宫限定版皮肤 [FOREST_NORMAL_DRAW_XBDL] 状态: RECEIVED 进度: 1/1
+26日 23:12:45.87 森林抽抽乐普通版 开始处理抽奖
+26日 23:12:45.89 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
+26日 23:12:46.21 森林抽抽乐普通版 剩余抽奖次数：0/87
+26日 23:12:47.57 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:12:49.25 开始处理：森林抽抽乐活动版 (ActivityId: 20251024, SceneCode: ANTFOREST_ACTIVITY_DRAW)
+26日 23:12:49.26 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
+26日 23:12:49.60 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
+26日 23:12:49.61 森林抽抽乐活动版 第 1 轮任务处理开始
+26日 23:12:49.62 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_ACTIVITY_DRAW_TASK, source: task_entry
+26日 23:12:49.65 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
+26日 23:12:49.65 [AlarmManager]: ✅ AlarmScheduler清理完成
+26日 23:12:49.66 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:12:49.83 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 23:12:49.83 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 23:12:49.84 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc50-beta-debug
+26日 23:12:49.84 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 23:12:49.84 [ApplicationHook]: 📶网络类型：WIFI
+26日 23:12:49.85 [ApplicationHook]: 👤用户ID：2088942482497175
+26日 23:12:49.85 [ApplicationHook]: 🕐初始化时间：26日23:12:49
+26日 23:12:49.86 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:12:49.86 [Config]: 开始加载配置
+26日 23:12:49.87 [Config]: 加载配置: 風
+26日 23:12:50.12 森林抽抽乐活动版 发现 4 个任务
+26日 23:12:50.12 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
+26日 23:12:50.13 森林抽抽乐活动版 任务: 邀请好友助力得机会 [FOREST_ACTIVITY_DRAW_SHARE] 状态: TODO 进度: 0/1
+26日 23:12:50.14 森林抽抽乐活动版 已屏蔽任务，跳过：邀请好友助力得机会
+26日 23:12:50.14 森林抽抽乐活动版 任务: 每日签到 [FOREST_ACTIVITY_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
+26日 23:12:50.14 [Config]: 格式化配置: 風
+26日 23:12:50.14 森林抽抽乐活动版 任务: 去森林市集逛一逛 [FOREST_ACTIVITY_DRAW_XLIGHT_2] 状态: RECEIVED 进度: 1/1
+26日 23:12:50.15 森林抽抽乐活动版 任务: 玩一玩森林小车车 [FOREST_ACTIVITY_DRAW_SLXCC] 状态: RECEIVED 进度: 1/1
+26日 23:12:50.15 森林抽抽乐活动版 开始处理抽奖
+26日 23:12:50.16 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
+26日 23:12:50.16 ApplicationHook.rpcBridge 为空，等待5秒
+26日 23:12:50.17 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 23:12:50.18 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 23:12:50.18 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 23:12:50.19 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 23:12:50.19 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 23:12:50.20 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 23:12:50.20 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 23:12:50.21 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 23:12:50.21 [AntForest]: 查询间隔成功创建区间限制
+26日 23:12:50.21 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 23:12:50.22 [AntForest]: 收取间隔成功创建区间限制
+26日 23:12:50.22 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 23:12:50.22 [AntForest]: 双击间隔成功创建区间限制
+26日 23:12:50.23 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 23:12:50.23 [AntForestRpcCall]: 使用API版本: 20250813
+26日 23:12:50.23 [EnergyWaitingManager]: 已设置能量收取回调
+26日 23:12:50.51 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 23:12:50.53 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 23:12:50.55 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:12:50.61 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:12:54.05 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行20秒
+26日 23:12:55.36 森林抽抽乐活动版 剩余抽奖次数：0/10
+26日 23:12:58.38 [AntForest]: ========================
+抽抽乐 耗时: 13763 ms
+26日 23:12:58.39 [AntForest]: ========================
+AntForest 耗时: 24383 ms ()
+26日 23:12:58.39 [AntForest]: ==================================================
+26日 23:12:58.40 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
+26日 23:12:58.40 [AntForest]: ⏱️ 主任务耗时: 24秒 (24402ms)
+26日 23:12:58.40 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
+26日 23:12:58.40 [AntForest]: ⏰ 后台蹲点任务: 4 个 (将在指定时间自动收取)
+26日 23:12:58.41 [AntForest]: 📋 蹲点任务状态 (4个，显示最近3个):
+  - [小凡|*立超] 球[5207080798] 剩余58分40秒 → 27日00:11:39
+  - [小凡|*立超] 球[5207080854] 剩余58分41秒 → 27日00:11:40
+  - [風|*立超] 球[5207226818] 剩余115分31秒 → 27日01:08:30
   ... 还有1个任务
-26日 22:56:49.96 [AntForest]: ==================================================
-26日 22:56:49.97 [ModelTask]: 任务 森林 完成，总耗时: 28317ms
-26日 22:56:49.97 [ModelTask]: 任务执行统计 - 总耗时: 28316ms, 成功: 1, 失败: 0, 跳过: 0
-26日 22:56:49.98 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 28379ms
-26日 22:56:49.98 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 28393ms
-26日 22:56:49.99 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/6 - 庄园
-26日 22:56:49.99 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
-26日 22:56:49.99 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
-26日 22:56:50.00 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 7ms
-26日 22:56:50.00 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 12ms
-26日 22:56:50.01 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/6 - 农场
-26日 22:56:50.01 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
-26日 22:56:50.02 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
-26日 22:56:50.02 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 11ms
-26日 22:56:50.03 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 18ms
-26日 22:56:50.03 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/6 - 新村
-26日 22:56:50.04 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
-26日 22:56:50.04 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
-26日 22:56:50.05 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 12ms
-26日 22:56:50.06 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 20ms
-26日 22:56:50.06 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/6 - 神奇物种
-26日 22:56:50.07 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
-26日 22:56:50.07 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
-26日 22:56:50.08 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 8ms
-26日 22:56:50.08 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 16ms
-26日 22:56:50.09 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/6 - 运动
-26日 22:56:50.09 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
-26日 22:56:50.09 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
-26日 22:56:50.10 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 6ms
-26日 22:56:50.11 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 18ms
-26日 22:56:50.11 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 28527ms
-26日 22:56:50.12 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
-26日 22:56:50.12 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 5ms
-26日 22:56:50.12 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
-26日 22:56:50.13 [CoroutineTaskRunner]: 🕐 执行时间: 28543ms (28.5秒)
-26日 22:56:50.13 [CoroutineTaskRunner]: 📅 下次执行: 26日23:59:00
-26日 22:56:50.13 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
-26日 22:56:50.14 [CoroutineTaskRunner]: ✅ 成功任务: 6
-26日 22:56:50.14 [CoroutineTaskRunner]: ❌ 失败任务: 0
-26日 22:56:50.14 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
-26日 22:56:50.15 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
-26日 22:56:50.15 [CoroutineTaskRunner]: 📊 成功率: 100.0%
-26日 22:56:50.16 [CoroutineTaskRunner]: ================================
-26日 22:56:58.15 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=0, 完成任务=0, 取消任务=0
-26日 22:56:58.15 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了0个备份任务)
-26日 22:56:58.16 [AlarmManager]: ✅ AlarmScheduler清理完成
-26日 22:56:58.16 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:56:58.26 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
-26日 22:56:58.26 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-26日 22:56:58.26 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc49-beta-debug
-26日 22:56:58.27 [ApplicationHook]: 📦应用版本：10.7.86.8000
-26日 22:56:58.27 [ApplicationHook]: 📶网络类型：WIFI
-26日 22:56:58.28 [ApplicationHook]: 👤用户ID：2088942482497175
-26日 22:56:58.28 [ApplicationHook]: 🕐初始化时间：26日22:56:58
-26日 22:56:58.28 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:56:58.28 [Config]: 开始加载配置
-26日 22:56:58.29 [Config]: 加载配置: 風
-26日 22:56:58.45 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:56:58.50 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-26日 22:56:58.51 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-26日 22:56:58.51 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-26日 22:56:58.52 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-26日 22:56:58.52 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-26日 22:56:58.53 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-26日 22:56:58.53 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
-26日 22:56:58.53 [AntForest]: 查询间隔原始设置值: [500-800]
-26日 22:56:58.53 [AntForest]: 查询间隔成功创建区间限制
-26日 22:56:58.54 [AntForest]: 收取间隔原始设置值: [500-800]
-26日 22:56:58.54 [AntForest]: 收取间隔成功创建区间限制
-26日 22:56:58.54 [AntForest]: 双击间隔原始设置值: [50-150]
-26日 22:56:58.55 [AntForest]: 双击间隔成功创建区间限制
-26日 22:56:58.55 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
-26日 22:56:58.55 [AntForestRpcCall]: 使用API版本: 20250813
-26日 22:56:58.56 [EnergyWaitingManager]: 已设置能量收取回调
-26日 22:56:58.75 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
-26日 22:56:58.76 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
-26日 22:56:58.76 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:56:58.79 [ApplicationHook]: 手动APP触发，已关闭
-26日 22:59:18.78 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:59:19.69 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
-26日 22:59:19.69 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-26日 22:59:19.69 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc17-beta
-26日 22:59:19.69 [ApplicationHook]: 📦应用版本：10.7.86.8000
-26日 22:59:19.69 [ApplicationHook]: 📶网络类型：WIFI
-26日 22:59:19.70 [ApplicationHook]: 👤用户ID：2088942482497175
-26日 22:59:19.70 [ApplicationHook]: 🕐初始化时间：26日22:59:19
-26日 22:59:19.70 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:59:19.70 [Config]: 开始加载配置
-26日 22:59:19.71 [Config]: 加载配置: 風
-26日 22:59:19.79 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:59:19.83 [Config]: 格式化配置: 風
-26日 22:59:19.95 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:59:20.24 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-26日 22:59:20.36 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-26日 22:59:20.48 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-26日 22:59:20.60 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-26日 22:59:20.77 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-26日 22:59:20.90 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-26日 22:59:21.04 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
-26日 22:59:21.32 [AntForest]: 查询间隔原始设置值: [500-800]
-26日 22:59:21.45 [AntForest]: 查询间隔成功创建区间限制
-26日 22:59:21.59 [AntForest]: 收取间隔原始设置值: [500-800]
-26日 22:59:21.72 [AntForest]: 收取间隔成功创建区间限制
-26日 22:59:21.85 [AntForest]: 双击间隔原始设置值: [50-150]
-26日 22:59:21.94 [AntForest]: 双击间隔成功创建区间限制
-26日 22:59:21.98 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
-26日 22:59:21.98 [AntForestRpcCall]: 使用API版本: 20250813
-26日 22:59:22.00 [EnergyWaitingManager]: 精确能量球蹲点管理器已初始化（支持持久化）
-26日 22:59:22.00 [EnergyWaitingManager]: 已设置能量收取回调
-26日 22:59:22.31 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
-26日 22:59:22.32 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
-26日 22:59:22.32 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:59:22.34 [ApplicationHook]: ▶️ 首次手动触发，开始运行
-26日 22:59:22.34 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
-26日 22:59:22.35 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
-26日 22:59:22.35 [ApplicationHook]: 设置定时执行:2359
-26日 22:59:22.35 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共6个启用任务
-26日 22:59:22.35 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/6 - 森林
-26日 22:59:22.35 [AlarmScheduler]: 已设置多重保护闹钟: ID=2, 预定时间=23:59:00
-26日 22:59:22.36 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
-26日 22:59:22.36 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
-26日 22:59:22.36 [AlarmScheduler]: ⏰ 下次执行(Alarm) 23:59:00
-26日 22:59:22.38 [ModelTask]: 开始执行第1轮任务: 森林
-26日 22:59:22.39 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
-26日 22:59:22.39 [AntForest]: 任务计数器已重置
-26日 22:59:22.39 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
-26日 22:59:22.40 [AlarmManager]: ⏰ 精确执行调度成功: 延迟3577659ms
-26日 22:59:22.40 [AntForest]: 执行开始-蚂蚁森林
-26日 22:59:22.68 [AntForest]: ========================
-查询道具状态 耗时: 267 ms
-26日 22:59:22.74 [AntForest]: ========================
-使用自己道具卡 耗时: 26 ms
-26日 22:59:22.76 [AntForest]: 开始处理PK排行榜...
-26日 22:59:22.90 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
-26日 22:59:22.90 [AntForest]: ========================
-获取PK排行榜 耗时: 137 ms
-26日 22:59:22.92 [AntForest]: ========================
-收PK好友能量（同步） 耗时: 222 ms
-26日 22:59:22.93 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
-26日 22:59:23.15 [AntForest]: ========================
-获取自己主页对象信息 耗时: 222 ms
-26日 22:59:23.17 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226818]在[27日01:08:30]成熟(等待129分钟)
-26日 22:59:23.20 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待129分钟(能量成熟→27日01:08:30)
-26日 22:59:23.25 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226854]在[27日01:08:31]成熟(等待129分钟)
-26日 22:59:23.29 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待129分钟(能量成熟→27日01:08:31)
-26日 22:59:23.66 [AntForest]: ✅ 【正常流程】收取自己的能量完成
-26日 22:59:23.79 [AntForest]: ========================
-收取自己的能量 耗时: 561 ms
-26日 22:59:24.01 [AntForest]: 开始使用找能量功能收取好友能量
-26日 22:59:24.86 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:59:24.88 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:59:25.48 [AntForest]: 第3次找能量没有发现新好友，继续尝试:{}
-26日 22:59:25.62 [AntForest]: 连续3次未发现新好友，提前结束找能量，休息15分钟
-26日 22:59:25.77 [AntForest]: ========================
-找能量收取完成 耗时: 1740 ms
-26日 22:59:25.92 [AntForest]: 找能量功能完成，共发现 0 个好友
-26日 22:59:26.03 [AntForest]: ========================
-找能量收取（协程） 耗时: 2265 ms
-26日 22:59:26.15 [AntForest]: 开始处理好友排行榜...
-26日 22:59:26.62 [AntForest]: 成功获取好友排行榜数据，共发现6位好友。
-26日 22:59:26.63 [AntForest]: ========================
-获取好友排行榜 耗时: 446 ms
-26日 22:59:26.63 [AntForest]: 开始处理好友排行榜前20位好友...
-26日 22:59:26.65 [AntForest]: 📋 开始处理6个好友排行榜前20位（并发数:60）
-26日 22:59:26.69 [AntForest]: 👥 青玄| | 惠琴|*惠琴 | 𓆉|*昆 | 小凡|*立超 | 機風| | 風|*立超
-26日 22:59:27.77 [EnergyWaitingPersistence]: 📥 从持久化存储恢复2个有效任务（跳过0个过期，0个过旧）
-26日 22:59:27.79 [EnergyWaitingManager]: 🔄 从持久化存储恢复2个蹲点任务...
-26日 22:59:27.82 [EnergyWaitingPersistence]: 🔄 开始验证2个恢复的蹲点任务...
-26日 22:59:27.96 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718132]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
-26日 22:59:27.97 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080798]在[27日00:11:39]成熟(等待72分钟)
-26日 22:59:27.97 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718174]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
-26日 22:59:27.98 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080854]在[27日00:11:40]成熟(等待72分钟)
-26日 22:59:27.99 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待72分钟(能量成熟→27日00:11:39)
-26日 22:59:28.00 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待72分钟(能量成熟→27日00:11:40)
-26日 22:59:29.13 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时2429ms，平均404ms/人
-26日 22:59:29.13 [AntForest]: ========================
-处理好友排行榜靠前的好友 耗时: 2510 ms
-26日 22:59:29.14 [AntForest]: 好友排行榜没有更多的好友需要处理，跳过
-26日 22:59:29.15 [AntForest]: ========================
-收取好友能量（同步） 耗时: 3181 ms
-26日 22:59:29.18 [AntForest]: ========================
-收取道具 耗时: 14 ms
-26日 22:59:31.04 [EnergyWaitingPersistence]: ✅ 恢复完成：成功0个，跳过2个
-26日 22:59:31.06 [AntForest]: ========================
-动物巡护任务 耗时: 1892 ms
-26日 22:59:31.06 已经有动物伙伴在巡护森林~
-26日 22:59:31.07 [AntForest]: ========================
-收取动物派遣能量 耗时: 14 ms
-26日 22:59:31.49 [AntForest]: ========================
-合成动物碎片 耗时: 422 ms
-26日 22:59:32.14 [AntForest]: ========================
-森林任务 耗时: 644 ms
-26日 22:59:32.39 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
-26日 22:59:32.64 [Config]: 开始加载配置
-26日 22:59:32.64 [Config]: 加载配置: 風
-26日 22:59:32.68 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:59:34.14 [AntForest]: ========================
-绿色行动 耗时: 1990 ms
-26日 22:59:34.15 [AntForest]: ========================
-给好友浇水 耗时: 22 ms
-26日 22:59:34.27 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:59:35.66 [AntForest]: ========================
-能量雨 耗时: 1504 ms
-26日 22:59:36.47 [AntForest]: ========================
-森林集市 耗时: 812 ms
-26日 22:59:36.88 [AntForest]: ========================
-绿色医疗 耗时: 415 ms
-26日 22:59:37.13 [AntForest]: ========================
-电子小票 耗时: 247 ms
-26日 22:59:37.14 开始处理森林抽抽乐
-26日 22:59:37.14 开始处理：森林抽抽乐普通版 (ActivityId: 2025101301, SceneCode: ANTFOREST_NORMAL_DRAW)
-26日 22:59:37.15 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
-26日 22:59:37.64 森林抽抽乐普通版 第 1 轮任务处理开始
-26日 22:59:37.64 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_NORMAL_DRAW_TASK, source: task_entry
-26日 22:59:37.84 森林抽抽乐普通版 发现 7 个任务
-26日 22:59:37.84 森林抽抽乐普通版 任务: 邀请好友助力得机会 [FOREST_NORMAL_DRAW_SHARE] 状态: TODO 进度: 0/2
-26日 22:59:37.85 森林抽抽乐普通版 已屏蔽任务，跳过：邀请好友助力得机会
-26日 22:59:37.85 森林抽抽乐普通版 任务: 每日签到 [FOREST_NORMAL_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
-26日 22:59:37.86 森林抽抽乐普通版 任务: 消耗活力值得机会 [NORMAL_DRAW_EXCHANGE_VITALITY] 状态: RECEIVED 进度: 2/2
-26日 22:59:37.86 森林抽抽乐普通版 任务: 去森林市集逛一逛 [FOREST_NORMAL_DRAW_XLIGHT_1] 状态: RECEIVED 进度: 2/2
-26日 22:59:37.86 森林抽抽乐普通版 任务: 去物种集卡得机会 [FOREST_NORMAL_DRAW_ANTTODO] 状态: RECEIVED 进度: 1/1
-26日 22:59:37.86 森林抽抽乐普通版 任务: 玩一玩森林救援队 [FOREST_NORMAL_DRAW_SLJYD] 状态: RECEIVED 进度: 1/1
-26日 22:59:37.87 森林抽抽乐普通版 任务: 去得故宫限定版皮肤 [FOREST_NORMAL_DRAW_XBDL] 状态: RECEIVED 进度: 1/1
-26日 22:59:37.88 森林抽抽乐普通版 开始处理抽奖
-26日 22:59:37.88 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
-26日 22:59:38.35 森林抽抽乐普通版 剩余抽奖次数：0/87
-26日 22:59:41.38 开始处理：森林抽抽乐活动版 (ActivityId: 20251024, SceneCode: ANTFOREST_ACTIVITY_DRAW)
-26日 22:59:41.39 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
-26日 22:59:41.61 森林抽抽乐活动版 第 1 轮任务处理开始
-26日 22:59:41.61 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_ACTIVITY_DRAW_TASK, source: task_entry
-26日 22:59:42.06 森林抽抽乐活动版 发现 4 个任务
-26日 22:59:42.06 森林抽抽乐活动版 任务: 邀请好友助力得机会 [FOREST_ACTIVITY_DRAW_SHARE] 状态: TODO 进度: 0/1
-26日 22:59:42.07 森林抽抽乐活动版 已屏蔽任务，跳过：邀请好友助力得机会
-26日 22:59:42.07 森林抽抽乐活动版 任务: 每日签到 [FOREST_ACTIVITY_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
-26日 22:59:42.07 森林抽抽乐活动版 任务: 去森林市集逛一逛 [FOREST_ACTIVITY_DRAW_XLIGHT_2] 状态: RECEIVED 进度: 1/1
-26日 22:59:42.07 森林抽抽乐活动版 任务: 玩一玩森林小车车 [FOREST_ACTIVITY_DRAW_SLXCC] 状态: RECEIVED 进度: 1/1
-26日 22:59:42.08 森林抽抽乐活动版 开始处理抽奖
-26日 22:59:42.08 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
-26日 22:59:42.31 森林抽抽乐活动版 剩余抽奖次数：0/10
-26日 22:59:42.46 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行20秒
-26日 22:59:45.31 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
-26日 22:59:45.32 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
-26日 22:59:45.32 [AlarmManager]: ✅ AlarmScheduler清理完成
-26日 22:59:45.32 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 22:59:45.33 [AntForest]: ========================
-抽抽乐 耗时: 8210 ms
-26日 22:59:45.34 [AntForest]: ========================
-AntForest 耗时: 22934 ms ()
-26日 22:59:45.34 [AntForest]: ==================================================
-26日 22:59:45.34 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
-26日 22:59:45.35 [AntForest]: ⏱️ 主任务耗时: 22秒 (22954ms)
-26日 22:59:45.35 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
-26日 22:59:45.35 [AntForest]: ⏰ 后台蹲点任务: 4 个 (将在指定时间自动收取)
-26日 22:59:45.35 [AntForest]: 📋 蹲点任务状态 (4个，显示最近3个):
-  - [小凡|*立超] 球[5207080798] 剩余71分53秒 → 27日00:11:39
-  - [小凡|*立超] 球[5207080854] 剩余71分54秒 → 27日00:11:40
-  - [風|*立超] 球[5207226818] 剩余128分44秒 → 27日01:08:30
-  ... 还有1个任务
-26日 22:59:45.36 [AntForest]: ==================================================
-26日 22:59:45.36 [ModelTask]: 任务 森林 完成，总耗时: 22979ms
-26日 22:59:45.36 [ModelTask]: 任务执行统计 - 总耗时: 22979ms, 成功: 1, 失败: 0, 跳过: 0
-26日 22:59:45.36 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 23004ms
-26日 22:59:45.37 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 23014ms
-26日 22:59:45.37 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/6 - 庄园
-26日 22:59:45.37 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
-26日 22:59:45.38 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
-26日 22:59:45.39 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 11ms
-26日 22:59:45.39 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 19ms
-26日 22:59:45.40 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/6 - 农场
-26日 22:59:45.41 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
-26日 22:59:45.41 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
-26日 22:59:45.42 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 5ms
-26日 22:59:45.42 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 21ms
-26日 22:59:45.44 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/6 - 新村
-26日 22:59:45.45 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
-26日 22:59:45.45 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
-26日 22:59:45.46 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 6ms
-26日 22:59:45.46 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 10ms
-26日 22:59:45.47 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/6 - 神奇物种
-26日 22:59:45.47 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
-26日 22:59:45.48 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
-26日 22:59:45.48 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 4ms
-26日 22:59:45.49 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 13ms
-26日 22:59:45.49 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/6 - 运动
-26日 22:59:45.49 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
-26日 22:59:45.50 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
-26日 22:59:45.51 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 10ms
-26日 22:59:45.51 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 15ms
-26日 22:59:45.52 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 23166ms
-26日 22:59:45.52 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
-26日 22:59:45.52 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 2ms
-26日 22:59:45.52 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
-26日 22:59:45.53 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
-26日 22:59:45.53 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-26日 22:59:45.53 [CoroutineTaskRunner]: 🕐 执行时间: 23180ms (23.2秒)
-26日 22:59:45.53 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc17-beta
-26日 22:59:45.53 [CoroutineTaskRunner]: 📅 下次执行: 26日23:59:00
-26日 22:59:45.53 [ApplicationHook]: 📦应用版本：10.7.86.8000
-26日 22:59:45.54 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
-26日 22:59:45.54 [CoroutineTaskRunner]: ✅ 成功任务: 6
-26日 22:59:45.55 [ApplicationHook]: 📶网络类型：WIFI
-26日 22:59:45.55 [CoroutineTaskRunner]: ❌ 失败任务: 0
-26日 22:59:45.55 [ApplicationHook]: 👤用户ID：2088942482497175
-26日 22:59:45.55 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
-26日 22:59:45.56 [ApplicationHook]: 🕐初始化时间：26日22:59:45
-26日 22:59:45.56 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
-26日 22:59:45.56 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:59:45.56 [CoroutineTaskRunner]: 📊 成功率: 100.0%
-26日 22:59:45.56 [Config]: 开始加载配置
-26日 22:59:45.56 [CoroutineTaskRunner]: ================================
-26日 22:59:45.56 [Config]: 加载配置: 風
-26日 22:59:45.78 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 22:59:45.80 [Config]: 格式化配置: 風
-26日 22:59:45.83 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-26日 22:59:45.83 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-26日 22:59:45.83 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-26日 22:59:45.84 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-26日 22:59:45.84 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-26日 22:59:45.85 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-26日 22:59:45.85 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
-26日 22:59:45.85 [AntForest]: 查询间隔原始设置值: [500-800]
-26日 22:59:45.86 [AntForest]: 查询间隔成功创建区间限制
-26日 22:59:45.86 [AntForest]: 收取间隔原始设置值: [500-800]
-26日 22:59:45.86 [AntForest]: 收取间隔成功创建区间限制
-26日 22:59:45.86 [AntForest]: 双击间隔原始设置值: [50-150]
-26日 22:59:45.87 [AntForest]: 双击间隔成功创建区间限制
-26日 22:59:45.87 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
-26日 22:59:45.87 [AntForestRpcCall]: 使用API版本: 20250813
-26日 22:59:45.87 [EnergyWaitingManager]: 已设置能量收取回调
-26日 22:59:46.07 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
-26日 22:59:46.08 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
-26日 22:59:46.09 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-26日 22:59:46.14 [ApplicationHook]: 手动APP触发，已关闭
-26日 23:00:44.65 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 23:00:45.63 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-26日 23:00:45.63 [ApplicationHook]: ⚙️模块版本：v0.2.8.魔改版rc2949-beta
-26日 23:00:45.63 [ApplicationHook]: 📦应用版本：
-26日 23:00:45.64 [ApplicationHook]: 📶网络类型：WIFI
-26日 23:00:45.64 [Config]: 开始加载配置
-26日 23:00:45.64 [Config]: 加载配置: 風
-26日 23:00:45.69 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 23:00:45.74 [Config]: 格式化配置: 風
-26日 23:00:45.78 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-26日 23:00:45.79 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-26日 23:00:45.80 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-26日 23:00:45.81 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-26日 23:00:45.82 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-26日 23:00:45.82 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-26日 23:00:45.82 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
-26日 23:00:45.87 [AntForest]: 查询间隔原始设置值: [500-800]
-26日 23:00:45.88 [AntForest]: 查询间隔成功创建区间限制
-26日 23:00:45.88 [AntForest]: 收取间隔原始设置值: [500-800]
-26日 23:00:45.88 [AntForest]: 收取间隔成功创建区间限制
-26日 23:00:45.89 [AntForest]: 双击间隔原始设置值: [50-150]
-26日 23:00:45.89 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 23:00:45.89 [AntForest]: 双击间隔成功创建区间限制
-26日 23:00:45.89 [AntForestRpcCall]: 当前支付宝版本: 
-26日 23:00:45.89 [AntForestRpcCall]: 使用API版本: 20250813
-26日 23:00:45.90 [EnergyWaitingManager]: 精确能量球蹲点管理器已初始化（支持持久化）
-26日 23:00:45.91 [EnergyWaitingManager]: 已设置能量收取回调
-26日 23:00:46.03 芝麻粒-TK 加载成功✨
-26日 23:00:46.05 [ApplicationHook]: ▶️ 首次手动触发，开始运行
-26日 23:00:46.06 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
-26日 23:00:46.07 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
-26日 23:00:46.07 [ApplicationHook]: 设置定时执行:2359
-26日 23:00:46.08 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共6个启用任务
-26日 23:00:46.09 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/6 - 森林
-26日 23:00:46.09 [AlarmScheduler]: 已设置多重保护闹钟: ID=1, 预定时间=23:59:00
-26日 23:00:46.10 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
-26日 23:00:46.11 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
-26日 23:00:46.12 [AlarmScheduler]: ⏰ 下次执行(Alarm) 23:59:00
-26日 23:00:46.17 [ModelTask]: 开始执行第1轮任务: 森林
-26日 23:00:46.17 [AlarmManager]: ⏰ 精确执行调度成功: 延迟3493943ms
-26日 23:00:46.17 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
-26日 23:00:46.18 [AntForest]: 任务计数器已重置
-26日 23:00:46.18 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
-26日 23:00:46.19 [AntForest]: 执行开始-蚂蚁森林
-26日 23:00:46.54 [AntForest]: ========================
-查询道具状态 耗时: 337 ms
-26日 23:00:46.56 [AntForest]: ========================
-使用自己道具卡 耗时: 32 ms
-26日 23:00:46.59 [AntForest]: 开始处理PK排行榜...
-26日 23:00:46.73 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
-26日 23:00:46.73 [AntForest]: ========================
-获取PK排行榜 耗时: 142 ms
-26日 23:00:46.75 [AntForest]: ========================
-收PK好友能量（同步） 耗时: 181 ms
-26日 23:00:46.75 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
-26日 23:00:46.99 [AntForest]: ========================
-获取自己主页对象信息 耗时: 244 ms
-26日 23:00:47.00 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226818]在[27日01:08:30]成熟(等待127分钟)
-26日 23:00:47.03 [AntForest]: ✅ 【正常流程】收取自己的能量完成
-26日 23:00:47.04 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待127分钟(能量成熟→27日01:08:30)
-26日 23:00:47.04 [AntForest]: ========================
-收取自己的能量 耗时: 51 ms
-26日 23:00:47.05 [EnergyWaitingManager]: 添加蹲点：[⭐️主号|蹲点收取|風|*立超]球[5207226854]在[27日01:08:31]成熟(等待127分钟)
-26日 23:00:47.05 [AntForest]: 开始使用找能量功能收取好友能量
-26日 23:00:47.06 [EnergyWaitingManager]: 🕐 蹲点[⭐️主号|風|*立超]等待127分钟(能量成熟→27日01:08:31)
-26日 23:00:48.47 [AntForest]: 第3次找能量没有发现新好友，继续尝试:{}
-26日 23:00:48.48 [AntForest]: 连续3次未发现新好友，提前结束找能量，休息15分钟
-26日 23:00:48.49 [AntForest]: ========================
-找能量收取完成 耗时: 1444 ms
-26日 23:00:48.51 [AntForest]: 找能量功能完成，共发现 0 个好友
-26日 23:00:48.52 [AntForest]: ========================
-找能量收取（协程） 耗时: 1483 ms
-26日 23:00:48.56 [AntForest]: 开始处理好友排行榜...
-26日 23:00:48.60 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 23:00:48.61 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 23:00:48.88 [AntForest]: 成功获取好友排行榜数据，共发现6位好友。
-26日 23:00:48.89 [AntForest]: ========================
-获取好友排行榜 耗时: 319 ms
-26日 23:00:48.89 [AntForest]: 开始处理好友排行榜前20位好友...
-26日 23:00:48.90 [AntForest]: 📋 开始处理6个好友排行榜前20位（并发数:60）
-26日 23:00:48.90 [AntForest]: 👥 青玄| | 惠琴|*惠琴 | 𓆉|*昆 | 小凡|*立超 | 機風| | 風|*立超
-26日 23:00:49.65 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080798]在[27日00:11:39]成熟(等待70分钟)
-26日 23:00:49.66 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待70分钟(能量成熟→27日00:11:39)
-26日 23:00:49.67 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080854]在[27日00:11:40]成熟(等待70分钟)
-26日 23:00:49.69 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待70分钟(能量成熟→27日00:11:40)
-26日 23:00:50.15 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718132]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
-26日 23:00:50.16 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718174]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
-26日 23:00:50.61 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时1698ms，平均283ms/人
-26日 23:00:50.61 [AntForest]: ========================
-处理好友排行榜靠前的好友 耗时: 1727 ms
-26日 23:00:50.61 [AntForest]: 好友排行榜没有更多的好友需要处理，跳过
-26日 23:00:50.61 [AntForest]: ========================
-收取好友能量（同步） 耗时: 2096 ms
-26日 23:00:50.62 [AntForest]: ========================
-收取道具 耗时: 3 ms
-26日 23:00:50.95 [EnergyWaitingPersistence]: 📥 从持久化存储恢复4个有效任务（跳过0个过期，0个过旧）
-26日 23:00:50.95 [EnergyWaitingManager]: 🔄 从持久化存储恢复4个蹲点任务...
-26日 23:00:50.95 [EnergyWaitingPersistence]: 🔄 开始验证4个恢复的蹲点任务...
-26日 23:00:51.27 [AntForest]: ========================
-动物巡护任务 耗时: 654 ms
-26日 23:00:51.27 已经有动物伙伴在巡护森林~
-26日 23:00:51.28 [AntForest]: ========================
-收取动物派遣能量 耗时: 7 ms
-26日 23:00:51.39 [AntForest]: ========================
-合成动物碎片 耗时: 112 ms
-26日 23:00:51.99 [AntForest]: ========================
-森林任务 耗时: 596 ms
-26日 23:00:52.57 [AntForest]: ========================
-绿色行动 耗时: 581 ms
-26日 23:00:52.57 [AntForest]: ========================
-给好友浇水 耗时: 4 ms
-26日 23:00:52.75 [EnergyWaitingPersistence]: ✅ 恢复完成：成功0个，跳过4个
-26日 23:00:53.17 [AntForest]: ========================
-能量雨 耗时: 599 ms
-26日 23:00:53.75 [AntForest]: ========================
-森林集市 耗时: 584 ms
-26日 23:00:54.16 [AntForest]: ========================
-绿色医疗 耗时: 406 ms
-26日 23:00:54.36 [AntForest]: ========================
-电子小票 耗时: 203 ms
-26日 23:00:54.37 开始处理森林抽抽乐
-26日 23:00:54.37 开始处理：森林抽抽乐普通版 (ActivityId: 2025101301, SceneCode: ANTFOREST_NORMAL_DRAW)
-26日 23:00:54.38 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
-26日 23:00:54.79 森林抽抽乐普通版 第 1 轮任务处理开始
-26日 23:00:54.79 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_NORMAL_DRAW_TASK, source: task_entry
-26日 23:00:54.97 森林抽抽乐普通版 发现 7 个任务
-26日 23:00:54.97 森林抽抽乐普通版 任务: 邀请好友助力得机会 [FOREST_NORMAL_DRAW_SHARE] 状态: TODO 进度: 0/2
-26日 23:00:54.97 森林抽抽乐普通版 已屏蔽任务，跳过：邀请好友助力得机会
-26日 23:00:54.98 森林抽抽乐普通版 任务: 每日签到 [FOREST_NORMAL_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
-26日 23:00:54.98 森林抽抽乐普通版 任务: 消耗活力值得机会 [NORMAL_DRAW_EXCHANGE_VITALITY] 状态: RECEIVED 进度: 2/2
-26日 23:00:54.98 森林抽抽乐普通版 任务: 去森林市集逛一逛 [FOREST_NORMAL_DRAW_XLIGHT_1] 状态: RECEIVED 进度: 2/2
-26日 23:00:54.98 森林抽抽乐普通版 任务: 去物种集卡得机会 [FOREST_NORMAL_DRAW_ANTTODO] 状态: RECEIVED 进度: 1/1
-26日 23:00:54.99 森林抽抽乐普通版 任务: 玩一玩森林救援队 [FOREST_NORMAL_DRAW_SLJYD] 状态: RECEIVED 进度: 1/1
-26日 23:00:54.99 森林抽抽乐普通版 任务: 去得故宫限定版皮肤 [FOREST_NORMAL_DRAW_XBDL] 状态: RECEIVED 进度: 1/1
-26日 23:00:54.99 森林抽抽乐普通版 开始处理抽奖
-26日 23:00:54.99 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
-26日 23:00:55.40 森林抽抽乐普通版 剩余抽奖次数：0/87
-26日 23:00:56.12 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
-26日 23:00:58.40 开始处理：森林抽抽乐活动版 (ActivityId: 20251024, SceneCode: ANTFOREST_ACTIVITY_DRAW)
-26日 23:00:58.41 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
-26日 23:00:58.54 森林抽抽乐活动版 第 1 轮任务处理开始
-26日 23:00:58.54 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_ACTIVITY_DRAW_TASK, source: task_entry
-26日 23:00:59.03 森林抽抽乐活动版 发现 4 个任务
-26日 23:00:59.03 森林抽抽乐活动版 任务: 邀请好友助力得机会 [FOREST_ACTIVITY_DRAW_SHARE] 状态: TODO 进度: 0/1
-26日 23:00:59.03 森林抽抽乐活动版 已屏蔽任务，跳过：邀请好友助力得机会
-26日 23:00:59.04 森林抽抽乐活动版 任务: 每日签到 [FOREST_ACTIVITY_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
-26日 23:00:59.04 森林抽抽乐活动版 任务: 去森林市集逛一逛 [FOREST_ACTIVITY_DRAW_XLIGHT_2] 状态: RECEIVED 进度: 1/1
-26日 23:00:59.04 森林抽抽乐活动版 任务: 玩一玩森林小车车 [FOREST_ACTIVITY_DRAW_SLXCC] 状态: RECEIVED 进度: 1/1
-26日 23:00:59.05 森林抽抽乐活动版 开始处理抽奖
-26日 23:00:59.05 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
-26日 23:00:59.20 森林抽抽乐活动版 剩余抽奖次数：0/10
-26日 23:01:02.20 [AntForest]: ========================
-抽抽乐 耗时: 7838 ms
-26日 23:01:02.21 [AntForest]: ========================
-AntForest 耗时: 16015 ms ()
-26日 23:01:02.21 [AntForest]: ==================================================
-26日 23:01:02.21 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
-26日 23:01:02.21 [AntForest]: ⏱️ 主任务耗时: 16秒 (16037ms)
-26日 23:01:02.22 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
-26日 23:01:02.22 [AntForest]: ⏰ 后台蹲点任务: 4 个 (将在指定时间自动收取)
-26日 23:01:02.22 [AntForest]: 📋 蹲点任务状态 (4个，显示最近3个):
-  - [小凡|*立超] 球[5207080798] 剩余70分36秒 → 27日00:11:39
-  - [小凡|*立超] 球[5207080854] 剩余70分37秒 → 27日00:11:40
-  - [風|*立超] 球[5207226818] 剩余127分27秒 → 27日01:08:30
-  ... 还有1个任务
-26日 23:01:02.22 [AntForest]: ==================================================
-26日 23:01:02.23 [ModelTask]: 任务 森林 完成，总耗时: 16069ms
-26日 23:01:02.23 [ModelTask]: 任务执行统计 - 总耗时: 16068ms, 成功: 1, 失败: 0, 跳过: 0
-26日 23:01:02.24 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 16127ms
-26日 23:01:02.24 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 16149ms
-26日 23:01:02.25 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/6 - 庄园
-26日 23:01:02.25 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
-26日 23:01:02.25 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
-26日 23:01:02.26 [ModelTask]: 开始执行第1轮任务: 庄园
-26日 23:01:02.26 [AntFarm]: 执行开始-蚂蚁庄园
-26日 23:01:02.93 [AntFarm]: ========================
-装载道具信息 耗时: 658 ms
-26日 23:01:02.93 [AntFarm]: ========================
-打赏好友 耗时: 10 ms
-26日 23:01:02.94 [AntFarm]: ========================
-遣返 耗时: 6 ms
-26日 23:01:03.33 [AntFarm]: ========================
-收取道具奖励 耗时: 395 ms
-26日 23:01:06.85 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 23:01:12.21 [AntFarm]: ========================
-游戏改分(星星球、登山赛、飞行赛、揍小鸡) 耗时: 8873 ms
-26日 23:01:12.27 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行10秒
-26日 23:01:13.20 [AntFarm]: ========================
-小鸡厨房 耗时: 996 ms
-26日 23:01:15.56 [AntFarm]: ========================
-小鸡日记 耗时: 2234 ms
-26日 23:01:17.22 [Config]: 开始加载配置
-26日 23:01:17.23 [Config]: 加载配置: 風
-26日 23:01:17.26 [AntFarm]: ========================
-使用新蛋卡 耗时: 1631 ms
-26日 23:01:17.26 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 23:01:20.37 庄园任务🧾[去支付有礼逛一逛]
-26日 23:01:22.35 庄园任务🧾[去闲鱼逛一逛]
-26日 23:01:22.35 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行20秒
-26日 23:01:29.60 [AntFarm]: 执行结束-蚂蚁庄园
-26日 23:01:29.62 [ModelTask]: 任务 庄园 完成，总耗时: 27359ms
-26日 23:01:29.62 [ModelTask]: 任务执行统计 - 总耗时: 27359ms, 成功: 0, 失败: 0, 跳过: 1
-26日 23:01:29.65 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 27381ms
-26日 23:01:29.65 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 27403ms
-26日 23:01:29.66 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/6 - 农场
-26日 23:01:29.66 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
-26日 23:01:29.66 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
-26日 23:01:29.69 [ModelTask]: 开始执行第1轮任务: 农场
-26日 23:01:29.70 [AntOrchard]: 执行开始-农场
-26日 23:01:30.08 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
-26日 23:01:30.24 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
-26日 23:01:30.56 [AlarmManager]: ✅ AlarmScheduler清理完成
-26日 23:01:30.72 请先开启芭芭农场！
-26日 23:01:30.88 [AlarmManager]: ✅ AlarmScheduler初始化成功
-26日 23:01:31.22 [AntOrchard]: 执行结束-农场
-26日 23:01:31.87 [ModelTask]: 任务 农场 完成，总耗时: 2026ms
-26日 23:01:32.20 [ModelTask]: 任务执行统计 - 总耗时: 2026ms, 成功: 1, 失败: 0, 跳过: 0
-26日 23:01:32.20 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-26日 23:01:32.37 [ApplicationHook]: ⚙️模块版本：v0.2.8.魔改版rc2949-beta
-26日 23:01:32.37 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 2704ms
-26日 23:01:32.37 [ApplicationHook]: 📦应用版本：
-26日 23:01:32.37 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 2710ms
-26日 23:01:32.37 [ApplicationHook]: 📶网络类型：WIFI
-26日 23:01:32.37 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/6 - 新村
-26日 23:01:32.37 [Config]: 开始加载配置
-26日 23:01:32.37 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
-26日 23:01:32.38 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
-26日 23:01:32.38 [Config]: 加载配置: 風
-26日 23:01:32.71 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-26日 23:01:32.88 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 170ms
-26日 23:01:32.88 [Config]: 格式化配置: 風
-26日 23:01:33.40 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 685ms
-26日 23:01:33.95 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/6 - 神奇物种
-26日 23:01:34.47 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
-26日 23:01:35.15 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
-26日 23:01:35.84 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-26日 23:01:36.02 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 1025ms
-26日 23:01:36.36 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-26日 23:01:36.53 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 2053ms
-26日 23:01:36.88 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-26日 23:01:37.05 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/6 - 运动
-26日 23:01:37.40 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-26日 23:01:37.57 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
-26日 23:01:37.92 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-26日 23:01:38.09 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
-26日 23:01:38.43 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-26日 23:01:38.43 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 688ms
-26日 23:01:38.95 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
-26日 23:01:39.12 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 1385ms
-26日 23:01:39.64 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 53219ms
-26日 23:01:39.81 [AntForest]: 查询间隔原始设置值: [500-800]
-26日 23:01:40.15 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
-26日 23:01:40.33 [AntForest]: 查询间隔成功创建区间限制
-26日 23:01:40.67 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 516ms
-26日 23:01:40.84 [AntForest]: 收取间隔原始设置值: [500-800]
-26日 23:01:41.18 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
-26日 23:01:41.36 [AntForest]: 收取间隔成功创建区间限制
-26日 23:01:41.70 [CoroutineTaskRunner]: 🕐 执行时间: 54775ms (54.8秒)
-26日 23:01:41.88 [AntForest]: 双击间隔原始设置值: [50-150]
-26日 23:01:42.23 [CoroutineTaskRunner]: 📅 下次执行: 26日23:59:00
-26日 23:01:42.57 [AntForest]: 双击间隔成功创建区间限制
-26日 23:01:42.75 [AntForestRpcCall]: 当前支付宝版本: 
-26日 23:01:42.75 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
-26日 23:01:42.75 [AntForestRpcCall]: 使用API版本: 20250813
-26日 23:01:42.75 [CoroutineTaskRunner]: ✅ 成功任务: 6
-26日 23:01:42.75 [EnergyWaitingManager]: 已设置能量收取回调
-26日 23:01:42.75 [CoroutineTaskRunner]: ❌ 失败任务: 0
-26日 23:01:42.76 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
-26日 23:01:42.76 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
-26日 23:01:42.76 [CoroutineTaskRunner]: 📊 成功率: 100.0%
-26日 23:01:42.77 [CoroutineTaskRunner]: ================================
-26日 23:01:42.94 芝麻粒-TK 加载成功✨
-26日 23:01:42.97 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:12:58.42 [AntForest]: ==================================================
+26日 23:12:58.43 [ModelTask]: 任务 森林 完成，总耗时: 24442ms
+26日 23:12:58.43 [ModelTask]: 任务执行统计 - 总耗时: 24442ms, 成功: 1, 失败: 0, 跳过: 0
+26日 23:12:58.44 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 24492ms
+26日 23:12:58.44 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 24502ms
+26日 23:12:58.44 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/6 - 庄园
+26日 23:12:58.45 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
+26日 23:12:58.45 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
+26日 23:12:58.46 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 8ms
+26日 23:12:58.46 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 19ms
+26日 23:12:58.47 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/6 - 农场
+26日 23:12:58.47 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
+26日 23:12:58.47 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
+26日 23:12:58.48 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 6ms
+26日 23:12:58.48 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 12ms
+26日 23:12:58.48 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/6 - 新村
+26日 23:12:58.49 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
+26日 23:12:58.49 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
+26日 23:12:58.50 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 7ms
+26日 23:12:58.50 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 14ms
+26日 23:12:58.50 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/6 - 神奇物种
+26日 23:12:58.50 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
+26日 23:12:58.51 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
+26日 23:12:58.52 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 7ms
+26日 23:12:58.52 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 14ms
+26日 23:12:58.52 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/6 - 运动
+26日 23:12:58.53 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
+26日 23:12:58.53 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
+26日 23:12:58.54 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 8ms
+26日 23:12:58.54 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 16ms
+26日 23:12:58.54 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 24619ms
+26日 23:12:58.55 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
+26日 23:12:58.55 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 6ms
+26日 23:12:58.56 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
+26日 23:12:58.56 [CoroutineTaskRunner]: 🕐 执行时间: 24637ms (24.6秒)
+26日 23:12:58.56 [CoroutineTaskRunner]: 📅 下次执行: 26日23:59:00
+26日 23:12:58.57 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
+26日 23:12:58.57 [CoroutineTaskRunner]: ✅ 成功任务: 6
+26日 23:12:58.57 [CoroutineTaskRunner]: ❌ 失败任务: 0
+26日 23:12:58.58 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
+26日 23:12:58.58 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
+26日 23:12:58.58 [CoroutineTaskRunner]: 📊 成功率: 100.0%
+26日 23:12:58.59 [CoroutineTaskRunner]: ================================
+26日 23:13:37.54 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:13:45.64 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:13:45.65 [ApplicationHook]: 🔄 检测到用户切换
+26日 23:13:45.65 [ApplicationHook]:    旧用户: 2088942482497175
+26日 23:13:45.66 [ApplicationHook]:    新用户: 2088632752200481
+26日 23:13:45.66 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:13:45.77 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=0, 完成任务=0, 取消任务=0
+26日 23:13:45.78 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了0个备份任务)
+26日 23:13:45.78 [AlarmManager]: ✅ AlarmScheduler清理完成
+26日 23:13:45.79 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:13:46.02 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 23:13:46.02 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 23:13:46.03 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc50-beta-debug
+26日 23:13:46.03 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 23:13:46.04 [ApplicationHook]: 📶网络类型：WIFI
+26日 23:13:46.04 [ApplicationHook]: 👤用户ID：2088632752200481
+26日 23:13:46.04 [ApplicationHook]: 🕐初始化时间：26日23:13:46
+26日 23:13:46.05 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:13:46.05 [Config]: 开始加载配置
+26日 23:13:46.06 [Config]: 加载配置: 機風
+26日 23:13:46.27 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+26日 23:13:46.28 [Config]: 格式化配置: 機風
+26日 23:13:46.35 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 23:13:46.36 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 23:13:46.36 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 23:13:46.37 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 23:13:46.38 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 23:13:46.38 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 23:13:46.39 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 23:13:46.40 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 23:13:46.40 [AntForest]: 查询间隔成功创建区间限制
+26日 23:13:46.41 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 23:13:46.41 [AntForest]: 收取间隔成功创建区间限制
+26日 23:13:46.41 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 23:13:46.42 [AntForest]: 双击间隔成功创建区间限制
+26日 23:13:46.43 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 23:13:46.43 [AntForestRpcCall]: 使用API版本: 20250813
+26日 23:13:46.44 [EnergyWaitingManager]: 已设置能量收取回调
+26日 23:13:46.58 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 23:13:46.59 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 23:13:46.60 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:13:46.62 [ApplicationHook]: ✅ 用户切换完成，已重新初始化
+26日 23:13:46.63 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+26日 23:13:46.65 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+26日 23:13:46.67 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+26日 23:13:46.67 [ApplicationHook]: 设置定时执行:2359
+26日 23:13:46.68 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共8个启用任务
+26日 23:13:46.69 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/8 - 森林
+26日 23:13:46.70 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
+26日 23:13:46.71 [AlarmScheduler]: 已设置多重保护闹钟: ID=3, 预定时间=23:59:00
+26日 23:13:46.71 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
+26日 23:13:46.74 [AlarmScheduler]: ⏰ 下次执行(Alarm) 23:59:00
+26日 23:13:46.80 [AlarmManager]: ⏰ 精确执行调度成功: 延迟2713358ms
+26日 23:13:46.85 [ModelTask]: 开始执行第1轮任务: 森林
+26日 23:13:46.86 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
+26日 23:13:46.87 [AntForest]: 任务计数器已重置
+26日 23:13:46.88 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
+26日 23:13:46.89 [AntForest]: 执行开始-蚂蚁森林
+26日 23:13:47.47 [AntForest]: ========================
+查询道具状态 耗时: 585 ms
+26日 23:13:47.51 [AntForest]: ========================
+使用自己道具卡 耗时: 23 ms
+26日 23:13:47.53 [AntForest]: 开始处理PK排行榜...
+26日 23:13:48.33 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
+26日 23:13:48.35 [AntForest]: ========================
+获取PK排行榜 耗时: 802 ms
+26日 23:13:48.37 [AntForest]: ========================
+收PK好友能量（同步） 耗时: 878 ms
+26日 23:13:48.38 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
+26日 23:13:48.93 [AntForest]: ========================
+获取自己主页对象信息 耗时: 542 ms
+26日 23:13:49.03 [AntForest]: ✅ 【正常流程】收取自己的能量完成
+26日 23:13:49.05 [AntForest]: ========================
+收取自己的能量 耗时: 122 ms
+26日 23:13:49.07 [AntForest]: 找能量功能冷却中，还需等待 13分47秒
+26日 23:13:49.09 [AntForest]: ========================
+找能量收取（协程） 耗时: 45 ms
+26日 23:13:49.11 [AntForest]: 开始处理好友排行榜...
+26日 23:13:49.87 [AntForest]: 成功获取好友排行榜数据，共发现74位好友。
+26日 23:13:49.89 [AntForest]: ========================
+获取好友排行榜 耗时: 758 ms
+26日 23:13:49.91 [AntForest]: 开始处理好友排行榜前20位好友...
+26日 23:13:49.93 [AntForest]: 📋 开始处理20个好友排行榜前20位（并发数:60）
+26日 23:13:49.95 [AntForest]: 👥 湘江₈₅₁| | 青玄| | ARS|*福宁 | xy8689| | 道见百山|*丰 | allen|*彦笛 | 库多多服装厂|*兆东 | 文宣| | 熊天天| | 新佳源环保工程有限公司| | 陈肇梁|*肇梁 | 风清云淡|*增强 | pantylor|*忠跳 | 一门|*金雄 | foreverloveyou| | 李承酉|*承酉 | 逍遥鱼|*宁帆 | 唐树权东山起粉丝经济赶谷榜壹美云|*树权 | Red| | ༺ༀ༂࿅无࿆风࿅࿆ༀ༂༻767|*伟
+26日 23:13:52.87 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|allen|*彦笛]球[5206924364]在[26日23:31:12]成熟(等待17分钟)
+26日 23:13:52.89 [EnergyWaitingManager]: 🕐 蹲点[好友|allen|*彦笛]等待17分钟(能量成熟→26日23:31:12)
+26日 23:13:56.50 [Config]: 开始加载配置
+26日 23:13:56.50 [Config]: 加载配置: 機風
+26日 23:13:56.54 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+26日 23:13:56.74 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
+26日 23:13:56.76 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时6806ms，平均340ms/人
+26日 23:13:56.77 [AntForest]: ========================
+处理好友排行榜靠前的好友 耗时: 6895 ms
+26日 23:13:56.77 [AntForest]: 🌟 处理所有好友：好友排行榜共74位好友，需处理后续54位，共3批
+26日 23:13:56.78 [AntForest]: [批次1/3] 开始处理...
+26日 23:13:56.98 [AntForest]: 📋 开始处理20个批次1（并发数:60）
+26日 23:13:56.99 [AntForest]: 👥 张磊|*磊 | 南瓜稀饭800|*报 | Mick| | 传栋|*晓磊 | Ryan|*潇弈 | 惠琴|*惠琴 | 中国电信体彩广场营业厅| | 一曲飘零|*新愿 | hgs|*广生 | SZ丶cm丨| | 帝少|*少基 | 会兰| | 江红数字| | sea|*建平 | 风轻云淡| | 好事发生| | 小明上广州750  免验证| | 王广敏|*广敏 | ༺齐天大圣༻| | 少少情|*波
+26日 23:13:58.18 普通收取🧄1g[南瓜稀饭800|*报]耗时[191]ms
+26日 23:13:59.19 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718132]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
+26日 23:13:59.19 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718174]：保护罩覆盖整个成熟期(保护还剩33h，能量27日08:37:19成熟)
+26日 23:14:01.42 普通收取🍏2g[帝少|*少基]耗时[202]ms
+26日 23:14:03.87 [AntForest]: ✅ 批次1处理完成，耗时6878ms，平均343ms/人
+26日 23:14:03.87 [AntForest]: [批次1/3] 处理完成
+26日 23:14:03.87 [AntForest]: [批次2/3] 开始处理...
+26日 23:14:04.02 [AntForest]: 📋 开始处理20个批次2（并发数:60）
+26日 23:14:04.03 [AntForest]: 👥 旺|*旺 | 阿兴| | 悲泣| | M.be|*双合 | 小凡|*立超 | |*聪 | 私人专属|*振宇 | 浮生如此|*宏 | 随遇而安| | 黎博|*博 | 香味|*强 | 甜甜| | 大志|*立志 | 加载中...| | 支付宝碰一碰一下一级服务商| | 钢镚当钱花|*昆 | If|*文通 | 龍|*小龙 | 红哥|*孙云 | 瑶峰|*瑶峰
+26日 23:14:05.90 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
+26日 23:14:05.90 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
+26日 23:14:05.90 [AlarmManager]: ✅ AlarmScheduler清理完成
+26日 23:14:05.91 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:14:06.01 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 23:14:06.01 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 23:14:06.01 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc50-beta-debug
+26日 23:14:06.01 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 23:14:06.02 [ApplicationHook]: 📶网络类型：WIFI
+26日 23:14:06.02 [ApplicationHook]: 👤用户ID：2088632752200481
+26日 23:14:06.02 [ApplicationHook]: 🕐初始化时间：26日23:14:06
+26日 23:14:06.02 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:14:06.02 [Config]: 开始加载配置
+26日 23:14:06.03 [Config]: 加载配置: 機風
+26日 23:14:06.11 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+26日 23:14:06.15 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 23:14:06.15 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 23:14:06.15 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 23:14:06.16 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 23:14:06.17 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 23:14:06.17 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 23:14:06.18 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 23:14:06.18 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 23:14:06.19 [AntForest]: 查询间隔成功创建区间限制
+26日 23:14:06.19 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 23:14:06.19 [AntForest]: 收取间隔成功创建区间限制
+26日 23:14:06.19 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 23:14:06.20 [AntForest]: 双击间隔成功创建区间限制
+26日 23:14:06.20 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 23:14:06.20 [AntForestRpcCall]: 使用API版本: 20250813
+26日 23:14:06.20 [EnergyWaitingManager]: 已设置能量收取回调
+26日 23:14:06.37 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 23:14:06.38 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 23:14:06.38 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:14:06.41 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:14:06.77 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行20秒
+26日 23:14:08.41 [AntForest]: ==================================================
+26日 23:14:08.42 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
+26日 23:14:08.42 [AntForest]: ⏱️ 主任务耗时: 21秒 (21558ms)
+26日 23:14:08.42 [AntForest]: 📊 收取统计: 收3g 帮0g 浇0g
+26日 23:14:08.42 [AntForest]: ⏰ 后台蹲点任务: 5 个 (将在指定时间自动收取)
+26日 23:14:08.43 [AntForest]: 📋 蹲点任务状态 (5个，显示最近3个):
+  - [allen|*彦笛] 球[5206924364] 剩余17分3秒 → 26日23:31:12
+  - [小凡|*立超] 球[5207080798] 剩余57分30秒 → 27日00:11:39
+  - [小凡|*立超] 球[5207080854] 剩余57分31秒 → 27日00:11:40
+  ... 还有2个任务
+26日 23:14:08.43 [AntForest]: ==================================================
+26日 23:14:08.44 [ModelTask]: 任务 森林 完成，总耗时: 21588ms
+26日 23:14:08.44 [ModelTask]: 任务执行统计 - 总耗时: 21588ms, 成功: 0, 失败: 0, 跳过: 1
+26日 23:14:08.45 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 21737ms
+26日 23:14:08.45 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 21751ms
+26日 23:14:08.45 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/8 - 庄园
+26日 23:14:08.45 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
+26日 23:14:08.46 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
+26日 23:14:08.46 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 5ms
+26日 23:14:08.46 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 10ms
+26日 23:14:08.47 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/8 - 海洋
+26日 23:14:08.47 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round1]，超时设置: 600秒
+26日 23:14:08.47 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第1轮执行...
+26日 23:14:08.48 [CoroutineTaskRunner]: ✅ 模块[海洋]第1轮执行成功，耗时: 6ms
+26日 23:14:08.48 [CoroutineTaskRunner]: ✅ 任务[海洋-Round1]执行完成，耗时: 11ms
+26日 23:14:08.48 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/8 - 农场
+26日 23:14:08.48 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
+26日 23:14:08.49 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
+26日 23:14:08.50 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 9ms
+26日 23:14:08.50 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 14ms
+26日 23:14:08.50 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/8 - 新村
+26日 23:14:08.50 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
+26日 23:14:08.51 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
+26日 23:14:08.51 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 6ms
+26日 23:14:08.52 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 10ms
+26日 23:14:08.52 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/8 - 神奇物种
+26日 23:14:08.52 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
+26日 23:14:08.52 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
+26日 23:14:08.53 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 5ms
+26日 23:14:08.53 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 10ms
+26日 23:14:08.53 [CoroutineTaskRunner]: 📍 第1轮任务进度: 7/8 - 运动
+26日 23:14:08.54 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
+26日 23:14:08.54 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
+26日 23:14:08.55 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 8ms
+26日 23:14:08.55 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 13ms
+26日 23:14:08.55 [CoroutineTaskRunner]: 📍 第1轮任务进度: 8/8 - 会员
+26日 23:14:08.55 [CoroutineTaskRunner]: 🚀 开始执行任务[会员-Round1]，超时设置: 600秒
+26日 23:14:08.56 [CoroutineTaskRunner]: 🎯 启动模块[会员]第1轮执行...
+26日 23:14:08.56 [CoroutineTaskRunner]: ✅ 模块[会员]第1轮执行成功，耗时: 5ms
+26日 23:14:08.56 [CoroutineTaskRunner]: ✅ 任务[会员-Round1]执行完成，耗时: 10ms
+26日 23:14:08.57 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 21891ms
+26日 23:14:08.57 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
+26日 23:14:08.57 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 2ms
+26日 23:14:08.57 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
+26日 23:14:08.57 [CoroutineTaskRunner]: 🕐 执行时间: 21910ms (21.9秒)
+26日 23:14:08.58 [CoroutineTaskRunner]: 📅 下次执行: 26日23:59:00
+26日 23:14:08.58 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
+26日 23:14:08.58 [CoroutineTaskRunner]: ✅ 成功任务: 8
+26日 23:14:08.58 [CoroutineTaskRunner]: ❌ 失败任务: 0
+26日 23:14:08.59 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
+26日 23:14:08.59 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
+26日 23:14:08.59 [CoroutineTaskRunner]: 📊 成功率: 100.0%
+26日 23:14:08.59 [CoroutineTaskRunner]: ================================
+26日 23:16:17.80 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:16:21.87 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:16:29.41 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:16:29.42 [ApplicationHook]: 🔄 检测到用户切换
+26日 23:16:29.42 [ApplicationHook]:    旧用户: 2088632752200481
+26日 23:16:29.43 [ApplicationHook]:    新用户: 2088002896523311
+26日 23:16:29.44 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:16:29.56 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=0, 完成任务=0, 取消任务=0
+26日 23:16:29.56 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了0个备份任务)
+26日 23:16:29.57 [AlarmManager]: ✅ AlarmScheduler清理完成
+26日 23:16:29.58 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:16:29.85 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 23:16:29.86 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 23:16:29.86 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc50-beta-debug
+26日 23:16:29.87 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 23:16:29.88 [ApplicationHook]: 📶网络类型：WIFI
+26日 23:16:29.88 [ApplicationHook]: 👤用户ID：2088002896523311
+26日 23:16:29.89 [ApplicationHook]: 🕐初始化时间：26日23:16:29
+26日 23:16:29.89 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:16:29.90 [Config]: 开始加载配置
+26日 23:16:29.90 [Config]: 加载配置: 青玄
+26日 23:16:29.94 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+26日 23:16:29.95 [Config]: 格式化配置: 青玄
+26日 23:16:29.99 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 23:16:30.00 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 23:16:30.01 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 23:16:30.03 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 23:16:30.04 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 23:16:30.06 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 23:16:30.07 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 23:16:30.10 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 23:16:30.12 [AntForest]: 查询间隔成功创建区间限制
+26日 23:16:30.12 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 23:16:30.13 [AntForest]: 收取间隔成功创建区间限制
+26日 23:16:30.14 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 23:16:30.15 [AntForest]: 双击间隔成功创建区间限制
+26日 23:16:30.16 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 23:16:30.16 [AntForestRpcCall]: 使用API版本: 20250813
+26日 23:16:30.17 [EnergyWaitingManager]: 已设置能量收取回调
+26日 23:16:30.36 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 23:16:30.36 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 23:16:30.37 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:16:30.45 [ApplicationHook]: ✅ 用户切换完成，已重新初始化
+26日 23:16:30.46 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+26日 23:16:30.48 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+26日 23:16:30.50 [ApplicationHook]: 设置定时执行:2359
+26日 23:16:30.50 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+26日 23:16:30.51 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共8个启用任务
+26日 23:16:30.52 [AlarmScheduler]: 已设置多重保护闹钟: ID=6, 预定时间=23:59:00
+26日 23:16:30.52 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/8 - 森林
+26日 23:16:30.53 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
+26日 23:16:30.54 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
+26日 23:16:30.54 [AlarmScheduler]: ⏰ 下次执行(Alarm) 23:59:00
+26日 23:16:30.57 [ModelTask]: 开始执行第1轮任务: 森林
+26日 23:16:30.58 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
+26日 23:16:30.59 [AntForest]: 任务计数器已重置
+26日 23:16:30.60 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
+26日 23:16:30.60 [AntForest]: 执行开始-蚂蚁森林
+26日 23:16:30.62 [AlarmManager]: ⏰ 精确执行调度成功: 延迟2549534ms
+26日 23:16:31.04 [AntForest]: ========================
+查询道具状态 耗时: 434 ms
+26日 23:16:31.05 [AntForest]: ========================
+使用自己道具卡 耗时: 10 ms
+26日 23:16:31.07 [AntForest]: 开始处理PK排行榜...
+26日 23:16:31.25 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
+26日 23:16:31.26 [AntForest]: ========================
+获取PK排行榜 耗时: 187 ms
+26日 23:16:31.26 [AntForest]: ========================
+收PK好友能量（同步） 耗时: 220 ms
+26日 23:16:31.27 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
+26日 23:16:31.62 [AntForest]: ========================
+获取自己主页对象信息 耗时: 356 ms
+26日 23:16:31.67 [AntForest]: ✅ 【正常流程】收取自己的能量完成
+26日 23:16:31.68 [AntForest]: ========================
+收取自己的能量 耗时: 57 ms
+26日 23:16:31.70 [AntForest]: 找能量功能冷却中，还需等待 11分4秒
+26日 23:16:31.71 [AntForest]: ========================
+找能量收取（协程） 耗时: 27 ms
+26日 23:16:31.74 [AntForest]: 开始处理好友排行榜...
+26日 23:16:32.02 [AntForest]: 成功获取好友排行榜数据，共发现590位好友。
+26日 23:16:32.03 [AntForest]: ========================
+获取好友排行榜 耗时: 285 ms
+26日 23:16:32.03 [AntForest]: 开始处理好友排行榜前20位好友...
+26日 23:16:32.03 [AntForest]: 📋 开始处理20个好友排行榜前20位（并发数:60）
+26日 23:16:32.04 [AntForest]: 👥 ꧁琳琳꧂| | 提醒-𓆡𓆝𓆟𓆜𓆞𓆝𓆜𓆞|*雨钊 | 何波| | 青玄|*立超 | 提醒-暧平| | Alex|*培勉 | 长江|*培江 | 香蕉妳个不呐呐750| | 爱海濤濤|*江涛 | 以寒|*文华 | 麻袋二号| | 徐新缘袜子批发零售| | 假如你是我的唯一| | 阿宽769|*宽 | 提醒-周涵琴| | 提醒-笨笨|*哲 | 提醒-南.| | 喜军|*喜军 | 提醒-L̶i̶k̶e̶.|*来根 | 万水千山纵横|*晓波
+26日 23:16:32.34 [AntForest]: [꧁琳琳꧂|]被能量罩❤️保护着哟，跳过收取 状态判断:false 2088602338056915 == 2088002896523311
+26日 23:16:35.22 [AntForest]: ⏭️ 跳过好友蹲点[爱海濤濤|*江涛]球[5405771599]：保护罩覆盖整个成熟期(保护还剩78h，能量27日20:09:17成熟)
+26日 23:16:35.22 [AntForest]: ⏭️ 跳过好友蹲点[爱海濤濤|*江涛]球[5405773667]：保护罩覆盖整个成熟期(保护还剩78h，能量27日20:09:36成熟)
+26日 23:16:35.22 [AntForest]: ⏭️ 跳过好友蹲点[爱海濤濤|*江涛]球[5405776114]：保护罩覆盖整个成熟期(保护还剩78h，能量27日20:09:58成熟)
+26日 23:16:35.22 [AntForest]: ⏭️ 跳过好友蹲点[爱海濤濤|*江涛]球[5405778006]：保护罩覆盖整个成熟期(保护还剩78h，能量27日20:10:16成熟)
+26日 23:16:35.29 [AntForest]: ⏭️ 跳过好友蹲点[香蕉妳个不呐呐750|]球[5207249844]：保护罩覆盖整个成熟期(保护还剩9h，能量27日01:37:20成熟)
+26日 23:16:35.32 [AntForest]: ⏭️ 跳过好友蹲点[香蕉妳个不呐呐750|]球[5207251669]：保护罩覆盖整个成熟期(保护还剩9h，能量27日01:38:33成熟)
+26日 23:16:35.33 [AntForest]: ⏭️ 跳过好友蹲点[香蕉妳个不呐呐750|]球[5207252600]：保护罩覆盖整个成熟期(保护还剩9h，能量27日01:39:10成熟)
+26日 23:16:35.35 [AntForest]: ⏭️ 跳过好友蹲点[香蕉妳个不呐呐750|]球[5207263516]：保护罩覆盖整个成熟期(保护还剩9h，能量27日01:46:58成熟)
+26日 23:16:35.35 [AntForest]: ⏭️ 跳过好友蹲点[香蕉妳个不呐呐750|]球[5207324271]：保护罩覆盖整个成熟期(保护还剩9h，能量27日02:38:16成熟)
+26日 23:16:35.36 [AntForest]: ⏭️ 跳过好友蹲点[香蕉妳个不呐呐750|]球[5207325963]：保护罩覆盖整个成熟期(保护还剩9h，能量27日02:39:57成熟)
+26日 23:16:38.92 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时6879ms，平均343ms/人
+26日 23:16:38.92 [AntForest]: ========================
+处理好友排行榜靠前的好友 耗时: 6893 ms
+26日 23:16:38.92 [AntForest]: 🌟 处理所有好友：好友排行榜共590位好友，需处理后续570位，共29批
+26日 23:16:38.93 [AntForest]: [批次1/29] 开始处理...
+26日 23:16:39.05 [AntForest]: 📋 开始处理20个批次1（并发数:60）
+26日 23:16:39.05 [AntForest]: 👥 梁啊渣|*修译 | xy8689|*勇 | 心慧|*世超 | k| | 蓝色魅力芝麻758|*喜咏 | 日子和梦|*中恒 | 好多好多嘻嘻|*俊超 | 道见百山|*丰 | A9王伟.禁|*伟 | 寓言|*赟龙 | 唯少|*唯 | Aabon| | 800|*国领 | 林大涯|*大涯 | 默^O^契| | 晓|*毅 | 企鹅和北极熊|*鹏 | 柚柚的搭档| | 曹文彬-利东同事|*文彬 | 绊咐^O^畵慻|*权
+26日 23:16:40.64 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
+26日 23:16:42.65 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:16:46.15 [AntForest]: ✅ 批次1处理完成，耗时7093ms，平均354ms/人
+26日 23:16:46.16 [AntForest]: [批次1/29] 处理完成
+26日 23:16:46.16 [AntForest]: [批次2/29] 开始处理...
+26日 23:16:46.46 [AntForest]: 📋 开始处理20个批次2（并发数:60）
+26日 23:16:46.47 [AntForest]: 👥 已删删除阴阳| | 库多多服装厂|*兆东 | 越来越好|*辉 | 一路向xi|*超义 | 微笑751| | 雏菊| | DYLAN806|*明伟 | 简单的-煎蛋777|*柄仲 | 昊|*昊 | 删除A无忧|*庆标 | 删除亞璇|*俊杰 | 行持实业| | 冥河摆渡人|*成立 | 疾风751|*辛龙 | 提醒-780|*尔荪·玉苏普喀迪尔 | 宁❤甯| | 十一郎|*应 | 吕太阳707| | 提醒-冯美华|*美华 | 金玉满堂712|*轲
+26日 23:16:50.27 一键收取️🟢7g[昊|*昊]#耗时[281]ms
+26日 23:16:50.57 普通收取🥖6g[昊|*昊]耗时[285]ms[双击]
+26日 23:16:50.72 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行20秒
+26日 23:16:53.32 [AntForest]: ✅ 批次2处理完成，耗时6849ms，平均342ms/人
+26日 23:16:53.32 [AntForest]: [批次2/29] 处理完成
+26日 23:16:53.32 [AntForest]: [批次3/29] 开始处理...
+26日 23:16:53.48 [AntForest]: 📋 开始处理20个批次3（并发数:60）
+26日 23:16:53.49 [AntForest]: 👥 天才睡地板| | 张人凤| | 提醒-2088202214775022|*先勇 | 浪浪哥|*辉 | 提醒-鑫|*鑫 | 熊天天| | 小二| | 新佳源环保工程有限公司| | 坚持突破|*涛 | 施旭群|*旭群 | 玉炜|*玉伟 | 今天吃火锅涮毛肚了！|*文君 | JOJO| | 陈肇梁|*肇梁 | a"ゞ米斯特马™| | A735袋鼠🐒🐭🐀🐭🐒|*淇升 | 巍仔|*巍 | 空|*叶 | 注定不凡|*炳书 | 罗阳|
+26日 23:16:54.96 [Config]: 开始加载配置
+26日 23:16:54.96 [Config]: 加载配置: 青玄
+26日 23:16:54.99 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+26日 23:16:56.19 普通收取🍍20g[提醒-鑫|*鑫]耗时[228]ms
+26日 23:16:56.48 普通收取🥑1g[提醒-鑫|*鑫]耗时[286]ms[双击]
+26日 23:17:00.69 [AntForest]: ✅ 批次3处理完成，耗时7204ms，平均360ms/人
+26日 23:17:00.70 [AntForest]: [批次3/29] 处理完成
+26日 23:17:00.70 [AntForest]: [批次4/29] 开始处理...
+26日 23:17:00.74 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行30秒
+26日 23:17:00.86 [AntForest]: 📋 开始处理20个批次4（并发数:60）
+26日 23:17:00.86 [AntForest]: 👥 白建国|*建国 | class| | 陈俊Dreamer⁷⁸⁹|*俊 | 刘阳|*阳 | 崔丙全|*丙全 | 删除小王子|*震波 | 班跃林|*跃林 | 连兴|*连兴 | ꧁海꧂|*璟海 | 阳光754|*建光 | jack|*晶 | 风清云淡|*增强 | 福至心灵722|*福 | pantylor|*忠跳 | 惟志|*颜宗 | 一门|*金雄 | Promiscuous Youth707| | 沐钰|*人涛 | 夏阳春|*阳春 | 段小松|*小松
+26日 23:17:02.46 一键收取️🥝24g[刘阳|*阳]#耗时[201]ms
+26日 23:17:02.82 一键收取️🍗12g[刘阳|*阳]#耗时[345]ms[双击]
+26日 23:17:02.93 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
+26日 23:17:02.94 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
+26日 23:17:02.95 [AlarmManager]: ✅ AlarmScheduler清理完成
+26日 23:17:02.95 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 23:17:03.15 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 23:17:03.16 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 23:17:03.16 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc50-beta-debug
+26日 23:17:03.16 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 23:17:03.17 [ApplicationHook]: 📶网络类型：WIFI
+26日 23:17:03.17 [ApplicationHook]: 👤用户ID：2088002896523311
+26日 23:17:03.18 [ApplicationHook]: 🕐初始化时间：26日23:17:03
+26日 23:17:03.18 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:17:03.18 [Config]: 开始加载配置
+26日 23:17:03.19 [Config]: 加载配置: 青玄
+26日 23:17:03.25 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+26日 23:17:03.27 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 23:17:03.27 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 23:17:03.27 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 23:17:03.28 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 23:17:03.28 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 23:17:03.29 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 23:17:03.29 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 23:17:03.30 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 23:17:03.30 [AntForest]: 查询间隔成功创建区间限制
+26日 23:17:03.30 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 23:17:03.30 [AntForest]: 收取间隔成功创建区间限制
+26日 23:17:03.31 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 23:17:03.31 [AntForest]: 双击间隔成功创建区间限制
+26日 23:17:03.32 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 23:17:03.32 [AntForestRpcCall]: 使用API版本: 20250813
+26日 23:17:03.33 [EnergyWaitingManager]: 已设置能量收取回调
+26日 23:17:03.46 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 23:17:03.46 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 23:17:03.46 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 23:17:03.48 [ApplicationHook]: 手动APP触发，已关闭
+26日 23:17:05.13 [AntForest]: ==================================================
+26日 23:17:05.14 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
+26日 23:17:05.14 [AntForest]: ⏱️ 主任务耗时: 34秒 (34555ms)
+26日 23:17:05.14 [AntForest]: 📊 收取统计: 收73g 帮0g 浇0g
+26日 23:17:05.14 [AntForest]: ⏰ 后台蹲点任务: 5 个 (将在指定时间自动收取)
+26日 23:17:05.15 [AntForest]: 📋 蹲点任务状态 (5个，显示最近3个):
+  - [allen|*彦笛] 球[5206924364] 剩余14分6秒 → 26日23:31:12
+  - [小凡|*立超] 球[5207080798] 剩余54分33秒 → 27日00:11:39
+  - [小凡|*立超] 球[5207080854] 剩余54分34秒 → 27日00:11:40
+  ... 还有2个任务
+26日 23:17:05.15 [AntForest]: ==================================================
+26日 23:17:05.16 [ModelTask]: 任务 森林 完成，总耗时: 34587ms
+26日 23:17:05.16 [ModelTask]: 任务执行统计 - 总耗时: 34587ms, 成功: 0, 失败: 0, 跳过: 1
+26日 23:17:05.17 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 34632ms
+26日 23:17:05.17 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 34642ms
+26日 23:17:05.17 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/8 - 庄园
+26日 23:17:05.18 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
+26日 23:17:05.18 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
+26日 23:17:05.19 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 9ms
+26日 23:17:05.19 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 13ms
+26日 23:17:05.19 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/8 - 海洋
+26日 23:17:05.20 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round1]，超时设置: 600秒
+26日 23:17:05.20 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第1轮执行...
+26日 23:17:05.20 [CoroutineTaskRunner]: ✅ 模块[海洋]第1轮执行成功，耗时: 5ms
+26日 23:17:05.21 [CoroutineTaskRunner]: ✅ 任务[海洋-Round1]执行完成，耗时: 11ms
+26日 23:17:05.21 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/8 - 农场
+26日 23:17:05.21 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
+26日 23:17:05.21 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
+26日 23:17:05.22 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 6ms
+26日 23:17:05.22 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 11ms
+26日 23:17:05.22 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/8 - 新村
+26日 23:17:05.23 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
+26日 23:17:05.23 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
+26日 23:17:05.23 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 7ms
+26日 23:17:05.24 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 11ms
+26日 23:17:05.24 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/8 - 神奇物种
+26日 23:17:05.24 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
+26日 23:17:05.24 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
+26日 23:17:05.25 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 7ms
+26日 23:17:05.25 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 12ms
+26日 23:17:05.25 [CoroutineTaskRunner]: 📍 第1轮任务进度: 7/8 - 运动
+26日 23:17:05.26 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
+26日 23:17:05.26 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
+26日 23:17:05.27 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 7ms
+26日 23:17:05.27 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 11ms
+26日 23:17:05.27 [CoroutineTaskRunner]: 📍 第1轮任务进度: 8/8 - 会员
+26日 23:17:05.27 [CoroutineTaskRunner]: 🚀 开始执行任务[会员-Round1]，超时设置: 600秒
+26日 23:17:05.27 [CoroutineTaskRunner]: 🎯 启动模块[会员]第1轮执行...
+26日 23:17:05.28 [CoroutineTaskRunner]: ✅ 模块[会员]第1轮执行成功，耗时: 7ms
+26日 23:17:05.28 [CoroutineTaskRunner]: ✅ 任务[会员-Round1]执行完成，耗时: 12ms
+26日 23:17:05.29 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 34783ms
+26日 23:17:05.29 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
+26日 23:17:05.29 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 2ms
+26日 23:17:05.29 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
+26日 23:17:05.30 [CoroutineTaskRunner]: 🕐 执行时间: 34800ms (34.8秒)
+26日 23:17:05.30 [CoroutineTaskRunner]: 📅 下次执行: 26日23:59:00
+26日 23:17:05.30 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
+26日 23:17:05.30 [CoroutineTaskRunner]: ✅ 成功任务: 8
+26日 23:17:05.30 [CoroutineTaskRunner]: ❌ 失败任务: 0
+26日 23:17:05.31 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
+26日 23:17:05.31 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
+26日 23:17:05.31 [CoroutineTaskRunner]: 📊 成功率: 100.0%
+26日 23:17:05.31 [CoroutineTaskRunner]: ================================

@@ -488,6 +488,7 @@ public class WebSettingsActivity extends BaseActivity {
                     try {
                         Intent intent = new Intent("com.eg.android.AlipayGphone.sesame.restart");
                         intent.putExtra("userId", userId);
+                        intent.putExtra("configReload", true);  // 标记为配置重新加载，而不是强制重启
                         sendBroadcast(intent);
                     } catch (Throwable th) {
                         Log.printStackTrace(th);
