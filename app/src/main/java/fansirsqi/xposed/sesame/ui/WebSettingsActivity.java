@@ -426,7 +426,7 @@ public class WebSettingsActivity extends BaseActivity {
                         .setMessage("确认删除该配置？")
                         .setPositiveButton(R.string.ok, (dialog, id) -> {
                             File userConfigDirectoryFile;
-                            if (StringUtil.isEmpty(userId)) {
+                            if (userId == null || userId.isEmpty()) {
                                 userConfigDirectoryFile = Files.getDefaultConfigV2File();
                             } else {
                                 userConfigDirectoryFile = Files.getUserConfigDir(userId);
@@ -484,7 +484,7 @@ public class WebSettingsActivity extends BaseActivity {
         if (Config.isModify(userId)) {
             if (Config.save(userId, false)) {
                 Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
-                if (!StringUtil.isEmpty(userId)) {
+                if (userId != null && !userId.isEmpty()) {
                     try {
                         Intent intent = new Intent("com.eg.android.AlipayGphone.sesame.restart");
                         intent.putExtra("userId", userId);
