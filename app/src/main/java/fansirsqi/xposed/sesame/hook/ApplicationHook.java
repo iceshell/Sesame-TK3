@@ -75,7 +75,6 @@ public class ApplicationHook {
      */
     private static final AlarmSchedulerManager alarmManager = new AlarmSchedulerManager();
 
-    @Getter
     private static ClassLoader classLoader = null;
     private static Object microApplicationContextObject = null;
 
@@ -107,7 +106,6 @@ public class ApplicationHook {
 
     private static volatile boolean init = false;
     static volatile Calendar dayCalendar;
-    @Getter
     static volatile boolean offline = false;
     private static volatile boolean alarmTriggeredFlag = false;
 
