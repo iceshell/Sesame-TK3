@@ -1,0 +1,1532 @@
+26日 18:21:49.32 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 19164
+26日 18:21:49.38 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
+26日 18:21:49.38 [ServiceManager]: ServiceManager initialized and listener registered.
+26日 18:21:49.45 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+26日 18:21:49.46 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+26日 18:21:49.50 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:21:49.50 [UIConfig]: 重置UI配置
+26日 18:21:49.51 [Files]: self.json permissions: r=true; w=true
+26日 18:21:49.53 [Files]: self.json permissions: r=true; w=true
+26日 18:21:49.53 [Files]: self.json permissions: r=true; w=true
+26日 18:21:49.54 [Files]: self.json permissions: r=true; w=true
+26日 18:21:49.55 [Files]: self.json permissions: r=true; w=true
+26日 18:21:49.55 [MainActivity]: isModuleActivated: true
+26日 18:21:52.95 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:21:52.96 [UIConfig]: 重置UI配置
+26日 18:21:52.97 [Files]: self.json permissions: r=true; w=true
+26日 18:21:52.99 [Files]: self.json permissions: r=true; w=true
+26日 18:21:53.00 [Files]: self.json permissions: r=true; w=true
+26日 18:21:53.01 [Files]: self.json permissions: r=true; w=true
+26日 18:21:53.02 [Files]: self.json permissions: r=true; w=true
+26日 18:21:53.03 [MainActivity]: isModuleActivated: true
+26日 18:21:54.30 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:21:54.30 [UIConfig]: 重置UI配置
+26日 18:21:54.31 [Files]: self.json permissions: r=true; w=true
+26日 18:21:54.33 [Files]: self.json permissions: r=true; w=true
+26日 18:21:54.34 [Files]: self.json permissions: r=true; w=true
+26日 18:21:54.35 [Files]: self.json permissions: r=true; w=true
+26日 18:21:54.37 [Files]: self.json permissions: r=true; w=true
+26日 18:21:54.37 [MainActivity]: isModuleActivated: true
+26日 18:21:55.52 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:21:55.53 [UIConfig]: 重置UI配置
+26日 18:21:55.54 [Files]: self.json permissions: r=true; w=true
+26日 18:21:55.55 [Files]: self.json permissions: r=true; w=true
+26日 18:21:55.56 [Files]: self.json permissions: r=true; w=true
+26日 18:21:55.57 [Files]: self.json permissions: r=true; w=true
+26日 18:21:55.58 [Files]: self.json permissions: r=true; w=true
+26日 18:21:55.58 [MainActivity]: isModuleActivated: true
+26日 18:21:59.99 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+26日 18:22:00.07 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+26日 18:22:00.07 [ApplicationHook]: 验证码Hook已启用
+26日 18:22:00.07 [ApplicationHook]: hook login successfully
+26日 18:22:00.08 [ApplicationHook]: hook service onCreate successfully
+26日 18:22:00.21 [ApplicationHook]: hook registerBroadcastReceiver successfully
+26日 18:22:00.23 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 18:22:00.23 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:22:00.23 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:22:00.24 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+26日 18:22:00.24 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+26日 18:22:00.24 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+26日 18:22:00.25 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+26日 18:22:00.25 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+26日 18:22:00.25 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+26日 18:22:00.28 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:00.28 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:00.29 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:00.29 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:00.29 [ApplicationHook]: 10.7.86.8000 Not support fuck
+26日 18:22:00.29 [ApplicationHook]: need not start service for debug rpc
+26日 18:22:00.39 [ApplicationHook]: hook onResume after start
+26日 18:22:00.46 [ApplicationHook]: onResume targetUid: 2088632752200481
+26日 18:22:00.46 [ApplicationHook]: onResume: service未就绪，等待下次触发
+26日 18:22:00.53 [ApplicationHook]: Service onCreate
+26日 18:22:00.87 [ApplicationHook]: hook dexkit successfully
+26日 18:22:00.93 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+26日 18:22:01.01 [HookUtil]: loading userCache from target app
+26日 18:22:01.01 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+26日 18:22:01.02 [ApplicationHook]: 验证码Hook已启用
+26日 18:22:01.02 [ApplicationHook]: hook login successfully
+26日 18:22:01.02 [ApplicationHook]: hook service onCreate successfully
+26日 18:22:01.13 [Files]: self.json permissions: r=true; w=true
+26日 18:22:01.16 [Files]: friend.json permissions: r=true; w=true
+26日 18:22:01.17 [HookUtil]: userCache load scuess !
+26日 18:22:01.17 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 18:22:01.17 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 18:22:01.17 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc17-beta
+26日 18:22:01.18 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 18:22:01.18 [ApplicationHook]: 📶网络类型：WIFI
+26日 18:22:01.18 [ApplicationHook]: 👤用户ID：2088632752200481
+26日 18:22:01.19 [ApplicationHook]: 🕐初始化时间：26日18:22:01
+26日 18:22:01.20 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 18:22:01.20 [Config]: 开始加载配置
+26日 18:22:01.21 [Config]: 加载配置: 機風
+26日 18:22:01.22 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+26日 18:22:01.27 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+26日 18:22:01.30 [ApplicationHook]: hook registerBroadcastReceiver successfully
+26日 18:22:01.31 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 18:22:01.31 获取 只收能量时间 配置: [0658-0731]
+26日 18:22:01.31 模块休眠时间 配置已关闭
+26日 18:22:01.32 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:22:01.32 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:22:01.32 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+26日 18:22:01.32 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+26日 18:22:01.32 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+26日 18:22:01.32 [ApplicationHook]: 取消定时唤醒将由destroyHandler统一处理
+26日 18:22:01.32 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+26日 18:22:01.32 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+26日 18:22:01.33 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+26日 18:22:01.33 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 18:22:01.33 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 18:22:01.33 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 18:22:01.34 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 18:22:01.34 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 18:22:01.35 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 18:22:01.35 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 18:22:01.36 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:01.36 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:01.38 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:01.38 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:01.38 [ApplicationHook]: 10.7.86.8000 Not support fuck
+26日 18:22:01.38 [ApplicationHook]: need not start service for debug rpc
+26日 18:22:01.38 [NewRpcBridge]: get newRpcCallMethod successfully
+26日 18:22:01.39 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 18:22:01.39 [AntForest]: 查询间隔成功创建区间限制
+26日 18:22:01.40 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 18:22:01.40 [AntForest]: 收取间隔成功创建区间限制
+26日 18:22:01.40 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 18:22:01.40 [AntForest]: 双击间隔成功创建区间限制
+26日 18:22:01.41 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 18:22:01.41 [AntForestRpcCall]: 使用API版本: 20250813
+26日 18:22:01.43 [EnergyWaitingManager]: 精确能量球蹲点管理器已初始化（支持持久化）
+26日 18:22:01.43 [EnergyWaitingManager]: 已设置能量收取回调
+26日 18:22:01.44 [AntSports]: hook readDailyStep successfully
+26日 18:22:01.45 [Files]: status.json permissions: r=true; w=true
+26日 18:22:01.45 [Status]: 加载 status.json
+26日 18:22:01.54 [Status]: 保存 status.json
+26日 18:22:01.55 [Files]: status.json permissions: r=true; w=true
+26日 18:22:01.56 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 18:22:01.56 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 18:22:01.56 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 18:22:01.56 [AlipayComponentHelper]: ✅ 已发送完整唤醒广播
+26日 18:22:01.57 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:22:01.57 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+26日 18:22:01.58 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+26日 18:22:01.59 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+26日 18:22:01.59 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共8个启用任务
+26日 18:22:01.59 [AlarmScheduler]: 已设置多重保护闹钟: ID=15844, 预定时间=19:52:01
+26日 18:22:01.59 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/8 - 森林
+26日 18:22:01.60 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
+26日 18:22:01.60 [AlarmScheduler]: 已设置备份闹钟: ID=11600, 预定时间=19:52:13 (+12秒)
+26日 18:22:01.60 [AlarmScheduler]: ⏰ 下次执行(Alarm) 19:52:01
+26日 18:22:01.60 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
+26日 18:22:01.61 获取 只收能量时间 配置: [0658-0731]
+26日 18:22:01.62 模块休眠时间 配置已关闭
+26日 18:22:01.62 [Files]: runtime.json permissions: r=true; w=true
+26日 18:22:01.62 [AlarmScheduler]: 已设置闹钟唤醒执行，ID=15844，时间：26日19:52:01，延迟：5400秒
+26日 18:22:01.63 [AlarmManager]: ⏰ 精确执行调度成功: 延迟5400000ms
+26日 18:22:01.63 [ModelTask]: 开始执行第1轮任务: 森林
+26日 18:22:01.63 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
+26日 18:22:01.64 [AntForest]: 任务计数器已重置
+26日 18:22:01.64 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
+26日 18:22:01.65 [AntForest]: 执行开始-蚂蚁森林
+26日 18:22:01.97 [AntForest]: ========================
+查询道具状态 耗时: 317 ms
+26日 18:22:01.98 [AntForest]: 道具使用检查: needDouble=false, needrobExpand=false, needStealth=false, needShield=false, needEnergyBombCard=false, needBubbleBoostCard=false
+26日 18:22:01.98 [AntForest]: 没有需要使用的道具
+26日 18:22:02.00 [AntForest]: ========================
+使用自己道具卡 耗时: 35 ms
+26日 18:22:02.02 [AntForest]: 🚀 异步执行PK好友能量收取
+26日 18:22:02.03 [AntForest]: 开始处理PK排行榜...
+26日 18:22:02.22 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
+26日 18:22:02.23 [AntForest]: ========================
+获取PK排行榜 耗时: 189 ms
+26日 18:22:02.24 [AntForest]: 未加入PK排行榜,跳过,尝试关闭
+26日 18:22:02.24 [AntForest]: ========================
+收PK好友能量（同步） 耗时: 241 ms
+26日 18:22:02.25 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
+26日 18:22:02.51 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:22:02.66 [AntForest]: 服务器时间：1761474122006，本地与服务器时间差：460
+26日 18:22:02.67 [AntForest]: ========================
+获取自己主页对象信息 耗时: 429 ms
+26日 18:22:02.68 [AntForest]: 添加蹲点: [機風|*新霞] 能量球[5400989109] 将在[27日09:18:25]成熟
+26日 18:22:02.68 [EnergyWaitingManager]: ⭐️ [主号|機風|*新霞]不检查保护罩，到时间直接收取
+26日 18:22:02.69 [AntForest]: 添加蹲点: [機風|*新霞] 能量球[5400989209] 将在[27日09:18:26]成熟
+26日 18:22:02.69 [EnergyWaitingManager]: 能量球[5400989109]等待时间过长(896分钟)，跳过蹲点
+26日 18:22:02.70 [AntForest]: [機風|*新霞] 可收集能量球: 0个
+26日 18:22:02.70 [EnergyWaitingManager]: ⭐️ [主号|機風|*新霞]不检查保护罩，到时间直接收取
+26日 18:22:02.70 [AntForest]: [機風|*新霞] 等待成熟能量球: 2个
+26日 18:22:02.72 [EnergyWaitingManager]: 能量球[5400989209]等待时间过长(896分钟)，跳过蹲点
+26日 18:22:02.72 [AntForest]: ✅ 【正常流程】收取自己的能量完成
+26日 18:22:02.72 [AntForest]: ========================
+收取自己的能量 耗时: 55 ms
+26日 18:22:02.73 [AntForest]: 🚀 执行找能量功能（协程）
+26日 18:22:02.74 [AntForest]: 开始使用找能量功能收取好友能量
+26日 18:22:03.32 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:22:03.86 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+26日 18:22:03.96 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+26日 18:22:03.99 [AntForest]: 第3次找能量没有发现新好友，继续尝试:{}
+26日 18:22:04.00 [AntForest]: 连续3次未发现新好友，提前结束找能量，休息15分钟
+26日 18:22:04.02 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+26日 18:22:04.02 [ApplicationHook]: 验证码Hook已启用
+26日 18:22:04.03 [AntForest]: ========================
+找能量收取完成 耗时: 1284 ms
+26日 18:22:04.03 [ApplicationHook]: hook login successfully
+26日 18:22:04.03 [ApplicationHook]: hook service onCreate successfully
+26日 18:22:04.04 [AntForest]: 找能量功能完成，共发现 0 个好友
+26日 18:22:04.05 [AntForest]: ========================
+找能量收取（协程） 耗时: 1331 ms
+26日 18:22:04.07 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+26日 18:22:04.07 [AntForest]: 🚀 执行好友能量收取（协程）
+26日 18:22:04.07 [ApplicationHook]: 验证码Hook已启用
+26日 18:22:04.07 [AntForest]: 开始处理好友排行榜...
+26日 18:22:04.07 [ApplicationHook]: hook login successfully
+26日 18:22:04.08 [ApplicationHook]: hook service onCreate successfully
+26日 18:22:04.13 [ApplicationHook]: hook registerBroadcastReceiver successfully
+26日 18:22:04.14 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 18:22:04.15 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:22:04.15 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:22:04.16 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+26日 18:22:04.16 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+26日 18:22:04.16 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+26日 18:22:04.17 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+26日 18:22:04.17 [ApplicationHook]: hook registerBroadcastReceiver successfully
+26日 18:22:04.17 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+26日 18:22:04.17 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+26日 18:22:04.19 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 18:22:04.19 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:22:04.20 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:22:04.20 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+26日 18:22:04.21 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+26日 18:22:04.21 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+26日 18:22:04.21 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+26日 18:22:04.21 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+26日 18:22:04.21 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+26日 18:22:04.21 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:04.22 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:04.23 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:04.24 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:04.24 [ApplicationHook]: 10.7.86.8000 Not support fuck
+26日 18:22:04.24 [ApplicationHook]: need not start service for debug rpc
+26日 18:22:04.25 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:04.26 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:04.27 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:04.28 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:04.28 [ApplicationHook]: 10.7.86.8000 Not support fuck
+26日 18:22:04.28 [ApplicationHook]: need not start service for debug rpc
+26日 18:22:04.40 [AntForest]: 成功获取好友排行榜数据，共发现74位好友。
+26日 18:22:04.41 [AntForest]: ========================
+获取好友排行榜 耗时: 331 ms
+26日 18:22:04.43 [AntForest]: 开始处理好友排行榜前20位好友...
+26日 18:22:04.44 [AntForest]: 📋 开始处理20个好友排行榜前20位（并发数:60）
+26日 18:22:04.45 [AntForest]: 👥 湘江₈₅₁| | 青玄| | ARS|*福宁 | xy8689| | 道见百山|*丰 | allen|*彦笛 | 库多多服装厂|*兆东 | 文宣| | 熊天天| | 新佳源环保工程有限公司| | 陈肇梁|*肇梁 | 风清云淡|*增强 | pantylor|*忠跳 | 一门|*金雄 | foreverloveyou| | 李承酉|*承酉 | 逍遥鱼|*宁帆 | 唐树权东山起粉丝经济赶谷榜壹美云|*树权 | Red| | ༺ༀ༂࿅无࿆风࿅࿆ༀ༂༻767|*伟
+26日 18:22:04.46 [AntForest]:   正在查询好友 [湘江₈₅₁|2088122957667924] 的主页...
+26日 18:22:04.46 [AntForest]:   正在查询好友 [ARS|*福宁2088902310321658] 的主页...
+26日 18:22:04.46 [AntForest]:   正在查询好友 [道见百山|*丰2088102353760489] 的主页...
+26日 18:22:04.46 [AntForest]:   正在查询好友 [青玄|2088002896523311] 的主页...
+26日 18:22:04.46 [AntForest]:   正在查询好友 [xy8689|2088102849489685] 的主页...
+26日 18:22:04.46 [AntForest]:   正在查询好友 [allen|*彦笛2088202905310701] 的主页...
+26日 18:22:04.46 [AntForest]:   正在查询好友 [༺ༀ༂࿅无࿆风࿅࿆ༀ༂༻767|*伟2088002519651935] 的主页...
+26日 18:22:04.46 [AntForest]:   正在查询好友 [库多多服装厂|*兆东2088112995944905] 的主页...
+26日 18:22:04.69 [AntForest]: 服务器时间：1761474124005，本地与服务器时间差：518
+26日 18:22:04.69 [AntForest]: 添加蹲点: [湘江₈₅₁|] 能量球[5205583913] 将在[26日19:30:21]成熟
+26日 18:22:04.69 [AntForest]: 添加蹲点: [湘江₈₅₁|] 能量球[5205588510] 将在[26日19:31:02]成熟
+26日 18:22:04.70 [AntForest]: 添加蹲点: [湘江₈₅₁|] 能量球[5205592205] 将在[26日19:31:36]成熟
+26日 18:22:04.70 [AntForest]: 添加蹲点: [湘江₈₅₁|] 能量球[5205596697] 将在[26日19:32:17]成熟
+26日 18:22:04.70 [AntForest]: 添加蹲点: [湘江₈₅₁|] 能量球[5205866850] 将在[26日20:13:50]成熟
+26日 18:22:04.71 [AntForest]: 添加蹲点: [湘江₈₅₁|] 能量球[5401036610] 将在[27日09:25:33]成熟
+26日 18:22:04.71 [AntForest]: [湘江₈₅₁|] 可收集能量球: 0个
+26日 18:22:04.71 [AntForest]: [湘江₈₅₁|] 等待成熟能量球: 6个
+26日 18:22:04.72 [EnergyWaitingManager]: 能量球[5401036610]等待时间过长(903分钟)，跳过蹲点
+26日 18:22:04.72 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|湘江₈₅₁|]球[5205583913]在[26日19:30:21]成熟(等待68分钟)
+26日 18:22:04.73 [EnergyWaitingManager]: 🕐 蹲点[好友|湘江₈₅₁|]等待68分钟(能量成熟→26日19:30:21)
+26日 18:22:04.73 [EnergyWaitingManager]: 蹲点[好友|湘江₈₅₁|]将在66分钟后验证
+26日 18:22:04.74 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|湘江₈₅₁|]球[5205588510]在[26日19:31:02]成熟(等待68分钟)
+26日 18:22:04.74 [EnergyWaitingManager]: 🕐 蹲点[好友|湘江₈₅₁|]等待68分钟(能量成熟→26日19:31:02)
+26日 18:22:04.74 [EnergyWaitingManager]: 蹲点[好友|湘江₈₅₁|]将在66分钟后验证
+26日 18:22:04.75 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|湘江₈₅₁|]球[5205592205]在[26日19:31:36]成熟(等待69分钟)
+26日 18:22:04.75 [EnergyWaitingManager]: 🕐 蹲点[好友|湘江₈₅₁|]等待69分钟(能量成熟→26日19:31:36)
+26日 18:22:04.76 [EnergyWaitingManager]: 蹲点[好友|湘江₈₅₁|]将在67分钟后验证
+26日 18:22:04.77 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|湘江₈₅₁|]球[5205596697]在[26日19:32:17]成熟(等待70分钟)
+26日 18:22:04.79 [EnergyWaitingManager]: 🕐 蹲点[好友|湘江₈₅₁|]等待70分钟(能量成熟→26日19:32:17)
+26日 18:22:04.79 [EnergyWaitingManager]: 蹲点[好友|湘江₈₅₁|]将在68分钟后验证
+26日 18:22:04.80 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|湘江₈₅₁|]球[5205866850]在[26日20:13:50]成熟(等待111分钟)
+26日 18:22:04.80 [EnergyWaitingManager]: 🕐 蹲点[好友|湘江₈₅₁|]等待111分钟(能量成熟→26日20:13:50)
+26日 18:22:04.81 [EnergyWaitingManager]: 蹲点[好友|湘江₈₅₁|]将在109分钟后验证
+26日 18:22:04.81 [AntForest]:   正在查询好友 [文宣|2088912438897177] 的主页...
+26日 18:22:05.30 [EnergyWaitingPersistence]: ✅ 保存1个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:05.33 [EnergyWaitingPersistence]: ✅ 保存2个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:05.37 [EnergyWaitingPersistence]: ✅ 保存3个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:05.41 [EnergyWaitingPersistence]: ✅ 保存4个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:05.45 [EnergyWaitingPersistence]: ✅ 保存5个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:05.64 [AntForest]: 服务器时间：1761474124985，本地与服务器时间差：371
+26日 18:22:05.65 [AntForest]: 服务器时间：1761474124982，本地与服务器时间差：298
+26日 18:22:05.66 [AntForest]: [ARS|*福宁] 可收集能量球: 0个
+26日 18:22:05.66 [AntForest]: [道见百山|*丰] 可收集能量球: 0个
+26日 18:22:05.67 [AntForest]:   正在查询好友 [熊天天|2088402394980144] 的主页...
+26日 18:22:05.67 [AntForest]:   正在查询好友 [新佳源环保工程有限公司|2088412999180690] 的主页...
+26日 18:22:06.00 [AntForest]: 服务器时间：1761474125329，本地与服务器时间差：222
+26日 18:22:06.01 [AntForest]: 服务器时间：1761474125347，本地与服务器时间差：109
+26日 18:22:06.01 [AntForest]: [xy8689|] 可收集能量球: 0个
+26日 18:22:06.01 [AntForest]: 添加蹲点: [青玄|] 能量球[5400607226] 将在[27日08:21:37]成熟 炸弹卡剩余: +12小时.
+26日 18:22:06.02 [AntForest]:   正在查询好友 [陈肇梁|*肇梁2088802175738933] 的主页...
+26日 18:22:06.02 [AntForest]: 添加蹲点: [青玄|] 能量球[5400607259] 将在[27日08:21:37]成熟 炸弹卡剩余: +12小时.
+26日 18:22:06.03 [AntForest]: [青玄|] 可收集能量球: 0个
+26日 18:22:06.04 [AntForest]: [青玄|] 等待成熟能量球: 2个
+26日 18:22:06.04 [EnergyWaitingManager]: 能量球[5400607259]等待时间过长(839分钟)，跳过蹲点
+26日 18:22:06.05 [EnergyWaitingManager]: 能量球[5400607226]等待时间过长(839分钟)，跳过蹲点
+26日 18:22:06.05 [AntForest]:   正在查询好友 [风清云淡|*增强2088022915521911] 的主页...
+26日 18:22:06.16 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:22:06.20 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:22:06.64 [AntForest]: 服务器时间：1761474125990，本地与服务器时间差：-89
+26日 18:22:06.65 [AntForest]: 添加蹲点: [allen|*彦笛] 能量球[5206924364] 将在[26日23:31:12]成熟
+26日 18:22:06.66 [AntForest]: [allen|*彦笛] 可收集能量球: 0个
+26日 18:22:06.66 [AntForest]: [allen|*彦笛] 等待成熟能量球: 1个
+26日 18:22:06.70 [EnergyWaitingPersistence]: 📥 从持久化存储恢复5个有效任务（跳过0个过期，0个过旧）
+26日 18:22:06.70 [EnergyWaitingManager]: 🔄 从持久化存储恢复5个蹲点任务...
+26日 18:22:06.71 [EnergyWaitingPersistence]: 🔄 开始验证5个恢复的蹲点任务...
+26日 18:22:06.87 [AntForest]: 服务器时间：1761474126102，本地与服务器时间差：-157
+26日 18:22:06.87 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|allen|*彦笛]球[5206924364]在[26日23:31:12]成熟(等待309分钟)
+26日 18:22:06.89 [EnergyWaitingManager]: 🕐 蹲点[好友|allen|*彦笛]等待309分钟(能量成熟→26日23:31:12)
+26日 18:22:06.90 [EnergyWaitingManager]: 蹲点[好友|allen|*彦笛]将在307分钟后验证
+26日 18:22:06.92 [EnergyWaitingPersistence]: ✅ 保存6个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:06.92 [AntForest]:   正在查询好友 [pantylor|*忠跳2088702903539080] 的主页...
+26日 18:22:07.32 [AntForest]: 服务器时间：1761474126599，本地与服务器时间差：-311
+26日 18:22:07.33 [AntForest]: [༺ༀ༂࿅无࿆风࿅࿆ༀ༂༻767|*伟] 可收集能量球: 0个
+26日 18:22:07.35 [AntForest]:   正在查询好友 [一门|*金雄2088102167210637] 的主页...
+26日 18:22:07.53 [AntForest]: 服务器时间：1761474126827，本地与服务器时间差：-299
+26日 18:22:07.54 [AntForest]: [风清云淡|*增强] 可收集能量球: 0个
+26日 18:22:07.54 [AntForest]:   正在查询好友 [foreverloveyou|2088702758460438] 的主页...
+26日 18:22:07.86 [AntForest]: 服务器时间：1761474127084，本地与服务器时间差：-341
+26日 18:22:07.89 [AntForest]: [熊天天|] 可收集能量球: 0个
+26日 18:22:07.89 [AntForest]:   正在查询好友 [李承酉|*承酉2088102568749055] 的主页...
+26日 18:22:08.23 [AntForest]: 服务器时间：1761474127485，本地与服务器时间差：-327
+26日 18:22:08.25 [AntForest]: [陈肇梁|*肇梁] 可收集能量球: 0个
+26日 18:22:08.37 [AntForest]:   正在查询好友 [逍遥鱼|*宁帆2088212009635659] 的主页...
+26日 18:22:08.61 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:22:08.62 [UIConfig]: 重置UI配置
+26日 18:22:08.63 [Files]: self.json permissions: r=true; w=true
+26日 18:22:08.65 [Files]: self.json permissions: r=true; w=true
+26日 18:22:08.66 [Files]: self.json permissions: r=true; w=true
+26日 18:22:08.67 [Files]: self.json permissions: r=true; w=true
+26日 18:22:08.68 [Files]: self.json permissions: r=true; w=true
+26日 18:22:08.69 [MainActivity]: isModuleActivated: true
+26日 18:22:09.45 [AntForest]: 服务器时间：1761474127866，本地与服务器时间差：-335
+26日 18:22:09.47 [AntForest]:   正在查询好友 [唐树权东山起粉丝经济赶谷榜壹美云|*树权2088102506929167] 的主页...
+26日 18:22:09.50 [EnergyWaitingManager]: 任务[2088122957667924_5205866850]已存在，跳过重复添加
+26日 18:22:09.51 [AntForest]:   正在查询好友 [Red|2088502792467574] 的主页...
+26日 18:22:09.83 [AntForest]: 服务器时间：1761474128947，本地与服务器时间差：-310
+26日 18:22:09.89 [AntForest]: [pantylor|*忠跳] 可收集能量球: 0个
+26日 18:22:09.95 [AntForest]: 服务器时间：1761474128975，本地与服务器时间差：-655
+26日 18:22:09.97 [AntForest]: [库多多服装厂|*兆东] 可收集能量球: 0个
+26日 18:22:10.65 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:22:10.66 [UIConfig]: 重置UI配置
+26日 18:22:10.69 [Files]: self.json permissions: r=true; w=true
+26日 18:22:10.69 [AntForest]: 服务器时间：1761474129943，本地与服务器时间差：-775
+26日 18:22:10.70 [Files]: self.json permissions: r=true; w=true
+26日 18:22:10.73 [Files]: self.json permissions: r=true; w=true
+26日 18:22:10.73 [AntForest]: [一门|*金雄] 可收集能量球: 0个
+26日 18:22:10.74 [Files]: self.json permissions: r=true; w=true
+26日 18:22:10.75 [Files]: self.json permissions: r=true; w=true
+26日 18:22:10.76 [MainActivity]: isModuleActivated: true
+26日 18:22:10.75 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+26日 18:22:10.99 [AntForest]: 服务器时间：1761474130241，本地与服务器时间差：-896
+26日 18:22:11.00 [AntForest]: 服务器时间：1761474130206，本地与服务器时间差：-986
+26日 18:22:11.03 [AntForest]: [李承酉|*承酉] 可收集能量球: 0个
+26日 18:22:11.20 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+26日 18:22:11.20 [ApplicationHook]: 验证码Hook已启用
+26日 18:22:11.21 [ApplicationHook]: hook login successfully
+26日 18:22:11.22 [ApplicationHook]: hook service onCreate successfully
+26日 18:22:11.35 [AntForest]: 服务器时间：1761474130661，本地与服务器时间差：-1012
+26日 18:22:11.35 [AntForest]: [逍遥鱼|*宁帆] 可收集能量球: 0个
+26日 18:22:11.54 [AntForest]: 服务器时间：1761474130795，本地与服务器时间差：-717
+26日 18:22:11.55 [AntForest]: [唐树权东山起粉丝经济赶谷榜壹美云|*树权] 可收集能量球: 0个
+26日 18:22:11.63 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
+26日 18:22:11.97 [AntForest]: 服务器时间：1761474131136，本地与服务器时间差：-612
+26日 18:22:12.01 [AntForest]: [Red|] 可收集能量球: 0个
+26日 18:22:12.02 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时7566ms，平均378ms/人
+26日 18:22:12.04 [AntForest]: ========================
+处理好友排行榜靠前的好友 耗时: 7632 ms
+26日 18:22:12.06 [AntForest]: 🌟 处理所有好友：好友排行榜共74位好友，需处理后续54位，共3批
+26日 18:22:12.08 [AntForest]: [批次1/3] 开始处理...
+26日 18:22:12.22 [EnergyWaitingManager]: 任务[2088122957667924_5205592205]已存在，跳过重复添加
+26日 18:22:12.30 [ApplicationHook]: hook registerBroadcastReceiver successfully
+26日 18:22:12.37 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 18:22:12.38 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:22:12.39 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:22:12.40 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+26日 18:22:12.41 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+26日 18:22:12.41 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+26日 18:22:12.41 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+26日 18:22:12.41 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+26日 18:22:12.41 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+26日 18:22:12.54 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:12.55 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:22:12.55 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+26日 18:22:12.55 [UIConfig]: 重置UI配置
+26日 18:22:12.56 [Files]: self.json permissions: r=true; w=true
+26日 18:22:12.56 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:12.57 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+26日 18:22:12.57 [ApplicationHook]: 10.7.86.8000 Not support fuck
+26日 18:22:12.57 [ApplicationHook]: need not start service for debug rpc
+26日 18:22:12.58 [Files]: self.json permissions: r=true; w=true
+26日 18:22:12.59 [Files]: self.json permissions: r=true; w=true
+26日 18:22:12.59 [Files]: self.json permissions: r=true; w=true
+26日 18:22:12.60 [AntForest]: 📋 开始处理20个批次1（并发数:60）
+26日 18:22:12.61 [Files]: self.json permissions: r=true; w=true
+26日 18:22:12.61 [MainActivity]: isModuleActivated: true
+26日 18:22:12.62 [AntForest]: 👥 张磊|*磊 | 南瓜稀饭800|*报 | Mick| | 传栋|*晓磊 | Ryan|*潇弈 | 惠琴|*惠琴 | 中国电信体彩广场营业厅| | 一曲飘零|*新愿 | hgs|*广生 | SZ丶cm丨| | 帝少|*少基 | 会兰| | 江红数字| | sea|*建平 | 风轻云淡| | 好事发生| | 小明上广州750  免验证| | 王广敏|*广敏 | ༺齐天大圣༻| | 少少情|*波
+26日 18:22:12.63 [AntForest]:   正在查询好友 [张磊|*磊2088902261327101] 的主页...
+26日 18:22:12.64 [AntForest]:   正在查询好友 [南瓜稀饭800|*报2088002027871612] 的主页...
+26日 18:22:12.64 [AntForest]:   正在查询好友 [传栋|*晓磊2088002236894763] 的主页...
+26日 18:22:12.64 [AntForest]:   正在查询好友 [Ryan|*潇弈2088302380780250] 的主页...
+26日 18:22:12.64 [AntForest]:   正在查询好友 [Mick|2088802394284402] 的主页...
+26日 18:22:12.64 [AntForest]:   正在查询好友 [惠琴|*惠琴2088602261779903] 的主页...
+26日 18:22:12.65 [AntForest]:   正在查询好友 [少少情|*波2088402836349733] 的主页...
+26日 18:22:13.03 [EnergyWaitingManager]: 任务[2088122957667924_5205596697]已存在，跳过重复添加
+26日 18:22:13.04 [AntForest]:   正在查询好友 [中国电信体彩广场营业厅|2088602013882574] 的主页...
+26日 18:22:13.61 [AntForest]: 服务器时间：1761474132825，本地与服务器时间差：-358
+26日 18:22:13.62 [AntForest]: [张磊|*磊] 可收集能量球: 0个
+26日 18:22:13.88 [AntForest]: 服务器时间：1761474133098，本地与服务器时间差：-173
+26日 18:22:13.89 [AntForest]: [南瓜稀饭800|*报] 可收集能量球: 0个
+26日 18:22:13.89 [AntForest]:   正在查询好友 [一曲飘零|*新愿2088612904629412] 的主页...
+26日 18:22:14.00 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:22:14.05 [UIConfig]: 重置UI配置
+26日 18:22:14.09 [AntForest]: 服务器时间：1761474133436，本地与服务器时间差：-46
+26日 18:22:14.10 [Files]: self.json permissions: r=true; w=true
+26日 18:22:14.18 [AntForest]:   正在查询好友 [hgs|*广生2088002595718623] 的主页...
+26日 18:22:14.23 [Files]: self.json permissions: r=true; w=true
+26日 18:22:14.29 [AntForest]: 服务器时间：1761474133580，本地与服务器时间差：-11
+26日 18:22:14.32 [Files]: self.json permissions: r=true; w=true
+26日 18:22:14.31 [AntForest]: 添加蹲点: [Ryan|*潇弈] 能量球[5205120842] 将在[26日18:22:58]成熟
+26日 18:22:14.36 [AntForest]: [Ryan|*潇弈] 可收集能量球: 0个
+26日 18:22:14.37 [AntForest]: [Ryan|*潇弈] 等待成熟能量球: 1个
+26日 18:22:14.37 [Files]: self.json permissions: r=true; w=true
+26日 18:22:14.37 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|Ryan|*潇弈]球[5205120842]在[26日18:22:58]成熟(等待0分钟)
+26日 18:22:14.42 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:22:14.42 [Files]: self.json permissions: r=true; w=true
+26日 18:22:14.43 [EnergyWaitingManager]: 🕐 蹲点[好友|Ryan|*潇弈]等待0分钟(能量成熟→26日18:22:58)
+26日 18:22:14.47 [AntForest]:   正在查询好友 [SZ丶cm丨|2088002048663032] 的主页...
+26日 18:22:14.47 [MainActivity]: isModuleActivated: true
+26日 18:22:14.59 [EnergyWaitingPersistence]: ✅ 保存7个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:14.61 [AntForest]: 服务器时间：1761474133943，本地与服务器时间差：5
+26日 18:22:14.68 [AntForest]: [Mick|] 可收集能量球: 0个
+26日 18:22:14.73 [AntForest]:   正在查询好友 [帝少|*少基2088002261378494] 的主页...
+26日 18:22:14.98 [AntForest]: 服务器时间：1761474134244，本地与服务器时间差：-140
+26日 18:22:14.98 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718132]：保护罩覆盖整个成熟期(保护还剩37h，能量27日08:37:19成熟)
+26日 18:22:15.00 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718174]：保护罩覆盖整个成熟期(保护还剩37h，能量27日08:37:19成熟)
+26日 18:22:15.01 [AntForest]: [惠琴|*惠琴] 可收集能量球: 0个
+26日 18:22:15.02 [AntForest]:   正在查询好友 [会兰|2088802810822535] 的主页...
+26日 18:22:15.18 [AntForest]: 服务器时间：1761474134530，本地与服务器时间差：-294
+26日 18:22:15.27 [AntForest]:   正在查询好友 [江红数字|2088202760548660] 的主页...
+26日 18:22:15.71 [AntForest]: 服务器时间：1761474135021，本地与服务器时间差：-410
+26日 18:22:15.80 [AntForest]: [中国电信体彩广场营业厅|] 可收集能量球: 0个
+26日 18:22:15.92 [AntForest]:   正在查询好友 [sea|*建平2088002024683847] 的主页...
+26日 18:22:15.94 [EnergyWaitingManager]: 任务[2088122957667924_5205588510]已存在，跳过重复添加
+26日 18:22:16.04 [AntForest]:   正在查询好友 [风轻云淡|2088612421944142] 的主页...
+26日 18:22:16.18 [AntForest]: 服务器时间：1761474135542，本地与服务器时间差：-489
+26日 18:22:16.19 [AntForest]:   正在查询好友 [好事发生|2088802422383781] 的主页...
+26日 18:22:16.46 [AntForest]: 服务器时间：1761474135794，本地与服务器时间差：-505
+26日 18:22:16.54 [AntForest]: [hgs|*广生] 可收集能量球: 0个
+26日 18:22:16.85 [AntForest]: 服务器时间：1761474136125，本地与服务器时间差：-513
+26日 18:22:16.86 [AntForest]: [SZ丶cm丨|] 可收集能量球: 0个
+26日 18:22:16.86 [AntForest]:   正在查询好友 [小明上广州750  免验证|2088802654559905] 的主页...
+26日 18:22:17.13 [AntForest]: 服务器时间：1761474136490，本地与服务器时间差：-504
+26日 18:22:17.22 [AntForest]: [帝少|*少基] 可收集能量球: 0个
+26日 18:22:17.34 [AntForest]:   正在查询好友 [王广敏|*广敏2088112114578952] 的主页...
+26日 18:22:17.53 [AntForest]: 服务器时间：1761474136895，本地与服务器时间差：-501
+26日 18:22:17.53 [AntForest]: [会兰|] 可收集能量球: 0个
+26日 18:22:17.54 [AntForest]:   正在查询好友 [༺齐天大圣༻|2088102142893501] 的主页...
+26日 18:22:17.91 [AntForest]: 服务器时间：1761474137273，本地与服务器时间差：-523
+26日 18:22:18.37 [AntForest]: 服务器时间：1761474137658，本地与服务器时间差：-536
+26日 18:22:18.50 [AntForest]: [sea|*建平] 可收集能量球: 0个
+26日 18:22:18.57 [AntForest]: 服务器时间：1761474137868，本地与服务器时间差：-556
+26日 18:22:18.86 [AntForest]: 服务器时间：1761474138210，本地与服务器时间差：-582
+26日 18:22:18.86 [AntForest]: [好事发生|] 可收集能量球: 0个
+26日 18:22:19.30 [EnergyWaitingManager]: 任务[2088122957667924_5205583913]已存在，跳过重复添加
+26日 18:22:19.65 [AntForest]: 服务器时间：1761474138937，本地与服务器时间差：-593
+26日 18:22:19.66 [AntForest]: [小明上广州750  免验证|] 可收集能量球: 0个
+26日 18:22:19.67 [EnergyWaitingPersistence]: ✅ 恢复完成：成功0个，跳过5个
+26日 18:22:20.04 [AntForest]: 服务器时间：1761474139318，本地与服务器时间差：-584
+26日 18:22:20.15 [AntForest]: [王广敏|*广敏] 可收集能量球: 0个
+26日 18:22:20.17 [AntForest]: 服务器时间：1761474139514，本地与服务器时间差：-626
+26日 18:22:20.22 [AntForest]: [༺齐天大圣༻|] 可收集能量球: 0个
+26日 18:22:20.32 [AntForest]: ✅ 批次1处理完成，耗时7693ms，平均384ms/人
+26日 18:22:20.33 [AntForest]: [批次1/3] 处理完成
+26日 18:22:20.33 [AntForest]: [批次2/3] 开始处理...
+26日 18:22:20.48 [AntForest]: 📋 开始处理20个批次2（并发数:60）
+26日 18:22:20.49 [AntForest]: 👥 旺|*旺 | 阿兴| | 悲泣| | M.be|*双合 | 小凡|*立超 | |*聪 | 私人专属|*振宇 | 浮生如此|*宏 | 随遇而安| | 黎博|*博 | 香味|*强 | 甜甜| | 大志|*立志 | 加载中...| | 支付宝碰一碰一下一级服务商| | 钢镚当钱花|*昆 | If|*文通 | 龍|*小龙 | 红哥|*孙云 | 瑶峰|*瑶峰
+26日 18:22:20.49 [AntForest]:   正在查询好友 [旺|*旺2088502780134738] 的主页...
+26日 18:22:20.50 [AntForest]:   正在查询好友 [|*聪2088202356044570] 的主页...
+26日 18:22:20.50 [AntForest]:   正在查询好友 [悲泣|2088712591074109] 的主页...
+26日 18:22:20.49 [AntForest]:   正在查询好友 [阿兴|2088502960253132] 的主页...
+26日 18:22:20.49 [AntForest]:   正在查询好友 [M.be|*双合2088402800303851] 的主页...
+26日 18:22:20.50 [AntForest]:   正在查询好友 [私人专属|*振宇2088802724325508] 的主页...
+26日 18:22:20.50 [AntForest]:   正在查询好友 [瑶峰|*瑶峰2088802319960396] 的主页...
+26日 18:22:20.50 [AntForest]:   正在查询好友 [小凡|*立超2088002858797084] 的主页...
+26日 18:22:20.81 [AntForest]: 服务器时间：1761474140157，本地与服务器时间差：-399
+26日 18:22:20.91 [AntForest]: [旺|*旺] 可收集能量球: 0个
+26日 18:22:21.07 [AntForest]:   正在查询好友 [浮生如此|*宏2088002573126589] 的主页...
+26日 18:22:21.50 [AntForest]: 服务器时间：1761474140863，本地与服务器时间差：-209
+26日 18:22:21.50 [AntForest]: [私人专属|*振宇] 可收集能量球: 0个
+26日 18:22:21.51 [AntForest]:   正在查询好友 [随遇而安|2088502713743312] 的主页...
+26日 18:22:21.52 [AntForest]: 服务器时间：1761474140865，本地与服务器时间差：-24
+26日 18:22:21.63 [AntForest]: [|*聪] 可收集能量球: 0个
+26日 18:22:21.80 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行20秒
+26日 18:22:21.97 [AntForest]:   正在查询好友 [黎博|*博2088022664281333] 的主页...
+26日 18:22:22.15 [AntForest]: 服务器时间：1761474141510，本地与服务器时间差：77
+26日 18:22:22.15 [AntForest]: [瑶峰|*瑶峰] 可收集能量球: 0个
+26日 18:22:22.16 [AntForest]:   正在查询好友 [香味|*强2088602121551555] 的主页...
+26日 18:22:22.26 [AntForest]: 服务器时间：1761474141511，本地与服务器时间差：208
+26日 18:22:22.37 [AntForest]:   正在查询好友 [甜甜|2088402050852916] 的主页...
+26日 18:22:22.94 [AntForest]: 服务器时间：1761474142242，本地与服务器时间差：15
+26日 18:22:22.95 [AntForest]:   正在查询好友 [大志|*立志2088312613360355] 的主页...
+26日 18:22:23.01 [AntForest]: 服务器时间：1761474142298，本地与服务器时间差：-120
+26日 18:22:23.01 [AntForest]: [阿兴|] 可收集能量球: 0个
+26日 18:22:23.02 [AntForest]:   正在查询好友 [加载中...|2088512204070445] 的主页...
+26日 18:22:23.73 [AntForest]: 服务器时间：1761474143076，本地与服务器时间差：-289
+26日 18:22:23.83 [AntForest]: 服务器时间：1761474143078，本地与服务器时间差：-430
+26日 18:22:23.86 [AntForest]: [浮生如此|*宏] 可收集能量球: 0个
+26日 18:22:23.96 [AntForest]: 添加蹲点: [小凡|*立超] 能量球[5207080798] 将在[27日00:11:39]成熟
+26日 18:22:24.09 [AntForest]:   正在查询好友 [支付宝碰一碰一下一级服务商|2088702751829580] 的主页...
+26日 18:22:24.15 [AntForest]: 添加蹲点: [小凡|*立超] 能量球[5207080854] 将在[27日00:11:40]成熟
+26日 18:22:24.25 [AntForest]: 服务器时间：1761474143602，本地与服务器时间差：-573
+26日 18:22:24.28 [AntForest]: [随遇而安|] 可收集能量球: 0个
+26日 18:22:24.34 [AntForest]: [小凡|*立超] 可收集能量球: 0个
+26日 18:22:24.35 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080798]在[27日00:11:39]成熟(等待349分钟)
+26日 18:22:24.44 [AntForest]: 服务器时间：1761474143773，本地与服务器时间差：-591
+26日 18:22:24.49 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待349分钟(能量成熟→27日00:11:39)
+26日 18:22:24.51 [EnergyWaitingManager]: 蹲点[好友|小凡|*立超]将在347分钟后验证
+26日 18:22:24.56 [AntForest]: [小凡|*立超] 等待成熟能量球: 2个
+26日 18:22:24.58 [AntForest]: [黎博|*博] 可收集能量球: 0个
+26日 18:22:24.58 [AntForest]:   正在查询好友 [钢镚当钱花|*昆2088202255763211] 的主页...
+26日 18:22:24.77 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|小凡|*立超]球[5207080854]在[27日00:11:40]成熟(等待349分钟)
+26日 18:22:24.85 [AntForest]:   正在查询好友 [If|*文通2088302341515994] 的主页...
+26日 18:22:24.91 [EnergyWaitingPersistence]: ✅ 保存8个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:24.96 [AntForest]: 服务器时间：1761474144317，本地与服务器时间差：-659
+26日 18:22:25.01 [EnergyWaitingManager]: 🕐 蹲点[好友|小凡|*立超]等待349分钟(能量成熟→27日00:11:40)
+26日 18:22:25.08 [AntForest]:   正在查询好友 [龍|*小龙2088712057624172] 的主页...
+26日 18:22:25.22 [AntForest]: 服务器时间：1761474144496，本地与服务器时间差：-663
+26日 18:22:25.23 [EnergyWaitingManager]: 蹲点[好友|小凡|*立超]将在347分钟后验证
+26日 18:22:25.37 [AntForest]: [甜甜|] 可收集能量球: 0个
+26日 18:22:25.43 [EnergyWaitingPersistence]: ✅ 保存9个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:25.52 [AntForest]:   正在查询好友 [红哥|*孙云2088302074746140] 的主页...
+26日 18:22:25.60 [AntForest]: 服务器时间：1761474144956，本地与服务器时间差：-647
+26日 18:22:25.78 [AntForest]: 服务器时间：1761474145128，本地与服务器时间差：-648
+26日 18:22:26.33 [AntForest]: 服务器时间：1761474145672，本地与服务器时间差：-625
+26日 18:22:26.47 [AntForest]: [支付宝碰一碰一下一级服务商|] 可收集能量球: 0个
+26日 18:22:26.59 [AntForest]: 服务器时间：1761474145850，本地与服务器时间差：-500
+26日 18:22:26.60 [AntForest]: [钢镚当钱花|*昆] 可收集能量球: 0个
+26日 18:22:26.95 [AntForest]: 服务器时间：1761474146236，本地与服务器时间差：-419
+26日 18:22:27.22 [AntForest]: 服务器时间：1761474146496，本地与服务器时间差：-344
+26日 18:22:27.58 [AntForest]: 服务器时间：1761474146827，本地与服务器时间差：-233
+26日 18:22:27.70 [AntForest]: [红哥|*孙云] 可收集能量球: 0个
+26日 18:22:27.97 [AntForest]: ✅ 批次2处理完成，耗时7479ms，平均373ms/人
+26日 18:22:28.18 [AntForest]: [批次2/3] 处理完成
+26日 18:22:28.46 [AntForest]: [批次3/3] 开始处理...
+26日 18:22:28.84 [AntForest]: 📋 开始处理13个批次3（并发数:60）
+26日 18:22:29.06 [AntForest]: 👥 風|*立超 | 雪秋风|*敬启 | she's gone| | oh✖oh✖|*振亚 | 春花秋月| | Gaozhong98|*胜元 | 转角| | 枫林|*献力 | 雨诗|*凤芝 | 诗然| | Ordinary、|*宏民 | 虫二| | 无聊透顶|
+26日 18:22:29.28 [AntForest]:   正在查询好友 [風|*立超2088942482497175] 的主页...
+26日 18:22:29.28 [AntForest]:   正在查询好友 [雪秋风|*敬启2088022541591924] 的主页...
+26日 18:22:29.28 [AntForest]:   正在查询好友 [春花秋月|2088302218538060] 的主页...
+26日 18:22:29.28 [AntForest]:   正在查询好友 [she's gone|2088102704106216] 的主页...
+26日 18:22:29.28 [AntForest]:   正在查询好友 [oh✖oh✖|*振亚2088702307526972] 的主页...
+26日 18:22:29.28 [AntForest]:   正在查询好友 [Gaozhong98|*胜元2088002498828755] 的主页...
+26日 18:22:29.29 [AntForest]:   正在查询好友 [无聊透顶|2088912802831211] 的主页...
+26日 18:22:29.28 [AntForest]:   正在查询好友 [转角|2088402985908357] 的主页...
+26日 18:22:29.69 [AntForest]: 服务器时间：1761474148976，本地与服务器时间差：-43
+26日 18:22:29.70 [AntForest]: 添加蹲点: [風|*立超] 能量球[5207226818] 将在[27日01:08:30]成熟
+26日 18:22:29.70 [AntForest]: 添加蹲点: [風|*立超] 能量球[5207226854] 将在[27日01:08:31]成熟
+26日 18:22:29.71 [AntForest]: [風|*立超] 可收集能量球: 0个
+26日 18:22:29.71 [AntForest]: [風|*立超] 等待成熟能量球: 2个
+26日 18:22:29.71 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|風|*立超]球[5207226854]在[27日01:08:31]成熟(等待406分钟)
+26日 18:22:29.72 [EnergyWaitingManager]: 🕐 蹲点[好友|風|*立超]等待406分钟(能量成熟→27日01:08:31)
+26日 18:22:29.72 [EnergyWaitingManager]: 蹲点[好友|風|*立超]将在404分钟后验证
+26日 18:22:29.73 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|風|*立超]球[5207226818]在[27日01:08:30]成熟(等待406分钟)
+26日 18:22:29.73 [EnergyWaitingManager]: 🕐 蹲点[好友|風|*立超]等待406分钟(能量成熟→27日01:08:30)
+26日 18:22:29.74 [EnergyWaitingManager]: 蹲点[好友|風|*立超]将在404分钟后验证
+26日 18:22:29.74 [AntForest]:   正在查询好友 [枫林|*献力2088102228363438] 的主页...
+26日 18:22:30.00 [EnergyWaitingPersistence]: ✅ 保存10个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:30.24 [AntForest]: 服务器时间：1761474149500，本地与服务器时间差：49
+26日 18:22:30.35 [AntForest]: 服务器时间：1761474149629，本地与服务器时间差：148
+26日 18:22:30.35 [AntForest]:   正在查询好友 [雨诗|*凤芝2088122923464793] 的主页...
+26日 18:22:30.35 [AntForest]:   正在查询好友 [诗然|2088042784367951] 的主页...
+26日 18:22:30.37 [EnergyWaitingPersistence]: ✅ 保存11个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:30.96 [AntForest]: 服务器时间：1761474150265，本地与服务器时间差：199
+26日 18:22:30.96 [AntForest]:   正在查询好友 [Ordinary、|*宏民2088012262498121] 的主页...
+26日 18:22:31.06 [AntForest]: 服务器时间：1761474150319，本地与服务器时间差：224
+26日 18:22:31.07 [AntForest]:   正在查询好友 [虫二|2088602036896756] 的主页...
+26日 18:22:31.62 [AntForest]: 服务器时间：1761474150947，本地与服务器时间差：27
+26日 18:22:31.64 [AntForest]: 服务器时间：1761474150947，本地与服务器时间差：-116
+26日 18:22:31.64 [EnergyWaitingManager]: 定期清理检查：无过期任务
+26日 18:22:31.65 [AntForest]: [Gaozhong98|*胜元] 可收集能量球: 0个
+26日 18:22:31.65 [EnergyWaitingManager]: 定期清理完成，当前活跃蹲点11个
+26日 18:22:31.99 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行30秒
+26日 18:22:32.30 [AntForest]: 服务器时间：1761474151664，本地与服务器时间差：-301
+26日 18:22:32.41 [AntForest]: 服务器时间：1761474151654，本地与服务器时间差：-431
+26日 18:22:33.08 [AntForest]: 服务器时间：1761474152444，本地与服务器时间差：-566
+26日 18:22:33.20 [AntForest]: 服务器时间：1761474152443，本地与服务器时间差：-619
+26日 18:22:33.75 [AntForest]: 服务器时间：1761474153025，本地与服务器时间差：-676
+26日 18:22:33.82 [AntForest]: 服务器时间：1761474153164，本地与服务器时间差：-691
+26日 18:22:33.83 [AntForest]: ✅ 批次3处理完成，耗时4549ms，平均349ms/人
+26日 18:22:33.83 [AntForest]: [批次3/3] 处理完成
+26日 18:22:33.84 [AntForest]: ========================
+分批处理好友排行榜其他好友 耗时: 21792 ms
+26日 18:22:33.84 [AntForest]: 收取好友排行榜能量完成！
+26日 18:22:33.85 [AntForest]: ========================
+收取好友能量（同步） 耗时: 29801 ms
+26日 18:22:33.86 [AntForest]: ========================
+收取浇水金球 耗时: 3 ms
+26日 18:22:33.86 [AntForest]: ========================
+收取道具 耗时: 3 ms
+26日 18:22:34.57 [AntForest]: ========================
+动物巡护任务 耗时: 709 ms
+26日 18:22:34.57 已经有动物伙伴在巡护森林~
+26日 18:22:34.58 [AntForest]: ========================
+收取动物派遣能量 耗时: 14 ms
+26日 18:22:34.81 [AntForest]: ========================
+合成动物碎片 耗时: 225 ms
+26日 18:22:35.46 [AntForest]: ========================
+森林任务 耗时: 649 ms
+26日 18:22:35.64 EcoLife [DEBUG] guangPanPhoto 数据内容: []
+26日 18:22:36.10 [AntForest]: ========================
+绿色行动 耗时: 645 ms
+26日 18:22:36.11 [AntForest]: ========================
+给好友浇水 耗时: 5 ms
+26日 18:22:36.65 [EnergyRain]: 有送能量雨的机会
+26日 18:22:36.81 [EnergyRain]: 今日已无可送能量雨好友
+26日 18:22:37.31 [AntForest]: ========================
+使用能量雨卡 耗时: 1203 ms
+26日 18:22:37.32 [AntForest]: ========================
+能量雨 耗时: 8 ms
+26日 18:22:38.01 [AntForest]: ========================
+森林集市 耗时: 691 ms
+26日 18:22:38.23 [AntForest]: ========================
+绿色医疗 耗时: 222 ms
+26日 18:22:38.80 [AntForest]: ========================
+电子小票 耗时: 564 ms
+26日 18:22:38.80 开始处理森林抽抽乐
+26日 18:22:38.81 开始处理：森林抽抽乐普通版 (ActivityId: 2025101301, SceneCode: ANTFOREST_NORMAL_DRAW)
+26日 18:22:38.81 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
+26日 18:22:38.97 森林抽抽乐普通版 第 1 轮任务处理开始
+26日 18:22:38.98 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_NORMAL_DRAW_TASK, source: task_entry
+26日 18:22:39.65 森林抽抽乐普通版 发现 7 个任务
+26日 18:22:39.66 森林抽抽乐普通版 任务: 邀请好友助力得机会 [FOREST_NORMAL_DRAW_SHARE] 状态: TODO 进度: 0/2
+26日 18:22:39.66 森林抽抽乐普通版 已屏蔽任务，跳过：邀请好友助力得机会
+26日 18:22:39.66 森林抽抽乐普通版 任务: 每日签到 [FOREST_NORMAL_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
+26日 18:22:39.66 森林抽抽乐普通版 任务: 消耗活力值得机会 [NORMAL_DRAW_EXCHANGE_VITALITY] 状态: RECEIVED 进度: 2/2
+26日 18:22:39.67 森林抽抽乐普通版 任务: 去森林市集逛一逛 [FOREST_NORMAL_DRAW_XLIGHT_1] 状态: RECEIVED 进度: 2/2
+26日 18:22:39.67 森林抽抽乐普通版 任务: 去物种集卡得机会 [FOREST_NORMAL_DRAW_ANTTODO] 状态: RECEIVED 进度: 1/1
+26日 18:22:39.67 森林抽抽乐普通版 任务: 玩一玩森林小车车 [FOREST_NORMAL_DRAW_SLXCC] 状态: RECEIVED 进度: 1/1
+26日 18:22:39.67 森林抽抽乐普通版 任务: 去得故宫限定版皮肤 [FOREST_NORMAL_DRAW_XBDL] 状态: RECEIVED 进度: 1/1
+26日 18:22:39.67 森林抽抽乐普通版 开始处理抽奖
+26日 18:22:39.68 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
+26日 18:22:39.82 森林抽抽乐普通版 剩余抽奖次数：0/97
+26日 18:22:42.00 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行40秒
+26日 18:22:42.84 开始处理：森林抽抽乐活动版 (ActivityId: 20251024, SceneCode: ANTFOREST_ACTIVITY_DRAW)
+26日 18:22:42.84 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
+26日 18:22:43.02 森林抽抽乐活动版 第 1 轮任务处理开始
+26日 18:22:43.02 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_ACTIVITY_DRAW_TASK, source: task_entry
+26日 18:22:43.51 森林抽抽乐活动版 发现 4 个任务
+26日 18:22:43.51 森林抽抽乐活动版 任务: 邀请好友助力得机会 [FOREST_ACTIVITY_DRAW_SHARE] 状态: TODO 进度: 0/1
+26日 18:22:43.52 森林抽抽乐活动版 已屏蔽任务，跳过：邀请好友助力得机会
+26日 18:22:43.52 森林抽抽乐活动版 任务: 每日签到 [FOREST_ACTIVITY_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
+26日 18:22:43.52 森林抽抽乐活动版 任务: 去森林市集逛一逛 [FOREST_ACTIVITY_DRAW_XLIGHT_2] 状态: RECEIVED 进度: 1/1
+26日 18:22:43.53 森林抽抽乐活动版 任务: 玩一玩森林环游记 [FOREST_ACTIVITY_DRAW_SLHYJ] 状态: RECEIVED 进度: 1/1
+26日 18:22:43.53 森林抽抽乐活动版 开始处理抽奖
+26日 18:22:43.53 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
+26日 18:22:43.69 森林抽抽乐活动版 剩余抽奖次数：0/7
+26日 18:22:44.49 [EnergyWaitingManager]: 蹲点[好友|Ryan|*潇弈]倒计时13秒
+26日 18:22:46.71 [AntForest]: ========================
+抽抽乐 耗时: 7913 ms
+26日 18:22:46.71 [AntForest]: ========================
+AntForest 耗时: 45066 ms ()
+26日 18:22:46.71 [AntForest]: ==================================================
+26日 18:22:46.72 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
+26日 18:22:46.72 [AntForest]: ⏱️ 主任务耗时: 45秒 (45081ms)
+26日 18:22:46.72 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
+26日 18:22:46.72 [AntForest]: ⏰ 后台蹲点任务: 11 个 (将在指定时间自动收取)
+26日 18:22:46.73 [AntForest]: 📋 蹲点任务状态 (11个，显示最近3个):
+  - [Ryan|*潇弈] 球[5205120842] 剩余11秒 → 26日18:22:58
+  - [湘江₈₅₁|] 球[5205583913] 剩余67分34秒 → 26日19:30:21
+  - [湘江₈₅₁|] 球[5205588510] 剩余68分15秒 → 26日19:31:02
+  ... 还有8个任务
+26日 18:22:46.73 [AntForest]: ==================================================
+26日 18:22:46.74 任务[森林-Round1]执行成功，耗时: 45105ms
+26日 18:22:46.74 [ModelTask]: 任务 森林 完成，总耗时: 45113ms
+26日 18:22:46.75 [ModelTask]: 任务执行统计 - 总耗时: 45113ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:22:46.75 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 45148ms
+26日 18:22:46.76 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 45158ms
+26日 18:22:46.76 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/8 - 庄园
+26日 18:22:46.76 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
+26日 18:22:46.76 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
+26日 18:22:46.77 [ModelTask]: 开始执行第1轮任务: 庄园
+26日 18:22:46.77 [AntFarm]: 执行开始-蚂蚁庄园
+26日 18:22:47.43 [AntFarm]: ========================
+装载道具信息 耗时: 658 ms
+26日 18:22:47.44 [AntFarm]: ========================
+打赏好友 耗时: 4 ms
+26日 18:22:47.44 [AntFarm]: ========================
+遣返 耗时: 3 ms
+26日 18:22:48.04 [AntFarm]: ========================
+收取道具奖励 耗时: 601 ms
+26日 18:22:48.05 [AntFarm]: ========================
+游戏改分(星星球、登山赛、飞行赛、揍小鸡) 耗时: 12 ms
+26日 18:22:48.87 [AntFarm]: cook userid :2088632752200481
+26日 18:22:48.87 [AntFarm]: ========================
+小鸡厨房 耗时: 823 ms
+26日 18:22:50.60 [AntFarm]: ========================
+小鸡日记 耗时: 1729 ms
+26日 18:22:51.54 [AntFarm]: ========================
+使用新蛋卡 耗时: 937 ms
+26日 18:22:51.95 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:22:51.96 [UIConfig]: 重置UI配置
+26日 18:22:51.97 [Files]: self.json permissions: r=true; w=true
+26日 18:22:51.98 [Files]: self.json permissions: r=true; w=true
+26日 18:22:51.99 [Files]: self.json permissions: r=true; w=true
+26日 18:22:52.00 [Files]: self.json permissions: r=true; w=true
+26日 18:22:52.02 [Files]: self.json permissions: r=true; w=true
+26日 18:22:52.02 [MainActivity]: isModuleActivated: true
+26日 18:22:53.94 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:22:53.95 [UIConfig]: 重置UI配置
+26日 18:22:53.96 [Files]: self.json permissions: r=true; w=true
+26日 18:22:53.97 [Files]: self.json permissions: r=true; w=true
+26日 18:22:53.98 [Files]: self.json permissions: r=true; w=true
+26日 18:22:53.99 [Files]: self.json permissions: r=true; w=true
+26日 18:22:54.01 [Files]: self.json permissions: r=true; w=true
+26日 18:22:54.01 [MainActivity]: isModuleActivated: true
+26日 18:22:56.78 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行10秒
+26日 18:22:58.08 [EnergyWaitingManager]: ✅ 蹲点[好友|Ryan|*潇弈]等待完成，开始收取
+26日 18:22:58.08 [EnergyWaitingManager]: ⚡ 首次蹲点收取，立即执行任务[2088302380780250_5205120842]
+26日 18:22:58.08 [EnergyWaitingManager]: 🔍 蹲点任务[好友|Ryan|*潇弈]时机检查详情：
+26日 18:22:58.09 [EnergyWaitingManager]:   系统当前时间: 1761474178091 (2025-10-26 18:22:58)
+26日 18:22:58.09 [EnergyWaitingManager]:   实际执行时间: 1761474178088 (2025-10-26 18:22:58)
+26日 18:22:58.09 [EnergyWaitingManager]:   能量成熟时间: 1761474178000 (2025-10-26 18:22:58)
+26日 18:22:58.10 [EnergyWaitingManager]:   保护结束时间: 0 (1970-01-01 08:00:00)
+26日 18:22:58.10 [EnergyWaitingManager]:   时间差异: 系统时间与执行时间差16ms
+26日 18:22:58.10 [EnergyWaitingManager]:   能量剩余时间: 0秒
+26日 18:22:58.10 [EnergyWaitingManager]:   能量是否成熟: true
+26日 18:22:58.11 [EnergyWaitingManager]:   保护是否结束: true
+26日 18:22:58.35 [AntForest]: 服务器时间：1761474177632，本地与服务器时间差：-431
+26日 18:22:58.35 [AntForest]: 蹲点收取：用户[Ryan|*潇弈] userId=2088302380780250 currentUid=2088632752200481 isSelf=false
+26日 18:22:58.35 [AntForest]: 蹲点收取开始：用户[Ryan|*潇弈] userId[2088302380780250] fromTag[蹲点收取]
+26日 18:22:58.36 [AntForest]: 蹲点收取保护检查详情：
+26日 18:22:58.36 [AntForest]:   是否是主号: false
+26日 18:22:58.36 [AntForest]:   服务器时间: 1761474177632 (2025-10-26 18:22:57)
+26日 18:22:58.36 [AntForest]:   保护罩结束时间: 0 (无保护罩)
+26日 18:22:58.37 [AntForest]:   炸弹卡结束时间: 0 (无炸弹卡)
+26日 18:22:58.37 [AntForest]:   是否有保护罩: false
+26日 18:22:58.37 [AntForest]:   是否有炸弹卡: false
+26日 18:22:58.37 [AntForest]:   总体保护状态: false
+26日 18:22:58.38 [AntForest]: 添加蹲点: [Ryan|*潇弈] 能量球[5205120842] 将在[26日18:22:58]成熟
+26日 18:22:58.38 [AntForest]: [Ryan|*潇弈] 可收集能量球: 0个
+26日 18:22:58.38 [AntForest]: [Ryan|*潇弈] 等待成熟能量球: 1个
+26日 18:22:58.38 [AntForest]: 添加蹲点: [Ryan|*潇弈] 能量球[5205120842] 将在[26日18:22:58]成熟
+26日 18:22:58.39 [AntForest]: [Ryan|*潇弈] 可收集能量球: 0个
+26日 18:22:58.39 [AntForest]: [Ryan|*潇弈] 等待成熟能量球: 1个
+26日 18:22:58.39 [UserEnergyPatternManager]: 更新用户[2088302380780250]模式：成功率[0.72] 响应时间[856ms] 活跃[false]
+26日 18:22:58.39 [EnergyWaitingManager]: ❌ 蹲点收取[好友|Ryan|*潇弈]失败：用户无可收取的能量球
+26日 18:22:58.40 [EnergyWaitingManager]:   → 能量球已不存在，移除任务
+26日 18:22:58.40 [EnergyWaitingManager]: 添加蹲点：[好友|蹲点收取|Ryan|*潇弈]球[5205120842]在[26日18:22:58]成熟(等待0分钟)
+26日 18:22:58.40 [EnergyWaitingManager]: 蹲点任务[2088302380780250_5205120842]已存在且时间相同，跳过重复添加
+26日 18:22:58.40 [EnergyWaitingManager]: ✅ 蹲点[好友|Ryan|*潇弈]时间已到，立即收取
+26日 18:22:58.41 [EnergyWaitingManager]: 🎲 随机间隔控制：延迟1秒执行蹲点任务[2088302380780250_5205120842]（随机间隔1秒）
+26日 18:22:58.43 [EnergyWaitingPersistence]: ✅ 保存10个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:58.46 [EnergyWaitingPersistence]: ✅ 保存11个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:22:59.61 [EnergyWaitingManager]: 🔍 蹲点任务[好友|Ryan|*潇弈]时机检查详情：
+26日 18:22:59.61 [EnergyWaitingManager]:   系统当前时间: 1761474179616 (2025-10-26 18:22:59)
+26日 18:22:59.62 [EnergyWaitingManager]:   实际执行时间: 1761474179611 (2025-10-26 18:22:59)
+26日 18:22:59.62 [EnergyWaitingManager]:   能量成熟时间: 1761474178000 (2025-10-26 18:22:58)
+26日 18:22:59.62 [EnergyWaitingManager]:   保护结束时间: 0 (1970-01-01 08:00:00)
+26日 18:22:59.62 [EnergyWaitingManager]:   时间差异: 系统时间与执行时间差16ms
+26日 18:22:59.62 [EnergyWaitingManager]:   能量剩余时间: -1秒
+26日 18:22:59.63 [EnergyWaitingManager]:   能量是否成熟: true
+26日 18:22:59.63 [EnergyWaitingManager]:   保护是否结束: true
+26日 18:22:59.87 [AntForest]: 服务器时间：1761474179154，本地与服务器时间差：-167
+26日 18:22:59.87 [AntForest]: 蹲点收取：用户[Ryan|*潇弈] userId=2088302380780250 currentUid=2088632752200481 isSelf=false
+26日 18:22:59.88 [AntForest]: 蹲点收取开始：用户[Ryan|*潇弈] userId[2088302380780250] fromTag[蹲点收取]
+26日 18:22:59.88 [AntForest]: 蹲点收取保护检查详情：
+26日 18:22:59.88 [AntForest]:   是否是主号: false
+26日 18:22:59.88 [AntForest]:   服务器时间: 1761474179154 (2025-10-26 18:22:59)
+26日 18:22:59.89 [AntForest]:   保护罩结束时间: 0 (无保护罩)
+26日 18:22:59.89 [AntForest]:   炸弹卡结束时间: 0 (无炸弹卡)
+26日 18:22:59.89 [AntForest]:   是否有保护罩: false
+26日 18:22:59.89 [AntForest]:   是否有炸弹卡: false
+26日 18:22:59.90 [AntForest]:   总体保护状态: false
+26日 18:22:59.90 [AntForest]: [Ryan|*潇弈] 可收集能量球: 1个
+26日 18:22:59.90 [AntForest]: 蹲点收取找到1个可收取能量球: [5205120842]
+26日 18:22:59.91 [AntForest]: ⚡ 快速收取通道：跳过道具检查，加速蹲点收取
+26日 18:23:00.15 蹲点收取🍃1g[Ryan|*潇弈]耗时[223]ms
+26日 18:23:00.16 [UserEnergyPatternManager]: 更新用户[2088302380780250]模式：成功率[0.75] 响应时间[790ms] 活跃[false]
+26日 18:23:00.16 [EnergyWaitingManager]: ✅ 蹲点收取[好友|Ryan|*潇弈]成功1g(耗时526ms)
+26日 18:23:00.20 [EnergyWaitingPersistence]: ✅ 保存10个蹲点任务到持久化存储 (key: energy_waiting_tasks_2088632752200481)
+26日 18:23:01.31 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:01.32 [UIConfig]: 重置UI配置
+26日 18:23:01.33 [Files]: self.json permissions: r=true; w=true
+26日 18:23:01.34 [Files]: self.json permissions: r=true; w=true
+26日 18:23:01.35 [Files]: self.json permissions: r=true; w=true
+26日 18:23:01.37 [Files]: self.json permissions: r=true; w=true
+26日 18:23:01.38 [Files]: self.json permissions: r=true; w=true
+26日 18:23:01.39 [MainActivity]: isModuleActivated: true
+26日 18:23:01.66 [EnergyWaitingManager]: 定期清理检查：无过期任务
+26日 18:23:01.66 [EnergyWaitingManager]: 定期清理完成，当前活跃蹲点10个
+26日 18:23:03.33 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:03.33 [UIConfig]: 重置UI配置
+26日 18:23:03.35 [Files]: self.json permissions: r=true; w=true
+26日 18:23:03.36 [Files]: self.json permissions: r=true; w=true
+26日 18:23:03.38 [Files]: self.json permissions: r=true; w=true
+26日 18:23:03.39 [Files]: self.json permissions: r=true; w=true
+26日 18:23:03.40 [Files]: self.json permissions: r=true; w=true
+26日 18:23:03.41 [MainActivity]: isModuleActivated: true
+26日 18:23:06.81 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行20秒
+26日 18:23:07.27 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:07.27 [UIConfig]: 重置UI配置
+26日 18:23:07.29 [Files]: self.json permissions: r=true; w=true
+26日 18:23:07.30 [Files]: self.json permissions: r=true; w=true
+26日 18:23:07.31 [Files]: self.json permissions: r=true; w=true
+26日 18:23:07.32 [Files]: self.json permissions: r=true; w=true
+26日 18:23:07.33 [Files]: self.json permissions: r=true; w=true
+26日 18:23:07.34 [MainActivity]: isModuleActivated: true
+26日 18:23:10.24 [AntFarm]: ========================
+饲料任务 耗时: 18697 ms
+26日 18:23:10.88 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:10.88 [UIConfig]: 重置UI配置
+26日 18:23:10.89 [Files]: self.json permissions: r=true; w=true
+26日 18:23:10.91 [Files]: self.json permissions: r=true; w=true
+26日 18:23:10.92 [Files]: self.json permissions: r=true; w=true
+26日 18:23:10.93 [Files]: self.json permissions: r=true; w=true
+26日 18:23:10.94 [Files]: self.json permissions: r=true; w=true
+26日 18:23:10.95 [MainActivity]: isModuleActivated: true
+26日 18:23:12.89 [ApplicationHook]: hook onResume after start
+26日 18:23:12.90 [ApplicationHook]: onResume targetUid: 2088632752200481
+26日 18:23:12.91 [ApplicationHook]: onResume currentUid: 2088632752200481
+26日 18:23:12.91 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:23:12.92 [AlipayComponentHelper]: ✅ 已发送完整唤醒广播
+26日 18:23:12.93 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:23:12.93 [ApplicationHook]: hook onResume after end
+26日 18:23:12.94 [ApplicationHook]: 手动APP触发，已关闭
+26日 18:23:13.81 [AntFarm]: 去一淘APP逛一逛领取90g饲料后将达到/超过[720g]上限!终止领取
+26日 18:23:13.82 [AntFarm]: ========================
+收取饲料奖励 耗时: 3580 ms
+26日 18:23:13.82 [AntFarm]: ========================
+召回小鸡 耗时: 3 ms
+26日 18:23:14.12 ⚠️使用道具🎭[加饭卡]失败，可能卡片不足或状态异常~
+26日 18:23:14.12 [AntFarm]: 加速卡判断⏩[动物状态=进食中, 今日封顶=false]
+26日 18:23:14.13 [AntFarm]: 蹲点时间计算🕐[开始时间=26日17:20:15, 已吃(含增量)=39.3226, 速度总计=0.0104, 食槽上限=180, 计算时间=26日22:08:40]
+26日 18:23:14.14 [AntFarm]: 添加蹲点投喂🥣[機風|*新霞]在[26日22:08:40]执行
+26日 18:23:14.14 [AntFarm]: 还有待领取的饲料
+26日 18:23:14.93 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:23:16.81 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行30秒
+26日 18:23:17.77 [AntFarm]: 去一淘APP逛一逛领取90g饲料后将达到/超过[720g]上限!终止领取
+26日 18:23:17.77 [AntFarm]: ========================
+喂食 耗时: 3952 ms
+26日 18:23:18.12 [AntFarm]: ========================
+到访小鸡送礼 耗时: 351 ms
+26日 18:23:18.13 [AntFarm]: ========================
+送麦子 耗时: 4 ms
+26日 18:23:18.13 [AntFarm]: ========================
+帮好友喂鸡 耗时: 3 ms
+26日 18:23:20.43 [ApplicationHook]: hook onResume after start
+26日 18:23:20.44 [ApplicationHook]: onResume targetUid: 2088002858797084
+26日 18:23:20.44 [ApplicationHook]: onResume currentUid: 2088632752200481
+26日 18:23:20.44 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 18:23:20.45 [ApplicationHook]: 🔄 检测到用户切换
+26日 18:23:20.45 [ApplicationHook]:    旧用户: 2088632752200481
+26日 18:23:20.46 [ApplicationHook]:    新用户: 2088002858797084
+26日 18:23:20.46 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 18:23:20.47 [ApplicationHook]: initHandler: 强制重新初始化
+26日 18:23:20.47 [BaseModel]: 🧹清理所有数据
+26日 18:23:20.48 子任务协程被取消: 庄园-FA|10250927090725012088632752200481 - j1 was cancelled
+26日 18:23:20.61 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
+26日 18:23:20.62 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
+26日 18:23:20.62 [AlarmManager]: ✅ AlarmScheduler清理完成
+26日 18:23:20.63 [AlarmManager]: ✅ AlarmScheduler初始化成功
+26日 18:23:20.68 [AntFarm]: Check failed: [来源: task.antFarm.AntFarm.notifyFriend:24 <- task.antFarm.AntFarm.runSuspend:955 <- task.antFarm.AntFarm$runSuspend$1.invokeSuspend:12] {"ariverRpcTraceId":"2191df6217614742000302211e4b51","memo":"非好友","resultCode":"302","success":false}
+26日 18:23:20.69 非好友
+26日 18:23:20.69 {"ariverRpcTraceId":"2191df6217614742000302211e4b51","memo":"非好友","resultCode":"302","success":false}
+26日 18:23:20.69 ApplicationHook.rpcBridge 为空，等待5秒
+26日 18:23:20.71 [HookUtil]: loading userCache from target app
+26日 18:23:20.88 [Files]: self.json permissions: r=true; w=true
+26日 18:23:20.90 [Files]: friend.json permissions: r=true; w=true
+26日 18:23:20.91 [HookUtil]: userCache load scuess !
+26日 18:23:20.91 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+26日 18:23:20.92 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+26日 18:23:20.92 [ApplicationHook]: ⚙️模块版本：v0.3.0.重构版rc17-beta
+26日 18:23:20.93 [ApplicationHook]: 📦应用版本：10.7.86.8000
+26日 18:23:20.94 [ApplicationHook]: 📶网络类型：WIFI
+26日 18:23:20.94 [ApplicationHook]: 👤用户ID：2088002858797084
+26日 18:23:20.94 [ApplicationHook]: 🕐初始化时间：26日18:23:20
+26日 18:23:20.95 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 18:23:20.95 [Config]: 开始加载配置
+26日 18:23:20.96 [Config]: 加载配置: 小凡
+26日 18:23:20.98 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002858797084/config_v2.json
+26日 18:23:21.08 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002858797084/config_v2.json
+26日 18:23:21.09 [Config]: 格式化配置: 小凡
+26日 18:23:21.11 获取 只收能量时间 配置: [0658-0731]
+26日 18:23:21.11 模块休眠时间 配置已关闭
+26日 18:23:21.12 [ApplicationHook]: 取消定时唤醒将由destroyHandler统一处理
+26日 18:23:21.13 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+26日 18:23:21.13 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+26日 18:23:21.14 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+26日 18:23:21.14 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+26日 18:23:21.15 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+26日 18:23:21.15 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+26日 18:23:21.16 [ApplicationHook]: ⏰ 共设置了 1 个自定义定时唤醒
+26日 18:23:21.16 [NewRpcBridge]: get newRpcCallMethod successfully
+26日 18:23:21.16 [AntForest]: 查询间隔原始设置值: [500-800]
+26日 18:23:21.17 [AntForest]: 查询间隔成功创建区间限制
+26日 18:23:21.17 [AntForest]: 收取间隔原始设置值: [500-800]
+26日 18:23:21.17 [AntForest]: 收取间隔成功创建区间限制
+26日 18:23:21.18 [AntForest]: 双击间隔原始设置值: [50-150]
+26日 18:23:21.19 [AntForest]: 双击间隔成功创建区间限制
+26日 18:23:21.19 [AntForestRpcCall]: 当前支付宝版本: 10.7.86.8000
+26日 18:23:21.20 [AntForestRpcCall]: 使用API版本: 20250813
+26日 18:23:21.20 [EnergyWaitingManager]: 已设置能量收取回调
+26日 18:23:21.21 [AntSports]: hook readDailyStep successfully
+26日 18:23:21.22 [Files]: status.json permissions: r=true; w=true
+26日 18:23:21.23 [Status]: 加载 status.json
+26日 18:23:21.36 [Status]: 保存 status.json
+26日 18:23:21.37 [Files]: status.json permissions: r=true; w=true
+26日 18:23:21.38 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+26日 18:23:21.38 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+26日 18:23:21.39 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+26日 18:23:21.39 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:23:21.40 [AlipayComponentHelper]: ✅ 已发送完整唤醒广播
+26日 18:23:21.40 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:23:21.41 [ApplicationHook]: ✅ 用户切换完成，已重新初始化
+26日 18:23:21.41 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+26日 18:23:21.43 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+26日 18:23:21.44 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+26日 18:23:21.45 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共7个启用任务
+26日 18:23:21.45 [AlarmScheduler]: 已设置多重保护闹钟: ID=14239, 预定时间=19:53:21
+26日 18:23:21.45 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/7 - 森林
+26日 18:23:21.46 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
+26日 18:23:21.47 [AlarmScheduler]: 已设置备份闹钟: ID=11467, 预定时间=19:53:33 (+12秒)
+26日 18:23:21.47 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
+26日 18:23:21.47 [AlarmScheduler]: ⏰ 下次执行(Alarm) 19:53:21
+26日 18:23:21.48 获取 只收能量时间 配置: [0658-0731]
+26日 18:23:21.48 模块休眠时间 配置已关闭
+26日 18:23:21.49 [Files]: runtime.json permissions: r=true; w=true
+26日 18:23:21.51 [ModelTask]: 开始执行第1轮任务: 森林
+26日 18:23:21.52 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
+26日 18:23:21.52 [AlarmScheduler]: 已设置闹钟唤醒执行，ID=14239，时间：26日19:53:21，延迟：5400秒
+26日 18:23:21.53 [AlarmManager]: ⏰ 精确执行调度成功: 延迟5400000ms
+26日 18:23:21.53 [AntForest]: 任务计数器已重置
+26日 18:23:21.54 [AntForest]: ✅ 检测到新的一天[2025年10月26日]，重置计数器
+26日 18:23:21.55 [AntForest]: 执行开始-蚂蚁森林
+26日 18:23:22.07 [AntForest]: 双击卡剩余时间⏰：+4天
+26日 18:23:22.08 [AntForest]: ========================
+查询道具状态 耗时: 525 ms
+26日 18:23:22.09 [AntForest]: 道具使用检查: needDouble=false, needrobExpand=false, needStealth=false, needShield=false, needEnergyBombCard=false, needBubbleBoostCard=false
+26日 18:23:22.09 [AntForest]: 没有需要使用的道具
+26日 18:23:22.10 [AntForest]: ========================
+使用自己道具卡 耗时: 20 ms
+26日 18:23:22.10 [AntForest]: 🚀 异步执行PK好友能量收取
+26日 18:23:22.11 [AntForest]: 开始处理PK排行榜...
+26日 18:23:22.33 [AntForest]: 成功获取PK排行榜数据，共发现0位好友。
+26日 18:23:22.34 [AntForest]: ========================
+获取PK排行榜 耗时: 221 ms
+26日 18:23:22.36 [AntForest]: 未加入PK排行榜,跳过,尝试关闭
+26日 18:23:22.36 [AntForest]: ========================
+收PK好友能量（同步） 耗时: 267 ms
+26日 18:23:22.38 [AntForest]: 🌳 【正常流程】开始收取自己的能量...
+26日 18:23:22.65 [AntForest]: 双击卡剩余时间⏰：+4天
+26日 18:23:22.65 [AntForest]: 服务器时间：1761474201949，本地与服务器时间差：79
+26日 18:23:22.65 [AntForest]: ========================
+获取自己主页对象信息 耗时: 288 ms
+26日 18:23:22.66 [EnergyWaitingManager]: 蹲点任务[2088002858797084_5207080798]已存在且时间相同，跳过重复添加
+26日 18:23:22.66 [AntForest]: 添加蹲点: [小凡|*立超] 能量球[5207080798] 将在[27日00:11:39]成熟
+26日 18:23:22.67 [EnergyWaitingManager]: 蹲点任务[2088002858797084_5207080854]已存在且时间相同，跳过重复添加
+26日 18:23:22.67 [AntForest]: 添加蹲点: [小凡|*立超] 能量球[5207080854] 将在[27日00:11:40]成熟
+26日 18:23:22.67 [AntForest]: [小凡|*立超] 可收集能量球: 0个
+26日 18:23:22.68 [AntForest]: [小凡|*立超] 等待成熟能量球: 2个
+26日 18:23:22.69 [AntForest]: ✅ 【正常流程】收取自己的能量完成
+26日 18:23:22.69 [AntForest]: ========================
+收取自己的能量 耗时: 40 ms
+26日 18:23:22.69 [AntForest]: 🚀 执行找能量功能（协程）
+26日 18:23:22.70 [AntForest]: 找能量功能冷却中，还需等待 13分41秒
+26日 18:23:22.71 [AntForest]: ========================
+找能量收取（协程） 耗时: 15 ms
+26日 18:23:22.71 [AntForest]: 🚀 执行好友能量收取（协程）
+26日 18:23:22.72 [AntForest]: 开始处理好友排行榜...
+26日 18:23:22.98 [AntForest]: 成功获取好友排行榜数据，共发现13位好友。
+26日 18:23:22.99 [AntForest]: ========================
+获取好友排行榜 耗时: 270 ms
+26日 18:23:23.00 [AntForest]: 开始处理好友排行榜前20位好友...
+26日 18:23:23.01 [AntForest]: 📋 开始处理13个好友排行榜前20位（并发数:60）
+26日 18:23:23.02 [AntForest]: 👥 青玄| | 蒲金堂|*金堂 | 惠琴|*惠琴 | 天道酬勤| | 情若能自控|*信华 | ✨✨✨| | 哈哈|*威 | 黄楚淮|*楚淮 | 小凡|*立超 | 五六七| | 機風| | 風|*立超 | 风儿|*杰
+26日 18:23:23.02 [AntForest]:   正在查询好友 [青玄|2088002896523311] 的主页...
+26日 18:23:23.02 [AntForest]:   正在查询好友 [蒲金堂|*金堂2088202524303290] 的主页...
+26日 18:23:23.02 [AntForest]:   正在查询好友 [天道酬勤|2088402279973063] 的主页...
+26日 18:23:23.02 [AntForest]:   正在查询好友 [惠琴|*惠琴2088602261779903] 的主页...
+26日 18:23:23.03 [AntForest]:   正在查询好友 [情若能自控|*信华2088412590114508] 的主页...
+26日 18:23:23.03 [AntForest]:   正在查询好友 [风儿|*杰2088012271903041] 的主页...
+26日 18:23:23.03 [AntForest]:   正在查询好友 [✨✨✨|2088012440324545] 的主页...
+26日 18:23:23.38 [AntForest]: 服务器时间：1761474202602，本地与服务器时间差：333
+26日 18:23:23.39 [AntForest]: 添加蹲点: [青玄|] 能量球[5400607226] 将在[27日08:21:37]成熟 炸弹卡剩余: +12小时.
+26日 18:23:23.40 [AntForest]: 添加蹲点: [青玄|] 能量球[5400607259] 将在[27日08:21:37]成熟 炸弹卡剩余: +12小时.
+26日 18:23:23.40 [AntForest]: [青玄|] 可收集能量球: 0个
+26日 18:23:23.41 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:23:23.41 [AntForest]: [青玄|] 等待成熟能量球: 2个
+26日 18:23:23.42 [EnergyWaitingManager]: 能量球[5400607259]等待时间过长(838分钟)，跳过蹲点
+26日 18:23:23.43 [EnergyWaitingManager]: 能量球[5400607226]等待时间过长(838分钟)，跳过蹲点
+26日 18:23:23.44 [AntForest]:   正在查询好友 [哈哈|*威2088602316502588] 的主页...
+26日 18:23:23.78 [AntForest]: 服务器时间：1761474203101，本地与服务器时间差：538
+26日 18:23:23.78 [AntForest]:   正在查询好友 [黄楚淮|*楚淮2088212133978532] 的主页...
+26日 18:23:23.91 [AntForest]: 服务器时间：1761474203241，本地与服务器时间差：465
+26日 18:23:23.91 [AntForest]: [天道酬勤|] 可收集能量球: 0个
+26日 18:23:23.92 [AntForest]:   正在查询好友 [五六七|2088312211199221] 的主页...
+26日 18:23:24.37 [AntForest]: 服务器时间：1761474203678，本地与服务器时间差：351
+26日 18:23:24.38 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718132]：保护罩覆盖整个成熟期(保护还剩37h，能量27日08:37:19成熟)
+26日 18:23:24.40 [AntForest]: ⏭️ 跳过好友蹲点[惠琴|*惠琴]球[5400718174]：保护罩覆盖整个成熟期(保护还剩37h，能量27日08:37:19成熟)
+26日 18:23:24.41 [AntForest]: [惠琴|*惠琴] 可收集能量球: 0个
+26日 18:23:24.43 [AntForest]:   正在查询好友 [機風|2088632752200481] 的主页...
+26日 18:23:24.62 [AntForest]: 服务器时间：1761474203908，本地与服务器时间差：221
+26日 18:23:24.62 [AntForest]:   正在查询好友 [風|*立超2088942482497175] 的主页...
+26日 18:23:24.92 [AntForest]: 服务器时间：1761474204230，本地与服务器时间差：51
+26日 18:23:25.21 [AntForest]: 服务器时间：1761474204530，本地与服务器时间差：-1
+26日 18:23:25.22 [AntForest]: [五六七|] 可收集能量球: 0个
+26日 18:23:25.29 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:25.30 [UIConfig]: 重置UI配置
+26日 18:23:25.32 [Files]: self.json permissions: r=true; w=true
+26日 18:23:25.33 [Files]: self.json permissions: r=true; w=true
+26日 18:23:25.34 [Files]: self.json permissions: r=true; w=true
+26日 18:23:25.35 [Files]: self.json permissions: r=true; w=true
+26日 18:23:25.36 [Files]: self.json permissions: r=true; w=true
+26日 18:23:25.37 [MainActivity]: isModuleActivated: true
+26日 18:23:25.73 [AntForest]: 服务器时间：1761474205020，本地与服务器时间差：-35
+26日 18:23:25.73 [EnergyWaitingManager]: 能量球[5400989109]等待时间过长(894分钟)，跳过蹲点
+26日 18:23:25.73 [AntForest]: 添加蹲点: [機風|] 能量球[5400989109] 将在[27日09:18:25]成熟
+26日 18:23:25.74 [AntForest]: 添加蹲点: [機風|] 能量球[5400989209] 将在[27日09:18:26]成熟
+26日 18:23:25.74 [EnergyWaitingManager]: 能量球[5400989209]等待时间过长(895分钟)，跳过蹲点
+26日 18:23:25.74 [AntForest]: [機風|] 可收集能量球: 0个
+26日 18:23:25.74 [AntForest]: [機風|] 等待成熟能量球: 2个
+26日 18:23:25.85 [AntFarm]: notifyFriend err:
+26日 18:23:25.85 [AntFarm]: Throwable error: org.json.JSONException: No value for hasNext
+	at org.json.JSONObject.get(JSONObject.java:400)
+	at org.json.JSONObject.getBoolean(JSONObject.java:421)
+	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.notifyFriend(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:7)
+	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.runSuspend(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:955)
+	at fansirsqi.xposed.sesame.task.antFarm.AntFarm$runSuspend$1.invokeSuspend(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:12)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:9)
+	at c7.f0.run(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:127)
+	at h7.b.run(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:118)
+
+26日 18:23:25.86 [AntFarm]: ========================
+通知好友赶鸡 耗时: 7730 ms
+26日 18:23:25.87 [AntFarm]: 添加定时睡觉🛌[小凡|*立超]在[26日23:30:00]执行
+26日 18:23:25.87 [AntFarm]: 添加定时起床🛌[小凡|*立超]在[27日05:30:00]执行
+26日 18:23:25.87 [AntFarm]: ========================
+小鸡睡觉&起床 耗时: 14 ms
+26日 18:23:25.88 [AntFarm]: ========================
+AntFarm 耗时: 39103 ms ()
+26日 18:23:25.88 [AntFarm]: 执行结束-蚂蚁庄园
+26日 18:23:25.88 任务[庄园-Round1]执行成功，耗时: 39110ms
+26日 18:23:25.89 [ModelTask]: 任务 庄园 完成，总耗时: 39116ms
+26日 18:23:25.89 [ModelTask]: 任务执行统计 - 总耗时: 39116ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:23:25.89 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 39131ms
+26日 18:23:25.90 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 39137ms
+26日 18:23:25.90 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/8 - 海洋
+26日 18:23:25.90 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round1]，超时设置: 600秒
+26日 18:23:25.91 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第1轮执行...
+26日 18:23:25.91 [ModelTask]: 任务 海洋 不满足执行条件
+26日 18:23:25.91 [CoroutineTaskRunner]: ✅ 模块[海洋]第1轮执行成功，耗时: 6ms
+26日 18:23:25.92 [CoroutineTaskRunner]: ✅ 任务[海洋-Round1]执行完成，耗时: 14ms
+26日 18:23:25.92 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/8 - 农场
+26日 18:23:25.92 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
+26日 18:23:25.92 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
+26日 18:23:25.93 [ModelTask]: 任务 农场 不满足执行条件
+26日 18:23:25.93 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 6ms
+26日 18:23:25.93 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 13ms
+26日 18:23:25.93 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/8 - 新村
+26日 18:23:25.94 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
+26日 18:23:25.95 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
+26日 18:23:25.95 [ModelTask]: 任务 新村 不满足执行条件
+26日 18:23:25.95 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 5ms
+26日 18:23:25.95 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 12ms
+26日 18:23:25.96 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/8 - 神奇物种
+26日 18:23:25.96 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
+26日 18:23:25.96 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
+26日 18:23:25.96 [ModelTask]: 任务 神奇物种 不满足执行条件
+26日 18:23:25.97 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 6ms
+26日 18:23:25.97 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 10ms
+26日 18:23:25.97 [CoroutineTaskRunner]: 📍 第1轮任务进度: 7/8 - 运动
+26日 18:23:25.98 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
+26日 18:23:25.99 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
+26日 18:23:25.99 [ModelTask]: 任务 运动 不满足执行条件
+26日 18:23:26.00 [AntForest]: 服务器时间：1761474205268，本地与服务器时间差：-190
+26日 18:23:26.00 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 10ms
+26日 18:23:26.00 [AntForest]: [✨✨✨|] 可收集能量球: 2个
+26日 18:23:26.00 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 18ms
+26日 18:23:26.00 [AntForest]: 道具使用检查: needDouble=false, needrobExpand=false, needStealth=false, needShield=false, needEnergyBombCard=false, needBubbleBoostCard=false
+26日 18:23:26.00 [CoroutineTaskRunner]: 📍 第1轮任务进度: 8/8 - 会员
+26日 18:23:26.00 [AntForest]: 没有需要使用的道具
+26日 18:23:26.02 [CoroutineTaskRunner]: 🚀 开始执行任务[会员-Round1]，超时设置: 600秒
+26日 18:23:26.02 [CoroutineTaskRunner]: 🎯 启动模块[会员]第1轮执行...
+26日 18:23:26.04 [ModelTask]: 任务 会员 不满足执行条件
+26日 18:23:26.06 [CoroutineTaskRunner]: ✅ 模块[会员]第1轮执行成功，耗时: 32ms
+26日 18:23:26.06 [CoroutineTaskRunner]: ✅ 任务[会员-Round1]执行完成，耗时: 39ms
+26日 18:23:26.07 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 84483ms
+26日 18:23:26.08 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
+26日 18:23:26.10 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 18ms
+26日 18:23:26.11 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
+26日 18:23:26.12 [CoroutineTaskRunner]: 🕐 执行时间: 84522ms (84.5秒)
+26日 18:23:26.12 [CoroutineTaskRunner]: 📅 下次执行: 26日19:53:21
+26日 18:23:26.13 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
+26日 18:23:26.14 [CoroutineTaskRunner]: ✅ 成功任务: 8
+26日 18:23:26.15 [CoroutineTaskRunner]: ❌ 失败任务: 0
+26日 18:23:26.15 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
+26日 18:23:26.15 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
+26日 18:23:26.15 [CoroutineTaskRunner]: 📊 成功率: 100.0%
+26日 18:23:26.16 [CoroutineTaskRunner]: ⚠️ 执行时间较长，建议检查任务配置或网络状况
+26日 18:23:26.17 [CoroutineTaskRunner]: ================================
+26日 18:23:26.39 一键收取️🍱3g[✨✨✨|]#耗时[329]ms
+26日 18:23:26.40 [AntForest]: 道具使用检查: needDouble=false, needrobExpand=false, needStealth=false, needShield=false, needEnergyBombCard=false, needBubbleBoostCard=false
+26日 18:23:26.41 [AntForest]: 没有需要使用的道具
+26日 18:23:26.53 [AntForest]: 服务器时间：1761474205780，本地与服务器时间差：-215
+26日 18:23:26.53 [AntForest]: 添加蹲点: [風|*立超] 能量球[5207226818] 将在[27日01:08:30]成熟
+26日 18:23:26.53 [EnergyWaitingManager]: 蹲点任务[2088942482497175_5207226818]已存在且时间相同，跳过重复添加
+26日 18:23:26.54 [AntForest]: 添加蹲点: [風|*立超] 能量球[5207226854] 将在[27日01:08:31]成熟
+26日 18:23:26.54 [EnergyWaitingManager]: 蹲点任务[2088942482497175_5207226854]已存在且时间相同，跳过重复添加
+26日 18:23:26.54 [AntForest]: [風|*立超] 可收集能量球: 0个
+26日 18:23:26.54 [AntForest]: [風|*立超] 等待成熟能量球: 2个
+26日 18:23:26.63 [AntForest]: 服务器时间：1761474205915，本地与服务器时间差：-307
+26日 18:23:26.68 普通收取🌶️1g[✨✨✨|]耗时[271]ms[双击]
+26日 18:23:27.25 [AntForest]: 服务器时间：1761474206511，本地与服务器时间差：-548
+26日 18:23:27.26 [AntForest]: [哈哈|*威] 可收集能量球: 0个
+26日 18:23:27.26 [AntForest]: ✅ 好友排行榜前20位处理完成，耗时4236ms，平均325ms/人
+26日 18:23:27.26 [AntForest]: ========================
+处理好友排行榜靠前的好友 耗时: 4271 ms
+26日 18:23:27.26 [AntForest]: 好友排行榜没有更多的好友需要处理，跳过
+26日 18:23:27.27 [AntForest]: ========================
+收取好友能量（同步） 耗时: 4562 ms
+26日 18:23:27.27 [AntForest]: ========================
+收取道具 耗时: 2 ms
+26日 18:23:28.28 步数兑换⚖️[巡护次数*4]
+26日 18:23:28.72 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:28.73 [UIConfig]: 重置UI配置
+26日 18:23:28.74 [Files]: self.json permissions: r=true; w=true
+26日 18:23:28.75 [Files]: self.json permissions: r=true; w=true
+26日 18:23:28.76 [Files]: self.json permissions: r=true; w=true
+26日 18:23:28.77 [Files]: self.json permissions: r=true; w=true
+26日 18:23:28.78 [Files]: self.json permissions: r=true; w=true
+26日 18:23:28.79 [MainActivity]: isModuleActivated: true
+26日 18:23:31.50 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行10秒
+26日 18:23:31.68 [EnergyWaitingManager]: 定期清理检查：无过期任务
+26日 18:23:31.69 [EnergyWaitingManager]: 定期清理完成，当前活跃蹲点10个
+26日 18:23:31.69 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:31.70 [UIConfig]: 重置UI配置
+26日 18:23:31.71 [Files]: self.json permissions: r=true; w=true
+26日 18:23:31.73 [Files]: self.json permissions: r=true; w=true
+26日 18:23:31.74 [Files]: self.json permissions: r=true; w=true
+26日 18:23:31.75 [Files]: self.json permissions: r=true; w=true
+26日 18:23:31.76 [Files]: self.json permissions: r=true; w=true
+26日 18:23:31.77 [MainActivity]: isModuleActivated: true
+26日 18:23:32.82 巡护森林🏇🏻[滇金丝猴碎片]
+26日 18:23:33.34 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:33.35 [UIConfig]: 重置UI配置
+26日 18:23:33.36 [Files]: self.json permissions: r=true; w=true
+26日 18:23:33.37 [Files]: self.json permissions: r=true; w=true
+26日 18:23:33.38 [Files]: self.json permissions: r=true; w=true
+26日 18:23:33.39 [Files]: self.json permissions: r=true; w=true
+26日 18:23:33.40 [Files]: self.json permissions: r=true; w=true
+26日 18:23:33.41 [MainActivity]: isModuleActivated: true
+26日 18:23:38.24 巡护森林🏇🏻[林麝碎片]
+26日 18:23:39.05 [AntForest]: ========================
+动物巡护任务 耗时: 11784 ms
+26日 18:23:39.06 已经有动物伙伴在巡护森林~
+26日 18:23:39.06 [AntForest]: ========================
+收取动物派遣能量 耗时: 8 ms
+26日 18:23:39.32 [AntForest]: ========================
+合成动物碎片 耗时: 254 ms
+26日 18:23:40.10 [AntForest]: ========================
+森林任务 耗时: 788 ms
+26日 18:23:40.29 EcoLife [DEBUG] guangPanPhoto 数据内容: []
+26日 18:23:40.83 [AntForest]: ========================
+绿色行动 耗时: 730 ms
+26日 18:23:40.84 [AntForest]: ========================
+给好友浇水 耗时: 4 ms
+26日 18:23:40.84 [EnergyRain]: ⏱️ 能量雨冷却中，还需等待 8 分钟
+26日 18:23:40.84 [AntForest]: ========================
+能量雨 耗时: 6 ms
+26日 18:23:41.50 [CoroutineTaskRunner]: 🔄 模块[森林]第1轮运行中... 已执行20秒
+26日 18:23:41.54 [AntForest]: ========================
+森林集市 耗时: 701 ms
+26日 18:23:41.74 [AntForest]: ========================
+绿色医疗 耗时: 197 ms
+26日 18:23:42.30 [AntForest]: ========================
+电子小票 耗时: 560 ms
+26日 18:23:42.31 开始处理森林抽抽乐
+26日 18:23:42.31 开始处理：森林抽抽乐普通版 (ActivityId: 2025101301, SceneCode: ANTFOREST_NORMAL_DRAW)
+26日 18:23:42.31 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
+26日 18:23:42.53 森林抽抽乐普通版 第 1 轮任务处理开始
+26日 18:23:42.54 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_NORMAL_DRAW_TASK, source: task_entry
+26日 18:23:43.04 森林抽抽乐普通版 发现 7 个任务
+26日 18:23:43.05 森林抽抽乐普通版 任务: 邀请好友助力得机会 [FOREST_NORMAL_DRAW_SHARE] 状态: TODO 进度: 0/2
+26日 18:23:43.05 森林抽抽乐普通版 已屏蔽任务，跳过：邀请好友助力得机会
+26日 18:23:43.05 森林抽抽乐普通版 任务: 每日签到 [FOREST_NORMAL_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
+26日 18:23:43.06 森林抽抽乐普通版 任务: 消耗活力值得机会 [NORMAL_DRAW_EXCHANGE_VITALITY] 状态: RECEIVED 进度: 2/2
+26日 18:23:43.06 森林抽抽乐普通版 任务: 去森林市集逛一逛 [FOREST_NORMAL_DRAW_XLIGHT_1] 状态: RECEIVED 进度: 2/2
+26日 18:23:43.06 森林抽抽乐普通版 任务: 去物种集卡得机会 [FOREST_NORMAL_DRAW_ANTTODO] 状态: RECEIVED 进度: 1/1
+26日 18:23:43.06 森林抽抽乐普通版 任务: 玩一玩森林小车车 [FOREST_NORMAL_DRAW_SLXCC] 状态: RECEIVED 进度: 1/1
+26日 18:23:43.06 森林抽抽乐普通版 任务: 去得故宫限定版皮肤 [FOREST_NORMAL_DRAW_XBDL] 状态: RECEIVED 进度: 1/1
+26日 18:23:43.07 森林抽抽乐普通版 开始处理抽奖
+26日 18:23:43.07 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 2025101301, 场景: ANTFOREST_NORMAL_DRAW, source: task_entry
+26日 18:23:43.29 森林抽抽乐普通版 剩余抽奖次数：0/40
+26日 18:23:46.31 开始处理：森林抽抽乐活动版 (ActivityId: 20251024, SceneCode: ANTFOREST_ACTIVITY_DRAW)
+26日 18:23:46.32 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
+26日 18:23:46.57 森林抽抽乐活动版 第 1 轮任务处理开始
+26日 18:23:46.57 [AntForestRpcCall]: listTaskopengreen - 场景: ANTFOREST_ACTIVITY_DRAW_TASK, source: task_entry
+26日 18:23:47.02 森林抽抽乐活动版 发现 4 个任务
+26日 18:23:47.02 森林抽抽乐活动版 任务: 邀请好友助力得机会 [FOREST_ACTIVITY_DRAW_SHARE] 状态: TODO 进度: 0/1
+26日 18:23:47.02 森林抽抽乐活动版 已屏蔽任务，跳过：邀请好友助力得机会
+26日 18:23:47.03 森林抽抽乐活动版 任务: 每日签到 [FOREST_ACTIVITY_DRAW_DAILY_SIGN] 状态: RECEIVED 进度: 1/1
+26日 18:23:47.03 森林抽抽乐活动版 任务: 去森林市集逛一逛 [FOREST_ACTIVITY_DRAW_XLIGHT_2] 状态: RECEIVED 进度: 1/1
+26日 18:23:47.03 森林抽抽乐活动版 任务: 玩一玩森林小车车 [FOREST_ACTIVITY_DRAW_SLXCC] 状态: RECEIVED 进度: 1/1
+26日 18:23:47.03 森林抽抽乐活动版 开始处理抽奖
+26日 18:23:47.04 [AntForestRpcCall]: enterDrawActivityopengreen - 活动: 20251024, 场景: ANTFOREST_ACTIVITY_DRAW, source: task_entry
+26日 18:23:47.30 森林抽抽乐活动版 剩余抽奖次数：0/6
+26日 18:23:49.44 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:49.44 [UIConfig]: 重置UI配置
+26日 18:23:49.45 [Files]: self.json permissions: r=true; w=true
+26日 18:23:49.46 [Files]: self.json permissions: r=true; w=true
+26日 18:23:49.48 [Files]: self.json permissions: r=true; w=true
+26日 18:23:49.48 [Files]: self.json permissions: r=true; w=true
+26日 18:23:49.50 [Files]: self.json permissions: r=true; w=true
+26日 18:23:49.50 [MainActivity]: isModuleActivated: true
+26日 18:23:50.32 [AntForest]: ========================
+抽抽乐 耗时: 8016 ms
+26日 18:23:50.32 [AntForest]: ========================
+AntForest 耗时: 28772 ms ()
+26日 18:23:50.33 [AntForest]: ==================================================
+26日 18:23:50.33 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
+26日 18:23:50.33 [AntForest]: ⏱️ 主任务耗时: 28秒 (28803ms)
+26日 18:23:50.34 [AntForest]: 📊 收取统计: 收5g 帮0g 浇0g
+26日 18:23:50.34 [AntForest]: ⏰ 后台蹲点任务: 10 个 (将在指定时间自动收取)
+26日 18:23:50.35 [AntForest]: 📋 蹲点任务状态 (10个，显示最近3个):
+  - [湘江₈₅₁|] 球[5205583913] 剩余66分30秒 → 26日19:30:21
+  - [湘江₈₅₁|] 球[5205588510] 剩余67分11秒 → 26日19:31:02
+  - [湘江₈₅₁|] 球[5205592205] 剩余67分45秒 → 26日19:31:36
+  ... 还有7个任务
+26日 18:23:50.35 [AntForest]: ==================================================
+26日 18:23:50.36 任务[森林-Round1]执行成功，耗时: 28834ms
+26日 18:23:50.36 [ModelTask]: 任务 森林 完成，总耗时: 28848ms
+26日 18:23:50.36 [ModelTask]: 任务执行统计 - 总耗时: 28848ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:23:50.37 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 28894ms
+26日 18:23:50.37 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 28907ms
+26日 18:23:50.37 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/7 - 庄园
+26日 18:23:50.38 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
+26日 18:23:50.38 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
+26日 18:23:50.39 [ModelTask]: 开始执行第1轮任务: 庄园
+26日 18:23:50.39 [AntFarm]: 执行开始-蚂蚁庄园
+26日 18:23:51.26 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:51.27 [UIConfig]: 重置UI配置
+26日 18:23:51.28 [Files]: self.json permissions: r=true; w=true
+26日 18:23:51.29 [Files]: self.json permissions: r=true; w=true
+26日 18:23:51.30 [Files]: self.json permissions: r=true; w=true
+26日 18:23:51.31 [Files]: self.json permissions: r=true; w=true
+26日 18:23:51.33 [Files]: self.json permissions: r=true; w=true
+26日 18:23:51.33 [MainActivity]: isModuleActivated: true
+26日 18:23:51.42 打扫鸡屎🧹[192g]01次
+26日 18:23:51.76 [AntFarm]: ========================
+装载道具信息 耗时: 1373 ms
+26日 18:23:52.28 打赏好友💰[機風|]# 得0.05颗爱心鸡蛋
+26日 18:23:52.28 [AntFarm]: ========================
+打赏好友 耗时: 516 ms
+26日 18:23:52.65 [蒲金堂|*金堂]的小鸡躲开了攻击
+26日 18:23:52.66 [AntFarm]: ========================
+遣返 耗时: 376 ms
+26日 18:23:52.96 [AntFarm]: ========================
+收取道具奖励 耗时: 301 ms
+26日 18:23:52.96 [AntFarm]: ========================
+游戏改分(星星球、登山赛、飞行赛、揍小鸡) 耗时: 7 ms
+26日 18:23:53.89 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:53.89 [UIConfig]: 重置UI配置
+26日 18:23:53.91 [Files]: self.json permissions: r=true; w=true
+26日 18:23:53.92 [Files]: self.json permissions: r=true; w=true
+26日 18:23:53.93 [Files]: self.json permissions: r=true; w=true
+26日 18:23:53.94 [Files]: self.json permissions: r=true; w=true
+26日 18:23:53.95 [Files]: self.json permissions: r=true; w=true
+26日 18:23:53.96 [MainActivity]: isModuleActivated: true
+26日 18:23:54.13 [AntFarm]: cook userid :2088002858797084
+26日 18:23:54.13 [AntFarm]: ========================
+小鸡厨房 耗时: 1165 ms
+26日 18:23:55.52 [AntFarm]: ========================
+小鸡日记 耗时: 1390 ms
+26日 18:23:56.14 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:56.15 [UIConfig]: 重置UI配置
+26日 18:23:56.16 [Files]: self.json permissions: r=true; w=true
+26日 18:23:56.17 [Files]: self.json permissions: r=true; w=true
+26日 18:23:56.18 [Files]: self.json permissions: r=true; w=true
+26日 18:23:56.19 [Files]: self.json permissions: r=true; w=true
+26日 18:23:56.21 [Files]: self.json permissions: r=true; w=true
+26日 18:23:56.21 [MainActivity]: isModuleActivated: true
+26日 18:23:56.47 [AntFarm]: ========================
+使用新蛋卡 耗时: 949 ms
+26日 18:23:56.47 [AntFarm]: 有可收取的爱心鸡蛋
+26日 18:23:56.86 收取鸡蛋🥚[1.0颗]#剩余48.0颗
+26日 18:23:56.86 [AntFarm]: ========================
+收鸡蛋 耗时: 393 ms
+26日 18:23:57.82 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:23:57.83 [UIConfig]: 重置UI配置
+26日 18:23:57.85 [Files]: self.json permissions: r=true; w=true
+26日 18:23:57.86 [Files]: self.json permissions: r=true; w=true
+26日 18:23:57.87 [Files]: self.json permissions: r=true; w=true
+26日 18:23:57.88 [Files]: self.json permissions: r=true; w=true
+26日 18:23:57.89 [Files]: self.json permissions: r=true; w=true
+26日 18:23:57.90 [MainActivity]: isModuleActivated: true
+26日 18:24:00.39 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行10秒
+26日 18:24:01.70 [EnergyWaitingManager]: 定期清理检查：无过期任务
+26日 18:24:01.71 [EnergyWaitingManager]: 定期清理完成，当前活跃蹲点10个
+26日 18:24:10.42 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行20秒
+26日 18:24:15.66 [AntFarm]: ========================
+饲料任务 耗时: 18798 ms
+26日 18:24:16.64 [AntFarm]: 玩开心消消乐通过1关领取90g饲料后将达到/超过[720g]上限!终止领取
+26日 18:24:16.65 [AntFarm]: ========================
+收取饲料奖励 耗时: 989 ms
+26日 18:24:16.65 [AntFarm]: ========================
+召回小鸡 耗时: 3 ms
+26日 18:24:16.65 [AntFarm]: 蹲点时间计算🕐[开始时间=26日17:20:37, 已吃(含增量)=37.5542, 速度总计=0.0098, 食槽上限=180, 计算时间=26日22:26:31]
+26日 18:24:16.66 [AntFarm]: 添加蹲点投喂🥣[小凡|*立超]在[26日22:26:31]执行
+26日 18:24:16.66 [AntFarm]: 还有待领取的饲料
+26日 18:24:17.56 [AntFarm]: 玩开心消消乐通过1关领取90g饲料后将达到/超过[720g]上限!终止领取
+26日 18:24:17.57 [AntFarm]: ========================
+喂食 耗时: 916 ms
+26日 18:24:17.79 [AntFarm]: ========================
+到访小鸡送礼 耗时: 222 ms
+26日 18:24:17.79 [AntFarm]: ========================
+送麦子 耗时: 5 ms
+26日 18:24:17.80 [AntFarm]: ========================
+帮好友喂鸡 耗时: 3 ms
+26日 18:24:20.44 [CoroutineTaskRunner]: 🔄 模块[庄园]第1轮运行中... 已执行30秒
+26日 18:24:21.28 [AntFarm]: 饲料剩余[660g]
+26日 18:24:21.29 [AntFarm]: ========================
+通知好友赶鸡 耗时: 3489 ms
+26日 18:24:22.24 [AntFarm]: ========================
+抽抽乐 耗时: 951 ms
+26日 18:24:23.41 雇佣小鸡👷[当前可雇佣小鸡数量:2只]
+26日 18:24:23.42 [AntFarm]: ❌ 雇佣失败：未配置雇佣好友列表
+26日 18:24:23.64 [AntFarm]: ========================
+一起拿饲料 耗时: 1402 ms
+26日 18:24:24.82 家庭任务🏡[使用顶梁柱特权] 不是家里的顶梁柱！
+26日 18:24:24.82 正在吃..1小时 后 吃完
+26日 18:24:24.83 [小鸡家庭]: inviteList: ["2088412590114508","2088012440324545","2088402279973063","2088312211199221","2088012271903041","2088212133978532"]
+26日 18:24:25.02 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:145 <- task.antFarm.AntFarmFamily.enterFamily:351 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1087] {"ariverRpcTraceId":"2191df6217614742643177357e4b51","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+26日 18:24:25.02 [AntFarm]: ========================
+家庭任务 耗时: 1383 ms
+26日 18:24:25.62 [AntFarm]: ========================
+开宝箱 耗时: 600 ms
+26日 18:24:25.95 [AntFarm]: 乐园兑换💸[加饭卡]停止:乐园币不足
+26日 18:24:25.95 [AntFarm]: 乐园兑换💸[加速卡]停止:乐园币不足
+26日 18:24:25.96 [AntFarm]: 乐园兑换💸[新蛋卡]停止:乐园币不足
+26日 18:24:25.96 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
+26日 18:24:25.97 [AntFarm]: ========================
+小鸡乐园道具兑换 耗时: 347 ms
+26日 18:24:25.97 [AntFarm]: 添加定时睡觉🛌[小凡|*立超]在[26日23:30:00]执行
+26日 18:24:25.98 [AntFarm]: 添加定时起床🛌[小凡|*立超]在[27日05:30:00]执行
+26日 18:24:25.98 [AntFarm]: ========================
+小鸡睡觉&起床 耗时: 10 ms
+26日 18:24:25.98 [AntFarm]: ========================
+AntFarm 耗时: 35590 ms ()
+26日 18:24:25.98 [AntFarm]: 执行结束-蚂蚁庄园
+26日 18:24:25.99 任务[庄园-Round1]执行成功，耗时: 35594ms
+26日 18:24:25.99 [ModelTask]: 任务 庄园 完成，总耗时: 35600ms
+26日 18:24:25.99 [ModelTask]: 任务执行统计 - 总耗时: 35600ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:24:26.00 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 35616ms
+26日 18:24:26.00 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 35624ms
+26日 18:24:26.00 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/7 - 海洋
+26日 18:24:26.01 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round1]，超时设置: 600秒
+26日 18:24:26.01 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第1轮执行...
+26日 18:24:26.02 [ModelTask]: 开始执行第1轮任务: 海洋
+26日 18:24:26.02 [AntOcean]: 执行开始-海洋
+26日 18:24:27.27 [AntOcean]: 初始化沙滩数据成功。
+26日 18:24:27.28 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
+26日 18:24:28.03 神奇海洋🌊[获得:绿鳍马面鲀碎片]
+26日 18:24:28.04 神奇海洋🌊[清理:小凡|*立超海域]
+26日 18:24:28.26 神奇海洋🌊[获得:鳞砗磲碎片]
+26日 18:24:28.26 神奇海洋🌊[清理:小凡|*立超海域]
+26日 18:24:28.79 神奇海洋🌊[获得:暗纹东方鲀碎片]
+26日 18:24:28.80 神奇海洋🌊[清理:小凡|*立超海域]
+26日 18:24:31.23 [AntOcean]: 海洋任务🌊[每日任务：清理自己垃圾2次]已在黑名单中，跳过处理
+26日 18:24:31.24 [AntOcean]: 海洋任务🌊[随机任务：玩一玩得拼图]已在黑名单中，跳过处理
+26日 18:24:31.24 [AntOcean]: 海洋任务🌊[每日任务：连续3天来海洋]已在黑名单中，跳过处理
+26日 18:24:31.72 [EnergyWaitingManager]: 定期清理检查：无过期任务
+26日 18:24:31.73 [EnergyWaitingManager]: 定期清理完成，当前活跃蹲点10个
+26日 18:24:31.98 [AntOcean]: 执行潘多拉海域任务
+26日 18:24:32.67 [AntOcean]: 执行结束-海洋
+26日 18:24:32.67 任务[海洋-Round1]执行成功，耗时: 6650ms
+26日 18:24:32.67 [ModelTask]: 任务 海洋 完成，总耗时: 6657ms
+26日 18:24:32.68 [ModelTask]: 任务执行统计 - 总耗时: 6657ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:24:32.68 [CoroutineTaskRunner]: ✅ 模块[海洋]第1轮执行成功，耗时: 6673ms
+26日 18:24:32.69 [CoroutineTaskRunner]: ✅ 任务[海洋-Round1]执行完成，耗时: 6679ms
+26日 18:24:32.69 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/7 - 农场
+26日 18:24:32.69 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
+26日 18:24:32.70 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
+26日 18:24:32.70 [ModelTask]: 开始执行第1轮任务: 农场
+26日 18:24:32.71 [AntOrchard]: 执行开始-农场
+26日 18:24:35.04 [AntOrchard]: 农场今日已签到
+26日 18:24:37.31 [AntOrchard]: 执行结束-农场
+26日 18:24:37.32 任务[农场-Round1]执行成功，耗时: 4608ms
+26日 18:24:37.32 [ModelTask]: 任务 农场 完成，总耗时: 4614ms
+26日 18:24:37.32 [ModelTask]: 任务执行统计 - 总耗时: 4614ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:24:37.33 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 4630ms
+26日 18:24:37.33 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 4638ms
+26日 18:24:37.34 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/7 - 新村
+26日 18:24:37.34 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
+26日 18:24:37.34 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
+26日 18:24:37.35 [ModelTask]: 开始执行第1轮任务: 新村
+26日 18:24:37.36 [AntStall]: 执行开始-新村
+26日 18:24:38.44 蚂蚁新村⛪扔肥料
+26日 18:24:39.46 [AntStall]: ========================
+丢肥料 耗时: 2107 ms
+26日 18:24:39.69 蚂蚁新村⛪[收取金币]#267
+26日 18:24:39.70 [AntStall]: ========================
+收取金币 耗时: 233 ms
+26日 18:24:40.43 蚂蚁新村⛪获得肥料10g
+26日 18:24:40.44 [AntStall]: ========================
+收肥料 耗时: 740 ms
+26日 18:24:40.44 [AntStall]: 添加蹲点请走⛪在[26日19:22:01]执行
+26日 18:24:40.44 [AntStall]: 好友[✨✨✨|]摆摊超时，立即请走。
+26日 18:24:41.23 蚂蚁新村⛪请走[✨✨✨|]的小摊获得金币133
+26日 18:24:42.12 蚂蚁新村⛪邀请[情若能自控|*信华]开店成功
+26日 18:24:42.13 [AntStall]: ========================
+请走 耗时: 1692 ms
+26日 18:24:42.35 [AntStall]: 检查 4 个小摊的收摊时间...
+26日 18:24:42.36 [AntStall]: 小摊[300003002858797084]摆摊时间已到，执行收摊。
+26日 18:24:43.15 蚂蚁新村⛪收取在[惠琴|*惠琴]的摊位获得111.66
+26日 18:24:43.15 [AntStall]: 小摊[300002002858797084]摆摊时间已到，执行收摊。
+26日 18:24:44.07 蚂蚁新村⛪收取在[✨✨✨|]的摊位获得111.66
+26日 18:24:44.07 [AntStall]: ========================
+收摊 耗时: 1946 ms
+26日 18:24:44.23 [AntStall]: 找到 4 个空闲小摊，开始寻找好友村庄...
+26日 18:24:45.62 蚂蚁新村⛪在[青玄|]家摆摊
+26日 18:24:46.53 蚂蚁新村⛪在[惠琴|*惠琴]家摆摊
+26日 18:24:47.36 [CoroutineTaskRunner]: 🔄 模块[新村]第1轮运行中... 已执行10秒
+26日 18:24:47.38 蚂蚁新村⛪在[✨✨✨|]家摆摊
+26日 18:24:48.23 蚂蚁新村⛪在[蒲金堂|*金堂]家摆摊
+26日 18:24:48.23 [AntStall]: ========================
+摆摊 耗时: 4156 ms
+26日 18:24:48.58 [AntStall]: 开始检查 14 个新村任务...
+26日 18:24:49.66 [AntStall]: ========================
+自动任务第一次 耗时: 1434 ms
+26日 18:24:50.36 [AntStall]: 开始检查 14 个新村任务...
+26日 18:24:51.46 [AntStall]: ========================
+自动任务第二次 耗时: 1793 ms
+26日 18:24:51.46 [AntStall]: 未设置新村助力好友列表。
+26日 18:24:51.46 [AntStall]: ========================
+新村助力 耗时: 5 ms
+26日 18:24:52.55 [AntStall]: ========================
+自动捐赠 耗时: 1085 ms
+26日 18:24:52.60 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:24:52.60 [UIConfig]: 重置UI配置
+26日 18:24:52.62 [Files]: self.json permissions: r=true; w=true
+26日 18:24:52.63 [Files]: self.json permissions: r=true; w=true
+26日 18:24:52.64 [Files]: self.json permissions: r=true; w=true
+26日 18:24:52.65 [Files]: self.json permissions: r=true; w=true
+26日 18:24:52.66 [Files]: self.json permissions: r=true; w=true
+26日 18:24:52.67 [MainActivity]: isModuleActivated: true
+26日 18:24:52.69 [AntStall]: 今日已进入[鲜花村]，跳过重复打印。
+26日 18:24:52.70 [AntStall]: ========================
+自动进入下一村 耗时: 152 ms
+26日 18:24:52.70 [AntStall]: 未到贴罚单时间或今日已贴完。
+26日 18:24:52.70 [AntStall]: ========================
+贴罚单 耗时: 4 ms
+26日 18:24:52.70 [AntStall]: 执行结束-新村
+26日 18:24:52.71 任务[新村-Round1]执行成功，耗时: 15352ms
+26日 18:24:52.71 [ModelTask]: 任务 新村 完成，总耗时: 15363ms
+26日 18:24:52.71 [ModelTask]: 任务执行统计 - 总耗时: 15363ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:24:52.72 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 15376ms
+26日 18:24:52.72 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 15382ms
+26日 18:24:52.72 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/7 - 神奇物种
+26日 18:24:52.73 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
+26日 18:24:52.73 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
+26日 18:24:52.73 [ModelTask]: 开始执行第1轮任务: 神奇物种
+26日 18:24:52.74 [AntDodo]: 执行开始-神奇物种
+26日 18:24:55.35 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:24:55.36 [UIConfig]: 重置UI配置
+26日 18:24:55.37 [Files]: self.json permissions: r=true; w=true
+26日 18:24:55.38 [Files]: self.json permissions: r=true; w=true
+26日 18:24:55.39 [Files]: self.json permissions: r=true; w=true
+26日 18:24:55.40 [Files]: self.json permissions: r=true; w=true
+26日 18:24:55.42 [Files]: self.json permissions: r=true; w=true
+26日 18:24:55.42 [MainActivity]: isModuleActivated: true
+26日 18:25:00.46 [ApplicationHook]: hook onResume after start
+26日 18:25:00.47 当前参与人数过多，请稍后再试~
+26日 18:25:00.47 [ApplicationHook]: onResume targetUid: 2088002858797084
+26日 18:25:00.48 {"ariverRpcTraceId":"2191df6217614742998002157e4b51","resultCode":"SYSTEM_ERROR","resultDesc":"当前参与人数过多，请稍后再试~","resultMessage":"animalId is blank!","retryable":false,"success":false}
+26日 18:25:00.48 [ApplicationHook]: onResume currentUid: 2088002858797084
+26日 18:25:00.48 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+26日 18:25:00.49 [AlipayComponentHelper]: ✅ 已发送完整唤醒广播
+26日 18:25:00.49 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+26日 18:25:00.50 [ApplicationHook]: hook onResume after end
+26日 18:25:00.50 [ApplicationHook]: 手动APP触发，已关闭
+26日 18:25:00.64 [AntDodo]: 神奇物种卡片今日收集完成！
+26日 18:25:00.86 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:25:00.87 [UIConfig]: 重置UI配置
+26日 18:25:00.88 [Files]: self.json permissions: r=true; w=true
+26日 18:25:00.89 [Files]: self.json permissions: r=true; w=true
+26日 18:25:00.90 [Files]: self.json permissions: r=true; w=true
+26日 18:25:00.91 [Files]: self.json permissions: r=true; w=true
+26日 18:25:00.92 [Files]: self.json permissions: r=true; w=true
+26日 18:25:00.93 [MainActivity]: isModuleActivated: true
+26日 18:25:01.72 [EnergyWaitingManager]: 定期清理检查：无过期任务
+26日 18:25:01.73 [EnergyWaitingManager]: 定期清理完成，当前活跃蹲点10个
+26日 18:25:02.52 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+26日 18:25:02.75 [CoroutineTaskRunner]: 🔄 模块[神奇物种]第1轮运行中... 已执行10秒
+26日 18:25:03.04 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:25:03.05 [UIConfig]: 重置UI配置
+26日 18:25:03.06 [Files]: self.json permissions: r=true; w=true
+26日 18:25:03.07 [Files]: self.json permissions: r=true; w=true
+26日 18:25:03.08 [Files]: self.json permissions: r=true; w=true
+26日 18:25:03.09 [Files]: self.json permissions: r=true; w=true
+26日 18:25:03.10 [Files]: self.json permissions: r=true; w=true
+26日 18:25:03.11 [MainActivity]: isModuleActivated: true
+26日 18:25:04.56 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+26日 18:25:04.56 [UIConfig]: 重置UI配置
+26日 18:25:04.57 [Files]: self.json permissions: r=true; w=true
+26日 18:25:04.58 [Files]: self.json permissions: r=true; w=true
+26日 18:25:04.59 [Files]: self.json permissions: r=true; w=true
+26日 18:25:04.60 [Files]: self.json permissions: r=true; w=true
+26日 18:25:04.61 [Files]: self.json permissions: r=true; w=true
+26日 18:25:04.62 [MainActivity]: isModuleActivated: true
+26日 18:25:04.77 [AntDodo]: 执行结束-神奇物种
+26日 18:25:04.77 任务[神奇物种-Round1]执行成功，耗时: 12035ms
+26日 18:25:04.77 [ModelTask]: 任务 神奇物种 完成，总耗时: 12039ms
+26日 18:25:04.77 [ModelTask]: 任务执行统计 - 总耗时: 12039ms, 成功: 1, 失败: 0, 跳过: 0
+26日 18:25:04.78 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 12049ms
+26日 18:25:04.78 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 12055ms
+26日 18:25:04.78 [CoroutineTaskRunner]: 📍 第1轮任务进度: 7/7 - 运动
+26日 18:25:04.79 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
+26日 18:25:04.79 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
+26日 18:25:04.79 [ModelTask]: 开始执行第1轮任务: 运动
+26日 18:25:04.79 [AntSports]: 执行开始-运动
+26日 18:25:04.80 [AntSports]: ========================
+同步步数 耗时: 3 ms
+26日 18:25:04.80 [AntSports]: 运动任务今日已完成，跳过执行
+26日 18:25:04.94 [AntSports]: 同步运动步数失败:100000
+26日 18:25:04.94 [Status]: 保存 status.json
+26日 18:25:04.95 [Files]: status.json permissions: r=true; w=true
+26日 18:25:06.18 [AntSports]: 行走路线🚶🏻‍♂️路线[金陵秋径线]#前进了5458步
+26日 18:25:06.43 [AntSports]: ========================
+行走 耗时: 1629 ms
+26日 18:25:07.09 [AntSports]: ========================
+捐能量🎈 耗时: 669 ms
