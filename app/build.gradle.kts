@@ -248,6 +248,8 @@ dependencies {
     // 代码生成和工具库
     compileOnly(libs.lombok)                       // Lombok 注解处理器（编译时）
     annotationProcessor(libs.lombok)               // Lombok 注解处理
+    testCompileOnly(libs.lombok)                   // 测试代码也需要Lombok
+    testAnnotationProcessor(libs.lombok)           // 测试代码注解处理
     implementation(libs.okhttp)                    // OkHttp 网络请求库
     implementation(libs.dexkit)                    // DEX 文件分析工具
     implementation(libs.jackson.kotlin)            // Jackson Kotlin 支持
