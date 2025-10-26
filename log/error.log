@@ -1,13 +1,9 @@
-26日 18:23:20.69 [AntFarm]: Check failed: [来源: task.antFarm.AntFarm.notifyFriend:24 <- task.antFarm.AntFarm.runSuspend:955 <- task.antFarm.AntFarm$runSuspend$1.invokeSuspend:12] {"ariverRpcTraceId":"2191df6217614742000302211e4b51","memo":"非好友","resultCode":"302","success":false}
-26日 18:23:25.86 [AntFarm]: Throwable error: org.json.JSONException: No value for hasNext
-	at org.json.JSONObject.get(JSONObject.java:400)
-	at org.json.JSONObject.getBoolean(JSONObject.java:421)
-	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.notifyFriend(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:7)
-	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.runSuspend(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:955)
-	at fansirsqi.xposed.sesame.task.antFarm.AntFarm$runSuspend$1.invokeSuspend(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:12)
-	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:9)
-	at c7.f0.run(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:127)
-	at h7.b.run(r8-map-id-6f8d9af777ecd3351226902d05cbf876cb0e777f131fd5ea38b29bbda31f3f7d:118)
-
-26日 18:24:25.02 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:145 <- task.antFarm.AntFarmFamily.enterFamily:351 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1087] {"ariverRpcTraceId":"2191df6217614742643177357e4b51","memo":"任务已完成","resultCode":"FAMILY48","success":false}
-26日 18:25:04.94 [AntSports]: 同步运动步数失败:100000
+26日 22:22:45.97 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:218 <- task.antFarm.AntFarmFamily.enterFamily:107 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"0b2283a617614885653367161e670f","memo":"今日帮喂次数已达上限哦！","resultCode":"391","success":false}
+26日 22:22:46.51 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:218 <- task.antFarm.AntFarmFamily.enterFamily:107 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"0b2283a617614885658747193e670f","memo":"今日帮喂次数已达上限哦！","resultCode":"391","success":false}
+26日 22:22:46.65 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"0b2283a617614885659967201e670f","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+26日 22:24:01.80 [NewRpcBridge]: new rpc response1 | id: 187048054 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+26日 22:25:06.59 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:218 <- task.antFarm.AntFarmFamily.enterFamily:107 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"0b2283a617614887059588911e670f","memo":"今日帮喂次数已达上限哦！","resultCode":"391","success":false}
+26日 22:25:07.10 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:218 <- task.antFarm.AntFarmFamily.enterFamily:107 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"0b2283a617614887064728924e670f","memo":"今日帮喂次数已达上限哦！","resultCode":"391","success":false}
+26日 22:25:07.22 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"0b2283a617614887065648929e670f","memo":"任务已完成","resultCode":"FAMILY48","success":false}

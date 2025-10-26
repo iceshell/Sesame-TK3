@@ -46,13 +46,19 @@ object StringDialog {
             .setPositiveButton(context.getString(R.string.ok)) { _, _ ->
                 try {
                     val text = edt.text
-                    if (text.isNullOrEmpty()) {
+                    if (text == null || text.toString().isEmpty()) {
                         modelField?.setConfigValue(null)
                     } else {
                         modelField?.setConfigValue(text.toString())
                     }
                 } catch (e: Throwable) {
                     Log.printStackTrace(e)
+                    // 显示错误提示给用户
+                    android.widget.Toast.makeText(
+                        context,
+                        "保存失败: ${e.message}",
+                        android.widget.Toast.LENGTH_LONG
+                    ).show()
                 }
             }
             .setNegativeButton(context.getString(R.string.cancel)) { dialog, _ ->
@@ -67,7 +73,8 @@ object StringDialog {
             )
         }
 
-        edt.setText(modelField?.configValue.toString())
+        // 使用Java的String.valueOf与Java版本保持一致
+        edt.setText(java.lang.String.valueOf(modelField?.configValue))
         return editDialog
     }
 
@@ -90,7 +97,7 @@ object StringDialog {
         val edt = EditText(context).apply {
             inputType = InputType.TYPE_NULL
             setTextColor(Color.GRAY)
-            setText(modelField?.configValue.toString())
+            setText(java.lang.String.valueOf(modelField?.configValue))
         }
         
         return MaterialAlertDialogBuilder(context)
