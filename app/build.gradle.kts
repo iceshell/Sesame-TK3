@@ -267,4 +267,26 @@ dependencies {
     add("compatibleImplementation", libs.jackson.core.compatible)         // Jackson 核心库（兼容版）
     add("compatibleImplementation", libs.jackson.databind.compatible)     // Jackson 数据绑定（兼容版）
     add("compatibleImplementation", libs.jackson.annotations.compatible)  // Jackson 注解（兼容版）
+
+    // ========== 测试依赖 ==========
+    
+    // JUnit - 基础测试框架
+    testImplementation("junit:junit:4.13.2")
+    
+    // Kotlin 测试
+    testImplementation("org.jetbrains.kotlin:kotlin-test:2.2.20")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.2.20")
+    
+    // 协程测试
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    
+    // MockK - Kotlin Mock框架
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk-android:1.13.8")
+    
+    // Truth - Google断言库
+    testImplementation("com.google.truth:truth:1.1.5")
+    
+    // Robolectric - Android单元测试框架
+    testImplementation("org.robolectric:robolectric:4.11.1")
 }
