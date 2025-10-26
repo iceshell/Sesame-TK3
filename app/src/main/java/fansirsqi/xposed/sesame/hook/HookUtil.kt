@@ -279,7 +279,7 @@ object HookUtil {
                 }
             }
 
-            UserMap.saveSelf(selfEntity)
+            selfEntity?.let { UserMap.saveSelf(it) }
             UserMap.save(selfId)
             Log.runtime(TAG, "userCache load scuess !")
         }.onFailure {
