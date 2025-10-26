@@ -16,7 +16,7 @@ abstract class MapperEntity : Comparable<MapperEntity> {
     fun getPinyin(): List<String> = pinyinCache ?: run {
         HanziToPinyin.getInstance()
             .get(name)
-            .map { it.target }
+            .mapNotNull { it.target }
             .also { pinyinCache = it }
     }
 
