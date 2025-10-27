@@ -21,6 +21,7 @@ public class ForestChouChouLe {
     private final java.util.Map<String, AtomicInteger> taskTryCount = new java.util.concurrent.ConcurrentHashMap<>();
 
     void chouChouLe() {
+        long startTime = System.currentTimeMillis();
         try {
             String source = "task_entry";
 
@@ -37,6 +38,10 @@ public class ForestChouChouLe {
 
         } catch (Exception e) {
             Log.printStackTrace(TAG, "chouChouLe 执行异常", e);
+        } finally {
+            long endTime = System.currentTimeMillis();
+            long duration = (endTime - startTime) / 1000;
+            Log.record(TAG, "✨ 森林抽抽乐处理完毕，总耗时: " + duration + "秒");
         }
     }
 
@@ -44,6 +49,8 @@ public class ForestChouChouLe {
      * 直接处理已知的抽奖场景
      */
     private void processKnownScenes(String source, Set<String> presetBad) {
+        int totalScenes = 0;
+        int successScenes = 0;
         try {
             // 已知的抽奖场景配置
             String[][] knownScenes = {
@@ -53,18 +60,28 @@ public class ForestChouChouLe {
             };
 
             for (String[] scene : knownScenes) {
+                totalScenes++;
                 String activityId = scene[0];
                 String sceneCode = scene[1];
                 String sceneName = scene[2];
                 
                 Log.record(TAG, "🎰 开始处理：" + sceneName + " (ActivityId: " + activityId + ", SceneCode: " + sceneCode + ")");
                 
-                processChouChouLeScene(activityId, sceneCode, sceneName, source, presetBad);
+                try {
+                    processChouChouLeScene(activityId, sceneCode, sceneName, source, presetBad);
+                    successScenes++;
+                } catch (Exception e) {
+                    Log.printStackTrace(TAG, sceneName + " 处理异常", e);
+                }
                 
-                // 场景间延时
-                GlobalThreadPools.sleepCompat(3000L);
+                // 场景间延时优化：3秒→2秒
+                if (totalScenes < knownScenes.length) {
+                    GlobalThreadPools.sleepCompat(2000L);
+                }
             }
 
+            // 输出场景处理统计
+            Log.record(TAG, "📊 场景处理统计: 总计" + totalScenes + "个, 成功" + successScenes + "个");
         } catch (Exception e) {
             Log.printStackTrace(TAG, "processKnownScenes 执行异常", e);
         }
@@ -98,6 +115,8 @@ public class ForestChouChouLe {
 
             int loopCount = 0;           // 循环次数计数
             final int MAX_LOOP = 3;      // 最大循环次数，避免死循环
+            int taskCompleted = 0;       // 已完成任务数
+            int taskFailed = 0;          // 失败任务数
 
             do {
                 doublecheck = false;
@@ -151,8 +170,9 @@ public class ForestChouChouLe {
                         // 统一处理任务（适配普通版和活动版）
                         if ((taskType.startsWith("FOREST_NORMAL_DRAW") || taskType.startsWith("FOREST_ACTIVITY_DRAW")) 
                             && taskStatus.equals(TaskStatus.TODO.name())) {
-                            Log.record(sceneName + " 执行任务延时30S模拟：" + taskName);
-                            GlobalThreadPools.sleepCompat(30 * 1000L);
+                            // 性能优化：任务延时从30秒减少到8秒，保持足够的模拟时间
+                            Log.record(sceneName + " 执行任务延时8S模拟：" + taskName);
+                            GlobalThreadPools.sleepCompat(8000L);
 
                             // 调用对应完成接口
                             String result;
@@ -164,9 +184,11 @@ public class ForestChouChouLe {
 
                             if (ResChecker.checkRes(TAG, result)) {
                                 Log.record(TAG, sceneName + " ✅ " + taskName + " 完成成功");
+                                taskCompleted++;
                                 doublecheck = true;
                             } else {
                                 Log.error(TAG, sceneName + " 任务完成失败: " + taskName);
+                                taskFailed++;
                                 // 失败计数（不会自动屏蔽）
                                 int tryCount = taskTryCount.computeIfAbsent(taskType, k -> new AtomicInteger(0)).incrementAndGet();
                                 if (tryCount > 3) {
@@ -177,8 +199,8 @@ public class ForestChouChouLe {
 
                         // 已完成任务领取奖励
                         if (taskStatus.equals(TaskStatus.FINISHED.name())) {
-                            Log.record(sceneName + " 领取奖励延时3S:" + taskName);
-                            GlobalThreadPools.sleepCompat(3000L);
+                            Log.record(sceneName + " 领取奖励延时1S:" + taskName);
+                            GlobalThreadPools.sleepCompat(1000L);
                             String sginRes = AntForestRpcCall.receiveTaskAwardopengreen(source, taskSceneCode, taskType);
                             if (ResChecker.checkRes(TAG, sginRes)) {
                                 Log.record(TAG, sceneName + " 🎁 " + taskName + " 奖励领取成功");
@@ -195,13 +217,18 @@ public class ForestChouChouLe {
                     break; // 获取任务列表失败则退出循环
                 }
                 
-                // 循环间隔
+                // 循环间隔优化：3秒→2秒
                 if (doublecheck && loopCount < MAX_LOOP - 1) {
-                    Log.record(sceneName + " 等待3秒后继续下一轮检查");
-                    GlobalThreadPools.sleepCompat(3000L);
+                    Log.record(sceneName + " 等待2秒后继续下一轮检查");
+                    GlobalThreadPools.sleepCompat(2000L);
                 }
                 
             } while (doublecheck && ++loopCount < MAX_LOOP);
+
+            // 输出任务统计
+            if (taskCompleted > 0 || taskFailed > 0) {
+                Log.record(TAG, sceneName + " 📊 任务统计: 成功" + taskCompleted + "个, 失败" + taskFailed + "个");
+            }
 
             // ==================== 执行当前场景的抽奖 ====================
             Log.record(TAG, sceneName + " 🎲 开始处理抽奖");
@@ -231,9 +258,9 @@ public class ForestChouChouLe {
                         
                         blance = newBlance;
                         
-                        // 抽奖间隔
+                        // 抽奖间隔优化：2秒→1秒，提升抽奖速度
                         if (blance > 0) {
-                            GlobalThreadPools.sleepCompat(2000L);
+                            GlobalThreadPools.sleepCompat(1000L);
                         }
                     } else {
                         Log.error(TAG, sceneName + " - 第 " + drawCount + " 次抽奖失败");
