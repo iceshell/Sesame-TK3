@@ -33,7 +33,8 @@ object DataStore {
             saveToDisk()
         }
         
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) startWatcherNio() else startWatcher()
+        // ✅ minSdk 26+: 直接使用NIO WatchService
+        startWatcherNio()
     }
 
     inline fun <reified T : Any> DataStore.getOrCreate(key: String) = getOrCreate(key, object : TypeReference<T>() {})

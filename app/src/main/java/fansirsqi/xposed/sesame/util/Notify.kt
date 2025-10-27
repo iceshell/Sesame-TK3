@@ -78,14 +78,13 @@ object Notify {
             it.setData("alipays://platformapi/startapp?appId=".toUri())
             val pi = PendingIntent.getActivity(context, 0, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
             
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val notificationChannel = NotificationChannel(CHANNEL_ID, "🔔 芝麻粒能量提醒", NotificationManager.IMPORTANCE_LOW).apply {
-                    enableLights(false)
-                    enableVibration(false)
-                    setShowBadge(false)
-                }
-                manager.createNotificationChannel(notificationChannel)
+            // ✅ minSdk 26+: 直接使用通知渠道
+            val notificationChannel = NotificationChannel(CHANNEL_ID, "🔔 芝麻粒能量提醒", NotificationManager.IMPORTANCE_LOW).apply {
+                enableLights(false)
+                enableVibration(false)
+                setShowBadge(false)
             }
+            manager.createNotificationChannel(notificationChannel)
             
             val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setCategory(NotificationCompat.CATEGORY_NAVIGATION)
@@ -117,12 +116,9 @@ object Notify {
         ErrorHandler.safelyRun(TAG, "通知停止失败") {
             val ctx = context ?: return@safelyRun
             
+            // ✅ minSdk 26+: 直接使用stopForeground
             if (ctx is Service) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ctx.stopForeground(Service.STOP_FOREGROUND_REMOVE)
-                } else {
-                    ctx.stopSelf()
-                }
+                ctx.stopForeground(Service.STOP_FOREGROUND_REMOVE)
             }
             
             NotificationManagerCompat.from(ctx).cancel(NOTIFICATION_ID)
@@ -267,10 +263,9 @@ object Notify {
             val manager = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
                 ?: return@safelyRun
             
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val notificationChannel = NotificationChannel(CHANNEL_ID, "‼️ 芝麻粒异常通知", NotificationManager.IMPORTANCE_LOW)
-                manager.createNotificationChannel(notificationChannel)
-            }
+            // ✅ minSdk 26+: 直接使用通知渠道
+            val notificationChannel = NotificationChannel(CHANNEL_ID, "‼️ 芝麻粒异常通知", NotificationManager.IMPORTANCE_LOW)
+            manager.createNotificationChannel(notificationChannel)
             
             val errorBuilder = NotificationCompat.Builder(ctx, CHANNEL_ID)
                 .setCategory(NotificationCompat.CATEGORY_ERROR)
