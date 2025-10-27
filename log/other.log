@@ -1,7 +1,0 @@
-27日 13:28:33.50 会员积分🎖️[领取生活服务]#6积分
-27日 13:28:36.65 [AntMember]: 芝麻信用💳[完成任务坚持攒保障失败]#{"ariverRpcTraceId":"0b264d6b17615429156811713e47fc","resultCode":"ILLEGAL_ARGUMENT","resultView":"参数[promiseActivityExtCheck]不是有效的入参","success":false,"traceId":"0b264d6b17615429156811713e47fc"}
-27日 13:28:46.37 [AntMember]: 芝麻信用💳[完成任务快去拼手气抓花呗金失败]#{"ariverRpcTraceId":"0b264d6b17615429254062522e47fc","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"0b264d6b17615429254062522e47fc"}
-27日 13:28:46.92 [AntMember]: 芝麻信用💳[完成任务领迪士尼草莓熊皮肤失败]#{"ariverRpcTraceId":"0b264d6b17615429259042556e47fc","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"0b264d6b17615429259042556e47fc"}
-27日 13:28:47.37 [AntMember]: 芝麻信用💳[完成任务坚持逛双11会场失败]#{"ariverRpcTraceId":"0b264d6b17615429263512580e47fc","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"0b264d6b17615429263512580e47fc"}
-27日 13:28:47.82 [AntMember]: 芝麻信用💳[完成任务去玩小游戏失败]#{"ariverRpcTraceId":"0b264d6b17615429268632622e47fc","resultCode":"ILLEGAL_ARGUMENT","resultView":"参数[promiseActivityExtCheck]不是有效的入参","success":false,"traceId":"0b264d6b17615429268632622e47fc"}
-27日 13:28:53.02 芝麻信用💳[任务奖励]#4粒(一键收取)

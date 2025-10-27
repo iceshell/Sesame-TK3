@@ -754,13 +754,21 @@ public class ApplicationHook {
                     rpcVersion = rpcBridge.getVersion();
                 }
 
+                // 抓包Hook需要在RPC初始化之后
                 if (BaseModel.getNewRpc().getValue() && BaseModel.getDebugMode().getValue()) {
-                    HookUtil.INSTANCE.hookRpcBridgeExtension(
-                            classLoader,
-                            BaseModel.getSendHookData().getValue(),
-                            BaseModel.getSendHookDataUrl().getValue()
-                    );
-                    HookUtil.INSTANCE.hookDefaultBridgeCallback(classLoader);
+                    try {
+                        Log.runtime(TAG, "开始初始化RPC抓包Hook...");
+                        HookUtil.INSTANCE.hookRpcBridgeExtension(
+                                classLoader,
+                                BaseModel.getSendHookData().getValue(),
+                                BaseModel.getSendHookDataUrl().getValue()
+                        );
+                        HookUtil.INSTANCE.hookDefaultBridgeCallback(classLoader);
+                        Log.runtime(TAG, "✅ RPC抓包Hook初始化成功");
+                    } catch (Throwable t) {
+                        Log.runtime(TAG, "❌ RPC抓包Hook初始化失败: " + t.getMessage());
+                        Log.printStackTrace(TAG, t);
+                    }
                 }
 
                 Model.bootAllModel(classLoader);
