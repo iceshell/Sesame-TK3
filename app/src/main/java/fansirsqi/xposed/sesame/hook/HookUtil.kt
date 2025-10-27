@@ -83,14 +83,17 @@ object HookUtil {
                                     val dataIsNullValue: Boolean = data == null
                                     if (!dataIsNullValue) {
 
-                                        val res = JSONObject().apply {
-                                            put("TimeStamp", time)
-                                            put("Method", method)
-                                            put("Params", params)
-                                            put("Data", data)
-                                        }
+                                        // ✅ 异步处理抓包数据，避免阻塞RPC调用
+                                        Thread {
+                                            try {
+                                                val res = JSONObject().apply {
+                                                    put("TimeStamp", time)
+                                                    put("Method", method)
+                                                    put("Params", params)
+                                                    put("Data", data)
+                                                }
 
-                                        val prettyRecord = """
+                                                val prettyRecord = """
 {
 "TimeStamp": $time,
 "Method": "$method",
@@ -99,10 +102,14 @@ object HookUtil {
 }
 """.trimIndent()
 
-                                        if (isdebug) {
-                                            HookSender.sendHookData(res, debugUrl)
-                                        }
-                                        Log.capture(prettyRecord)
+                                                if (isdebug) {
+                                                    HookSender.sendHookData(res, debugUrl)
+                                                }
+                                                Log.capture(prettyRecord)
+                                            } catch (e: Exception) {
+                                                Log.runtime(TAG, "异步记录抓包数据失败: ${e.message}")
+                                            }
+                                        }.start()
                                     }
                                 } catch (e: Exception) {
                                     Log.runtime(TAG, "JSON 构建失败: ${e.message}")
