@@ -27,8 +27,8 @@ jackson = "2.19.2"
 xposed-api = "100"
 xposed-service = "100-1.0.0"
 
-#noinspection GradleDependency
-jackson-compatible = "2.13.5"
+# ✅ 已移除 jackson-compatible 版本，统一使用 2.19.2
+# jackson-compatible = "2.13.5" - 不再需要
 webkit = "1.14.0-beta01"
 core-ktx = "1.16.0"
 dexkit = "2.0.4"
@@ -69,18 +69,15 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 #xposed-api = { module = "de.robv.android.xposed:api", version.ref = "xposed-api" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-#noinspection SimilarGradleDependency
+# ✅ Jackson JSON 库 - 统一版本 2.19.2
 jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
-#noinspection SimilarGradleDependency
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
-#noinspection SimilarGradleDependency
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
-#noinspection SimilarGradleDependency
-jackson-core-compatible = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-compatible" }
-#noinspection SimilarGradleDependency
-jackson-databind-compatible = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-compatible" }
-#noinspection SimilarGradleDependency
-jackson-annotations-compatible = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-compatible" }
+
+# ✅ 已移除 Compatible 版本的 Jackson 依赖
+# jackson-core-compatible - 不再需要
+# jackson-databind-compatible - 不再需要
+# jackson-annotations-compatible - 不再需要
 
 #noinspection Aligned16KB
 dexkit = { module = "org.luckypray:dexkit", version.ref = "dexkit" }

@@ -64,7 +64,7 @@ android {
         }
 
         versionCode = gitCommitCount
-        val buildTag = "beta"
+        val buildTag = "release"
         // 重构版本号，使用versionCode自动递增
         versionName = "v0.3.0.重构版rc$versionCode-$buildTag"
 
@@ -91,17 +91,9 @@ android {
     }
 
 
-    flavorDimensions += "default"
-    productFlavors {
-        create("normal") {
-            dimension = "default"
-            extra.set("applicationType", "Normal")
-        }
-        create("compatible") {
-            dimension = "default"
-            extra.set("applicationType", "Compatible")
-        }
-    }
+    // ✅ 已移除 productFlavors，统一使用单一变体配置
+    // flavorDimensions += "default"
+    // productFlavors { ... } - 已移除Compatible变体
     compileOptions {
         // 全局默认设置
         isCoreLibraryDesugaringEnabled = true // 启用脱糖
@@ -114,33 +106,7 @@ android {
         }
     }
 
-    productFlavors.all {
-        when (name) {
-            "normal" -> {
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
-                }
-                kotlin {
-                    compilerOptions {
-                        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-                    }
-                }
-            }
-
-            "compatible" -> {
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_11
-                    targetCompatibility = JavaVersion.VERSION_11
-                }
-                kotlin {
-                    compilerOptions {
-                        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-                    }
-                }
-            }
-        }
-    }
+    // ✅ 已移除 productFlavors.all 配置，所有项目统一使用 Java 17
 
     signingConfigs {
         getByName("debug") {
@@ -184,8 +150,8 @@ android {
     applicationVariants.all {
         val variant = this
         variant.outputs.all {
-            val flavorName = variant.flavorName.replaceFirstChar { it.uppercase() }
-            val fileName = "Sesame-TK-$flavorName-${variant.versionName}.apk"
+            val buildType = variant.buildType.name.replaceFirstChar { it.uppercase() }
+            val fileName = "Sesame-TK-${variant.versionName}-$buildType.apk"
             (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = fileName
         }
     }
@@ -260,15 +226,10 @@ dependencies {
 
     implementation(libs.hiddenapibypass)           // 隐藏 API 访问绕过
 
-    // Normal 构建变体专用依赖 - Jackson JSON 处理库
-    add("normalImplementation", libs.jackson.core)         // Jackson 核心库
-    add("normalImplementation", libs.jackson.databind)     // Jackson 数据绑定
-    add("normalImplementation", libs.jackson.annotations)  // Jackson 注解
-
-    // Compatible 构建变体专用依赖 - 兼容版本的 Jackson 库
-    add("compatibleImplementation", libs.jackson.core.compatible)         // Jackson 核心库（兼容版）
-    add("compatibleImplementation", libs.jackson.databind.compatible)     // Jackson 数据绑定（兼容版）
-    add("compatibleImplementation", libs.jackson.annotations.compatible)  // Jackson 注解（兼容版）
+    // ✅ Jackson JSON 处理库 - 统一使用最新版本
+    implementation(libs.jackson.core)         // Jackson 核心库
+    implementation(libs.jackson.databind)     // Jackson 数据绑定
+    implementation(libs.jackson.annotations)  // Jackson 注解
 
     // ========== 测试依赖 ==========
     
