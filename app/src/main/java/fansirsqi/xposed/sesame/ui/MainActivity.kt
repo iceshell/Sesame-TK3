@@ -102,6 +102,30 @@ class MainActivity : BaseActivity() {
             val result = FansirsqiUtil.getOneWord()
             oneWord.text = result
         }
+        
+        // ✅ 首次启动显示免责声明
+        showDisclaimerIfFirstLaunch()
+    }
+    
+    /**
+     * 首次启动时显示免责声明对话框
+     */
+    private fun showDisclaimerIfFirstLaunch() {
+        val prefs = getSharedPreferences("sesame_app_settings", MODE_PRIVATE)
+        val isFirstLaunch = prefs.getBoolean("is_first_launch", true)
+        
+        if (isFirstLaunch) {
+            AlertDialog.Builder(this)
+                .setTitle("📢 不温馨提示")
+                .setMessage(getString(R.string.app_disclaimer))
+                .setCancelable(false)
+                .setPositiveButton("我不知道了👌") { dialog, _ ->
+                    // 标记已显示过
+                    prefs.edit().putBoolean("is_first_launch", false).apply()
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 
     override fun onResume() {

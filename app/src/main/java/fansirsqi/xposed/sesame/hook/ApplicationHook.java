@@ -754,7 +754,13 @@ public class ApplicationHook {
                     rpcVersion = rpcBridge.getVersion();
                 }
 
-                // 抓包Hook需要在RPC初始化之后
+                // ✅ 先加载配置，才能正确读取用户设置的开关
+                Model.bootAllModel(classLoader);
+                Status.load(userId);
+                DataStore.INSTANCE.init(Files.CONFIG_DIR);
+                updateDay(userId);
+
+                // 抓包Hook需要在配置加载之后，才能正确读取debugMode开关
                 if (BaseModel.getNewRpc().getValue() && BaseModel.getDebugMode().getValue()) {
                     try {
                         Log.runtime(TAG, "开始初始化RPC抓包Hook...");
@@ -770,11 +776,6 @@ public class ApplicationHook {
                         Log.printStackTrace(TAG, t);
                     }
                 }
-
-                Model.bootAllModel(classLoader);
-                Status.load(userId);
-                DataStore.INSTANCE.init(Files.CONFIG_DIR);
-                updateDay(userId);
                 
                 // 初始化日志 - 完成
                 Log.record(TAG, "━━━━━━━━━━ 初始化完成 ━━━━━━━━━━");

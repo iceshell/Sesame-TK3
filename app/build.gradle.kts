@@ -116,7 +116,7 @@ android {
     buildTypes {
         getByName("debug") {
             isDebuggable = true
-            applicationIdSuffix = ".debug"  // Debug包名添加.debug后缀
+            // applicationIdSuffix = ".debug"  // ✅ 已移除后缀，Debug和Release使用相同包名，可覆盖安装
             versionNameSuffix = ".debug"
             isShrinkResources = false
             isMinifyEnabled = false
