@@ -33,7 +33,7 @@ object PortUtil {
             return
         }
         
-        try {
+        ErrorHandler.safelyRun("PortUtil", "导出配置失败") {
             val configV2File = if (userId.isNullOrEmpty()) {
                 Files.getDefaultConfigV2File()
             } else {
@@ -41,16 +41,16 @@ object PortUtil {
             }
             
             val inputStream = FileInputStream(configV2File)
-            val outputStream = context.contentResolver.openOutputStream(uri)
+            val outputStream = context.contentResolver.openOutputStream(uri) ?: run {
+                ToastUtil.makeText("导出失败：无法打开目标文件", Toast.LENGTH_SHORT).show()
+                return@safelyRun
+            }
             
-            if (Files.streamTo(inputStream, outputStream!!)) {
+            if (Files.streamTo(inputStream, outputStream)) {
                 ToastUtil.makeText("导出成功！", Toast.LENGTH_SHORT).show()
             } else {
                 ToastUtil.makeText("导出失败！", Toast.LENGTH_SHORT).show()
             }
-        } catch (e: IOException) {
-            Log.printStackTrace(e)
-            ToastUtil.makeText("导出失败：发生异常", Toast.LENGTH_SHORT).show()
         }
     }
     
@@ -68,7 +68,7 @@ object PortUtil {
             return
         }
         
-        try {
+        ErrorHandler.safelyRun("PortUtil", "导入配置失败") {
             val configV2File = if (userId.isNullOrEmpty()) {
                 Files.getDefaultConfigV2File()
             } else {
@@ -76,18 +76,19 @@ object PortUtil {
             }
             
             val outputStream = FileOutputStream(configV2File)
-            val inputStream = context.contentResolver.openInputStream(uri)
+            val inputStream = context.contentResolver.openInputStream(uri) ?: run {
+                ToastUtil.makeText("导入失败：无法读取文件", Toast.LENGTH_SHORT).show()
+                return@safelyRun
+            }
             
-            if (Files.streamTo(inputStream!!, outputStream)) {
+            if (Files.streamTo(inputStream, outputStream)) {
                 ToastUtil.makeText("导入成功！", Toast.LENGTH_SHORT).show()
                 
                 if (!userId.isNullOrEmpty()) {
-                    try {
+                    ErrorHandler.safelyRun("PortUtil", "发送重启广播失败") {
                         val intent = Intent("com.eg.android.AlipayGphone.sesame.restart")
                         intent.putExtra("userId", userId)
                         context.sendBroadcast(intent)
-                    } catch (th: Throwable) {
-                        Log.printStackTrace(th)
                     }
                 }
                 
@@ -97,9 +98,6 @@ object PortUtil {
             } else {
                 ToastUtil.makeText("导入失败！", Toast.LENGTH_SHORT).show()
             }
-        } catch (e: IOException) {
-            Log.printStackTrace(e)
-            ToastUtil.makeText("导入失败：发生异常", Toast.LENGTH_SHORT).show()
         }
     }
     
@@ -111,13 +109,14 @@ object PortUtil {
      */
     @JvmStatic
     fun save(context: Context, userId: String?) {
-        try {
+        ErrorHandler.safelyRun("PortUtil", "保存配置失败") {
             if (Config.isModify(userId) && Config.save(userId, false)) {
                 ToastUtil.showToastWithDelay("保存成功！", 100)
                 
                 if (!userId.isNullOrEmpty()) {
                     val intent = Intent("com.eg.android.AlipayGphone.sesame.restart")
                     intent.putExtra("userId", userId)
+                    intent.putExtra("configReload", true)
                     context.sendBroadcast(intent)
                 }
             }
@@ -126,8 +125,6 @@ object PortUtil {
                 UserMap.save(userId)
                 IdMapManager.getInstance(CooperateMap::class.java).save(userId)
             }
-        } catch (th: Throwable) {
-            Log.printStackTrace(th)
         }
     }
 }

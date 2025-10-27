@@ -119,12 +119,12 @@ class HanziToPinyin protected constructor(private val mHasChinaCollator: Boolean
      */
     fun get(input: String?): ArrayList<Token> {
         val tokens = ArrayList<Token>()
-        if (!mHasChinaCollator || TextUtils.isEmpty(input)) {
+        if (!mHasChinaCollator || input.isNullOrEmpty()) {
             // return empty tokens.
             return tokens
         }
         try {
-            val inputLength = input!!.length
+            val inputLength = input.length
             val sb = StringBuilder()
             var tokenType: Int = Token.Companion.LATIN
             // Go through the input, create a new token when
@@ -677,11 +677,7 @@ class HanziToPinyin protected constructor(private val mHasChinaCollator: Boolean
         @JvmStatic
         fun getInstance(): HanziToPinyin {
             synchronized(HanziToPinyin::class.java) {
-                if (sInstance != null) {
-                    return sInstance!!
-                }
-                sInstance = HanziToPinyin(true)
-                return sInstance!!
+                return sInstance ?: HanziToPinyin(true).also { sInstance = it }
             }
         }
     }

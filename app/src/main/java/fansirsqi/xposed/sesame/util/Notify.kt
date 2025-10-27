@@ -62,41 +62,50 @@ object Notify {
 
     @JvmStatic
     fun start(context: Context) {
-        try {
-            if (checkPermission(context)) {
-                Notify.context = context
-                stop()
-                titleText = "🚀 启动中"
-                contentText = "🔔 暂无消息"
-                lastUpdateTime = System.currentTimeMillis()
-                mNotifyManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
-                val it = Intent(Intent.ACTION_VIEW)
-                it.setData("alipays://platformapi/startapp?appId=".toUri())
-                val pi = PendingIntent.getActivity(context, 0, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val notificationChannel = NotificationChannel(CHANNEL_ID, "🔔 芝麻粒能量提醒", NotificationManager.IMPORTANCE_LOW)
-                    notificationChannel.enableLights(false)
-                    notificationChannel.enableVibration(false)
-                    notificationChannel.setShowBadge(false)
-                    mNotifyManager!!.createNotificationChannel(notificationChannel)
+        ErrorHandler.safelyRun(TAG, "通知启动失败") {
+            if (!checkPermission(context)) return@safelyRun
+            
+            Notify.context = context
+            stop()
+            titleText = "🚀 启动中"
+            contentText = "🔔 暂无消息"
+            lastUpdateTime = System.currentTimeMillis()
+            
+            val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+                ?: return@safelyRun
+            
+            val it = Intent(Intent.ACTION_VIEW)
+            it.setData("alipays://platformapi/startapp?appId=".toUri())
+            val pi = PendingIntent.getActivity(context, 0, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+            
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationChannel = NotificationChannel(CHANNEL_ID, "🔔 芝麻粒能量提醒", NotificationManager.IMPORTANCE_LOW).apply {
+                    enableLights(false)
+                    enableVibration(false)
+                    setShowBadge(false)
                 }
-                builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setCategory(NotificationCompat.CATEGORY_NAVIGATION)
-                    .setSmallIcon(android.R.drawable.sym_def_app_icon)
-                    .setLargeIcon(BitmapFactory.decodeResource(context.resources, android.R.drawable.sym_def_app_icon))
-                    .setContentTitle(titleText)
-                    .setContentText(contentText)
-                    .setSubText("芝麻粒")
-                    .setAutoCancel(false)
-                    .setContentIntent(pi)
-                if (BaseModel.enableOnGoing.value) {
-                    builder!!.setOngoing(true)
-                }
-                NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder!!.build())
-                isNotificationStarted = true
+                manager.createNotificationChannel(notificationChannel)
             }
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
+            
+            val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+                .setCategory(NotificationCompat.CATEGORY_NAVIGATION)
+                .setSmallIcon(android.R.drawable.sym_def_app_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(context.resources, android.R.drawable.sym_def_app_icon))
+                .setContentTitle(titleText)
+                .setContentText(contentText)
+                .setSubText("芝麻粒")
+                .setAutoCancel(false)
+                .setContentIntent(pi)
+            
+            if (BaseModel.enableOnGoing.value) {
+                notificationBuilder.setOngoing(true)
+            }
+            
+            NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notificationBuilder.build())
+            
+            mNotifyManager = manager
+            builder = notificationBuilder
+            isNotificationStarted = true
         }
     }
 
@@ -105,23 +114,21 @@ object Notify {
      */
     @JvmStatic
     fun stop() {
-        try {
-            if (context == null) {
-                // Log.error(TAG, "Context is null in stop(), cannot proceed.");
-                return
-            }
-            if (context is Service) {
+        ErrorHandler.safelyRun(TAG, "通知停止失败") {
+            val ctx = context ?: return@safelyRun
+            
+            if (ctx is Service) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    (context as Service).stopForeground(Service.STOP_FOREGROUND_REMOVE)
+                    ctx.stopForeground(Service.STOP_FOREGROUND_REMOVE)
                 } else {
-                    (context as Service).stopSelf()
+                    ctx.stopSelf()
                 }
             }
-            NotificationManagerCompat.from(context!!).cancel(NOTIFICATION_ID)
+            
+            NotificationManagerCompat.from(ctx).cancel(NOTIFICATION_ID)
             mNotifyManager = null
+            builder = null
             isNotificationStarted = false
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
         }
     }
 
@@ -187,20 +194,16 @@ object Notify {
      */
     @JvmStatic
     fun setStatusTextExec() {
-        if (!isNotificationStarted || context == null || builder == null || mNotifyManager == null) return
-        try {
+        if (!isNotificationStarted) return
+        ErrorHandler.safelyRun(TAG, "设置状态失败") {
             val forestPauseTime = RuntimeInfo.getInstance().getLong(RuntimeInfo.RuntimeInfoKey.ForestPauseTime)
 
             if (forestPauseTime > System.currentTimeMillis()) {
                 titleText = "❌ 触发异常，等待至" + TimeUtil.getCommonDate(forestPauseTime) + "恢复运行"
             }
             titleText = "⚙️ 芝麻粒正在施工中..."
-            if (builder != null) {
-                builder!!.setContentTitle(titleText)
-            }
+            builder?.setContentTitle(titleText)
             sendText(true)
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
         }
     }
 
@@ -209,16 +212,15 @@ object Notify {
      */
     @JvmStatic
     fun setStatusTextDisabled() {
-        if (!isNotificationStarted || context == null || builder == null || mNotifyManager == null) return
-        try {
-            builder!!.setContentTitle("🚫 芝麻粒已禁用")
+        if (!isNotificationStarted) return
+        ErrorHandler.safelyRun(TAG, "设置禁用状态失败") {
+            val notificationBuilder = builder ?: return@safelyRun
+            notificationBuilder.setContentTitle("🚫 芝麻粒已禁用")
             if (!StringUtil.isEmpty(contentText)) {
-                builder!!.setContentText(contentText)
+                notificationBuilder.setContentText(contentText)
             }
-            builder!!.setProgress(0, 0, false)
+            notificationBuilder.setProgress(0, 0, false)
             sendText(true)
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
         }
     }
 
@@ -233,57 +235,63 @@ object Notify {
      * @param force 是否强制刷新
      */
     private fun sendText(force: Boolean) {
-        if (!isNotificationStarted || context == null || builder == null || mNotifyManager == null) return
-        try {
+        if (!isNotificationStarted) return
+        ErrorHandler.safelyRun(TAG, "发送通知失败") {
             if (!force && System.currentTimeMillis() - lastUpdateTime < 500) {
-                return
+                return@safelyRun
             }
             lastUpdateTime = System.currentTimeMillis()
-            if (builder != null) {
-                builder!!.setContentTitle(titleText)
-                if (!StringUtil.isEmpty(contentText)) {
-                    builder!!.setContentText(contentText)
-                }
-                mNotifyManager!!.notify(NOTIFICATION_ID, builder!!.build())
+            
+            val notificationBuilder = builder ?: return@safelyRun
+            val manager = mNotifyManager ?: return@safelyRun
+            
+            notificationBuilder.setContentTitle(titleText)
+            if (!StringUtil.isEmpty(contentText)) {
+                notificationBuilder.setContentText(contentText)
             }
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
+            manager.notify(NOTIFICATION_ID, notificationBuilder.build())
         }
     }
 
     @SuppressLint("StaticFieldLeak")
     @JvmStatic
     fun sendErrorNotification(title: String?, content: String?) {
-        try {
-            if (context == null) {
+        ErrorHandler.safelyRun(TAG, "发送错误通知失败") {
+            val ctx = context ?: run {
                 Log.error(TAG, "Context is null in sendErrorNotification, cannot proceed.")
-                return
+                return@safelyRun
             }
-            if (!Notify.checkPermission(context!!) || !isNotificationStarted) return
-            mNotifyManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+            
+            if (!Notify.checkPermission(ctx) || !isNotificationStarted) return@safelyRun
+            
+            val manager = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+                ?: return@safelyRun
+            
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val notificationChannel = NotificationChannel(CHANNEL_ID, "‼️ 芝麻粒异常通知", NotificationManager.IMPORTANCE_LOW)
-                mNotifyManager!!.createNotificationChannel(notificationChannel)
+                manager.createNotificationChannel(notificationChannel)
             }
-            val errorBuilder = NotificationCompat.Builder(context!!, CHANNEL_ID)
+            
+            val errorBuilder = NotificationCompat.Builder(ctx, CHANNEL_ID)
                 .setCategory(NotificationCompat.CATEGORY_ERROR)
                 .setSmallIcon(android.R.drawable.sym_def_app_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(context!!.resources, android.R.drawable.sym_def_app_icon))
+                .setLargeIcon(BitmapFactory.decodeResource(ctx.resources, android.R.drawable.sym_def_app_icon))
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSubText("芝麻粒")
                 .setAutoCancel(true)
-            if (context is Service) {
+            
+            if (ctx is Service) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    NotificationManagerCompat.from(context!!).notify(ERROR_NOTIFICATION_ID, errorBuilder.build())
+                    NotificationManagerCompat.from(ctx).notify(ERROR_NOTIFICATION_ID, errorBuilder.build())
                 } else {
-                    (context as Service).startForeground(ERROR_NOTIFICATION_ID, errorBuilder.build())
+                    ctx.startForeground(ERROR_NOTIFICATION_ID, errorBuilder.build())
                 }
             } else {
-                NotificationManagerCompat.from(context!!).notify(ERROR_NOTIFICATION_ID, errorBuilder.build())
+                NotificationManagerCompat.from(ctx).notify(ERROR_NOTIFICATION_ID, errorBuilder.build())
             }
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
+            
+            mNotifyManager = manager
         }
     }
 }

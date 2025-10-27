@@ -2,6 +2,7 @@ package fansirsqi.xposed.sesame.util.maps
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import fansirsqi.xposed.sesame.util.ErrorHandler
 import fansirsqi.xposed.sesame.util.Files
 import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
@@ -169,15 +170,15 @@ abstract class IdMapManager {
      * @return 如果保存成功返回true，否则返回false
      */
     @Synchronized
-    fun save(userId: String?): Boolean {
-        return try {
+    open fun save(userId: String?): Boolean {
+        return ErrorHandler.safely("IdMapManager", "保存IdMap失败", fallback = false) {
+            val file = Files.getTargetFileofUser(userId, thisFileName()) ?: run {
+                Log.error("IdMapManager", "无法获取目标文件")
+                return@safely false
+            }
             val json = JsonUtil.formatJson(idMap)
-            val file = Files.getTargetFileofUser(userId, thisFileName())
-            Files.write2File(json, file!!)
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
-            false
-        }
+            Files.write2File(json, file)
+        } ?: false
     }
     
     @Synchronized

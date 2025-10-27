@@ -2,6 +2,7 @@ package fansirsqi.xposed.sesame.util.maps
 
 import com.fasterxml.jackson.core.type.TypeReference
 import fansirsqi.xposed.sesame.entity.UserEntity
+import fansirsqi.xposed.sesame.util.ErrorHandler
 import fansirsqi.xposed.sesame.util.Files
 import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
@@ -133,11 +134,10 @@ object UserMap {
             return
         }
         
-        try {
-            val friendIdMapFile = Files.getFriendIdMapFile(userId)
-            if (friendIdMapFile == null) {
+        ErrorHandler.safelyRun(TAG, "加载用户数据失败") {
+            val friendIdMapFile = Files.getFriendIdMapFile(userId) ?: run {
                 Log.runtime(TAG, "Friend ID map file is null for userId: $userId")
-                return
+                return@safelyRun
             }
             
             val body = Files.readFromFile(friendIdMapFile)
@@ -147,11 +147,10 @@ object UserMap {
                     object : TypeReference<Map<String, UserEntity.UserDto>>() {}
                 )
                 for (dto in dtoMap.values) {
-                    userMap[dto.userId!!] = dto.toEntity()
+                    val uid = dto.userId ?: continue
+                    userMap[uid] = dto.toEntity()
                 }
             }
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
         }
     }
     
@@ -173,7 +172,20 @@ object UserMap {
     @JvmStatic
     @Synchronized
     fun save(userId: String?): Boolean {
-        return Files.write2File(JsonUtil.formatJson(userMap), Files.getFriendIdMapFile(userId!!)!!)
+        val id = userId ?: run {
+            Log.error(TAG, "userId为空，无法保存")
+            return false
+        }
+        
+        val file = Files.getFriendIdMapFile(id) ?: run {
+            Log.error(TAG, "无法获取用户文件: $id")
+            return false
+        }
+        
+        return ErrorHandler.safely(TAG, "保存用户数据失败", fallback = false) {
+            val json = JsonUtil.formatJson(userMap)
+            Files.write2File(json, file)
+        } ?: false
     }
     
     /**
@@ -185,17 +197,23 @@ object UserMap {
     @Synchronized
     fun loadSelf(userId: String?) {
         userMap.clear()
-        try {
-            val body = Files.readFromFile(Files.getSelfIdFile(userId!!)!!)
+        if (userId.isNullOrEmpty()) {
+            Log.runtime(TAG, "Skip loading self for empty userId")
+            return
+        }
+        
+        ErrorHandler.safelyRun(TAG, "加载当前用户数据失败") {
+            val selfFile = Files.getSelfIdFile(userId) ?: return@safelyRun
+            val body = Files.readFromFile(selfFile)
+            
             if (body.isNotEmpty()) {
                 val dto: UserEntity.UserDto = JsonUtil.parseObject(
                     body,
                     object : TypeReference<UserEntity.UserDto>() {}
                 )
-                userMap[dto.userId!!] = dto.toEntity()
+                val uid = dto.userId ?: return@safelyRun
+                userMap[uid] = dto.toEntity()
             }
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
         }
     }
     
@@ -207,7 +225,19 @@ object UserMap {
     @JvmStatic
     @Synchronized
     fun saveSelf(userEntity: UserEntity) {
-        val body = JsonUtil.formatJson(userEntity)
-        Files.write2File(body, Files.getSelfIdFile(userEntity.userId!!)!!)
+        ErrorHandler.safelyRun(TAG, "保存当前用户数据失败") {
+            val uid = userEntity.userId ?: run {
+                Log.error(TAG, "userEntity.userId为空")
+                return@safelyRun
+            }
+            
+            val file = Files.getSelfIdFile(uid) ?: run {
+                Log.error(TAG, "无法获取self文件")
+                return@safelyRun
+            }
+            
+            val body = JsonUtil.formatJson(userEntity)
+            Files.write2File(body, file)
+        }
     }
 }

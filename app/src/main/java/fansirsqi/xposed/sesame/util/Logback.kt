@@ -31,8 +31,11 @@ object Logback {
     fun configureLogbackDirectly() {
         // 延迟初始化 LOG_DIR
         if (LOG_DIR == null) {
-            assert(Files.LOG_DIR != null)
-            LOG_DIR = Files.LOG_DIR!!.path + File.separator
+            val logDir = Files.LOG_DIR ?: run {
+                Log.error("Logback", "LOG_DIR未初始化")
+                return
+            }
+            LOG_DIR = logDir.path + File.separator
         }
         
         File(LOG_DIR + "bak").mkdirs()
