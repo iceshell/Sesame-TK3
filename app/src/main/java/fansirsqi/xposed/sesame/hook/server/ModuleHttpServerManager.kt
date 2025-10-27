@@ -48,6 +48,11 @@ object ModuleHttpServerManager {
             server = s
             Log.runtime(TAG, "HTTP 服务启动成功，端口: $port")
             true
+        } catch (e: java.net.BindException) {
+            // ✅ 专门处理端口占用异常
+            Log.runtime(TAG, "⚠️ HTTP服务端口 $port 已被占用，可能其他实例正在运行")
+            Log.runtime(TAG, "建议：1) 重启支付宝应用 2) 检查是否有多个模块实例")
+            false
         } catch (t: Throwable) {
             Log.runtime(TAG, "HTTP 服务启动失败: ${t.message}")
             Log.printStackTrace(t)

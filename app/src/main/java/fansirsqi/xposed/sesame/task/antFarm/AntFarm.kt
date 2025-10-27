@@ -1620,9 +1620,14 @@ class AntFarm : ModelTask() {
                 if (!Status.hasFlagToday(CACHED_FLAG)) {
                     val jo = JSONObject(DadaDailyRpcCall.home(activityId))
                     if (ResChecker.checkRes(TAG + "查询答题活动失败:", jo)) {
-                        val operationConfigList = jo.getJSONArray("operationConfigList")
-                        updateTomorrowAnswerCache(operationConfigList, tomorrow)
-                        Status.setFlagToday(CACHED_FLAG)
+                        // ✅ 安全检查：确保operationConfigList存在
+                        if (jo.has("operationConfigList")) {
+                            val operationConfigList = jo.getJSONArray("operationConfigList")
+                            updateTomorrowAnswerCache(operationConfigList, tomorrow)
+                            Status.setFlagToday(CACHED_FLAG)
+                        } else {
+                            Log.runtime(TAG, "答题活动返回成功但无operationConfigList字段，跳过缓存更新")
+                        }
                     }
                 }
                 return
@@ -1686,9 +1691,15 @@ class AntFarm : ModelTask() {
                 val extInfo = joDailySubmit.getJSONObject("extInfo")
                 val correct = joDailySubmit.getBoolean("correct")
                 Log.farm("饲料任务答题：" + (if (correct) "正确" else "错误") + "领取饲料［" + extInfo.getString("award") + "g］")
-                val operationConfigList = joDailySubmit.getJSONArray("operationConfigList")
-                updateTomorrowAnswerCache(operationConfigList, tomorrow)
-                Status.setFlagToday(CACHED_FLAG)
+                
+                // ✅ 安全检查：确保operationConfigList存在
+                if (joDailySubmit.has("operationConfigList")) {
+                    val operationConfigList = joDailySubmit.getJSONArray("operationConfigList")
+                    updateTomorrowAnswerCache(operationConfigList, tomorrow)
+                    Status.setFlagToday(CACHED_FLAG)
+                } else {
+                    Log.runtime(TAG, "提交答题返回成功但无operationConfigList字段，跳过缓存更新")
+                }
             }
         } catch (e: Exception) {
             Log.printStackTrace(TAG, "答题出错", e)
