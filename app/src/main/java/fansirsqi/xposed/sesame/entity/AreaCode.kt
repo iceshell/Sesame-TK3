@@ -64,7 +64,7 @@ class AreaCode(id: String, name: String) : MapperEntity() {
                     }
                 }
             }
-            return list!!
+            return list ?: emptyList()
         }
 
         /**

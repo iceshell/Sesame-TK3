@@ -44,7 +44,7 @@ class ReserveEntity(i: String, n: String) : MapperEntity() {
                     }
                 }
             }
-            return list!!
+            return list ?: emptyList()
         }
 
         /**

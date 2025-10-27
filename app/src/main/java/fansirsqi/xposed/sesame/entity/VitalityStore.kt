@@ -26,7 +26,7 @@ class VitalityStore(i: String, n: String) : MapperEntity() {
     }
 
     companion object {
-        private var idNameMap: MutableMap<String?, String?>? = null
+        private var idNameMap: MutableMap<String, String>? = null
 
         /**
          * 获取活力值商店列表（作为MapperEntity列表）
@@ -43,7 +43,9 @@ class VitalityStore(i: String, n: String) : MapperEntity() {
                 val entries = instance?.map?.entries ?: emptySet()
 
                 for (entry in entries) {
-                    list.add(VitalityStore(entry.key!!, entry.value!!))
+                    val key = entry.key ?: continue
+                    val value = entry.value ?: continue
+                    list.add(VitalityStore(key, value))
                 }
                 return list
             }
@@ -51,12 +53,13 @@ class VitalityStore(i: String, n: String) : MapperEntity() {
         @JvmStatic
         fun getNameById(id: String?): String? {
             if (idNameMap == null) {
-                idNameMap = HashMap()
-                for (store in list) {
-                    idNameMap!!.put(store.id, store.name)
+                idNameMap = HashMap<String, String>().apply {
+                    for (store in list) {
+                        put(store.id, store.name)
+                    }
                 }
             }
-            return idNameMap!![id]
+            return idNameMap?.get(id)
         }
     }
 }

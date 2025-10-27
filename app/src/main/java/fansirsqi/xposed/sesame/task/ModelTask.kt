@@ -156,7 +156,11 @@ abstract class ModelTask : Model() {
         childTask.modelTask = this
         
         // 在协程作用域中启动子任务
-        childTask.job = taskScope!!.launch {
+        val scope = taskScope ?: run {
+            Log.error(TAG, "taskScope未初始化，无法启动子任务")
+            return
+        }
+        childTask.job = scope.launch {
             try {
                 childTask.run()
             } catch (e: Exception) {
@@ -189,7 +193,11 @@ abstract class ModelTask : Model() {
         // 确保任务作用域已初始化
         ensureTaskScope()
         // 使用协程作用域启动一个新的协程来处理子任务添加
-        taskScope!!.launch {
+        val scope = taskScope ?: run {
+            Log.error(TAG, "taskScope未初始化")
+            return false
+        }
+        scope.launch {
             addChildTaskSuspend(childTask)
         }
         return true
@@ -217,8 +225,12 @@ abstract class ModelTask : Model() {
         rounds: Int = 2
     ): Job? {
         ensureTaskScope()
+        val scope = taskScope ?: run {
+            Log.error(TAG, "taskScope未初始化，无法启动任务")
+            return null
+        }
         
-        return taskScope!!.launch {
+        return scope.launch {
             executionMutex.withLock {
                 if (isRunning && !force) {
                     Log.runtime(TAG, "任务 ${getName()} 正在运行，跳过启动")
