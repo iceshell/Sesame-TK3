@@ -68,23 +68,24 @@ class HtmlViewerActivity : BaseActivity() {
         progressBar = findViewById(R.id.pgb_webview)
 
         setupWebView()
-        settings = mWebView!!.getSettings()
+        settings = mWebView?.settings
 
         // 安全设置 WebView
         try {
-            if (mWebView != null) {
+            mWebView?.let { webView ->
+                val webSettings = webView.settings
                 if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
                     try {
-                        WebSettingsCompat.setAlgorithmicDarkeningAllowed(settings!!, true)
+                        WebSettingsCompat.setAlgorithmicDarkeningAllowed(webSettings, true)
                     } catch (e: Exception) {
                         Log.error(TAG, "设置夜间模式失败: " + e.message)
                         Log.printStackTrace(TAG, e)
                     }
                 }
 
-                settings!!.javaScriptEnabled = false
-                settings!!.domStorageEnabled = false
-                progressBar!!.setProgressTintList(
+                webSettings.javaScriptEnabled = false
+                webSettings.domStorageEnabled = false
+                progressBar?.setProgressTintList(
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
                             this,
@@ -92,7 +93,7 @@ class HtmlViewerActivity : BaseActivity() {
                         )
                     )
                 )
-                mWebView!!.setBackgroundColor(ContextCompat.getColor(this, R.color.background))
+                webView.setBackgroundColor(ContextCompat.getColor(this, R.color.background))
             }
         } catch (e: Exception) {
             Log.error(TAG, "WebView初始化异常: " + e.message)
@@ -104,12 +105,14 @@ class HtmlViewerActivity : BaseActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(contentView) { _, insets ->
             val systemBarsBottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
 
-            mWebView!!.setPadding(
-                mWebView!!.getPaddingLeft(),
-                mWebView!!.paddingTop,
-                mWebView!!.getPaddingRight(),
-                systemBarsBottom
-            )
+            mWebView?.let { webView ->
+                webView.setPadding(
+                    webView.paddingLeft,
+                    webView.paddingTop,
+                    webView.paddingRight,
+                    systemBarsBottom
+                )
+            }
 
             insets
         }
@@ -119,17 +122,17 @@ class HtmlViewerActivity : BaseActivity() {
      * 设置 WebView 的 WebChromeClient 和进度变化监听
      */
     private fun setupWebView() {
-        mWebView!!.setWebChromeClient(
+        mWebView?.setWebChromeClient(
             object : WebChromeClient() {
                 @SuppressLint("WrongConstant")
                 override fun onProgressChanged(view: WebView?, progress: Int) {
-                    progressBar!!.progress = progress
+                    progressBar?.progress = progress
                     if (progress < 100) {
                         baseSubtitle = "Loading..."
-                        progressBar!!.visibility = View.VISIBLE
+                        progressBar?.visibility = View.VISIBLE
                     } else {
-                        baseSubtitle = mWebView!!.getTitle()
-                        progressBar!!.visibility = View.GONE
+                        baseSubtitle = view?.title
+                        progressBar?.visibility = View.GONE
                     }
                 }
             })
@@ -141,61 +144,60 @@ class HtmlViewerActivity : BaseActivity() {
         // 安全设置WebView
         try {
             val intent = getIntent() // 获取传递过来的 Intent
-            if (intent != null) {
-                if (mWebView != null) {
-                    settings!!.setSupportZoom(true) // 支持缩放
-                    settings!!.builtInZoomControls = true // 启用内置缩放机制
-                    settings!!.displayZoomControls = false // 不显示缩放控件
-                    settings!!.useWideViewPort = true // 启用触摸缩放
-                    settings!!.loadWithOverviewMode = true //概览模式加载
-                    settings!!.textZoom = 85
+            intent?.let { intentData ->
+                settings?.let { webSettings ->
+                    webSettings.setSupportZoom(true) // 支持缩放
+                    webSettings.builtInZoomControls = true // 启用内置缩放机制
+                    webSettings.displayZoomControls = false // 不显示缩放控件
+                    webSettings.useWideViewPort = true // 启用触摸缩放
+                    webSettings.loadWithOverviewMode = true //概览模式加载
+                    webSettings.textZoom = 85
                     // 可选夜间模式设置
                     if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
                         try {
-                            WebSettingsCompat.setAlgorithmicDarkeningAllowed(settings!!, true)
+                            WebSettingsCompat.setAlgorithmicDarkeningAllowed(webSettings, true)
                         } catch (e: Exception) {
                             Log.error(TAG, "设置夜间模式失败: " + e.message)
                             Log.printStackTrace(TAG, e)
                         }
                     }
+                    configureWebViewSettings(intentData, webSettings)
                 }
-                configureWebViewSettings(intent, settings!!)
-                uri = intent.data
-                if (uri != null) {
-//                    mWebView.loadUrl(uri.toString());
-                    /** 日志实时显示 begin */
-                    settings!!.javaScriptEnabled = true
-                    settings!!.domStorageEnabled = true // 可选
+                uri = intentData.data
+                uri?.let { uriData ->
+                    settings?.let { webSettings ->
+                        webSettings.javaScriptEnabled = true
+                        webSettings.domStorageEnabled = true
+                    }
                     
-                    // 注册 JavaScript 接口，提供索引搜索能力
-                    mWebView!!.addJavascriptInterface(SearchBridge(), "SearchBridge")
-                    
-                    mWebView!!.loadUrl("file:///android_asset/log_viewer.html")
-                    mWebView!!.setWebChromeClient(object : WebChromeClient() {
-                        @RequiresApi(api = Build.VERSION_CODES.O)
-                        override fun onProgressChanged(view: WebView?, progress: Int) {
-                            progressBar!!.progress = progress
-                            if (progress < 100) {
-                                baseSubtitle = "Loading..."
-                                progressBar!!.visibility = View.VISIBLE
-                            } else {
-                                baseSubtitle = mWebView!!.getTitle()
-                                progressBar!!.visibility = View.GONE
+                    mWebView?.let { webView ->
+                        webView.addJavascriptInterface(SearchBridge(), "SearchBridge")
+                        webView.loadUrl("file:///android_asset/log_viewer.html")
+                        webView.setWebChromeClient(object : WebChromeClient() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
+                            override fun onProgressChanged(view: WebView?, progress: Int) {
+                                progressBar?.progress = progress
+                                if (progress < 100) {
+                                    baseSubtitle = "Loading..."
+                                    progressBar?.visibility = View.VISIBLE
+                                } else {
+                                    baseSubtitle = view?.title
+                                    progressBar?.visibility = View.GONE
 
-                                // ★★ 页面已就绪：使用 Flow 流式加载日志 ★★
-                                if (uri != null && "file".equals(uri!!.scheme, ignoreCase = true)) {
-                                    val path = uri!!.path
-                                    if (path != null && path.endsWith(".log")) {
-                                        // 使用协程 + Flow 流式加载
-                                        loadLogWithFlow(path)
+                                    // ★★ 页面已就绪：使用 Flow 流式加载日志 ★★
+                                    if ("file".equals(uriData.scheme, ignoreCase = true)) {
+                                        uriData.path?.let { path ->
+                                            if (path.endsWith(".log")) {
+                                                loadLogWithFlow(path)
+                                            }
+                                        }
                                     }
                                 }
                             }
-                        }
-                    })
-                    /** 日志实时显示 end */
+                        })
+                    }
                 }
-                canClear = intent.getBooleanExtra("canClear", false)
+                canClear = intentData.getBooleanExtra("canClear", false)
             }
         } catch (e: Exception) {
             Log.error(TAG, "WebView设置异常: " + e.message)
@@ -259,7 +261,7 @@ class HtmlViewerActivity : BaseActivity() {
                 )
 
             6 ->                 // 滚动到底部
-                mWebView!!.scrollToBottom()
+                mWebView?.scrollToBottom()
         }
         return true
     }
@@ -269,22 +271,15 @@ class HtmlViewerActivity : BaseActivity() {
      */
     private fun exportFile() {
         try {
-            if (uri != null) {
-                val path = uri!!.path
+            uri?.path?.let { path ->
                 Log.runtime(TAG, "URI path: $path")
-                if (path != null) {
-                    val exportFile = Files.exportFile(File(path), true)
-                    if (exportFile != null && exportFile.exists()) {
-                        ToastUtil.showToast(getString(R.string.file_exported) + exportFile.path)
-                    } else {
-                        Log.runtime(TAG, "导出失败，exportFile 对象为 null 或不存在！")
-                    }
+                val exportFile = Files.exportFile(File(path), true)
+                if (exportFile != null && exportFile.exists()) {
+                    ToastUtil.showToast(getString(R.string.file_exported) + exportFile.path)
                 } else {
-                    Log.runtime(TAG, "路径为 null！")
+                    Log.runtime(TAG, "导出失败，exportFile 对象为 null 或不存在！")
                 }
-            } else {
-                Log.runtime(TAG, "URI 为 null！")
-            }
+            } ?: Log.runtime(TAG, "路径为 null！")
         } catch (e: Exception) {
             Log.printStackTrace(TAG, e)
         }
@@ -295,14 +290,11 @@ class HtmlViewerActivity : BaseActivity() {
      */
     private fun clearFile() {
         try {
-            if (uri != null) {
-                val path = uri!!.path
-                if (path != null) {
-                    val file = File(path)
-                    if (Files.clearFile(file)) {
-                        ToastUtil.makeText(this, "文件已清空", Toast.LENGTH_SHORT).show()
-                        mWebView!!.reload()
-                    }
+            uri?.path?.let { path ->
+                val file = File(path)
+                if (Files.clearFile(file)) {
+                    ToastUtil.makeText(this, "文件已清空", Toast.LENGTH_SHORT).show()
+                    mWebView?.reload()
                 }
             }
         } catch (e: Exception) {
@@ -314,10 +306,10 @@ class HtmlViewerActivity : BaseActivity() {
      * 使用其他浏览器打开当前 URL
      */
     private fun openWithBrowser() {
-        if (uri != null) {
-            val scheme = uri!!.scheme
+        uri?.let { currentUri ->
+            val scheme = currentUri.scheme
             if ("http".equals(scheme, ignoreCase = true) || "https".equals(scheme, ignoreCase = true)) {
-                val intent = Intent(Intent.ACTION_VIEW, uri)
+                val intent = Intent(Intent.ACTION_VIEW, currentUri)
                 startActivity(intent)
             } else if ("file".equals(scheme, ignoreCase = true)) {
                 ToastUtil.makeText(this, "该文件不支持用浏览器打开", Toast.LENGTH_SHORT).show()
@@ -332,8 +324,9 @@ class HtmlViewerActivity : BaseActivity() {
      */
     private fun copyUrlToClipboard() {
         val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
-        if (clipboardManager != null) {
-            clipboardManager.setPrimaryClip(ClipData.newPlainText(null, mWebView!!.getUrl()))
+        val url = mWebView?.url
+        if (clipboardManager != null && url != null) {
+            clipboardManager.setPrimaryClip(ClipData.newPlainText(null, url))
             ToastUtil.makeText(this, getString(R.string.copy_success), Toast.LENGTH_SHORT).show()
         }
     }
@@ -357,13 +350,13 @@ class HtmlViewerActivity : BaseActivity() {
         if (mWebView is MyWebView) {
             (mWebView as MyWebView).stopWatchingIncremental()
         }
-        if (mWebView != null) {
+        mWebView?.let { webView ->
             try {
-                mWebView!!.loadUrl("about:blank")
-                mWebView!!.stopLoading()
+                webView.loadUrl("about:blank")
+                webView.stopLoading()
                 // 注意：Kotlin 中 webChromeClient 和 webViewClient 不接受 null
                 // destroy() 会自动清理所有资源，无需手动置空
-                mWebView!!.destroy()
+                webView.destroy()
             } catch (_: Throwable) {
             }
         }
@@ -765,12 +758,11 @@ class HtmlViewerActivity : BaseActivity() {
             BufferedReader(
                 InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)
             ).use { reader ->
-                var line: String?
-                while (reader.readLine().also { line = it } != null) {
+                reader.lineSequence().forEach { line ->
                     totalLines++
                     
                     // 添加到缓冲区
-                    buffer.addLast(line!!)
+                    buffer.addLast(line)
                     
                     // 如果超过限制，移除最早的行
                     if (buffer.size > MAX_DISPLAY_LINES) {

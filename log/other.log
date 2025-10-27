@@ -37,3 +37,7 @@
 27日 10:49:20.89 芝麻信用💳[任务奖励]#6粒(一键收取)
 27日 10:49:20.90 芝麻信用💳[任务奖励]#8粒(一键收取)
 27日 10:49:20.90 芝麻信用💳[任务奖励]#10粒(一键收取)
+27日 12:25:22.90 [AntMember]: 芝麻信用💳[完成任务坚持逛福气鱼塘失败]#{"ariverRpcTraceId":"218024b617615391218841881eba89","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"218024b617615391218841881eba89"}
+27日 12:25:23.32 [AntMember]: 芝麻信用💳[完成任务逛一逛集汗滴找现金失败]#{"ariverRpcTraceId":"218024b617615391223291916eba89","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"218024b617615391223291916eba89"}
+27日 12:25:23.80 [AntMember]: 芝麻信用💳[完成任务去玩小游戏失败]#{"ariverRpcTraceId":"218024b617615391228381976eba89","resultCode":"ILLEGAL_ARGUMENT","resultView":"参数[promiseActivityExtCheck]不是有效的入参","success":false,"traceId":"218024b617615391228381976eba89"}
+27日 12:25:29.04 芝麻信用💳[任务奖励]#3粒(一键收取)

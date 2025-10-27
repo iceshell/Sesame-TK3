@@ -76,3 +76,18 @@ Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address alrea
 27日 10:48:25.52 [NewRpcBridge]: new rpc response1 | id: 54091393 | method: alipay.tiyubiz.wenti.walk.participate
  args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
  data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+27日 12:17:08.29 [NewRpcBridge]: new rpc response1 | id: 255282387 | method: alipay.antmember.forest.h5.collectEnergy
+ args: [{"bizType":"GREEN","bubbleIds":[5401939116],"source":"chInfo_ch_appcenter__chsub_9patch","userId":"2088002298096084","version":"20250813"}] |
+ data: {"error":1004,"errorMessage":"系统忙，请稍后尝试","errorNo":3,"errorTip":"1004"}
+27日 12:17:09.12 [NewRpcBridge]: new rpc response1 | id: 123965232 | method: alipay.antmember.forest.h5.collectEnergy
+ args: [{"bizType":"GREEN","bubbleIds":[5602107434,5602399888],"fromAct":"BATCH_ROB_ENERGY","source":"chInfo_ch_appcenter__chsub_9patch","userId":"2088402062680943","version":"20250813"}] |
+ data: {"error":1004,"errorMessage":"系统忙，请稍后尝试","errorNo":3,"errorTip":"1004"}
+27日 12:17:09.83 [NewRpcBridge]: RPC返回null | 方法: alipay.antmember.forest.h5.collectEnergy | 原因: 网络错误: 1004/系统忙，请稍后尝试 | 重试: 1
+27日 12:17:09.86 [NewRpcBridge]: RPC返回null | 方法: alipay.antmember.forest.h5.collectEnergy | 原因: 网络错误: 1004/系统忙，请稍后尝试 | 重试: 1
+27日 12:17:10.13 [AntForest]: 获取好友主页信息失败：响应为空, userId: 鹏飞764|*鹏飞
+27日 12:18:46.23 [NewRpcBridge]: new rpc response1 | id: 64487151 | method: alipay.antmember.forest.h5.collectEnergy
+ args: [{"bizType":"GREEN","bubbleIds":[5401939116],"fromAct":"BATCH_ROB_ENERGY","source":"chInfo_ch_appcenter__chsub_9patch","userId":"2088002298096084","version":"20250813"}] |
+ data: {"error":1004,"errorMessage":"系统忙，请稍后尝试","errorNo":3,"errorTip":"1004"}
+27日 12:18:46.38 [NewRpcBridge]: RPC返回null | 方法: alipay.antmember.forest.h5.collectEnergy | 原因: 网络错误: 1004/系统忙，请稍后尝试 | 重试: 1
+27日 12:20:56.23 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"218024b617615388555014480eba89","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 12:27:31.07 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:718] {"ariverRpcTraceId":"218024b617615392503487661eba89","memo":"任务已完成","resultCode":"FAMILY48","success":false}

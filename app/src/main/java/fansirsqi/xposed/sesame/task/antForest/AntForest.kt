@@ -3461,11 +3461,12 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      */
     private fun hasDoubleCardTime(): Boolean {
         val currentTimeMillis = System.currentTimeMillis()
-        return TimeUtil.checkInTimeRange(currentTimeMillis, doubleCardTime!!.value)
+        val timeValue = doubleCardTime?.value ?: return false
+        return TimeUtil.checkInTimeRange(currentTimeMillis, timeValue)
     }
 
     private fun giveProp() {
-        val set = whoYouWantToGiveTo!!.value
+        val set = whoYouWantToGiveTo?.value ?: emptySet()
         if (!set.isEmpty()) {
             for (userId in set) {
                 if (selfId != userId) {
@@ -3901,7 +3902,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             return null
         }
         try {
-            val forestPropVOList = bagObject!!.getJSONArray("forestPropVOList")
+            val forestPropVOList = bagObject?.getJSONArray("forestPropVOList") ?: return null
             for (i in 0..<forestPropVOList.length()) {
                 val forestPropVO = forestPropVOList.getJSONObject(i)
                 val propConfigVO = forestPropVO.getJSONObject("propConfigVO")
@@ -4073,7 +4074,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 }
             }
 
-            if (!hasProp && doubleCardConstant!!.value) {
+            if (!hasProp && doubleCardConstant?.value == true) {
                 Log.runtime(TAG, "背包中没有双击卡，尝试兑换...")
                 if (exchangeDoubleCard()) {
                     // 重新获取背包数据
@@ -4116,8 +4117,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             Collections.sort(
                 doubleClickProps,
                 Comparator { p1: JSONObject?, p2: JSONObject? ->
-                    val expireTime1 = p1!!.optLong("recentExpireTime", Long.MAX_VALUE)
-                    val expireTime2 = p2!!.optLong("recentExpireTime", Long.MAX_VALUE)
+                    val expireTime1 = p1?.optLong("recentExpireTime", Long.MAX_VALUE) ?: Long.MAX_VALUE
+                    val expireTime2 = p2?.optLong("recentExpireTime", Long.MAX_VALUE) ?: Long.MAX_VALUE
                     expireTime1.compareTo(expireTime2)
                 })
 
@@ -4176,10 +4177,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             arrayOf<String>("LIMIT_TIME_STEALTH_CARD", "STEALTH_CARD"),
             null,  // 无特殊条件
             { this.exchangeStealthCard() },
-            { time: Long? -> stealthEndTime = time!! + TimeFormatter.ONE_DAY_MS }
+            { time: Long? -> time?.let { stealthEndTime = it + TimeFormatter.ONE_DAY_MS } }
         )
 
-        usePropTemplate(bagObject, config, stealthCardConstant!!.value)
+        usePropTemplate(bagObject, config, stealthCardConstant?.value == true)
     }
 
     /**
@@ -4198,7 +4199,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     TAG,
                     "背包中没有森林保护罩(LIMIT_TIME_ENERGY_SHIELD_TREE)，继续查找其他类型..."
                 )
-                if (youthPrivilege!!.value) {
+                if (youthPrivilege?.value == true) {
                     Log.runtime(TAG, "尝试通过青春特权获取保护罩...")
                     if (youthPrivilege()) {
                         jo = findPropBag(querySelfHome(), "LIMIT_TIME_ENERGY_SHIELD_TREE")
@@ -4206,7 +4207,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 }
             }
             if (jo == null) {
-                if (shieldCardConstant!!.value) {
+                if (shieldCardConstant?.value == true) {
                     Log.record(TAG, "尝试通过活力值兑换保护罩...")
                     if (exchangeEnergyShield()) {
                         jo = findPropBag(querySelfHome(), "LIMIT_TIME_ENERGY_SHIELD")
@@ -4519,14 +4520,16 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      */
     private fun usePropTemplate(bagObject: JSONObject?, config: PropConfig, constantMode: Boolean) {
         try {
-            if (config.condition != null && !config.condition.get()!!) {
+            val condition = config.condition
+            if (condition != null && condition.get() != true) {
                 Log.record(TAG, "不满足使用" + config.propName + "的条件")
                 return
             }
             Log.runtime(TAG, "尝试使用" + config.propName + "...")
             // 按优先级查找道具
             var propObj: JSONObject? = null
-            for (propType in config.propTypes!!) {
+            val propTypes = config.propTypes ?: return
+            for (propType in propTypes) {
                 propObj = findPropBag(bagObject, propType)
                 if (propObj != null) break
             }
