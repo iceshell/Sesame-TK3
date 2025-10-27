@@ -32,8 +32,12 @@ class OldRpcBridge : RpcBridge {
      */
     override fun load() {
         loader = ApplicationHook.getClassLoader()
+        val classLoader = loader ?: run {
+            Log.error(TAG, "ClassLoader为null，无法加载OldRpcBridge")
+            return
+        }
         try {
-            h5PageClazz = loader!!.loadClass(General.H5PAGE_NAME)
+            h5PageClazz = classLoader.loadClass(General.H5PAGE_NAME)
             Log.runtime(TAG, "RPC 类加载成功")
             loadRpcMethods()
         } catch (e: ClassNotFoundException) {
@@ -52,16 +56,17 @@ class OldRpcBridge : RpcBridge {
      */
     private fun loadRpcMethods() {
         if (rpcCallMethod == null) {
+            val classLoader = loader ?: return
             try {
-                val rpcUtilClass = loader!!.loadClass("com.alipay.mobile.nebulaappproxy.api.rpc.H5RpcUtil")
-                val responseClass = loader!!.loadClass("com.alipay.mobile.nebulaappproxy.api.rpc.H5Response")
+                val rpcUtilClass = classLoader.loadClass("com.alipay.mobile.nebulaappproxy.api.rpc.H5RpcUtil")
+                val responseClass = classLoader.loadClass("com.alipay.mobile.nebulaappproxy.api.rpc.H5Response")
                 rpcCallMethod = rpcUtilClass.getMethod(
                     "rpcCall",
                     String::class.java,
                     String::class.java,
                     String::class.java,
                     Boolean::class.javaPrimitiveType,
-                    loader!!.loadClass(General.JSON_OBJECT_NAME),
+                    classLoader.loadClass(General.JSON_OBJECT_NAME),
                     String::class.java,
                     Boolean::class.javaPrimitiveType,
                     h5PageClazz,
@@ -109,9 +114,10 @@ class OldRpcBridge : RpcBridge {
         val method = rpcEntity.requestMethod
         val args = rpcEntity.requestData
 
+        val rpcMethod = method ?: return null
         repeat(tryCount) {
             try {
-                RpcIntervalLimit.enterIntervalLimit(method!!)
+                RpcIntervalLimit.enterIntervalLimit(rpcMethod)
                 val response = invokeRpcCall(method, args)
                 return processResponse(rpcEntity, response, id, method, args, retryInterval)
             } catch (t: Throwable) {
@@ -131,13 +137,14 @@ class OldRpcBridge : RpcBridge {
      */
     @Throws(Throwable::class)
     private fun invokeRpcCall(method: String?, args: String?): Any? {
-        return if (rpcCallMethod!!.parameterTypes.size == 12) {
-            rpcCallMethod!!.invoke(
+        val callMethod = rpcCallMethod ?: throw IllegalStateException("rpcCallMethod未初始化")
+        return if (callMethod.parameterTypes.size == 12) {
+            callMethod.invoke(
                 null, method, args, "", true, null, null, 
                 false, curH5PageImpl, 0, "", false, -1
             )
         } else {
-            rpcCallMethod!!.invoke(
+            callMethod.invoke(
                 null, method, args, "", true, null, null, 
                 false, curH5PageImpl, 0, "", false, -1, ""
             )
@@ -165,7 +172,8 @@ class OldRpcBridge : RpcBridge {
         args: String?,
         retryInterval: Int
     ): RpcEntity? {
-        val resultStr = getResponseMethod!!.invoke(response) as String
+        val getMethod = getResponseMethod ?: throw IllegalStateException("getResponseMethod未初始化")
+        val resultStr = getMethod.invoke(response) as? String ?: return null
         val resultObject = JSONObject(resultStr)
         rpcEntity.setResponseObject(resultObject, resultStr)
 
@@ -217,8 +225,8 @@ class OldRpcBridge : RpcBridge {
         val cause = e.cause
         if (cause != null) {
             val msg = cause.message
-            if (!StringUtil.isEmpty(msg)) {
-                handleErrorMessage(rpcEntity, msg!!, method)
+            if (!StringUtil.isEmpty(msg) && msg != null) {
+                handleErrorMessage(rpcEntity, msg, method)
             }
         }
     }

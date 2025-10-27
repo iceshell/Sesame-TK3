@@ -66,9 +66,14 @@ class NewRpcBridge : RpcBridge {
 
     override fun load() {
         loader = ApplicationHook.getClassLoader()
+        val classLoader = loader ?: run {
+            Log.error(TAG, "ClassLoader为null，无法加载NewRpcBridge")
+            return
+        }
+        
         try {
             val service = XposedHelpers.callStaticMethod(
-                XposedHelpers.findClass("com.alipay.mobile.nebulacore.Nebula", loader),
+                XposedHelpers.findClass("com.alipay.mobile.nebulacore.Nebula", classLoader),
                 "getService"
             )
             val extensionManager = XposedHelpers.callMethod(service, "getExtensionManager")
@@ -79,7 +84,7 @@ class NewRpcBridge : RpcBridge {
             getExtensionByName.isAccessible = true
             newRpcInstance = getExtensionByName.invoke(
                 null,
-                loader!!.loadClass("com.alibaba.ariver.commonability.network.rpc.RpcBridgeExtension")
+                classLoader.loadClass("com.alibaba.ariver.commonability.network.rpc.RpcBridgeExtension")
             )
 
             if (newRpcInstance == null) {
@@ -102,30 +107,31 @@ class NewRpcBridge : RpcBridge {
                 }
             }
 
-            parseObjectMethod = loader!!.loadClass("com.alibaba.fastjson.JSON")
+            parseObjectMethod = classLoader.loadClass("com.alibaba.fastjson.JSON")
                 .getMethod("parseObject", String::class.java)
-            val bridgeCallbackClazz = loader!!.loadClass(
+            val bridgeCallbackClazz = classLoader.loadClass(
                 "com.alibaba.ariver.engine.api.bridge.extension.BridgeCallback"
             )
             bridgeCallbackClazzArray = arrayOf(bridgeCallbackClazz)
-
-            newRpcCallMethod = newRpcInstance!!.javaClass.getMethod(
+            
+            val rpcInstance = newRpcInstance ?: throw RuntimeException("newRpcInstance is null")
+            newRpcCallMethod = rpcInstance.javaClass.getMethod(
                 "rpc",
                 String::class.java,
                 Boolean::class.javaPrimitiveType,
                 Boolean::class.javaPrimitiveType,
                 String::class.java,
-                loader!!.loadClass(General.JSON_OBJECT_NAME),
+                classLoader.loadClass(General.JSON_OBJECT_NAME),
                 String::class.java,
-                loader!!.loadClass(General.JSON_OBJECT_NAME),
+                classLoader.loadClass(General.JSON_OBJECT_NAME),
                 Boolean::class.javaPrimitiveType,
                 Boolean::class.javaPrimitiveType,
                 Int::class.javaPrimitiveType,
                 Boolean::class.javaPrimitiveType,
                 String::class.java,
-                loader!!.loadClass("com.alibaba.ariver.app.api.App"),
-                loader!!.loadClass("com.alibaba.ariver.app.api.Page"),
-                loader!!.loadClass("com.alibaba.ariver.engine.api.bridge.model.ApiContext"),
+                classLoader.loadClass("com.alibaba.ariver.app.api.App"),
+                classLoader.loadClass("com.alibaba.ariver.app.api.Page"),
+                classLoader.loadClass("com.alibaba.ariver.engine.api.bridge.model.ApiContext"),
                 bridgeCallbackClazz
             )
             Log.runtime(TAG, "get newRpcCallMethod successfully")
@@ -192,7 +198,11 @@ class NewRpcBridge : RpcBridge {
             do {
                 count++
                 try {
-                    RpcIntervalLimit.enterIntervalLimit(rpcEntity.requestMethod!!)
+                    val requestMethod = rpcEntity.requestMethod ?: run {
+                        Log.error(TAG, "requestMethod为null")
+                        return null
+                    }
+                    RpcIntervalLimit.enterIntervalLimit(requestMethod)
                     val finalLocalBridgeCallbackClazzArray = localBridgeCallbackClazzArray
                     localNewRpcCallMethod.invoke(
                         localNewRpcInstance,
