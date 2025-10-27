@@ -1,0 +1,38 @@
+27日 20:23:44.11 [NewRpcBridge]: new rpc response1 | id: 155496056 | method: alipay.iblib.channel.data
+ args: [{"activityCode":"query_forest_energy","activityId":"2024052300762675","body":{"scene":"BILL"},"version":"2.0"}] |
+ data: {"error":1002,"errorMessage":"请稍等哦，马上出来","errorNo":3,"errorTip":"1002"}
+27日 20:23:44.11 [Healthcare]: Check failed: [来源: task.antForest.Healthcare.queryForestEnergy:22 <- task.antForest.AntForest.runSuspend:1051 <- task.antForest.AntForest$runSuspend$1.invokeSuspend:14] {"error":1002,"errorMessage":"请稍等哦，马上出来","errorNo":3,"errorTip":"1002"}
+27日 20:24:59.37 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:218 <- task.antFarm.AntFarmFamily.enterFamily:107 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:721] {"ariverRpcTraceId":"218f5b1117615678986306038e4c40","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+27日 20:24:59.90 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:218 <- task.antFarm.AntFarmFamily.enterFamily:107 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:721] {"ariverRpcTraceId":"218f5b1117615678991506076e4c40","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+27日 20:25:00.08 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:721] {"ariverRpcTraceId":"218f5b1117615678993056094e4c40","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 20:25:09.33 [NewRpcBridge]: new rpc response1 | id: 127101356 | method: com.alipay.antfarm.orchardIndex
+ args: [{"inHomepage":"true","requestType":"NORMAL","sceneCode":"ORCHARD","source":"ch_appcenter__chsub_9patch","version":"0.1.2401111000.31"}] |
+ data: {"error":24,"errorMessage":"当前网络不可用，请稍后重试","errorNo":3,"errorTip":"24"}
+27日 20:25:09.86 [AntOrchard]: Throwable error: org.json.JSONException: No value for resultCode
+	at org.json.JSONObject.get(JSONObject.java:400)
+	at org.json.JSONObject.getString(JSONObject.java:561)
+	at fansirsqi.xposed.sesame.task.antOrchard.AntOrchard.orchardSpreadManure(AntOrchard.java:140)
+	at fansirsqi.xposed.sesame.task.antOrchard.AntOrchard.runJava(AntOrchard.java:88)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(ModelTask.kt:119)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(Unknown Source:0)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(ModelTask.kt:136)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(ModelTask.kt:297)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(ModelTask.kt:276)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(ModelTask.kt:50)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(ModelTask.kt:251)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+27日 20:25:57.81 [AntFarm]: Check failed: [来源: task.antFarm.AntFarm.performDonation:1609 <- task.antFarm.AntFarm.handleDonation:1579 <- task.antFarm.AntFarm.runSuspend:651 <- task.antFarm.AntFarm$runSuspend$1.invokeSuspend:14] {"ariverRpcTraceId":"218f5b1117615679570541858e4c40","memo":"用户爱心值不足","resultCode":"206","success":false}
+27日 20:25:58.32 [AntFarm]: Check failed: [来源: task.antFarm.AntFarm.performDonation:1609 <- task.antFarm.AntFarm.handleDonation:1579 <- task.antFarm.AntFarm.runSuspend:651 <- task.antFarm.AntFarm$runSuspend$1.invokeSuspend:14] {"ariverRpcTraceId":"218f5b1117615679575551872e4c40","memo":"用户爱心值不足","resultCode":"206","success":false}
+27日 20:26:48.11 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:721] {"ariverRpcTraceId":"218f5b1117615680072806092e4c40","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 20:27:29.44 [AntSports]: 同步运动步数失败:100000
+27日 20:31:50.75 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:438 <- task.antFarm.AntFarmFamily.enterFamily:119 <- task.antFarm.AntFarmFamily.run:56 <- task.antFarm.AntFarm.runSuspend:721] {"ariverRpcTraceId":"218f5b1117615683099185409e4c40","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 23:45:02.08 [NewRpcBridge]: new rpc response1 | id: 152424287 | method: alipay.antmember.forest.h5.collectEnergy
+ args: [{"bizType":"GREEN","bubbleIds":[5602948105],"fromAct":"BATCH_ROB_ENERGY","source":"chInfo_ch_appcenter__chsub_9patch","userId":"2088002896523311","version":"20250813"}] |
+ data: {"error":1004,"errorMessage":"系统忙，请稍后尝试","errorNo":3,"errorTip":"1004"}
+27日 23:45:02.12 [NewRpcBridge]: RPC返回null | 方法: alipay.antmember.forest.h5.collectEnergy | 原因: 网络错误: 1004/系统忙，请稍后尝试 | 重试: 1
