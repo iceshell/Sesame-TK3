@@ -15,7 +15,7 @@ import fansirsqi.xposed.sesame.util.maps.UserMap;
 
 public class ForestChouChouLe {
 
-    private static final String TAG = ForestChouChouLe.class.getSimpleName();
+    private static final String TAG = "AntForest";  // 使用蚂蚁森林模块TAG
 
     // 任务尝试次数计数，避免重复失败
     private final java.util.Map<String, AtomicInteger> taskTryCount = new java.util.concurrent.ConcurrentHashMap<>();
