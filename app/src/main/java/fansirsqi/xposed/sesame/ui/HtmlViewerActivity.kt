@@ -249,7 +249,7 @@ class HtmlViewerActivity : BaseActivity() {
                 copyUrlToClipboard()
 
             5 ->                 // 滚动到顶部（先加载全部数据）
-                mWebView!!.evaluateJavascript(
+                mWebView?.evaluateJavascript(
                     """
                     if (typeof loadAllAndScrollToTop === 'function') {
                         loadAllAndScrollToTop();

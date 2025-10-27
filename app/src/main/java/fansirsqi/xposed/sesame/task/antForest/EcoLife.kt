@@ -48,16 +48,18 @@ object EcoLife {
                 return
             }
 
-            if (AntForest.Companion.ecoLifeOption!!.value.contains("plate")) {
+            val ecoOptions = AntForest.Companion.ecoLifeOption?.value ?: emptyList()
+            if (ecoOptions.contains("plate")) {
                 // 光盘行动
                 photoGuangPan(dayPoint)
             }
 
             val actionListVO = data.getJSONArray("actionListVO")
             // 绿色打卡
-            if (AntForest.Companion.ecoLifeOption!!.value.contains("tick")) {
+            if (ecoOptions.contains("tick")) {
                 if (!data.getBoolean("openStatus")) {
-                    if (!openEcoLife() || !AntForest.Companion.ecoLifeOpen!!.value) {
+                    val ecoOpen = AntForest.Companion.ecoLifeOpen?.value ?: false
+                    if (!openEcoLife() || !ecoOpen) {
                         return
                     }
                     jsonObject = JSONObject(AntForestRpcCall.ecolifeQueryHomePage())
@@ -181,25 +183,24 @@ object EcoLife {
                     val pattern = Pattern.compile("img/(.*)/original")
                     val beforeMatcher = pattern.matcher(beforeMealsImageUrl)
                     if (beforeMatcher.find()) {
-                        photo!!.put("before", beforeMatcher.group(1))
+                        photo?.put("before", beforeMatcher.group(1))
                     }
                     val afterMatcher = pattern.matcher(afterMealsImageUrl)
                     if (afterMatcher.find()) {
-                        photo!!.put("after", afterMatcher.group(1))
+                        photo?.put("after", afterMatcher.group(1))
                     }
                     // 避免重复添加相同的照片信息
                     var exists = false
                     for (p in allPhotos) {
-                        if (p.get("before") == photo!!.get("before") && p.get("after") == photo.get(
-                                "after"
-                            )
-                        ) {
+                        val beforeValue = photo?.get("before")
+                        val afterValue = photo?.get("after")
+                        if (p.get("before") == beforeValue && p.get("after") == afterValue) {
                             exists = true
                             break
                         }
                     }
                     if (!exists) {
-                        allPhotos.add(photo!!)
+                        photo?.let { allPhotos.add(it) }
                         put("plate", allPhotos)
                     }
                 }
