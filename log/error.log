@@ -1,0 +1,77 @@
+27日 13:19:53.49 [NewRpcBridge]: new rpc response1 | id: 13650276 | method: alipay.antmember.forest.h5.collectEnergy
+ args: [{"bizType":"GREEN","bubbleIds":[5402528489,5402528520,5402528572],"fromAct":"BATCH_ROB_ENERGY","source":"chInfo_ch_appcenter__chsub_9patch","userId":"2088502974348527","version":"20250813"}] |
+ data: {"error":1004,"errorMessage":"系统忙，请稍后尝试","errorNo":3,"errorTip":"1004"}
+27日 13:19:53.50 [NewRpcBridge]: RPC返回null | 方法: alipay.antmember.forest.h5.collectEnergy | 原因: 网络错误: 1004/系统忙，请稍后尝试 | 重试: 1
+27日 13:24:27.81 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:110 <- task.antFarm.AntFarmFamily.enterFamily:297 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1459] {"ariverRpcTraceId":"0b264d6b17615426670574365e47fc","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+27日 13:24:28.32 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:110 <- task.antFarm.AntFarmFamily.enterFamily:297 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1459] {"ariverRpcTraceId":"0b264d6b17615426675614398e47fc","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+27日 13:24:28.52 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:140 <- task.antFarm.AntFarmFamily.enterFamily:350 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1459] {"ariverRpcTraceId":"0b264d6b17615426677434413e47fc","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 13:28:31.08 [NewRpcBridge]: new rpc response1 | id: 37787193 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+27日 13:31:00.12 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:110 <- task.antFarm.AntFarmFamily.enterFamily:297 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1459] {"ariverRpcTraceId":"0b264d6b17615430593547752e47fc","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+27日 13:31:00.55 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:140 <- task.antFarm.AntFarmFamily.enterFamily:350 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1459] {"ariverRpcTraceId":"0b264d6b17615430597597776e47fc","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 13:31:28.15 [AntDodo]: Check failed: [来源: task.antDodo.AntDodo.collectToFriend:177 <- task.antDodo.AntDodo.runJava:49 <- task.ModelTask.runSuspend$suspendImpl:1 <- task.ModelTask.runSuspend:1] {"ariverRpcTraceId":"0b264d6b17615430873402140e47fc","resultCode":"FRIEND_COLLECTED_LIMIT","resultDesc":"啊噢，有人抢在你前面翻开了ta的卡片","resultMessage":"","retryable":false,"success":false}
+27日 13:31:28.36 [AntDodo]: Check failed: [来源: task.antDodo.AntDodo.collectToFriend:177 <- task.antDodo.AntDodo.runJava:49 <- task.ModelTask.runSuspend$suspendImpl:1 <- task.ModelTask.runSuspend:1] {"ariverRpcTraceId":"0b264d6b17615430875522167e47fc","resultCode":"FRIEND_COLLECTED_LIMIT","resultDesc":"啊噢，有人抢在你前面翻开了ta的卡片","resultMessage":"","retryable":false,"success":false}
+27日 13:31:28.89 [AntDodo]: Check failed: [来源: task.antDodo.AntDodo.collectToFriend:177 <- task.antDodo.AntDodo.runJava:49 <- task.ModelTask.runSuspend$suspendImpl:1 <- task.ModelTask.runSuspend:1] {"ariverRpcTraceId":"0b264d6b17615430880722215e47fc","resultCode":"FRIEND_COLLECTED_LIMIT","resultDesc":"啊噢，有人抢在你前面翻开了ta的卡片","resultMessage":"","retryable":false,"success":false}
+27日 13:35:17.38 [NewRpcBridge]: new rpc response1 | id: 86473686 | method: alipay.tiyubiz.wenti.walk.participate
+ args: [{"bettingPoints":100,"guessInstanceId":"2025052011001031000501605799","guessResultId":"2025052011001031007301610705","newParticipant":false,"roundId":"2025052011001031006001566329","stepTimeZone":"Asia/Shanghai"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+27日 14:05:20.43 [NewRpcBridge]: new rpc response1 | id: 114198607 | method: alipay.antforest.forest.h5.startEnergyRain
+ args: [{"version":"20250813"}] |
+ data: {"error":1009,"errorMessage":"为保障您的正常访问，请进行验证后继续。","errorNo":3,"errorTip":"1009"}
+27日 14:05:20.45 [NewRpcBridge]: RPC返回null | 方法: alipay.antforest.forest.h5.startEnergyRain | 原因: 网络错误: 1009/为保障您的正常访问，请进行验证后继续。 | 重试: 1
+27日 14:05:20.47 [EnergyRain]: Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antForest.EnergyRainCoroutine.startEnergyRain(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:112)
+	at fansirsqi.xposed.sesame.task.antForest.EnergyRainCoroutine.energyRain(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:228)
+	at fansirsqi.xposed.sesame.task.antForest.EnergyRainCoroutine.access$energyRain(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:1)
+	at fansirsqi.xposed.sesame.task.antForest.EnergyRainCoroutine$energyRain$1.invokeSuspend(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:12)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:12)
+	at y4.k0.a(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:64)
+	at kotlinx.coroutines.b.p(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:113)
+	at kotlinx.coroutines.b.y(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:33)
+	at kotlinx.coroutines.b.z(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:24)
+	at y4.p0.run(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:7)
+	at y4.t0.V(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:87)
+	at y4.b0.h(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:101)
+	at y4.b0.i(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:3)
+	at fansirsqi.xposed.sesame.task.antForest.EnergyRainCoroutine.execEnergyRainCompat(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:7)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.runSuspend(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:925)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest$runSuspend$1.invokeSuspend(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:12)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:12)
+	at y4.x1.j(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:27)
+	at y4.a.resumeWith(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:23)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:48)
+	at y4.x1.j(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:27)
+	at y4.a.resumeWith(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:23)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:48)
+	at y4.j0.run(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:133)
+	at d5.b.run(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:118)
+
+27日 14:07:18.79 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyFeedFriendAnimal:110 <- task.antFarm.AntFarmFamily.enterFamily:297 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1459] {"ariverRpcTraceId":"2187ff4517615452380535120e0df0","memo":"饲料不足，做任务获取饲料吧~","resultCode":"310","success":false}
+27日 14:07:19.29 [小鸡家庭]: Check failed: [来源: task.antFarm.AntFarmFamily.familyShareToFriends:140 <- task.antFarm.AntFarmFamily.enterFamily:350 <- task.antFarm.AntFarmFamily.run:11 <- task.antFarm.AntFarm.runSuspend:1459] {"ariverRpcTraceId":"2187ff4517615452385665137e0df0","memo":"任务已完成","resultCode":"FAMILY48","success":false}
+27日 14:08:11.16 [NewRpcBridge]: new rpc response1 | id: 235806032 | method: alipay.antdodo.rpc.h5.consumeProp
+ args: [{"propId":"1adjnz01kni7qj1eixoth17it1jj9900","propType":"UNIVERSAL_CARD_7_DAYS"}] |
+ data: {"error":1009,"errorMessage":"为保障您的正常访问，请进行验证后继续。","errorNo":3,"errorTip":"1009"}
+27日 14:08:11.22 [NewRpcBridge]: RPC返回null | 方法: alipay.antdodo.rpc.h5.consumeProp | 原因: 网络错误: 1009/为保障您的正常访问，请进行验证后继续。 | 重试: 1
+27日 14:08:11.74 [AntDodo]: Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.propList(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:94)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.runJava(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:29)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:94)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:148)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:1)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:262)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:12)
+	at y4.j0.run(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:133)
+	at d5.b.run(r8-map-id-845c70a1ebe2372c6a9a50748ee5de90e10b9b4c6fd03a603d987ee08e24430c:118)
+

@@ -152,16 +152,10 @@ class AlarmScheduler(private val context: Context) {
             cancelOldAlarm(requestCode)
             // 获取临时唤醒锁
             WakeLockManager(context, Constants.WAKE_LOCK_SETUP_TIMEOUT).use {
-                // 根据Android版本和权限选择合适的闹钟类型
-                // 1. 使用setAlarmClock以获得最高优先级
-                val alarmClockInfo = AlarmManager.AlarmClockInfo(
-                    triggerAtMillis,  // 创建一个用于显示闹钟设置界面的PendingIntent
-                    PendingIntent.getActivity(context, 0, Intent(), PendingIntent.FLAG_IMMUTABLE)
-                )
-                alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
-                // 2. 同时设置一个备用的精确闹钟
+                // 使用后台闹钟，不显示UI（避免弹出Alarm提示）
+                // 使用setExactAndAllowWhileIdle：精确且在低电量模式下也能执行
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent)
-                // 3. 获取PowerManager.WakeLock
+                // 获取PowerManager.WakeLock
                 val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
                 val wakeLock = powerManager.newWakeLock(
                     PowerManager.PARTIAL_WAKE_LOCK,
@@ -270,12 +264,8 @@ class AlarmScheduler(private val context: Context) {
             val backupPendingIntent =
                 PendingIntent.getBroadcast(context, backupRequestCode, backupIntent, pendingIntentFlags)
             alarmManager?.let {
-                // 备份闹钟也使用AlarmClock以确保可靠性
-                val backupAlarmInfo = AlarmManager.AlarmClockInfo(
-                    backupTriggerTime,
-                    PendingIntent.getActivity(context, 0, Intent(), PendingIntent.FLAG_IMMUTABLE)
-                )
-                it.setAlarmClock(backupAlarmInfo, backupPendingIntent)
+                // 备份闹钟使用后台方式（不显示UI）
+                it.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, backupTriggerTime, backupPendingIntent)
                 scheduledAlarms[backupRequestCode] = backupPendingIntent
                 Log.runtime(
                     TAG,
