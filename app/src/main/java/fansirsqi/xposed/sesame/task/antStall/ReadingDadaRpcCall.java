@@ -10,7 +10,7 @@ public class ReadingDadaRpcCall {
     public static String submitAnswer(String activityId, String outBizId, String questionId, String answer) {
         return RequestManager.requestString("com.alipay.reading.game.dada.openDailyAnswer.submitAnswer",
                 "[{\"activityId\":\"" + activityId + "\",\"answer\":\"" + answer + "\",\"dadaVersion\":\"1.3.0\"," +
-                        (StringUtil.isEmpty(outBizId) ? "" : "\"outBizId\":\"" + outBizId + "\",") +
+                        ((outBizId == null || outBizId.isEmpty()) ? "" : "\"outBizId\":\"" + outBizId + "\",") +
                         "\"questionId\":\"" + questionId + "\",\"version\":" + VERSION + "}]");
     }
     public static String getQuestion(String activityId) {

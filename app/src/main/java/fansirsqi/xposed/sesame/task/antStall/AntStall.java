@@ -289,7 +289,7 @@ public class AntStall extends ModelTask {
                 JSONObject seat = seatsMap.getJSONObject("GUEST_0" + i);
                 if ("BUSY".equals(seat.getString("status"))) {
                     String rentLastUser = seat.optString("rentLastUser");
-                    if (!StringUtil.isEmpty(rentLastUser)) {
+                    if (rentLastUser != null && !rentLastUser.isEmpty()) {
                         sentUserId.add(rentLastUser);
                     }
                 }
@@ -309,7 +309,7 @@ public class AntStall extends ModelTask {
                     continue;
                 }
                 String rentLastUser = seat.optString("rentLastUser");
-                if (StringUtil.isEmpty(rentLastUser)) {
+                if (rentLastUser == null || rentLastUser.isEmpty()) {
                     continue;
                 }
                 // 白名单直接跳过

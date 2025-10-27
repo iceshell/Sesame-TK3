@@ -459,7 +459,7 @@ public class Status {
      */
     public static synchronized Status load(String currentUid) {
 //        String currentUid = UserMap.getCurrentUid();
-        if (StringUtil.isEmpty(currentUid)) {
+        if (currentUid == null || currentUid.isEmpty()) {
             Log.runtime(TAG, "用户为空，状态加载失败");
             throw new RuntimeException("用户为空，状态加载失败");
         }
@@ -537,7 +537,7 @@ public class Status {
 
     public static synchronized void save(Calendar nowCalendar) {
         String currentUid = UserMap.getCurrentUid();
-        if (StringUtil.isEmpty(currentUid)) {
+        if (currentUid == null || currentUid.isEmpty()) {
             Log.record(TAG, "用户为空，状态保存失败");
             throw new RuntimeException("用户为空，状态保存失败");
         }

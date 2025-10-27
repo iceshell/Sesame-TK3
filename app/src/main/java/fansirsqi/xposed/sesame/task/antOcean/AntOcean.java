@@ -553,7 +553,7 @@ public class AntOcean extends ModelTask {
                         dstChapterCode = chapterVO.getString("chapterCode");
                     }
                 }
-                if (isFinish && !StringUtil.isEmpty(dstChapterCode)) {
+                if (isFinish && (dstChapterCode != null && !dstChapterCode.isEmpty())) {
                     s = AntOceanRpcCall.switchOceanChapter(dstChapterCode);
                     jo = new JSONObject(s);
                     if (ResChecker.checkRes(TAG,jo)) {

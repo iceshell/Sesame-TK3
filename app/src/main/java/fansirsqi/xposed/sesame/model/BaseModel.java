@@ -6,8 +6,9 @@ import fansirsqi.xposed.sesame.model.modelFieldExt.ChoiceModelField;
 import fansirsqi.xposed.sesame.model.modelFieldExt.IntegerModelField;
 import fansirsqi.xposed.sesame.model.modelFieldExt.ListModelField;
 import fansirsqi.xposed.sesame.model.modelFieldExt.StringModelField;
-import fansirsqi.xposed.sesame.util.ListUtil;
 import fansirsqi.xposed.sesame.util.Log;
+import java.util.ArrayList;
+import java.util.Arrays;
 import fansirsqi.xposed.sesame.util.maps.BeachMap;
 import fansirsqi.xposed.sesame.util.maps.IdMapManager;
 import lombok.Getter;
@@ -49,31 +50,31 @@ public class BaseModel extends Model {
      */
     @Getter
     public static final ListModelField.ListJoinCommaToStringModelField execAtTimeList =
-            new ListModelField.ListJoinCommaToStringModelField("execAtTimeList", "定时执行(关闭:-1)", ListUtil.newArrayList(
+            new ListModelField.ListJoinCommaToStringModelField("execAtTimeList", "定时执行(关闭:-1)", new ArrayList<>(Arrays.asList(
                     "0010", "0030", "0100", "0700", "0730", "1200", "1230", "1700", "1730", "2000", "2030", "2359"
-            ));
+            )));
     /**
      * 定时唤醒的时间点列表
      */
     @Getter
 
     public static final ListModelField.ListJoinCommaToStringModelField wakenAtTimeList =
-            new ListModelField.ListJoinCommaToStringModelField("wakenAtTimeList", "定时唤醒(关闭:-1)", ListUtil.newArrayList("0010", "0030", "0100", "0650", "2350"  // 添加多个0点后的时间点
-            ));
+            new ListModelField.ListJoinCommaToStringModelField("wakenAtTimeList", "定时唤醒(关闭:-1)", new ArrayList<>(Arrays.asList("0010", "0030", "0100", "0650", "2350"  // 添加多个0点后的时间点
+            )));
 
     /**
      * 能量收集的时间范围
      */
     @Getter
     public static final ListModelField.ListJoinCommaToStringModelField energyTime =
-            new ListModelField.ListJoinCommaToStringModelField("energyTime", "只收能量时间(范围|关闭:-1)", ListUtil.newArrayList("0700-0730"));
+            new ListModelField.ListJoinCommaToStringModelField("energyTime", "只收能量时间(范围|关闭:-1)", new ArrayList<>(Arrays.asList("0700-0730")));
 
     /**
      * 模块休眠时间范围
      */
     @Getter
     public static final ListModelField.ListJoinCommaToStringModelField modelSleepTime =
-            new ListModelField.ListJoinCommaToStringModelField("modelSleepTime", "模块休眠时间(范围|关闭:-1)", ListUtil.newArrayList("0200-0201"));
+            new ListModelField.ListJoinCommaToStringModelField("modelSleepTime", "模块休眠时间(范围|关闭:-1)", new ArrayList<>(Arrays.asList("0200-0201")));
 
     /**
      * 定时任务模式选择

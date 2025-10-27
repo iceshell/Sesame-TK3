@@ -23,7 +23,7 @@ public class ReadingDada {
     public static boolean answerQuestion(JSONObject bizInfo) {
         try {
             String taskJumpUrl = bizInfo.optString("taskJumpUrl");
-            if (StringUtil.isEmpty(taskJumpUrl)) {
+            if (taskJumpUrl == null || taskJumpUrl.isEmpty()) {
                 taskJumpUrl = bizInfo.getString("targetUrl");
             }
             String activityId = taskJumpUrl.split("activityId%3D")[1].split("%26")[0];

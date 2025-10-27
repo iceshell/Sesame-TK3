@@ -119,7 +119,7 @@ public class Config {
     public static Boolean isModify(String userId) {
         String json = null;
         File configV2File;
-        if (StringUtil.isEmpty(userId)) {
+        if (userId == null || userId.isEmpty()) {
             configV2File = Files.getDefaultConfigV2File();
         } else {
             configV2File = Files.getConfigV2File(userId);
@@ -158,7 +158,7 @@ public class Config {
         }
         boolean success;
         try {
-            if (StringUtil.isEmpty(userId)) {
+            if (userId == null || userId.isEmpty()) {
                 userId = "默认";
                 success = Files.setDefaultConfigV2File(json);
             } else {
@@ -168,7 +168,7 @@ public class Config {
                 throw new IOException("配置文件保存失败");
             }
             String userName;
-            if (StringUtil.isEmpty(userId)) {
+            if ("默认".equals(userId)) {
                 userName = "默认用户";
             } else {
                 UserEntity userEntity = UserMap.get(userId);
@@ -198,7 +198,7 @@ public class Config {
         String userName = "";
         File configV2File = null;
         try {
-            if (StringUtil.isEmpty(userId)) {
+            if (userId == null || userId.isEmpty()) {
                 configV2File = Files.getDefaultConfigV2File();
                 userName = "默认";
                 if (!configV2File.exists()) {
