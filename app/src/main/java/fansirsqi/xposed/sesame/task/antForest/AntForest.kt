@@ -815,7 +815,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                         }
 
                         // 循环间隔（使用协程延迟）
-                        val sleepMillis = cycleinterval!!.value.toLong()
+                        val sleepMillis = (cycleinterval?.value ?: 60000).toLong()
                         Log.record(TAG, "✨ 只收能量时间一轮完成，等待 $sleepMillis 毫秒后开始下一轮")
                         GlobalThreadPools.sleepCompat(sleepMillis)
                     }
@@ -856,10 +856,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     override fun boot(classLoader: ClassLoader?) {
         super.boot(classLoader)
 
-
         // 安全创建各种区间限制
         val queryIntervalLimit = createSafeIntervalLimit(
-            queryInterval!!.value, 10, 10000, "查询间隔"
+            queryInterval?.value, 10, 10000, "查询间隔"
         )
 
         // 添加RPC间隔限制
@@ -870,21 +869,20 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         addIntervalLimit("alipay.antforest.forest.h5.fillUserRobFlag", 500)
 
         // 设置其他参数
-        tryCountInt = tryCount!!.value
-        retryIntervalInt = retryInterval!!.value
-        advanceTime!!.value
+        tryCountInt = tryCount?.value ?: 1
+        retryIntervalInt = retryInterval?.value ?: 0
+        advanceTime?.value
 
-
-        jsonCollectMap = dontCollectList!!.value
+        jsonCollectMap = dontCollectList?.value ?: HashSet()
 
         // 创建收取间隔实体
         collectIntervalEntity = createSafeIntervalLimit(
-            collectInterval!!.value, 50, 10000, "收取间隔"
+            collectInterval?.value, 50, 10000, "收取间隔"
         )
 
         // 创建双击收取间隔实体
         doubleCollectIntervalEntity = createSafeIntervalLimit(
-            doubleCollectInterval!!.value, 10, 5000, "双击间隔"
+            doubleCollectInterval?.value, 10, 5000, "双击间隔"
         )
         delayTimeMath.clear()
 
