@@ -173,8 +173,9 @@ class RuntimeInfo private constructor() {
                 synchronized(this) {
                     val newInstance = instance
                     if (newInstance == null || newInstance.userId != currentUserId) {
-                        instance = RuntimeInfo()
-                        return instance!!
+                        val newRuntimeInfo = RuntimeInfo()
+                        instance = newRuntimeInfo
+                        return newRuntimeInfo
                     }
                     return newInstance
                 }

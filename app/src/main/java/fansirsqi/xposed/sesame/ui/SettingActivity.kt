@@ -89,16 +89,20 @@ class SettingActivity : BaseActivity() {
         exportLauncher = registerForActivityResult(
             StartActivityForResult()
         ) { result ->
-            if (result.resultCode == RESULT_OK && result.data != null) {
-                PortUtil.handleExport(this@SettingActivity, result.data!!.data, userId)
+            if (result.resultCode == RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    PortUtil.handleExport(this@SettingActivity, uri, userId)
+                }
             }
         }
         // 初始化导入逻辑
         importLauncher = registerForActivityResult(
             StartActivityForResult()
         ) { result ->
-            if (result.resultCode == RESULT_OK && result.data != null) {
-                PortUtil.handleImport(this@SettingActivity, result.data!!.data, userId)
+            if (result.resultCode == RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    PortUtil.handleImport(this@SettingActivity, uri, userId)
+                }
             }
         }
         // 设置副标题
@@ -165,7 +169,7 @@ class SettingActivity : BaseActivity() {
                 exportIntent.addCategory(Intent.CATEGORY_OPENABLE)
                 exportIntent.setType("*/*")
                 exportIntent.putExtra(Intent.EXTRA_TITLE, "[" + this.userName + "]-config_v2.json")
-                exportLauncher!!.launch(exportIntent)
+                exportLauncher?.launch(exportIntent)
             }
 
             2 -> {
@@ -173,7 +177,7 @@ class SettingActivity : BaseActivity() {
                 importIntent.addCategory(Intent.CATEGORY_OPENABLE)
                 importIntent.setType("*/*")
                 importIntent.putExtra(Intent.EXTRA_TITLE, "config_v2.json")
-                importLauncher!!.launch(importIntent)
+                importLauncher?.launch(importIntent)
             }
 
             3 -> AlertDialog.Builder(this)
@@ -183,10 +187,10 @@ class SettingActivity : BaseActivity() {
                     R.string.ok,
                     DialogInterface.OnClickListener { dialog: DialogInterface?, id: Int ->
                         val userConfigDirectoryFile: File?
-                        if (StringUtil.isEmpty(this.userId)) {
-                            userConfigDirectoryFile = Files.getDefaultConfigV2File()
+                        userConfigDirectoryFile = if (StringUtil.isEmpty(this.userId)) {
+                            Files.getDefaultConfigV2File()
                         } else {
-                            userConfigDirectoryFile = Files.getUserConfigDir(this.userId!!)
+                            Files.getUserConfigDir(this.userId ?: "")
                         }
                         if (Files.delFile(userConfigDirectoryFile)) {
                             ToastUtil.makeText(this, "配置删除成功", Toast.LENGTH_SHORT).show()
@@ -197,7 +201,7 @@ class SettingActivity : BaseActivity() {
                     })
                 .setNegativeButton(
                     R.string.cancel,
-                    DialogInterface.OnClickListener { dialog: DialogInterface?, id: Int -> dialog!!.dismiss() })
+                    DialogInterface.OnClickListener { dialog: DialogInterface?, id: Int -> dialog?.dismiss() })
                 .create()
                 .show()
 

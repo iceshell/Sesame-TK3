@@ -160,7 +160,7 @@ class MyWebView : WebView {
                 }
             }
         }
-        post(pollRunnable!!)
+        pollRunnable?.let { post(it) }
     }
 
     fun stopWatchingIncremental() {

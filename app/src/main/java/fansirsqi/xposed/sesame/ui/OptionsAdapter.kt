@@ -65,11 +65,13 @@ class OptionsAdapter private constructor(
          * @return 适配器实例
          */
         @JvmStatic
+        fun getInstance(c: Context): OptionsAdapter {
+            return adapter ?: OptionsAdapter(c).also { adapter = it }
+        }
+        
+        @JvmStatic
         fun get(c: Context): OptionsAdapter {
-            if (adapter == null) {
-                adapter = OptionsAdapter(c)
-            }
-            return adapter!!
+            return getInstance(c)
         }
     }
 }

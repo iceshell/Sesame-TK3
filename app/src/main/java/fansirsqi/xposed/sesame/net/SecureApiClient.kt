@@ -68,7 +68,8 @@ class SecureApiClient(
             }
 
             val (ciphertext, iv, tag) = aesGcmEncrypt(requestJson.toString(), aesKey)
-            val encryptedKey = rsaEncryptAESKey(aesKey, publicKey!!)
+            val pubKey = publicKey ?: throw IllegalStateException("Public key not initialized")
+            val encryptedKey = rsaEncryptAESKey(aesKey, pubKey)
 
             val keyB64 = Base64.encodeToString(encryptedKey, Base64.NO_WRAP)
             val dataB64 = Base64.encodeToString(ciphertext, Base64.NO_WRAP)
