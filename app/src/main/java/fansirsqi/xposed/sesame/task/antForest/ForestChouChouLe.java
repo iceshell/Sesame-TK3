@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import fansirsqi.xposed.sesame.task.TaskStatus;
 import fansirsqi.xposed.sesame.util.GlobalThreadPools;
 import fansirsqi.xposed.sesame.util.Log;
+import fansirsqi.xposed.sesame.util.RandomUtil;
 import fansirsqi.xposed.sesame.util.ResChecker;
 import fansirsqi.xposed.sesame.util.maps.UserMap;
 
@@ -74,9 +75,10 @@ public class ForestChouChouLe {
                     Log.printStackTrace(TAG, sceneName + " 处理异常", e);
                 }
                 
-                // 场景间延时优化：3秒→2秒
+                // 场景间延时：2-4秒随机，模拟真实用户行为
                 if (totalScenes < knownScenes.length) {
-                    GlobalThreadPools.sleepCompat(2000L);
+                    long randomDelay = RandomUtil.nextInt(2000, 4000);
+                    GlobalThreadPools.sleepCompat(randomDelay);
                 }
             }
 
@@ -170,9 +172,10 @@ public class ForestChouChouLe {
                         // 统一处理任务（适配普通版和活动版）
                         if ((taskType.startsWith("FOREST_NORMAL_DRAW") || taskType.startsWith("FOREST_ACTIVITY_DRAW")) 
                             && taskStatus.equals(TaskStatus.TODO.name())) {
-                            // 性能优化：任务延时从30秒减少到8秒，保持足够的模拟时间
-                            Log.record(sceneName + " 执行任务延时8S模拟：" + taskName);
-                            GlobalThreadPools.sleepCompat(8000L);
+                            // 任务延时：10-15秒随机，模拟用户思考+操作时间
+                            long taskDelay = RandomUtil.nextInt(10000, 15000);
+                            Log.record(sceneName + " 执行任务延时" + (taskDelay / 1000) + "S模拟：" + taskName);
+                            GlobalThreadPools.sleepCompat(taskDelay);
 
                             // 调用对应完成接口
                             String result;
@@ -199,8 +202,10 @@ public class ForestChouChouLe {
 
                         // 已完成任务领取奖励
                         if (taskStatus.equals(TaskStatus.FINISHED.name())) {
-                            Log.record(sceneName + " 领取奖励延时1S:" + taskName);
-                            GlobalThreadPools.sleepCompat(1000L);
+                            // 奖励领取：2-4秒随机，留出反应时间
+                            long rewardDelay = RandomUtil.nextInt(2000, 4000);
+                            Log.record(sceneName + " 领取奖励延时" + (rewardDelay / 1000) + "S:" + taskName);
+                            GlobalThreadPools.sleepCompat(rewardDelay);
                             String sginRes = AntForestRpcCall.receiveTaskAwardopengreen(source, taskSceneCode, taskType);
                             if (ResChecker.checkRes(TAG, sginRes)) {
                                 Log.record(TAG, sceneName + " 🎁 " + taskName + " 奖励领取成功");
@@ -217,10 +222,11 @@ public class ForestChouChouLe {
                     break; // 获取任务列表失败则退出循环
                 }
                 
-                // 循环间隔优化：3秒→2秒
+                // 循环间隔：2-3秒随机
                 if (doublecheck && loopCount < MAX_LOOP - 1) {
-                    Log.record(sceneName + " 等待2秒后继续下一轮检查");
-                    GlobalThreadPools.sleepCompat(2000L);
+                    long loopDelay = RandomUtil.nextInt(2000, 3000);
+                    Log.record(sceneName + " 等待" + (loopDelay / 1000) + "秒后继续下一轮检查");
+                    GlobalThreadPools.sleepCompat(loopDelay);
                 }
                 
             } while (doublecheck && ++loopCount < MAX_LOOP);
@@ -258,9 +264,10 @@ public class ForestChouChouLe {
                         
                         blance = newBlance;
                         
-                        // 抽奖间隔优化：2秒→1秒，提升抽奖速度
+                        // 抽奖间隔：1.5-3秒随机，模拟点击+动画时间
                         if (blance > 0) {
-                            GlobalThreadPools.sleepCompat(1000L);
+                            long drawDelay = RandomUtil.nextInt(1500, 3000);
+                            GlobalThreadPools.sleepCompat(drawDelay);
                         }
                     } else {
                         Log.error(TAG, sceneName + " - 第 " + drawCount + " 次抽奖失败");
