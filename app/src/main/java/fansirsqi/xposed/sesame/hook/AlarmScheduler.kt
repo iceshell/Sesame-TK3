@@ -57,7 +57,7 @@ class AlarmScheduler(private val context: Context) {
         const val WAKE_LOCK_SETUP_TIMEOUT = 5000L // 5秒
         const val FIRST_BACKUP_DELAY = 15000L // 15秒，协程版本可以更快响应
         const val SECOND_BACKUP_DELAY = 35000L // 35秒，优化备份时间
-        const val BACKUP_ALARM_DELAY = 12000L // 12秒，更快的备份闹钟
+        const val BACKUP_ALARM_DELAY = 30000L // 30秒，减少闹钟频率避免弹窗
         const val BACKUP_REQUEST_CODE_OFFSET = 10000
     }
 
@@ -152,9 +152,10 @@ class AlarmScheduler(private val context: Context) {
             cancelOldAlarm(requestCode)
             // 获取临时唤醒锁
             WakeLockManager(context, Constants.WAKE_LOCK_SETUP_TIMEOUT).use {
-                // 使用后台闹钟，不显示UI（避免弹出Alarm提示）
-                // 使用setExactAndAllowWhileIdle：精确且在低电量模式下也能执行
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent)
+                // 使用静默闹钟（RTC），避免触发系统闹钟通知弹窗
+                // setExactAndAllowWhileIdle：精确且在低电量模式下也能执行
+                // 注意：使用RTC而非RTC_WAKEUP，避免频繁弹出Alarm提示
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, triggerAtMillis, pendingIntent)
                 // 获取PowerManager.WakeLock
                 val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
                 val wakeLock = powerManager.newWakeLock(
@@ -264,8 +265,8 @@ class AlarmScheduler(private val context: Context) {
             val backupPendingIntent =
                 PendingIntent.getBroadcast(context, backupRequestCode, backupIntent, pendingIntentFlags)
             alarmManager?.let {
-                // 备份闹钟使用后台方式（不显示UI）
-                it.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, backupTriggerTime, backupPendingIntent)
+                // 备份闹钟使用静默方式（RTC），避免触发系统通知
+                it.setExactAndAllowWhileIdle(AlarmManager.RTC, backupTriggerTime, backupPendingIntent)
                 scheduledAlarms[backupRequestCode] = backupPendingIntent
                 Log.runtime(
                     TAG,
