@@ -197,7 +197,7 @@ class FriendWatch(
             val strFriendWatch = Files.readFromFile(file)
 
             try {
-                val joFriendWatch = if (StringUtil.isEmpty(strFriendWatch)) {
+                val joFriendWatch = if (strFriendWatch.isNullOrEmpty()) {
                     JSONObject()
                 } else {
                     JSONObject(strFriendWatch)

@@ -187,7 +187,7 @@ class SettingActivity : BaseActivity() {
                     R.string.ok,
                     DialogInterface.OnClickListener { dialog: DialogInterface?, id: Int ->
                         val userConfigDirectoryFile: File?
-                        userConfigDirectoryFile = if (StringUtil.isEmpty(this.userId)) {
+                        userConfigDirectoryFile = if (this.userId.isNullOrEmpty()) {
                             Files.getDefaultConfigV2File()
                         } else {
                             Files.getUserConfigDir(this.userId ?: "")
@@ -246,13 +246,13 @@ class SettingActivity : BaseActivity() {
 //            }
             if (Config.isModify(this.userId) && Config.save(this.userId, false)) {
                 ToastUtil.showToastWithDelay(this, "保存成功！", 100)
-                if (!StringUtil.isEmpty(this.userId)) {
+                if (!this.userId.isNullOrEmpty()) {
                     val intent = Intent("com.eg.android.AlipayGphone.sesame.restart")
                     intent.putExtra("userId", this.userId)
                     sendBroadcast(intent)
                 }
             }
-            if (!StringUtil.isEmpty(this.userId)) {
+            if (!this.userId.isNullOrEmpty()) {
                 UserMap.save(this.userId)
                 IdMapManager.getInstance(CooperateMap::class.java).save(this.userId)
             }

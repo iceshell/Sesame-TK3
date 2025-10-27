@@ -512,7 +512,7 @@ class AntFarm : ModelTask() {
             ListJoinCommaToStringModelField(
                 "farmGameTime",
                 "小鸡游戏时间(范围)",
-                ListUtil.newArrayList("2200-2400")
+                mutableListOf("2200-2400")
             ).also { farmGameTime = it })
         modelFields.addField(BooleanModelField("family", "家庭 | 开启", false).also { family = it })
         modelFields.addField(
@@ -2883,7 +2883,7 @@ class AntFarm : ModelTask() {
         var hasPreviousMore = false
         try {
             var jo: JSONObject?
-            jo = if (StringUtil.isEmpty(queryMonthStr)) {
+            jo = if (queryMonthStr.isNullOrEmpty()) {
                 JSONObject(AntFarmRpcCall.queryChickenDiaryList())
             } else {
                 JSONObject(AntFarmRpcCall.queryChickenDiaryList(queryMonthStr))
@@ -3696,7 +3696,7 @@ class AntFarm : ModelTask() {
     }
 
     suspend fun family() {
-        if (StringUtil.isEmpty(familyGroupId)) {
+        if (familyGroupId.isNullOrEmpty()) {
             return
         }
         try {

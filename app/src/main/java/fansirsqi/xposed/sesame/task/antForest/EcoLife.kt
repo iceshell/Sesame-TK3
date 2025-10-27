@@ -175,10 +175,7 @@ object EcoLife {
                 val beforeMealsImageUrl = data.optString("beforeMealsImageUrl")
                 val afterMealsImageUrl = data.optString("afterMealsImageUrl")
                 // 如果餐前和餐后照片URL都存在，进行提取
-                if (!StringUtil.isEmpty(beforeMealsImageUrl) && !StringUtil.isEmpty(
-                        afterMealsImageUrl
-                    )
-                ) {
+                if (!beforeMealsImageUrl.isNullOrEmpty() && !afterMealsImageUrl.isNullOrEmpty()) {
                     // 使用正则从URL中提取照片的路径部分
                     val pattern = Pattern.compile("img/(.*)/original")
                     val beforeMatcher = pattern.matcher(beforeMealsImageUrl)

@@ -377,7 +377,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             ).also { doubleCountLimit = it })
         modelFields.addField(
             ListJoinCommaToStringModelField(
-                "doubleCardTime", "双击卡 | 使用时间/范围", ListUtil.newArrayList(
+                "doubleCardTime", "双击卡 | 使用时间/范围", mutableListOf(
                     "0700", "0730", "1200", "1230", "1700", "1730", "2000", "2030", "2359"
                 )
             ).also { doubleCardTime = it })
@@ -397,7 +397,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
 
         modelFields.addField(
             ListJoinCommaToStringModelField(
-                "bubbleBoostTime", "加速器 | 使用时间/不能范围", ListUtil.newArrayList(
+                "bubbleBoostTime", "加速器 | 使用时间/不能范围", mutableListOf(
                     "0030,0630",
                     "0700",
                     "1200",
@@ -438,7 +438,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         modelFields.addField(
             ListJoinCommaToStringModelField(
                 "robExpandCardTime", "1.1倍能量卡 | 使用时间/不能范围",
-                ListUtil.newArrayList(
+                mutableListOf(
                     "0700",
                     "0730",
                     "1200",

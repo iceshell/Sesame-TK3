@@ -212,7 +212,7 @@ object Notify {
         ErrorHandler.safelyRun(TAG, "设置禁用状态失败") {
             val notificationBuilder = builder ?: return@safelyRun
             notificationBuilder.setContentTitle("🚫 芝麻粒已禁用")
-            if (!StringUtil.isEmpty(contentText)) {
+            if (!contentText.isNullOrEmpty()) {
                 notificationBuilder.setContentText(contentText)
             }
             notificationBuilder.setProgress(0, 0, false)
@@ -242,7 +242,7 @@ object Notify {
             val manager = mNotifyManager ?: return@safelyRun
             
             notificationBuilder.setContentTitle(titleText)
-            if (!StringUtil.isEmpty(contentText)) {
+            if (!contentText.isNullOrEmpty()) {
                 notificationBuilder.setContentText(contentText)
             }
             manager.notify(NOTIFICATION_ID, notificationBuilder.build())

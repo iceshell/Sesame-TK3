@@ -410,14 +410,14 @@ abstract class ModelTask : Model() {
 
         // 兼容构造函数
         constructor(id: String, runnable: Runnable?) : this(
-            id = if (StringUtil.isEmpty(id)) "task-${System.currentTimeMillis()}" else id,
+            id = if (id.isNullOrEmpty()) "task-${System.currentTimeMillis()}" else id,
             group = "DEFAULT",
             suspendRunnable = runnable?.let { r -> { r.run() } },
             execTime = 0L
         )
         
         constructor(id: String, execTime: Long) : this(
-            id = if (StringUtil.isEmpty(id)) "task-${System.currentTimeMillis()}" else id,
+            id = if (id.isNullOrEmpty()) "task-${System.currentTimeMillis()}" else id,
             group = "DEFAULT",
             suspendRunnable = null,
             execTime = execTime
@@ -425,8 +425,8 @@ abstract class ModelTask : Model() {
         
         // Java完全兼容的构造函数
         constructor(id: String, group: String, runnable: Runnable, execTime: Long) : this(
-            id = if (StringUtil.isEmpty(id)) "task-${System.currentTimeMillis()}" else id,
-            group = if (StringUtil.isEmpty(group)) "DEFAULT" else group,
+            id = if (id.isNullOrEmpty()) "task-${System.currentTimeMillis()}" else id,
+            group = if (group.isNullOrEmpty()) "DEFAULT" else group,
             suspendRunnable = { runnable.run() },
             execTime = execTime
         )

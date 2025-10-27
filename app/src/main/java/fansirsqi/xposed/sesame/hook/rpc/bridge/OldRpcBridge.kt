@@ -225,7 +225,7 @@ class OldRpcBridge : RpcBridge {
         val cause = e.cause
         if (cause != null) {
             val msg = cause.message
-            if (!StringUtil.isEmpty(msg) && msg != null) {
+            if (!msg.isNullOrEmpty()) {
                 handleErrorMessage(rpcEntity, msg, method)
             }
         }
