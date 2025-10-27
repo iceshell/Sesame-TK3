@@ -909,7 +909,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             monday = true
             val tc = TimeCounter(TAG)
 
-            if (showBagList!!.value) showBag()
+            if (showBagList?.value == true) showBag()
 
             Log.record(TAG, "执行开始-蚂蚁$name")
             taskCount.set(0)
@@ -967,19 +967,19 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             // 后续任务流程
             // -------------------------------
             if (selfHomeObj != null) {
-                if (collectWateringBubble!!.value) {
+                if (collectWateringBubble?.value == true) {
                     wateringBubbles(selfHomeObj)
                     tc.countDebug("收取浇水金球")
                 }
-                if (collectProp!!.value) {
+                if (collectProp?.value == true) {
                     givenProps(selfHomeObj)
                     tc.countDebug("收取道具")
                 }
-                if (userPatrol!!.value) {
+                if (userPatrol?.value == true) {
                     queryUserPatrol()
                     tc.countDebug("动物巡护任务")
                 }
-                if (canConsumeAnimalProp && consumeAnimalProp!!.value) {
+                if (canConsumeAnimalProp && consumeAnimalProp?.value == true) {
                     queryAndConsumeAnimal()
                     tc.countDebug("森林巡护")
                 } else {
@@ -989,16 +989,16 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 handleUserProps(selfHomeObj)
                 tc.countDebug("收取动物派遣能量")
 
-                if (combineAnimalPiece!!.value) {
+                if (combineAnimalPiece?.value == true) {
                     queryAnimalAndPiece()
                     tc.countDebug("合成动物碎片")
                 }
 
-                if (receiveForestTaskAward!!.value) {
+                if (receiveForestTaskAward?.value == true) {
                     receiveTaskAward()
                     tc.countDebug("森林任务")
                 }
-                if (ecoLife!!.value) {
+                if (ecoLife?.value == true) {
                     // 检查是否到达执行时间
                     if (TaskTimeChecker.isTimeReached(ecoLifeTime?.value, "0800")) {
                         EcoLife.ecoLife()
@@ -1011,21 +1011,21 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 waterFriends()
                 tc.countDebug("给好友浇水")
 
-                if (giveProp!!.value) {
+                if (giveProp?.value == true) {
                     giveProp()
                     tc.countDebug("赠送道具")
                 }
 
-                if (vitalityExchange!!.value) {
+                if (vitalityExchange?.value == true) {
                     handleVitalityExchange()
                     tc.countDebug("活力值兑换")
                 }
 
-                if (energyRain!!.value) {
+                if (energyRain?.value == true) {
                     // 检查是否到达执行时间
                     if (TaskTimeChecker.isTimeReached(energyRainTime?.value, "0810")) {
                         EnergyRainCoroutine.execEnergyRainCompat()
-                        if (energyRainChance!!.value) {
+                        if (energyRainChance?.value == true) {
                             useEnergyRainChanceCard()
                             tc.countDebug("使用能量雨卡")
                         }
@@ -1035,33 +1035,34 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     }
                 }
 
-                if (forestMarket!!.value) {
+                if (forestMarket?.value == true) {
                     GreenLife.ForestMarket("GREEN_LIFE")
                     GreenLife.ForestMarket("ANTFOREST")
                     tc.countDebug("森林集市")
                 }
 
-                if (medicalHealth!!.value) {
-                    if (medicalHealthOption!!.value.contains("FEEDS")) {
+                if (medicalHealth?.value == true) {
+                    val healthOptions = medicalHealthOption?.value ?: emptySet()
+                    if (healthOptions.contains("FEEDS")) {
                         Healthcare.queryForestEnergy("FEEDS")
                         tc.countDebug("绿色医疗")
                     }
-                    if (medicalHealthOption!!.value.contains("BILL")) {
+                    if (healthOptions.contains("BILL")) {
                         Healthcare.queryForestEnergy("BILL")
                         tc.countDebug("电子小票")
                     }
                 }
 
                 //青春特权森林道具领取
-                if (youthPrivilege!!.value) {
+                if (youthPrivilege?.value == true) {
                     youthPrivilege()
                 }
 
-                if (dailyCheckIn!!.value) {
+                if (dailyCheckIn?.value == true) {
                     studentSignInRedEnvelope()
                 }
 
-                if (forestChouChouLe!!.value) {
+                if (forestChouChouLe?.value == true) {
                     val chouChouLe = ForestChouChouLe()
                     chouChouLe.chouChouLe()
                     tc.countDebug("抽抽乐")
@@ -1168,21 +1169,16 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     }
 
     private fun wateringBubbles(selfHomeObj: JSONObject?) {
-        processJsonArray(
-            selfHomeObj,
+        processJsonArray(selfHomeObj,
             "wateringBubbles"
         ) { wateringBubbles: JSONArray? ->
-            this.collectWateringBubbles(
-                wateringBubbles!!
-            )
+            wateringBubbles?.let { this.collectWateringBubbles(it) }
         }
     }
 
     private fun givenProps(selfHomeObj: JSONObject?) {
         processJsonArray(selfHomeObj, "givenProps") { givenProps: JSONArray? ->
-            this.collectGivenProps(
-                givenProps!!
-            )
+            givenProps?.let { this.collectGivenProps(it) }
         }
     }
 
@@ -1374,8 +1370,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      */
     private fun waterFriends() {
         try {
-            val friendMap = waterFriendList!!.value
-            val notify = notifyFriend!!.value // 获取通知开关状态
+            val friendMap = waterFriendList?.value ?: return
+            val notify = notifyFriend?.value ?: false // 获取通知开关状态
 
             for (friendEntry in friendMap.entries) {
                 val uid = friendEntry.key
@@ -1397,10 +1393,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
 
                             // ✅ 关键改动：传入通知开关
                             val waterCountKVNode = returnFriendWater(
-                                uid, bizNo, waterCount, waterFriendCount!!.value, notify
+                                uid, bizNo, waterCount, waterFriendCount?.value ?: 0, notify
                             )
 
-                            val actualWaterCount: Int = waterCountKVNode.key!!
+                            val actualWaterCount: Int = waterCountKVNode.key ?: 0
                             if (actualWaterCount > 0) {
                                 Status.waterFriendToday(uid, actualWaterCount)
                             }
@@ -1428,7 +1424,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
 //            JSONObject bag = getBag();
 
             Vitality.initVitality("SC_ASSETS")
-            val exchangeList = vitalityExchangeList!!.value
+            val exchangeList = vitalityExchangeList?.value ?: return
             //            Map<String, Integer> maxLimitList = vitalityExchangeMaxList.value;
             for (entry in exchangeList.entries) {
                 val skuId = entry.key
@@ -1551,7 +1547,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         try {
             val selfHomeObj = querySelfHome()
             if (selfHomeObj != null) {
-                if (closeWhackMole!!.value) {
+                if (closeWhackMole?.value == true) {
                     val propertiesObject = selfHomeObj.optJSONObject("properties")
                     if (propertiesObject != null) {
                         // 如果用户主页的属性中标记了"whackMole"
@@ -1611,7 +1607,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             val userName = getAndCacheUserName(userId, userHomeObj, fromTag)
 
             // 3. 判断是否允许收取能量
-            if (!collectEnergy!!.value || jsonCollectMap.contains(userId)) {
+            if (collectEnergy?.value != true || jsonCollectMap.contains(userId)) {
                 Log.debug(TAG, "[$userName] 不允许收取能量，跳过")
                 return userHomeObj
             }
