@@ -116,7 +116,9 @@ android {
     buildTypes {
         getByName("debug") {
             isDebuggable = true
-            versionNameSuffix = "-debug"
+            // Debug和Release使用相同的applicationId，便于直接覆盖安装
+            applicationIdSuffix = ""  // 不添加后缀，与release保持一致
+            versionNameSuffix = ".debug"
             isShrinkResources = false
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
