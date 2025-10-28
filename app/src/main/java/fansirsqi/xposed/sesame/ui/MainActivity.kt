@@ -55,8 +55,9 @@ import java.util.concurrent.TimeUnit
 class MainActivity : BaseActivity() {
     private val TAG = "MainActivity"
     private var hasPermissions = false
+    // 保持两个数组初始化一致，都为空数组，避免长度不匹配
     private var userNameArray = arrayOf<String>()
-    private var userEntityArray = arrayOf<UserEntity?>(null)
+    private var userEntityArray = arrayOf<UserEntity?>()
     private lateinit var oneWord: TextView
 
     private lateinit var v: WatermarkView
@@ -134,8 +135,12 @@ class MainActivity : BaseActivity() {
                 }
                 userNameArray = userNameList.toTypedArray()
                 userEntityArray = userEntityList.toTypedArray()
+                Log.runtime(TAG, "加载用户配置: 共${userNameArray.size}个账号")
             } catch (e: Exception) {
-                userEntityArray = arrayOf(null)
+                // 异常时同步重置两个数组，保持一致
+                userNameArray = arrayOf()
+                userEntityArray = arrayOf()
+                Log.error(TAG, "加载用户配置失败")
                 Log.printStackTrace(e)
             }
         }
@@ -345,6 +350,20 @@ class MainActivity : BaseActivity() {
     }
 
     private fun selectSettingUid() {
+        // 检查数组是否为空
+        if (userNameArray.isEmpty()) {
+            ToastUtil.showToast(this, "没有可用的账号配置，请先登录支付宝")
+            Log.error(TAG, "selectSettingUid: userNameArray为空")
+            return
+        }
+        
+        // 确保两个数组长度一致
+        if (userNameArray.size != userEntityArray.size) {
+            ToastUtil.showToast(this, "账号数据异常，请重启应用")
+            Log.error(TAG, "selectSettingUid: 数组长度不一致 names=${userNameArray.size}, entities=${userEntityArray.size}")
+            return
+        }
+        
         StringDialog.showSelectionDialog(
             this,
             "📌 请选择配置",

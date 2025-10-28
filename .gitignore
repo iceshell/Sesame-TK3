@@ -107,11 +107,12 @@ serve-debug/webhook.db
 /log/
 !/log/.gitkeep
 
-# 文档目录（避免提交临时文档和报告）
+# 文档目录（临时文档）
 /docs/
 !/docs/README.md
-# 允许保留重要的技术文档
 !/docs/REFACTOR_*.md
+!/docs/CRASH_*.md
+!/docs/BUGFIX_*.md
 !/docs/migration/
 
 # 迁移报告和临时文档（避免污染Git历史）
