@@ -32,50 +32,9 @@ class Config private constructor() {
     var isInit: Boolean = false
         private set
 
-    /** 存储模型字段的映射 */
+    /** 存储模型字段的映射 - Jackson会直接操作这个Map */
+    @JvmField
     val modelFieldsMap: MutableMap<String, ModelFields> = ConcurrentHashMap()
-
-    /**
-     * 设置新的模型字段配置
-     *
-     * @param newModels 新的模型字段映射
-     */
-    fun setModelFieldsMap(newModels: Map<String, ModelFields>?) {
-        modelFieldsMap.clear()
-        val modelConfigMap = Model.getModelConfigMap()
-        val models = newModels ?: emptyMap()
-
-        // 遍历所有模型配置，合并字段配置
-        for ((modelCode, modelConfig) in modelConfigMap.entries) {
-            val newModelFields = ModelFields()
-            val configModelFields = modelConfig.fields
-            val modelFields = models[modelCode]
-
-            if (modelFields != null) {
-                // 如果已有模型字段，则按值覆盖配置
-                for (configModelField in configModelFields.values) {
-                    val modelField = modelFields[configModelField.code]
-                    try {
-                        if (modelField != null) {
-                            val value = modelField.value
-                            if (value != null) {
-                                configModelField.setObjectValue(value)
-                            }
-                        }
-                    } catch (e: Exception) {
-                        Log.printStackTrace(e)
-                    }
-                    newModelFields.addField(configModelField)
-                }
-            } else {
-                // 如果没有找到对应的模型字段，则直接添加配置字段
-                for (configModelField in configModelFields.values) {
-                    newModelFields.addField(configModelField)
-                }
-            }
-            modelFieldsMap[modelCode] = newModelFields
-        }
-    }
 
     /**
      * 检查是否存在指定的模型字段
