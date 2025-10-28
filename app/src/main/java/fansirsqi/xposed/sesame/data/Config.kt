@@ -234,9 +234,38 @@ class Config private constructor() {
                 }
             }
 
+            // 同步配置到ModelConfig.fields
+            syncToModelConfig()
+            
             INSTANCE.isInit = true
             TaskCommon.update()
             return INSTANCE
+        }
+        
+        /**
+         * 将Config.modelFieldsMap同步到ModelConfig.fields
+         * 这是关键步骤：让Model实例的字段值与配置文件保持一致
+         */
+        @JvmStatic
+        private fun syncToModelConfig() {
+            val modelConfigMap = Model.getModelConfigMap()
+            for ((modelCode, modelConfig) in modelConfigMap.entries) {
+                val configFields = INSTANCE.modelFieldsMap[modelCode]
+                if (configFields != null) {
+                    // 将Config中的字段值复制到ModelConfig中
+                    for ((fieldCode, configField) in configFields.entries) {
+                        val modelField = modelConfig.fields[fieldCode]
+                        if (modelField != null && configField != null) {
+                            try {
+                                // 使用setObjectValue来设置值，避免类型问题
+                                modelField.setObjectValue(configField.value)
+                            } catch (e: Exception) {
+                                Log.printStackTrace(TAG, "同步字段失败: $modelCode.$fieldCode", e)
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /**
