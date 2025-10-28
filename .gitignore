@@ -113,14 +113,19 @@ serve-debug/webhook.db
 !/docs/REFACTOR_*.md
 !/docs/CRASH_*.md
 !/docs/BUGFIX_*.md
+!/docs/FINAL_*.md
+!/docs/FIX_*.md
 !/docs/migration/
 
 # 迁移报告和临时文档（避免污染Git历史）
 MIGRATION_*.md
 *_SUMMARY.md
-*_REPORT.md
 *_PROGRESS*.md
 CAPTCHA_*.md
+# 允许特定的报告文件
+!FINAL_*.md
+!FIX_*.md
+!DEBUG_*.md
 # 但保留根目录的README
 !README.md
 !CONTRIBUTING.md

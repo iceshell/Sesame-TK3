@@ -92,30 +92,63 @@ public class WebSettingsActivity extends BaseActivity {
     @SuppressLint({"MissingInflatedId", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        context = this;
-        userId = null;
-        userName = null;
-        Intent intent = getIntent();
-        if (intent != null) {
-            userId = intent.getStringExtra("userId");
-            userName = intent.getStringExtra("userName");
-            intent.getBooleanExtra("debug", BuildConfig.DEBUG);
-        }
-        Model.initAllModel();
-        UserMap.setCurrentUserId(userId);
-        UserMap.load(userId);
-        CooperateMap.getInstance(CooperateMap.class).load(userId);
-        IdMapManager.getInstance(VitalityRewardsMap.class).load(this.userId);
-        IdMapManager.getInstance(MemberBenefitsMap.class).load(this.userId);
-        IdMapManager.getInstance(ParadiseCoinBenefitIdMap.class).load(this.userId);
-        IdMapManager.getInstance(ReserveaMap.class).load();
-        IdMapManager.getInstance(BeachMap.class).load();
-        Config.load(userId);
-        LanguageUtil.setLocale(this);
-        setContentView(R.layout.activity_web_settings);
-        //处理返回键
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        try {
+            Log.runtime(TAG, "onCreate: 开始初始化");
+            super.onCreate(savedInstanceState);
+            Log.runtime(TAG, "onCreate: super.onCreate完成");
+            
+            context = this;
+            userId = null;
+            userName = null;
+            
+            Log.runtime(TAG, "onCreate: 准备获取Intent");
+            Intent intent = getIntent();
+            if (intent != null) {
+                userId = intent.getStringExtra("userId");
+                userName = intent.getStringExtra("userName");
+                intent.getBooleanExtra("debug", BuildConfig.DEBUG);
+                Log.runtime(TAG, "onCreate: Intent解析完成, userId=" + userId + ", userName=" + userName);
+            }
+            
+            Log.runtime(TAG, "onCreate: 准备初始化Model");
+            Model.initAllModel();
+            Log.runtime(TAG, "onCreate: Model初始化完成");
+            Log.runtime(TAG, "onCreate: 准备设置UserMap");
+            UserMap.setCurrentUserId(userId);
+            Log.runtime(TAG, "onCreate: UserMap.setCurrentUserId完成");
+            
+            UserMap.load(userId);
+            Log.runtime(TAG, "onCreate: UserMap.load完成");
+            
+            CooperateMap.getInstance(CooperateMap.class).load(userId);
+            Log.runtime(TAG, "onCreate: CooperateMap加载完成");
+            
+            IdMapManager.getInstance(VitalityRewardsMap.class).load(this.userId);
+            Log.runtime(TAG, "onCreate: VitalityRewardsMap加载完成");
+            
+            IdMapManager.getInstance(MemberBenefitsMap.class).load(this.userId);
+            Log.runtime(TAG, "onCreate: MemberBenefitsMap加载完成");
+            
+            IdMapManager.getInstance(ParadiseCoinBenefitIdMap.class).load(this.userId);
+            Log.runtime(TAG, "onCreate: ParadiseCoinBenefitIdMap加载完成");
+            
+            IdMapManager.getInstance(ReserveaMap.class).load();
+            Log.runtime(TAG, "onCreate: ReserveaMap加载完成");
+            
+            IdMapManager.getInstance(BeachMap.class).load();
+            Log.runtime(TAG, "onCreate: BeachMap加载完成");
+            
+            Config.load(userId);
+            Log.runtime(TAG, "onCreate: Config加载完成");
+            
+            LanguageUtil.setLocale(this);
+            Log.runtime(TAG, "onCreate: LanguageUtil设置完成");
+            
+            setContentView(R.layout.activity_web_settings);
+            Log.runtime(TAG, "onCreate: setContentView完成");
+            //处理返回键
+            Log.runtime(TAG, "onCreate: 准备设置返回键处理");
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 if (webView.canGoBack()) {
@@ -127,31 +160,42 @@ public class WebSettingsActivity extends BaseActivity {
                     finish();
                 }
             }
-        });
+            });
+            Log.runtime(TAG, "onCreate: 返回键处理设置完成");
 
-        // 初始化导出逻辑
-        exportLauncher = registerForActivityResult(
+            // 初始化导出逻辑
+            Log.runtime(TAG, "onCreate: 准备初始化导出逻辑");
+            exportLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         PortUtil.handleExport(this, result.getData().getData(), userId);
                     }
                 }
-        );
-        // 初始化导入逻辑
-        importLauncher = registerForActivityResult(
+            );
+            Log.runtime(TAG, "onCreate: 导出逻辑初始化完成");
+            
+            // 初始化导入逻辑
+            Log.runtime(TAG, "onCreate: 准备初始化导入逻辑");
+            importLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         PortUtil.handleImport(this, result.getData().getData(), userId);
                     }
                 }
-        );
-        if (userName != null) {
-            setBaseSubtitle(getString(R.string.settings) + ": " + userName);
-        }
-        context = this;
-        webView = findViewById(R.id.webView);
+            );
+            Log.runtime(TAG, "onCreate: 导入逻辑初始化完成");
+            
+            if (userName != null) {
+                setBaseSubtitle(getString(R.string.settings) + ": " + userName);
+                Log.runtime(TAG, "onCreate: 标题设置完成");
+            }
+            
+            context = this;
+            Log.runtime(TAG, "onCreate: 准备初始化WebView");
+            webView = findViewById(R.id.webView);
+            Log.runtime(TAG, "onCreate: WebView findViewById完成");
         WebSettings settings = webView.getSettings();
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         settings.setJavaScriptEnabled(true);
@@ -165,8 +209,10 @@ public class WebSettingsActivity extends BaseActivity {
         settings.setAllowFileAccess(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setLoadsImagesAutomatically(true);
-        settings.setDefaultTextEncodingName(StandardCharsets.UTF_8.name());
-        webView.setWebViewClient(new WebViewClient() {
+            settings.setDefaultTextEncodingName(StandardCharsets.UTF_8.name());
+            Log.runtime(TAG, "onCreate: WebSettings配置完成");
+            
+            webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 // 强制在当前 WebView 中加载 url
@@ -205,12 +251,22 @@ public class WebSettingsActivity extends BaseActivity {
         for (ModelGroup modelGroup : ModelGroup.values()) {
             groupList.add(new ModelGroupDto(modelGroup.getCode(), modelGroup.getName(), modelGroup.getIcon()));
         }
-        WatermarkView watermarkView = WatermarkView.Companion.install(this);
-        String tag = "用户: " + userName + "\n ID: " + userId;
-        if (userName.equals("默认") || userId == null) {
-            tag = "用户: " + "未登录" + "\n ID: " + "*************";
+            Log.runtime(TAG, "onCreate: 准备设置水印");
+            WatermarkView watermarkView = WatermarkView.Companion.install(this);
+            String tag = "用户: " + userName + "\n ID: " + userId;
+            if (userName != null && userName.equals("默认") || userId == null) {
+                tag = "用户: " + "未登录" + "\n ID: " + "*************";
+            }
+            watermarkView.setWatermarkText(tag);
+            Log.runtime(TAG, "onCreate: 水印设置完成");
+            
+            Log.runtime(TAG, "onCreate: ✅ WebSettingsActivity初始化完成！");
+        } catch (Exception e) {
+            Log.error(TAG, "onCreate发生异常: " + e.getMessage());
+            Log.printStackTrace(TAG, e);
+            ToastUtil.showToast(this, "初始化失败: " + e.getMessage());
+            finish();
         }
-        watermarkView.setWatermarkText(tag);
     }
 
 
