@@ -107,26 +107,17 @@ serve-debug/webhook.db
 /log/
 !/log/.gitkeep
 
-# 文档目录（临时文档）
-/docs/
-!/docs/README.md
-!/docs/REFACTOR_*.md
-!/docs/CRASH_*.md
-!/docs/BUGFIX_*.md
-!/docs/FINAL_*.md
-!/docs/FIX_*.md
-!/docs/migration/
+# 文档目录 - 允许所有Markdown文档访问
+# /docs/
+# !/docs/README.md
 
-# 迁移报告和临时文档（避免污染Git历史）
-MIGRATION_*.md
-*_SUMMARY.md
-*_PROGRESS*.md
-CAPTCHA_*.md
-# 允许特定的报告文件
-!FINAL_*.md
-!FIX_*.md
-!DEBUG_*.md
-# 但保留根目录的README
+# 迁移报告和临时文档 - 允许所有MD文件访问以便Windsurf读写
+# MIGRATION_*.md
+# *_SUMMARY.md
+# *_PROGRESS*.md
+# CAPTCHA_*.md
+
+# 保留根目录的README
 !README.md
 !CONTRIBUTING.md
 !LICENSE
