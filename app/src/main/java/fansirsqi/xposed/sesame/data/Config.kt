@@ -33,7 +33,7 @@ class Config private constructor() {
         private set
 
     /** 存储模型字段的映射 */
-    private val modelFieldsMap: MutableMap<String, ModelFields> = ConcurrentHashMap()
+    val modelFieldsMap: MutableMap<String, ModelFields> = ConcurrentHashMap()
 
     /**
      * 设置新的模型字段配置

@@ -104,8 +104,8 @@ serve-debug/webhook.db
 /.cursor/rules/zh.mdc
 
 # 日志目录（运行时生成的日志文件）
-/log/
-!/log/.gitkeep
+# /log/
+# !/log/.gitkeep
 
 # 文档目录 - 允许所有Markdown文档访问
 # /docs/
