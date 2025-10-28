@@ -166,16 +166,26 @@ public class ModelField<T> implements Serializable {
      */
     @JsonIgnore
     public void setConfigValue(String configValue) {
-        if (configValue == null) {
-            reset(); // 如果配置值为 null，则重置为默认值
+        if (configValue == null || configValue.trim().isEmpty()) {
+            reset(); // 如果配置值为 null 或空，则重置为默认值
             return;
         }
         Object objectValue = fromConfigValue(configValue); // 从配置值转换为对象值
+        if (objectValue == null) {
+            reset(); // 如果转换后的对象值为 null，则重置为默认值
+            return;
+        }
         // 如果对象值与配置值相等，则直接解析配置值
         if (Objects.equals(objectValue, configValue)) {
             value = JsonUtil.parseObject(configValue, valueType);
         } else {
-            value = JsonUtil.parseObject(objectValue, valueType);
+            // 将objectValue转换为JSON字符串再解析，避免传入null
+            String jsonValue = JsonUtil.formatJson(objectValue);
+            if (jsonValue != null && !jsonValue.trim().isEmpty()) {
+                value = JsonUtil.parseObject(jsonValue, valueType);
+            } else {
+                reset();
+            }
         }
     }
 

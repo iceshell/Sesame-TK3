@@ -450,7 +450,11 @@ public class WebSettingsActivity extends BaseActivity {
                                     if (configFields != null) {
                                         ModelField<?> configField = configFields.get(entry.getKey());
                                         if (configField != null) {
-                                            configField.setConfigValue(configValue);
+                                            try {
+                                                configField.setConfigValue(configValue);
+                                            } catch (Exception ex) {
+                                                Log.printStackTrace("WebSettingsActivity", "同步配置字段失败: " + entry.getKey(), ex);
+                                            }
                                         }
                                     }
                                 }

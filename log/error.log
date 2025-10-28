@@ -1,0 +1,18 @@
+28日 23:18:21.71 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.util.JsonUtil.parseObject, parameter type
+	at fansirsqi.xposed.sesame.util.JsonUtil.parseObject(Unknown Source:7)
+	at fansirsqi.xposed.sesame.model.ModelField.setConfigValue(ModelField.java:176)
+	at fansirsqi.xposed.sesame.ui.WebSettingsActivity$WebViewCallback.setModel(WebSettingsActivity.java:453)
+	at android.os.MessageQueue.nativePollOnce(Native Method)
+	at android.os.MessageQueue.next(MessageQueue.java:335)
+	at android.os.Looper.loop(Looper.java:193)
+	at android.os.HandlerThread.run(HandlerThread.java:67)
+
+28日 23:18:21.72 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.util.JsonUtil.parseObject, parameter type
+	at fansirsqi.xposed.sesame.util.JsonUtil.parseObject(Unknown Source:7)
+	at fansirsqi.xposed.sesame.model.ModelField.setConfigValue(ModelField.java:176)
+	at fansirsqi.xposed.sesame.ui.WebSettingsActivity$WebViewCallback.setModel(WebSettingsActivity.java:453)
+	at android.os.MessageQueue.nativePollOnce(Native Method)
+	at android.os.MessageQueue.next(MessageQueue.java:335)
+	at android.os.Looper.loop(Looper.java:193)
+	at android.os.HandlerThread.run(HandlerThread.java:67)
+
