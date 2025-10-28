@@ -1,255 +1,742 @@
-28日 21:48:51.47 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 13543
-28日 21:48:51.68 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
-28日 21:48:51.69 [ServiceManager]: ServiceManager initialized and listener registered.
-28日 21:48:51.86 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
-28日 21:48:51.87 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
-28日 21:48:51.96 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-28日 21:48:51.97 [UIConfig]: 重置UI配置
-28日 21:48:51.98 [Files]: self.json permissions: r=true; w=true
-28日 21:48:52.01 [Files]: self.json permissions: r=true; w=true
-28日 21:48:52.02 [Files]: self.json permissions: r=true; w=true
-28日 21:48:52.03 [Files]: self.json permissions: r=true; w=true
-28日 21:48:52.04 [Files]: self.json permissions: r=true; w=true
-28日 21:48:52.05 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:48:52.05 [MainActivity]: isModuleActivated: true
-28日 21:48:54.97 [MainActivity]: 准备载入用户配置: index=0, showName=機風, userId=2088632752200481
-28日 21:48:54.97 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:48:54.97 [MainActivity]: Intent已配置: userId=2088632752200481, userName=機風
-28日 21:48:54.98 [MainActivity]: 正在启动SettingActivity...
-28日 21:48:54.99 [MainActivity]: SettingActivity启动成功
-28日 21:48:55.01 [WebSettingsActivity]: onCreate: 开始初始化
-28日 21:48:55.03 [WebSettingsActivity]: onCreate: super.onCreate完成
-28日 21:48:55.03 [WebSettingsActivity]: onCreate: 准备获取Intent
-28日 21:48:55.03 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088632752200481, userName=機風
-28日 21:48:55.03 [WebSettingsActivity]: onCreate: 准备初始化Model
-28日 21:48:55.10 [WebSettingsActivity]: onCreate: Model初始化完成
-28日 21:48:55.10 [WebSettingsActivity]: onCreate: 准备设置UserMap
-28日 21:48:55.10 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
-28日 21:48:55.11 [Files]: friend.json permissions: r=true; w=true
-28日 21:48:55.12 [WebSettingsActivity]: onCreate: UserMap.load完成
-28日 21:48:55.13 [Files]: cooperateMap.json permissions: r=true; w=true
-28日 21:48:55.13 [WebSettingsActivity]: onCreate: CooperateMap加载完成
-28日 21:48:55.14 [Files]: vitalityRewardsMap.json permissions: r=true; w=true
-28日 21:48:55.14 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
-28日 21:48:55.15 [Files]: MemberBenefitsMap.json permissions: r=true; w=true
-28日 21:48:55.15 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
-28日 21:48:55.16 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
-28日 21:48:55.16 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
-28日 21:48:55.17 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/ReserveaMap.json: r=true; w=true
-28日 21:48:55.17 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:48:55.18 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
-28日 21:48:55.19 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
-28日 21:48:55.19 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:48:55.20 [WebSettingsActivity]: onCreate: BeachMap加载完成
-28日 21:48:55.20 [Config]: 开始加载配置
-28日 21:48:55.21 [Config]: 加载配置: 機風
-28日 21:48:55.21 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
-28日 21:48:55.25 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
-28日 21:48:55.29 获取 只收能量时间 配置: [0658-0731]
-28日 21:48:55.29 模块休眠时间 配置已关闭
-28日 21:48:55.29 [WebSettingsActivity]: onCreate: Config加载完成
-28日 21:48:55.29 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
-28日 21:48:55.43 [WebSettingsActivity]: onCreate: setContentView完成
-28日 21:48:55.44 [WebSettingsActivity]: onCreate: 准备设置返回键处理
-28日 21:48:55.44 [WebSettingsActivity]: onCreate: 返回键处理设置完成
-28日 21:48:55.44 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
-28日 21:48:55.44 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
-28日 21:48:55.44 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
-28日 21:48:55.44 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
-28日 21:48:55.45 [WebSettingsActivity]: onCreate: 标题设置完成
-28日 21:48:55.45 [WebSettingsActivity]: onCreate: 准备初始化WebView
-28日 21:48:55.45 [WebSettingsActivity]: onCreate: WebView findViewById完成
-28日 21:48:55.45 [WebSettingsActivity]: onCreate: WebSettings配置完成
-28日 21:48:55.45 [WebSettingsActivity]: onCreate: 准备加载WebView内容
-28日 21:48:55.46 [WebSettingsActivity]: onCreate: WebViewClient设置完成
-28日 21:48:55.46 [WebSettingsActivity]: onCreate: WebChromeClient设置完成
-28日 21:48:55.47 [WebSettingsActivity]: onCreate: WebView loadUrl完成
-28日 21:48:55.47 [WebSettingsActivity]: onCreate: JavaScript接口注册完成
-28日 21:48:55.48 [WebSettingsActivity]: onCreate: 准备填充tabList和groupList
-28日 21:48:55.48 [WebSettingsActivity]: onCreate: tabList填充完成, size=14
-28日 21:48:55.48 [WebSettingsActivity]: onCreate: groupList填充完成, size=8
-28日 21:48:55.48 [WebSettingsActivity]: onCreate: 准备设置水印
-28日 21:48:55.49 [WebSettingsActivity]: onCreate: 水印设置完成
-28日 21:48:55.49 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
-28日 21:48:55.62 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:48:55.63 [WebSettingsActivity]: WebView Console [LOG]: You are running a development build of Vue.
+28日 21:56:50.09 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 15482
+28日 21:56:50.31 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
+28日 21:56:50.31 [ServiceManager]: ServiceManager initialized and listener registered.
+28日 21:56:50.48 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+28日 21:56:50.49 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+28日 21:56:50.58 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+28日 21:56:50.58 [UIConfig]: 重置UI配置
+28日 21:56:50.59 [Files]: self.json permissions: r=true; w=true
+28日 21:56:50.62 [Files]: self.json permissions: r=true; w=true
+28日 21:56:50.62 [Files]: self.json permissions: r=true; w=true
+28日 21:56:50.63 [Files]: self.json permissions: r=true; w=true
+28日 21:56:50.64 [Files]: self.json permissions: r=true; w=true
+28日 21:56:50.65 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:56:50.65 [MainActivity]: isModuleActivated: true
+28日 21:56:54.66 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+28日 21:56:54.66 [UIConfig]: 重置UI配置
+28日 21:56:54.68 [Files]: self.json permissions: r=true; w=true
+28日 21:56:54.69 [Files]: self.json permissions: r=true; w=true
+28日 21:56:54.70 [Files]: self.json permissions: r=true; w=true
+28日 21:56:54.71 [Files]: self.json permissions: r=true; w=true
+28日 21:56:54.72 [Files]: self.json permissions: r=true; w=true
+28日 21:56:54.73 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:56:54.73 [MainActivity]: isModuleActivated: true
+28日 21:56:56.56 [MainActivity]: 准备载入用户配置: index=0, showName=機風, userId=2088632752200481
+28日 21:56:56.57 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:56:56.57 [MainActivity]: Intent已配置: userId=2088632752200481, userName=機風
+28日 21:56:56.57 [MainActivity]: 正在启动SettingActivity...
+28日 21:56:56.59 [MainActivity]: SettingActivity启动成功
+28日 21:56:56.61 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:56:56.62 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:56:56.63 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:56:56.63 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088632752200481, userName=機風
+28日 21:56:56.63 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:56:56.70 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:56:56.70 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:56:56.70 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:56:56.71 [Files]: friend.json permissions: r=true; w=true
+28日 21:56:56.72 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:56:56.73 [Files]: cooperateMap.json permissions: r=true; w=true
+28日 21:56:56.74 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:56:56.75 [Files]: vitalityRewardsMap.json permissions: r=true; w=true
+28日 21:56:56.75 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:56:56.76 [Files]: MemberBenefitsMap.json permissions: r=true; w=true
+28日 21:56:56.76 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:56:56.77 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
+28日 21:56:56.77 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:56:56.78 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/ReserveaMap.json: r=true; w=true
+28日 21:56:56.79 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:56:56.80 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:56:56.80 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
+28日 21:56:56.81 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:56:56.82 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:56:56.82 [Config]: 开始加载配置
+28日 21:56:56.82 [Config]: 加载配置: 機風
+28日 21:56:56.83 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:56:56.87 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:56:56.90 获取 只收能量时间 配置: [0658-0731]
+28日 21:56:56.91 模块休眠时间 配置已关闭
+28日 21:56:56.91 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:56:56.91 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:56:56.93 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:56:56.93 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:56:56.94 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:56:56.95 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:56:56.95 [WebSettingsActivity]: onCreate: 准备加载WebView内容
+28日 21:56:56.95 [WebSettingsActivity]: onCreate: WebViewClient设置完成
+28日 21:56:56.95 [WebSettingsActivity]: onCreate: WebChromeClient设置完成
+28日 21:56:56.96 [WebSettingsActivity]: onCreate: WebView loadUrl完成
+28日 21:56:56.96 [WebSettingsActivity]: onCreate: JavaScript接口注册完成
+28日 21:56:56.96 [WebSettingsActivity]: onCreate: 准备填充tabList和groupList
+28日 21:56:56.96 [WebSettingsActivity]: onCreate: tabList填充完成, size=14
+28日 21:56:56.97 [WebSettingsActivity]: onCreate: groupList填充完成, size=8
+28日 21:56:56.97 [WebSettingsActivity]: onCreate: 准备设置水印
+28日 21:56:56.97 [WebSettingsActivity]: onCreate: 水印设置完成
+28日 21:56:56.97 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
+28日 21:56:57.13 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+28日 21:56:57.16 [WebSettingsActivity]: WebView Console [LOG]: You are running a development build of Vue.
 Make sure to use the production build (*.prod.js) when deploying for production. -- From line 11201 of file:///android_asset/web/js/vue3.js
-28日 21:48:55.67 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
-28日 21:48:55.68 [WebSettingsActivity]: WebView Console [WARNING]: [Vue warn]: Unhandled error during execution of setup function 
-  at <App> -- From line 1630 of file:///android_asset/web/js/vue3.js
-28日 21:48:55.69 [WebSettingsActivity]: WebView Console [ERROR]: Uncaught Error: Java exception was raised during method invocation -- From line 1846 of file:///android_asset/web/js/vue3.js
-28日 21:48:55.69 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:48:59.91 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: go back
-28日 21:48:59.91 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:49:01.01 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
-28日 21:49:01.04 [Files]: friend.json permissions: r=true; w=true
-28日 21:49:01.06 [Files]: cooperateMap.json permissions: r=true; w=true
-28日 21:49:01.10 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-28日 21:49:01.11 [UIConfig]: 重置UI配置
-28日 21:49:01.13 [Files]: self.json permissions: r=true; w=true
-28日 21:49:01.14 [Files]: self.json permissions: r=true; w=true
-28日 21:49:01.16 [Files]: self.json permissions: r=true; w=true
-28日 21:49:01.17 [Files]: self.json permissions: r=true; w=true
-28日 21:49:01.18 [Files]: self.json permissions: r=true; w=true
-28日 21:49:01.19 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:49:01.19 [MainActivity]: isModuleActivated: true
-28日 21:49:03.00 [MainActivity]: 准备载入用户配置: index=1, showName=風, userId=2088942482497175
-28日 21:49:03.00 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:49:03.00 [MainActivity]: Intent已配置: userId=2088942482497175, userName=風
-28日 21:49:03.00 [MainActivity]: 正在启动SettingActivity...
-28日 21:49:03.02 [MainActivity]: SettingActivity启动成功
-28日 21:49:03.04 [WebSettingsActivity]: onCreate: 开始初始化
-28日 21:49:03.05 [WebSettingsActivity]: onCreate: super.onCreate完成
-28日 21:49:03.05 [WebSettingsActivity]: onCreate: 准备获取Intent
-28日 21:49:03.06 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088942482497175, userName=風
-28日 21:49:03.06 [WebSettingsActivity]: onCreate: 准备初始化Model
-28日 21:49:03.07 [WebSettingsActivity]: onCreate: Model初始化完成
-28日 21:49:03.08 [WebSettingsActivity]: onCreate: 准备设置UserMap
-28日 21:49:03.08 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
-28日 21:49:03.08 [Files]: friend.json permissions: r=true; w=true
-28日 21:49:03.09 [WebSettingsActivity]: onCreate: UserMap.load完成
-28日 21:49:03.09 [Files]: cooperateMap.json permissions: r=true; w=true
-28日 21:49:03.10 [WebSettingsActivity]: onCreate: CooperateMap加载完成
-28日 21:49:03.11 [Files]: vitalityRewardsMap.json permissions: r=true; w=true
-28日 21:49:03.12 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
-28日 21:49:03.12 [Files]: MemberBenefitsMap.json permissions: r=true; w=true
-28日 21:49:03.13 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
-28日 21:49:03.14 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
-28日 21:49:03.14 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
-28日 21:49:03.15 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/ReserveaMap.json: r=true; w=true
-28日 21:49:03.15 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:49:03.17 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
-28日 21:49:03.17 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
-28日 21:49:03.18 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:49:03.19 [WebSettingsActivity]: onCreate: BeachMap加载完成
-28日 21:49:03.19 [Config]: 开始加载配置
-28日 21:49:03.19 [Config]: 加载配置: 風
-28日 21:49:03.21 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-28日 21:49:03.23 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-28日 21:49:03.24 获取 只收能量时间 配置: [0658-0731]
-28日 21:49:03.24 模块休眠时间 配置已关闭
-28日 21:49:03.24 [WebSettingsActivity]: onCreate: Config加载完成
-28日 21:49:03.24 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
-28日 21:49:03.26 [WebSettingsActivity]: onCreate: setContentView完成
-28日 21:49:03.26 [WebSettingsActivity]: onCreate: 准备设置返回键处理
-28日 21:49:03.27 [WebSettingsActivity]: onCreate: 返回键处理设置完成
-28日 21:49:03.27 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
-28日 21:49:03.27 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
-28日 21:49:03.27 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
-28日 21:49:03.27 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
-28日 21:49:03.27 [WebSettingsActivity]: onCreate: 标题设置完成
-28日 21:49:03.27 [WebSettingsActivity]: onCreate: 准备初始化WebView
-28日 21:49:03.28 [WebSettingsActivity]: onCreate: WebView findViewById完成
-28日 21:49:03.28 [WebSettingsActivity]: onCreate: WebSettings配置完成
-28日 21:49:03.28 [WebSettingsActivity]: onCreate: 准备加载WebView内容
-28日 21:49:03.28 [WebSettingsActivity]: onCreate: WebViewClient设置完成
-28日 21:49:03.28 [WebSettingsActivity]: onCreate: WebChromeClient设置完成
-28日 21:49:03.29 [WebSettingsActivity]: onCreate: WebView loadUrl完成
-28日 21:49:03.29 [WebSettingsActivity]: onCreate: JavaScript接口注册完成
-28日 21:49:03.29 [WebSettingsActivity]: onCreate: 准备填充tabList和groupList
-28日 21:49:03.30 [WebSettingsActivity]: onCreate: tabList填充完成, size=14
-28日 21:49:03.30 [WebSettingsActivity]: onCreate: groupList填充完成, size=8
-28日 21:49:03.30 [WebSettingsActivity]: onCreate: 准备设置水印
-28日 21:49:03.30 [WebSettingsActivity]: onCreate: 水印设置完成
-28日 21:49:03.30 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
-28日 21:49:03.35 [WebSettingsActivity]: WebView Console [LOG]: You are running a development build of Vue.
+28日 21:56:57.20 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
+28日 21:56:57.21 [WebSettingsActivity]: getModel调用: modelCode=BaseModel
+28日 21:56:57.21 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.22 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: desc must not be null
+	at fansirsqi.xposed.sesame.ui.dto.ModelFieldShowDto$Companion.toShowDto(ModelFieldShowDto.kt:42)
+	at fansirsqi.xposed.sesame.ui.dto.ModelFieldShowDto.toShowDto(Unknown Source:2)
+	at fansirsqi.xposed.sesame.ui.WebSettingsActivity$WebViewCallback.getModel(WebSettingsActivity.java:404)
+	at android.os.MessageQueue.nativePollOnce(Native Method)
+	at android.os.MessageQueue.next(MessageQueue.java:335)
+	at android.os.Looper.loop(Looper.java:193)
+	at android.os.HandlerThread.run(HandlerThread.java:67)
+
+28日 21:56:57.22 [WebSettingsActivity]: getModel转换字段失败: field=stayAwake, error=desc must not be null
+28日 21:56:57.22 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: desc must not be null
+	at fansirsqi.xposed.sesame.ui.dto.ModelFieldShowDto$Companion.toShowDto(ModelFieldShowDto.kt:42)
+	at fansirsqi.xposed.sesame.ui.dto.ModelFieldShowDto.toShowDto(Unknown Source:2)
+	at fansirsqi.xposed.sesame.ui.WebSettingsActivity$WebViewCallback.getModel(WebSettingsActivity.java:404)
+	at android.os.MessageQueue.nativePollOnce(Native Method)
+	at android.os.MessageQueue.next(MessageQueue.java:335)
+	at android.os.Looper.loop(Looper.java:193)
+	at android.os.HandlerThread.run(HandlerThread.java:67)
+
+28日 21:56:57.23 [WebSettingsActivity]: getModel转换字段失败: field=manualTriggerAutoSchedule, error=desc must not be null
+28日 21:56:57.23 ⚠️ 错误【NullPointerException:desc must not be null】已出现3次，后续将不再打印详细堆栈
+28日 21:56:57.23 [WebSettingsActivity]: getModel转换字段失败: field=checkInterval, error=desc must not be null
+28日 21:56:57.23 [WebSettingsActivity]: getModel转换字段失败: field=taskExecutionRounds, error=desc must not be null
+28日 21:56:57.24 [WebSettingsActivity]: getModel转换字段失败: field=modelSleepTime, error=desc must not be null
+28日 21:56:57.24 [WebSettingsActivity]: getModel转换字段失败: field=execAtTimeList, error=desc must not be null
+28日 21:56:57.24 [WebSettingsActivity]: getModel转换字段失败: field=wakenAtTimeList, error=desc must not be null
+28日 21:56:57.25 [WebSettingsActivity]: getModel转换字段失败: field=energyTime, error=desc must not be null
+28日 21:56:57.25 [WebSettingsActivity]: getModel转换字段失败: field=timedTaskModel, error=desc must not be null
+28日 21:56:57.25 [WebSettingsActivity]: getModel转换字段失败: field=timeoutRestart, error=desc must not be null
+28日 21:56:57.25 [WebSettingsActivity]: getModel转换字段失败: field=waitWhenException, error=desc must not be null
+28日 21:56:57.26 [WebSettingsActivity]: getModel转换字段失败: field=errNotify, error=desc must not be null
+28日 21:56:57.26 [WebSettingsActivity]: getModel转换字段失败: field=setMaxErrorCount, error=desc must not be null
+28日 21:56:57.26 [WebSettingsActivity]: getModel转换字段失败: field=newRpc, error=desc must not be null
+28日 21:56:57.27 [WebSettingsActivity]: getModel转换字段失败: field=debugMode, error=desc must not be null
+28日 21:56:57.27 [WebSettingsActivity]: getModel转换字段失败: field=sendHookData, error=desc must not be null
+28日 21:56:57.27 [WebSettingsActivity]: getModel转换字段失败: field=sendHookDataUrl, error=desc must not be null
+28日 21:56:57.27 [WebSettingsActivity]: getModel转换字段失败: field=batteryPerm, error=desc must not be null
+28日 21:56:57.28 [WebSettingsActivity]: getModel转换字段失败: field=enableCaptchaHook, error=desc must not be null
+28日 21:56:57.28 [WebSettingsActivity]: getModel转换字段失败: field=captchaHookLevel, error=desc must not be null
+28日 21:56:57.28 [WebSettingsActivity]: getModel转换字段失败: field=recordLog, error=desc must not be null
+28日 21:56:57.28 [WebSettingsActivity]: getModel转换字段失败: field=runtimeLog, error=desc must not be null
+28日 21:56:57.29 [WebSettingsActivity]: getModel转换字段失败: field=showToast, error=desc must not be null
+28日 21:56:57.29 [WebSettingsActivity]: getModel转换字段失败: field=enableOnGoing, error=desc must not be null
+28日 21:56:57.30 [WebSettingsActivity]: getModel转换字段失败: field=languageSimplifiedChinese, error=desc must not be null
+28日 21:56:57.30 [WebSettingsActivity]: getModel转换字段失败: field=toastOffsetY, error=desc must not be null
+28日 21:56:57.30 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.30 [WebSettingsActivity]: getModel调用: modelCode=AntForest
+28日 21:56:57.31 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.31 [WebSettingsActivity]: getModel转换字段失败: field=collectEnergy, error=desc must not be null
+28日 21:56:57.31 [WebSettingsActivity]: getModel转换字段失败: field=batchRobEnergy, error=desc must not be null
+28日 21:56:57.32 [WebSettingsActivity]: getModel转换字段失败: field=pkEnergy, error=desc must not be null
+28日 21:56:57.32 [WebSettingsActivity]: getModel转换字段失败: field=closeWhackMole, error=desc must not be null
+28日 21:56:57.32 [WebSettingsActivity]: getModel转换字段失败: field=energyRain, error=desc must not be null
+28日 21:56:57.32 [WebSettingsActivity]: getModel转换字段失败: field=energyRainTime, error=desc must not be null
+28日 21:56:57.33 [WebSettingsActivity]: getModel转换字段失败: field=dontCollectList, error=desc must not be null
+28日 21:56:57.33 [WebSettingsActivity]: getModel转换字段失败: field=giveEnergyRainList, error=desc must not be null
+28日 21:56:57.33 [WebSettingsActivity]: getModel转换字段失败: field=energyRainChance, error=desc must not be null
+28日 21:56:57.34 [WebSettingsActivity]: getModel转换字段失败: field=collectWateringBubble, error=desc must not be null
+28日 21:56:57.34 [WebSettingsActivity]: getModel转换字段失败: field=doubleCard, error=desc must not be null
+28日 21:56:57.34 [WebSettingsActivity]: getModel转换字段失败: field=doubleCountLimit, error=desc must not be null
+28日 21:56:57.35 [WebSettingsActivity]: getModel转换字段失败: field=doubleCardTime, error=desc must not be null
+28日 21:56:57.35 [WebSettingsActivity]: getModel转换字段失败: field=DoubleCardConstant, error=desc must not be null
+28日 21:56:57.35 [WebSettingsActivity]: getModel转换字段失败: field=bubbleBoostCard, error=desc must not be null
+28日 21:56:57.35 [WebSettingsActivity]: getModel转换字段失败: field=bubbleBoostTime, error=desc must not be null
+28日 21:56:57.36 [WebSettingsActivity]: getModel转换字段失败: field=shieldCard, error=desc must not be null
+28日 21:56:57.36 [WebSettingsActivity]: getModel转换字段失败: field=shieldCardConstant, error=desc must not be null
+28日 21:56:57.37 [WebSettingsActivity]: getModel转换字段失败: field=robExpandCard, error=desc must not be null
+28日 21:56:57.37 [WebSettingsActivity]: getModel转换字段失败: field=robExpandCardTime, error=desc must not be null
+28日 21:56:57.37 [WebSettingsActivity]: getModel转换字段失败: field=stealthCard, error=desc must not be null
+28日 21:56:57.37 [WebSettingsActivity]: getModel转换字段失败: field=stealthCardConstant, error=desc must not be null
+28日 21:56:57.38 [WebSettingsActivity]: getModel转换字段失败: field=returnWater10, error=desc must not be null
+28日 21:56:57.38 [WebSettingsActivity]: getModel转换字段失败: field=returnWater18, error=desc must not be null
+28日 21:56:57.39 [WebSettingsActivity]: getModel转换字段失败: field=returnWater33, error=desc must not be null
+28日 21:56:57.39 [WebSettingsActivity]: getModel转换字段失败: field=waterFriendCount, error=desc must not be null
+28日 21:56:57.39 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriend, error=desc must not be null
+28日 21:56:57.39 [WebSettingsActivity]: getModel转换字段失败: field=giveProp, error=desc must not be null
+28日 21:56:57.40 [WebSettingsActivity]: getModel转换字段失败: field=collectProp, error=desc must not be null
+28日 21:56:57.40 [WebSettingsActivity]: getModel转换字段失败: field=helpFriendCollectType, error=desc must not be null
+28日 21:56:57.41 [WebSettingsActivity]: getModel转换字段失败: field=helpFriendCollectList, error=desc must not be null
+28日 21:56:57.41 [WebSettingsActivity]: getModel转换字段失败: field=alternativeAccountList, error=desc must not be null
+28日 21:56:57.41 [WebSettingsActivity]: getModel转换字段失败: field=vitalityExchange, error=desc must not be null
+28日 21:56:57.42 [WebSettingsActivity]: getModel转换字段失败: field=userPatrol, error=desc must not be null
+28日 21:56:57.42 [WebSettingsActivity]: getModel转换字段失败: field=combineAnimalPiece, error=desc must not be null
+28日 21:56:57.42 [WebSettingsActivity]: getModel转换字段失败: field=consumeAnimalProp, error=desc must not be null
+28日 21:56:57.42 [WebSettingsActivity]: getModel转换字段失败: field=receiveForestTaskAward, error=desc must not be null
+28日 21:56:57.43 [WebSettingsActivity]: getModel转换字段失败: field=forestChouChouLe, error=desc must not be null
+28日 21:56:57.43 [WebSettingsActivity]: getModel转换字段失败: field=collectGiftBox, error=desc must not be null
+28日 21:56:57.44 [WebSettingsActivity]: getModel转换字段失败: field=medicalHealth, error=desc must not be null
+28日 21:56:57.44 [WebSettingsActivity]: getModel转换字段失败: field=forestMarket, error=desc must not be null
+28日 21:56:57.44 [WebSettingsActivity]: getModel转换字段失败: field=youthPrivilege, error=desc must not be null
+28日 21:56:57.44 [WebSettingsActivity]: getModel转换字段失败: field=studentCheckIn, error=desc must not be null
+28日 21:56:57.45 [WebSettingsActivity]: getModel转换字段失败: field=ecoLife, error=desc must not be null
+28日 21:56:57.45 [WebSettingsActivity]: getModel转换字段失败: field=ecoLifeTime, error=desc must not be null
+28日 21:56:57.45 [WebSettingsActivity]: getModel转换字段失败: field=ecoLifeOpen, error=desc must not be null
+28日 21:56:57.46 [WebSettingsActivity]: getModel转换字段失败: field=queryInterval, error=desc must not be null
+28日 21:56:57.46 [WebSettingsActivity]: getModel转换字段失败: field=collectInterval, error=desc must not be null
+28日 21:56:57.46 [WebSettingsActivity]: getModel转换字段失败: field=doubleCollectInterval, error=desc must not be null
+28日 21:56:57.47 [WebSettingsActivity]: getModel转换字段失败: field=balanceNetworkDelay, error=desc must not be null
+28日 21:56:57.47 [WebSettingsActivity]: getModel转换字段失败: field=advanceTime, error=desc must not be null
+28日 21:56:57.47 [WebSettingsActivity]: getModel转换字段失败: field=tryCount, error=desc must not be null
+28日 21:56:57.47 [WebSettingsActivity]: getModel转换字段失败: field=retryInterval, error=desc must not be null
+28日 21:56:57.48 [WebSettingsActivity]: getModel转换字段失败: field=cycleinterval, error=desc must not be null
+28日 21:56:57.48 [WebSettingsActivity]: getModel转换字段失败: field=showBagList, error=desc must not be null
+28日 21:56:57.48 [WebSettingsActivity]: WebSettingsActivity.getModel: [{"code":"energyBombCardType","configValue":"0","desc":"若开启了保护罩，则不会使用炸弹卡","expandKey":["关闭","所有道具","限时道具"],"name":"炸弹卡开关 | 消耗类型","type":"CHOICE"},{"code":"waterFriendList","configValue":"{\n  \"2088002896523311\" : 3\n}","desc":"设置浇水次数","name":"浇水 | 好友列表","type":"SELECT_AND_COUNT"},{"code":"whoYouWantToGiveTo","configValue":"[ ]","desc":"所有可赠送的道具将全部赠","name":"赠送 | 道具","type":"SELECT"},{"code":"vitalityExchangeList","configValue":"{ }","desc":"兑换次数","name":"活力值 | 兑换列表","type":"SELECT_AND_COUNT"},{"code":"medicalHealthOption","configValue":"[ \"BILL\", \"FEEDS\" ]","desc":"医疗健康需要先完成一次医疗打卡","name":"健康医疗 | 选项","type":"SELECT"},{"code":"ecoLifeOption","configValue":"[ \"plate\", \"tick\" ]","desc":"光盘行动需要先完成一次光盘打卡","name":"绿色行动 | 选项","type":"SELECT"}]
+28日 21:56:57.49 [WebSettingsActivity]: getModel调用: modelCode=AntFarm
+28日 21:56:57.49 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.49 [WebSettingsActivity]: getModel转换字段失败: field=sleepTime, error=desc must not be null
+28日 21:56:57.49 [WebSettingsActivity]: getModel转换字段失败: field=sleepMinutes, error=desc must not be null
+28日 21:56:57.50 [WebSettingsActivity]: getModel转换字段失败: field=recallAnimalType, error=desc must not be null
+28日 21:56:57.50 [WebSettingsActivity]: getModel转换字段失败: field=rewardFriend, error=desc must not be null
+28日 21:56:57.50 [WebSettingsActivity]: getModel转换字段失败: field=feedAnimal, error=desc must not be null
+28日 21:56:57.51 [WebSettingsActivity]: getModel转换字段失败: field=feedFriendAnimalList, error=desc must not be null
+28日 21:56:57.51 [WebSettingsActivity]: getModel转换字段失败: field=getFeed, error=desc must not be null
+28日 21:56:57.51 [WebSettingsActivity]: getModel转换字段失败: field=getFeedType, error=desc must not be null
+28日 21:56:57.52 [WebSettingsActivity]: getModel转换字段失败: field=getFeedlList, error=desc must not be null
+28日 21:56:57.52 [WebSettingsActivity]: getModel转换字段失败: field=acceptGift, error=desc must not be null
+28日 21:56:57.52 [WebSettingsActivity]: getModel转换字段失败: field=visitFriendList, error=desc must not be null
+28日 21:56:57.52 [WebSettingsActivity]: getModel转换字段失败: field=hireAnimal, error=desc must not be null
+28日 21:56:57.53 [WebSettingsActivity]: getModel转换字段失败: field=hireAnimalType, error=desc must not be null
+28日 21:56:57.53 [WebSettingsActivity]: getModel转换字段失败: field=hireAnimalList, error=desc must not be null
+28日 21:56:57.53 [WebSettingsActivity]: getModel转换字段失败: field=sendBackAnimal, error=desc must not be null
+28日 21:56:57.54 [WebSettingsActivity]: getModel转换字段失败: field=sendBackAnimalWay, error=desc must not be null
+28日 21:56:57.54 [WebSettingsActivity]: getModel转换字段失败: field=sendBackAnimalType, error=desc must not be null
+28日 21:56:57.54 [WebSettingsActivity]: getModel转换字段失败: field=dontSendFriendList, error=desc must not be null
+28日 21:56:57.55 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriend, error=desc must not be null
+28日 21:56:57.55 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriendType, error=desc must not be null
+28日 21:56:57.55 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriendList, error=desc must not be null
+28日 21:56:57.55 [WebSettingsActivity]: getModel转换字段失败: field=donation, error=desc must not be null
+28日 21:56:57.56 [WebSettingsActivity]: getModel转换字段失败: field=donationCount, error=desc must not be null
+28日 21:56:57.56 [WebSettingsActivity]: getModel转换字段失败: field=useBigEaterTool, error=desc must not be null
+28日 21:56:57.57 [WebSettingsActivity]: getModel转换字段失败: field=useAccelerateTool, error=desc must not be null
+28日 21:56:57.57 [WebSettingsActivity]: getModel转换字段失败: field=useAccelerateToolContinue, error=desc must not be null
+28日 21:56:57.57 [WebSettingsActivity]: getModel转换字段失败: field=useAccelerateToolWhenMaxEmotion, error=desc must not be null
+28日 21:56:57.57 [WebSettingsActivity]: getModel转换字段失败: field=useSpecialFood, error=desc must not be null
+28日 21:56:57.58 [WebSettingsActivity]: getModel转换字段失败: field=useNewEggCard, error=desc must not be null
+28日 21:56:57.58 [WebSettingsActivity]: getModel转换字段失败: field=doFarmTask, error=desc must not be null
+28日 21:56:57.59 [WebSettingsActivity]: getModel转换字段失败: field=doFarmTaskTime, error=desc must not be null
+28日 21:56:57.59 [WebSettingsActivity]: getModel转换字段失败: field=receiveFarmTaskAward, error=desc must not be null
+28日 21:56:57.59 [WebSettingsActivity]: getModel转换字段失败: field=receiveFarmToolReward, error=desc must not be null
+28日 21:56:57.59 [WebSettingsActivity]: getModel转换字段失败: field=harvestProduce, error=desc must not be null
+28日 21:56:57.60 [WebSettingsActivity]: getModel转换字段失败: field=kitchen, error=desc must not be null
+28日 21:56:57.60 [WebSettingsActivity]: getModel转换字段失败: field=chickenDiary, error=desc must not be null
+28日 21:56:57.60 [WebSettingsActivity]: getModel转换字段失败: field=diaryTietze, error=desc must not be null
+28日 21:56:57.61 [WebSettingsActivity]: getModel转换字段失败: field=collectChickenDiary, error=desc must not be null
+28日 21:56:57.61 [WebSettingsActivity]: getModel转换字段失败: field=enableChouchoule, error=desc must not be null
+28日 21:56:57.61 [WebSettingsActivity]: getModel转换字段失败: field=enableChouchouleTime, error=desc must not be null
+28日 21:56:57.61 [WebSettingsActivity]: getModel转换字段失败: field=listOrnaments, error=desc must not be null
+28日 21:56:57.62 [WebSettingsActivity]: getModel转换字段失败: field=enableDdrawGameCenterAward, error=desc must not be null
+28日 21:56:57.62 [WebSettingsActivity]: getModel转换字段失败: field=recordFarmGame, error=desc must not be null
+28日 21:56:57.62 [WebSettingsActivity]: getModel转换字段失败: field=farmGameTime, error=desc must not be null
+28日 21:56:57.62 [WebSettingsActivity]: getModel转换字段失败: field=family, error=desc must not be null
+28日 21:56:57.63 [WebSettingsActivity]: getModel转换字段失败: field=familyOptions, error=desc must not be null
+28日 21:56:57.63 [WebSettingsActivity]: getModel转换字段失败: field=notInviteList, error=desc must not be null
+28日 21:56:57.63 [WebSettingsActivity]: getModel转换字段失败: field=paradiseCoinExchangeBenefit, error=desc must not be null
+28日 21:56:57.64 [WebSettingsActivity]: getModel转换字段失败: field=paradiseCoinExchangeBenefitList, error=desc must not be null
+28日 21:56:57.64 [WebSettingsActivity]: getModel转换字段失败: field=visitAnimal, error=desc must not be null
+28日 21:56:57.64 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.65 [WebSettingsActivity]: getModel调用: modelCode=AntOcean
+28日 21:56:57.65 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.65 [WebSettingsActivity]: getModel转换字段失败: field=dailyOceanTask, error=desc must not be null
+28日 21:56:57.66 [WebSettingsActivity]: getModel转换字段失败: field=cleanOcean, error=desc must not be null
+28日 21:56:57.66 [WebSettingsActivity]: getModel转换字段失败: field=cleanOceanType, error=desc must not be null
+28日 21:56:57.66 [WebSettingsActivity]: getModel转换字段失败: field=cleanOceanList, error=desc must not be null
+28日 21:56:57.67 [WebSettingsActivity]: getModel转换字段失败: field=exchangeProp, error=desc must not be null
+28日 21:56:57.67 [WebSettingsActivity]: getModel转换字段失败: field=usePropByType, error=desc must not be null
+28日 21:56:57.67 [WebSettingsActivity]: getModel转换字段失败: field=userprotectType, error=desc must not be null
+28日 21:56:57.67 [WebSettingsActivity]: getModel转换字段失败: field=protectOceanList, error=desc must not be null
+28日 21:56:57.68 [WebSettingsActivity]: getModel转换字段失败: field=PDL_task, error=desc must not be null
+28日 21:56:57.68 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.68 [WebSettingsActivity]: getModel调用: modelCode=AntOrchard
+28日 21:56:57.69 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.69 [WebSettingsActivity]: getModel转换字段失败: field=executeInterval, error=desc must not be null
+28日 21:56:57.69 [WebSettingsActivity]: getModel转换字段失败: field=receiveOrchardTaskAward, error=desc must not be null
+28日 21:56:57.69 [WebSettingsActivity]: getModel转换字段失败: field=orchardSpreadManureCount, error=desc must not be null
+28日 21:56:57.70 [WebSettingsActivity]: getModel转换字段失败: field=assistFriendList, error=desc must not be null
+28日 21:56:57.70 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.70 [WebSettingsActivity]: getModel调用: modelCode=AntStall
+28日 21:56:57.70 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.71 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoOpen, error=desc must not be null
+28日 21:56:57.71 [WebSettingsActivity]: getModel转换字段失败: field=stallOpenType, error=desc must not be null
+28日 21:56:57.71 [WebSettingsActivity]: getModel转换字段失败: field=stallOpenList, error=desc must not be null
+28日 21:56:57.71 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoClose, error=desc must not be null
+28日 21:56:57.72 [WebSettingsActivity]: getModel转换字段失败: field=stallSelfOpenTime, error=desc must not be null
+28日 21:56:57.72 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoTicket, error=desc must not be null
+28日 21:56:57.72 [WebSettingsActivity]: getModel转换字段失败: field=stallTicketType, error=desc must not be null
+28日 21:56:57.73 [WebSettingsActivity]: getModel转换字段失败: field=stallTicketList, error=desc must not be null
+28日 21:56:57.73 [WebSettingsActivity]: getModel转换字段失败: field=stallThrowManure, error=desc must not be null
+28日 21:56:57.73 [WebSettingsActivity]: getModel转换字段失败: field=stallThrowManureType, error=desc must not be null
+28日 21:56:57.74 [WebSettingsActivity]: getModel转换字段失败: field=stallThrowManureList, error=desc must not be null
+28日 21:56:57.74 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteShop, error=desc must not be null
+28日 21:56:57.74 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteShopType, error=desc must not be null
+28日 21:56:57.74 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteShopList, error=desc must not be null
+28日 21:56:57.75 [WebSettingsActivity]: getModel转换字段失败: field=stallAllowOpenReject, error=desc must not be null
+28日 21:56:57.75 [WebSettingsActivity]: getModel转换字段失败: field=stallAllowOpenTime, error=desc must not be null
+28日 21:56:57.75 [WebSettingsActivity]: getModel转换字段失败: field=stallWhiteList, error=desc must not be null
+28日 21:56:57.76 [WebSettingsActivity]: getModel转换字段失败: field=stallBlackList, error=desc must not be null
+28日 21:56:57.76 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoTask, error=desc must not be null
+28日 21:56:57.76 [WebSettingsActivity]: getModel转换字段失败: field=stallReceiveAward, error=desc must not be null
+28日 21:56:57.77 [WebSettingsActivity]: getModel转换字段失败: field=stallDonate, error=desc must not be null
+28日 21:56:57.77 [WebSettingsActivity]: getModel转换字段失败: field=roadmap, error=desc must not be null
+28日 21:56:57.77 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteRegister, error=desc must not be null
+28日 21:56:57.78 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteRegisterList, error=desc must not be null
+28日 21:56:57.78 [WebSettingsActivity]: getModel转换字段失败: field=assistFriendList, error=desc must not be null
+28日 21:56:57.78 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.79 [WebSettingsActivity]: getModel调用: modelCode=AntDodo
+28日 21:56:57.79 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.79 [WebSettingsActivity]: getModel转换字段失败: field=collectToFriend, error=desc must not be null
+28日 21:56:57.79 [WebSettingsActivity]: getModel转换字段失败: field=collectToFriendType, error=desc must not be null
+28日 21:56:57.80 [WebSettingsActivity]: getModel转换字段失败: field=collectToFriendList, error=desc must not be null
+28日 21:56:57.80 [WebSettingsActivity]: getModel转换字段失败: field=sendFriendCard, error=desc must not be null
+28日 21:56:57.80 [WebSettingsActivity]: getModel转换字段失败: field=useProp, error=desc must not be null
+28日 21:56:57.81 [WebSettingsActivity]: getModel转换字段失败: field=usePropCollectTimes7Days, error=desc must not be null
+28日 21:56:57.81 [WebSettingsActivity]: getModel转换字段失败: field=usePropCollectHistoryAnimal7Days, error=desc must not be null
+28日 21:56:57.81 [WebSettingsActivity]: getModel转换字段失败: field=usePropCollectToFriendTimes7Days, error=desc must not be null
+28日 21:56:57.82 [WebSettingsActivity]: getModel转换字段失败: field=autoGenerateBook, error=desc must not be null
+28日 21:56:57.82 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.82 [WebSettingsActivity]: getModel调用: modelCode=AntCooperate
+28日 21:56:57.82 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.83 [WebSettingsActivity]: getModel转换字段失败: field=cooperateWaterTotalLimitList, error=desc must not be null
+28日 21:56:57.83 [WebSettingsActivity]: getModel转换字段失败: field=cooperateSendCooperateBeckon, error=desc must not be null
+28日 21:56:57.84 [WebSettingsActivity]: WebSettingsActivity.getModel: [{"code":"cooperateWaterList","configValue":"{ }","desc":"开启合种浇水后执行一次重载","name":"合种浇水列表","type":"SELECT_AND_COUNT"}]
+28日 21:56:57.84 [WebSettingsActivity]: getModel调用: modelCode=AntSports
+28日 21:56:57.84 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.84 [WebSettingsActivity]: getModel转换字段失败: field=walk, error=desc must not be null
+28日 21:56:57.85 [WebSettingsActivity]: getModel转换字段失败: field=walkPathTheme, error=desc must not be null
+28日 21:56:57.85 [WebSettingsActivity]: getModel转换字段失败: field=walkCustomPath, error=desc must not be null
+28日 21:56:57.85 [WebSettingsActivity]: getModel转换字段失败: field=walkCustomPathId, error=desc must not be null
+28日 21:56:57.85 [WebSettingsActivity]: getModel转换字段失败: field=openTreasureBox, error=desc must not be null
+28日 21:56:57.86 [WebSettingsActivity]: getModel转换字段失败: field=sportsTasks, error=desc must not be null
+28日 21:56:57.86 [WebSettingsActivity]: getModel转换字段失败: field=sportsTaskBlacklist, error=desc must not be null
+28日 21:56:57.86 [WebSettingsActivity]: getModel转换字段失败: field=receiveCoinAsset, error=desc must not be null
+28日 21:56:57.87 [WebSettingsActivity]: getModel转换字段失败: field=donateCharityCoin, error=desc must not be null
+28日 21:56:57.87 [WebSettingsActivity]: getModel转换字段失败: field=donateCharityCoinType, error=desc must not be null
+28日 21:56:57.87 [WebSettingsActivity]: getModel转换字段失败: field=donateCharityCoinAmount, error=desc must not be null
+28日 21:56:57.88 [WebSettingsActivity]: getModel转换字段失败: field=battleForFriends, error=desc must not be null
+28日 21:56:57.88 [WebSettingsActivity]: getModel转换字段失败: field=battleForFriendType, error=desc must not be null
+28日 21:56:57.88 [WebSettingsActivity]: getModel转换字段失败: field=originBossIdList, error=desc must not be null
+28日 21:56:57.88 [WebSettingsActivity]: getModel转换字段失败: field=trainFriend, error=desc must not be null
+28日 21:56:57.89 [WebSettingsActivity]: getModel转换字段失败: field=zeroCoinLimit, error=desc must not be null
+28日 21:56:57.89 [WebSettingsActivity]: getModel转换字段失败: field=bicubic, error=desc must not be null
+28日 21:56:57.89 [WebSettingsActivity]: getModel转换字段失败: field=minExchangeCount, error=desc must not be null
+28日 21:56:57.90 [WebSettingsActivity]: getModel转换字段失败: field=latestExchangeTime, error=desc must not be null
+28日 21:56:57.90 [WebSettingsActivity]: getModel转换字段失败: field=syncStepCount, error=desc must not be null
+28日 21:56:57.90 [WebSettingsActivity]: getModel转换字段失败: field=coinExchangeDoubleCard, error=desc must not be null
+28日 21:56:57.90 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.91 [WebSettingsActivity]: getModel调用: modelCode=AntMember
+28日 21:56:57.91 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.91 [WebSettingsActivity]: getModel转换字段失败: field=memberSign, error=desc must not be null
+28日 21:56:57.92 [WebSettingsActivity]: getModel转换字段失败: field=memberTask, error=desc must not be null
+28日 21:56:57.92 [WebSettingsActivity]: getModel转换字段失败: field=memberPointExchangeBenefit, error=desc must not be null
+28日 21:56:57.92 [WebSettingsActivity]: getModel转换字段失败: field=memberPointExchangeBenefitList, error=desc must not be null
+28日 21:56:57.92 [WebSettingsActivity]: getModel转换字段失败: field=sesameTask, error=desc must not be null
+28日 21:56:57.93 [WebSettingsActivity]: getModel转换字段失败: field=collectSesame, error=desc must not be null
+28日 21:56:57.93 [WebSettingsActivity]: getModel转换字段失败: field=collectSesameWithOneClick, error=desc must not be null
+28日 21:56:57.93 [WebSettingsActivity]: getModel转换字段失败: field=collectInsuredGold, error=desc must not be null
+28日 21:56:57.94 [WebSettingsActivity]: getModel转换字段失败: field=enableGoldTicket, error=desc must not be null
+28日 21:56:57.94 [WebSettingsActivity]: getModel转换字段失败: field=enableGameCenter, error=desc must not be null
+28日 21:56:57.95 [WebSettingsActivity]: getModel转换字段失败: field=merchantSign, error=desc must not be null
+28日 21:56:57.95 [WebSettingsActivity]: getModel转换字段失败: field=merchantKmdk, error=desc must not be null
+28日 21:56:57.95 [WebSettingsActivity]: getModel转换字段失败: field=merchantMoreTask, error=desc must not be null
+28日 21:56:57.96 [WebSettingsActivity]: getModel转换字段失败: field=beanSignIn, error=desc must not be null
+28日 21:56:57.96 [WebSettingsActivity]: getModel转换字段失败: field=beanExchangeBubbleBoost, error=desc must not be null
+28日 21:56:57.96 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.97 [WebSettingsActivity]: getModel调用: modelCode=AncientTree
+28日 21:56:57.97 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.97 [WebSettingsActivity]: getModel转换字段失败: field=ancientTreeOnlyWeek, error=desc must not be null
+28日 21:56:57.98 [WebSettingsActivity]: getModel转换字段失败: field=ancientTreeCityCodeList, error=desc must not be null
+28日 21:56:57.98 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:57.98 [WebSettingsActivity]: getModel调用: modelCode=GreenFinance
+28日 21:56:57.98 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:57.99 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLsxd, error=desc must not be null
+28日 21:56:57.99 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLscg, error=desc must not be null
+28日 21:56:57.99 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLsbg, error=desc must not be null
+28日 21:56:58.00 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceWdxd, error=desc must not be null
+28日 21:56:58.00 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLswl, error=desc must not be null
+28日 21:56:58.00 [WebSettingsActivity]: getModel转换字段失败: field=greenFinancePointFriend, error=desc must not be null
+28日 21:56:58.01 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceDonation, error=desc must not be null
+28日 21:56:58.01 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:58.01 [WebSettingsActivity]: getModel调用: modelCode=Reserve
+28日 21:56:58.01 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:58.02 [WebSettingsActivity]: getModel转换字段失败: field=reserveList, error=desc must not be null
+28日 21:56:58.02 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:58.02 [WebSettingsActivity]: getModel调用: modelCode=AnswerAI
+28日 21:56:58.02 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:56:58.03 [WebSettingsActivity]: getModel转换字段失败: field=useGeminiAI, error=desc must not be null
+28日 21:56:58.03 [WebSettingsActivity]: getModel转换字段失败: field=getTongyiAIToken, error=desc must not be null
+28日 21:56:58.03 [WebSettingsActivity]: getModel转换字段失败: field=tongYiToken, error=desc must not be null
+28日 21:56:58.04 [WebSettingsActivity]: getModel转换字段失败: field=getGeminiAIToken, error=desc must not be null
+28日 21:56:58.04 [WebSettingsActivity]: getModel转换字段失败: field=GeminiAIToken, error=desc must not be null
+28日 21:56:58.04 [WebSettingsActivity]: getModel转换字段失败: field=getDeepSeekToken, error=desc must not be null
+28日 21:56:58.04 [WebSettingsActivity]: getModel转换字段失败: field=DeepSeekToken, error=desc must not be null
+28日 21:56:58.05 [WebSettingsActivity]: getModel转换字段失败: field=getCustomServiceToken, error=desc must not be null
+28日 21:56:58.05 [WebSettingsActivity]: getModel转换字段失败: field=CustomServiceToken, error=desc must not be null
+28日 21:56:58.05 [WebSettingsActivity]: getModel转换字段失败: field=CustomServiceBaseUrl, error=desc must not be null
+28日 21:56:58.05 [WebSettingsActivity]: getModel转换字段失败: field=CustomServiceModel, error=desc must not be null
+28日 21:56:58.06 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:56:58.38 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+28日 21:57:10.90 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: go back
+28日 21:57:10.91 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+28日 21:57:12.01 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
+28日 21:57:12.03 [Files]: friend.json permissions: r=true; w=true
+28日 21:57:12.06 [Files]: cooperateMap.json permissions: r=true; w=true
+28日 21:57:12.10 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+28日 21:57:12.11 [UIConfig]: 重置UI配置
+28日 21:57:12.13 [Files]: self.json permissions: r=true; w=true
+28日 21:57:12.14 [Files]: self.json permissions: r=true; w=true
+28日 21:57:12.15 [Files]: self.json permissions: r=true; w=true
+28日 21:57:12.16 [Files]: self.json permissions: r=true; w=true
+28日 21:57:12.18 [Files]: self.json permissions: r=true; w=true
+28日 21:57:12.18 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:57:12.19 [MainActivity]: isModuleActivated: true
+28日 21:57:15.32 [MainActivity]: 准备载入用户配置: index=1, showName=風, userId=2088942482497175
+28日 21:57:15.32 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:57:15.32 [MainActivity]: Intent已配置: userId=2088942482497175, userName=風
+28日 21:57:15.33 [MainActivity]: 正在启动SettingActivity...
+28日 21:57:15.34 [MainActivity]: SettingActivity启动成功
+28日 21:57:15.37 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:57:15.38 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:57:15.38 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:57:15.39 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088942482497175, userName=風
+28日 21:57:15.39 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:57:15.41 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:57:15.41 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:57:15.41 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:57:15.42 [Files]: friend.json permissions: r=true; w=true
+28日 21:57:15.42 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:57:15.43 [Files]: cooperateMap.json permissions: r=true; w=true
+28日 21:57:15.43 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:57:15.44 [Files]: vitalityRewardsMap.json permissions: r=true; w=true
+28日 21:57:15.44 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:57:15.45 [Files]: MemberBenefitsMap.json permissions: r=true; w=true
+28日 21:57:15.46 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:57:15.46 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
+28日 21:57:15.47 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:57:15.48 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/ReserveaMap.json: r=true; w=true
+28日 21:57:15.48 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:57:15.49 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:57:15.50 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
+28日 21:57:15.50 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:57:15.51 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:57:15.51 [Config]: 开始加载配置
+28日 21:57:15.52 [Config]: 加载配置: 風
+28日 21:57:15.53 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
+28日 21:57:15.55 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
+28日 21:57:15.56 获取 只收能量时间 配置: [0658-0731]
+28日 21:57:15.56 模块休眠时间 配置已关闭
+28日 21:57:15.56 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:57:15.56 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:57:15.58 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:57:15.59 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:57:15.59 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:57:15.59 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:57:15.59 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:57:15.59 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:57:15.59 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:57:15.60 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:57:15.60 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:57:15.60 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:57:15.60 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:57:15.60 [WebSettingsActivity]: onCreate: 准备加载WebView内容
+28日 21:57:15.60 [WebSettingsActivity]: onCreate: WebViewClient设置完成
+28日 21:57:15.60 [WebSettingsActivity]: onCreate: WebChromeClient设置完成
+28日 21:57:15.61 [WebSettingsActivity]: onCreate: WebView loadUrl完成
+28日 21:57:15.61 [WebSettingsActivity]: onCreate: JavaScript接口注册完成
+28日 21:57:15.62 [WebSettingsActivity]: onCreate: 准备填充tabList和groupList
+28日 21:57:15.62 [WebSettingsActivity]: onCreate: tabList填充完成, size=14
+28日 21:57:15.62 [WebSettingsActivity]: onCreate: groupList填充完成, size=8
+28日 21:57:15.62 [WebSettingsActivity]: onCreate: 准备设置水印
+28日 21:57:15.62 [WebSettingsActivity]: onCreate: 水印设置完成
+28日 21:57:15.62 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
+28日 21:57:15.68 [WebSettingsActivity]: WebView Console [LOG]: You are running a development build of Vue.
 Make sure to use the production build (*.prod.js) when deploying for production. -- From line 11201 of file:///android_asset/web/js/vue3.js
-28日 21:49:03.36 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:49:03.38 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
-28日 21:49:03.38 [WebSettingsActivity]: WebView Console [WARNING]: [Vue warn]: Unhandled error during execution of setup function 
-  at <App> -- From line 1630 of file:///android_asset/web/js/vue3.js
-28日 21:49:03.38 [WebSettingsActivity]: WebView Console [ERROR]: Uncaught Error: Java exception was raised during method invocation -- From line 1846 of file:///android_asset/web/js/vue3.js
-28日 21:49:03.39 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:49:11.38 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: go back
-28日 21:49:11.38 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:49:12.51 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
-28日 21:49:12.53 [Files]: friend.json permissions: r=true; w=true
-28日 21:49:12.55 [Files]: cooperateMap.json permissions: r=true; w=true
-28日 21:49:12.58 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-28日 21:49:12.59 [UIConfig]: 重置UI配置
-28日 21:49:12.60 [Files]: self.json permissions: r=true; w=true
-28日 21:49:12.61 [Files]: self.json permissions: r=true; w=true
-28日 21:49:12.62 [Files]: self.json permissions: r=true; w=true
-28日 21:49:12.63 [Files]: self.json permissions: r=true; w=true
-28日 21:49:12.65 [Files]: self.json permissions: r=true; w=true
-28日 21:49:12.66 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:49:12.66 [MainActivity]: isModuleActivated: true
-28日 21:49:14.84 [MainActivity]: 准备载入用户配置: index=4, showName=惠琴, userId=2088602261779903
-28日 21:49:14.84 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:49:14.84 [MainActivity]: Intent已配置: userId=2088602261779903, userName=惠琴
-28日 21:49:14.84 [MainActivity]: 正在启动SettingActivity...
-28日 21:49:14.85 [MainActivity]: SettingActivity启动成功
-28日 21:49:14.88 [WebSettingsActivity]: onCreate: 开始初始化
-28日 21:49:14.89 [WebSettingsActivity]: onCreate: super.onCreate完成
-28日 21:49:14.89 [WebSettingsActivity]: onCreate: 准备获取Intent
-28日 21:49:14.90 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088602261779903, userName=惠琴
-28日 21:49:14.90 [WebSettingsActivity]: onCreate: 准备初始化Model
-28日 21:49:14.91 [WebSettingsActivity]: onCreate: Model初始化完成
-28日 21:49:14.91 [WebSettingsActivity]: onCreate: 准备设置UserMap
-28日 21:49:14.91 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
-28日 21:49:14.92 [Files]: friend.json permissions: r=true; w=true
-28日 21:49:14.93 [WebSettingsActivity]: onCreate: UserMap.load完成
-28日 21:49:14.93 [Files]: cooperateMap.json permissions: r=true; w=true
-28日 21:49:14.94 [WebSettingsActivity]: onCreate: CooperateMap加载完成
-28日 21:49:14.95 [Files]: vitalityRewardsMap.json permissions: r=true; w=true
-28日 21:49:14.95 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
-28日 21:49:14.96 [Files]: MemberBenefitsMap.json permissions: r=true; w=true
-28日 21:49:14.96 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
-28日 21:49:14.97 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
-28日 21:49:14.98 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
-28日 21:49:14.98 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/ReserveaMap.json: r=true; w=true
-28日 21:49:14.99 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:49:15.00 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
-28日 21:49:15.00 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
-28日 21:49:15.01 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:49:15.02 [WebSettingsActivity]: onCreate: BeachMap加载完成
-28日 21:49:15.02 [Config]: 开始加载配置
-28日 21:49:15.03 [Config]: 加载配置: 惠琴
-28日 21:49:15.04 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-28日 21:49:15.06 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-28日 21:49:15.06 获取 只收能量时间 配置: [0658-0731]
-28日 21:49:15.06 模块休眠时间 配置已关闭
-28日 21:49:15.07 [WebSettingsActivity]: onCreate: Config加载完成
-28日 21:49:15.07 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
-28日 21:49:15.09 [WebSettingsActivity]: onCreate: setContentView完成
-28日 21:49:15.09 [WebSettingsActivity]: onCreate: 准备设置返回键处理
-28日 21:49:15.09 [WebSettingsActivity]: onCreate: 返回键处理设置完成
-28日 21:49:15.09 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
-28日 21:49:15.10 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
-28日 21:49:15.10 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
-28日 21:49:15.10 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
-28日 21:49:15.10 [WebSettingsActivity]: onCreate: 标题设置完成
-28日 21:49:15.10 [WebSettingsActivity]: onCreate: 准备初始化WebView
-28日 21:49:15.10 [WebSettingsActivity]: onCreate: WebView findViewById完成
-28日 21:49:15.11 [WebSettingsActivity]: onCreate: WebSettings配置完成
-28日 21:49:15.11 [WebSettingsActivity]: onCreate: 准备加载WebView内容
-28日 21:49:15.11 [WebSettingsActivity]: onCreate: WebViewClient设置完成
-28日 21:49:15.11 [WebSettingsActivity]: onCreate: WebChromeClient设置完成
-28日 21:49:15.12 [WebSettingsActivity]: onCreate: WebView loadUrl完成
-28日 21:49:15.12 [WebSettingsActivity]: onCreate: JavaScript接口注册完成
-28日 21:49:15.13 [WebSettingsActivity]: onCreate: 准备填充tabList和groupList
-28日 21:49:15.13 [WebSettingsActivity]: onCreate: tabList填充完成, size=14
-28日 21:49:15.13 [WebSettingsActivity]: onCreate: groupList填充完成, size=8
-28日 21:49:15.13 [WebSettingsActivity]: onCreate: 准备设置水印
-28日 21:49:15.13 [WebSettingsActivity]: onCreate: 水印设置完成
-28日 21:49:15.14 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
-28日 21:49:15.20 [WebSettingsActivity]: WebView Console [LOG]: You are running a development build of Vue.
-Make sure to use the production build (*.prod.js) when deploying for production. -- From line 11201 of file:///android_asset/web/js/vue3.js
-28日 21:49:15.20 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:49:15.22 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
-28日 21:49:15.22 [WebSettingsActivity]: WebView Console [WARNING]: [Vue warn]: Unhandled error during execution of setup function 
-  at <App> -- From line 1630 of file:///android_asset/web/js/vue3.js
-28日 21:49:15.22 [WebSettingsActivity]: WebView Console [ERROR]: Uncaught Error: Java exception was raised during method invocation -- From line 1846 of file:///android_asset/web/js/vue3.js
-28日 21:49:15.23 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
-28日 21:49:20.41 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
-28日 21:49:20.44 [Files]: friend.json permissions: r=true; w=true
-28日 21:49:20.46 [Files]: cooperateMap.json permissions: r=true; w=true
-28日 21:49:20.49 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-28日 21:49:20.50 [UIConfig]: 重置UI配置
-28日 21:49:20.51 [Files]: self.json permissions: r=true; w=true
-28日 21:49:20.53 [Files]: self.json permissions: r=true; w=true
-28日 21:49:20.54 [Files]: self.json permissions: r=true; w=true
-28日 21:49:20.55 [Files]: self.json permissions: r=true; w=true
-28日 21:49:20.56 [Files]: self.json permissions: r=true; w=true
-28日 21:49:20.57 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:49:20.57 [MainActivity]: isModuleActivated: true
+28日 21:57:15.69 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+28日 21:57:15.70 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
+28日 21:57:15.71 [WebSettingsActivity]: getModel调用: modelCode=BaseModel
+28日 21:57:15.71 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:15.71 [WebSettingsActivity]: getModel转换字段失败: field=stayAwake, error=desc must not be null
+28日 21:57:15.72 [WebSettingsActivity]: getModel转换字段失败: field=manualTriggerAutoSchedule, error=desc must not be null
+28日 21:57:15.72 [WebSettingsActivity]: getModel转换字段失败: field=checkInterval, error=desc must not be null
+28日 21:57:15.72 [WebSettingsActivity]: getModel转换字段失败: field=taskExecutionRounds, error=desc must not be null
+28日 21:57:15.73 [WebSettingsActivity]: getModel转换字段失败: field=modelSleepTime, error=desc must not be null
+28日 21:57:15.73 [WebSettingsActivity]: getModel转换字段失败: field=execAtTimeList, error=desc must not be null
+28日 21:57:15.74 [WebSettingsActivity]: getModel转换字段失败: field=wakenAtTimeList, error=desc must not be null
+28日 21:57:15.74 [WebSettingsActivity]: getModel转换字段失败: field=energyTime, error=desc must not be null
+28日 21:57:15.74 [WebSettingsActivity]: getModel转换字段失败: field=timedTaskModel, error=desc must not be null
+28日 21:57:15.74 [WebSettingsActivity]: getModel转换字段失败: field=timeoutRestart, error=desc must not be null
+28日 21:57:15.75 [WebSettingsActivity]: getModel转换字段失败: field=waitWhenException, error=desc must not be null
+28日 21:57:15.75 [WebSettingsActivity]: getModel转换字段失败: field=errNotify, error=desc must not be null
+28日 21:57:15.75 [WebSettingsActivity]: getModel转换字段失败: field=setMaxErrorCount, error=desc must not be null
+28日 21:57:15.75 [WebSettingsActivity]: getModel转换字段失败: field=newRpc, error=desc must not be null
+28日 21:57:15.76 [WebSettingsActivity]: getModel转换字段失败: field=debugMode, error=desc must not be null
+28日 21:57:15.76 [WebSettingsActivity]: getModel转换字段失败: field=sendHookData, error=desc must not be null
+28日 21:57:15.76 [WebSettingsActivity]: getModel转换字段失败: field=sendHookDataUrl, error=desc must not be null
+28日 21:57:15.76 [WebSettingsActivity]: getModel转换字段失败: field=batteryPerm, error=desc must not be null
+28日 21:57:15.77 [WebSettingsActivity]: getModel转换字段失败: field=enableCaptchaHook, error=desc must not be null
+28日 21:57:15.77 [WebSettingsActivity]: getModel转换字段失败: field=captchaHookLevel, error=desc must not be null
+28日 21:57:15.77 [WebSettingsActivity]: getModel转换字段失败: field=recordLog, error=desc must not be null
+28日 21:57:15.77 [WebSettingsActivity]: getModel转换字段失败: field=runtimeLog, error=desc must not be null
+28日 21:57:15.78 [WebSettingsActivity]: getModel转换字段失败: field=showToast, error=desc must not be null
+28日 21:57:15.78 [WebSettingsActivity]: getModel转换字段失败: field=enableOnGoing, error=desc must not be null
+28日 21:57:15.78 [WebSettingsActivity]: getModel转换字段失败: field=languageSimplifiedChinese, error=desc must not be null
+28日 21:57:15.78 [WebSettingsActivity]: getModel转换字段失败: field=toastOffsetY, error=desc must not be null
+28日 21:57:15.79 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:15.79 [WebSettingsActivity]: getModel调用: modelCode=AntForest
+28日 21:57:15.79 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:15.79 [WebSettingsActivity]: getModel转换字段失败: field=collectEnergy, error=desc must not be null
+28日 21:57:15.79 [WebSettingsActivity]: getModel转换字段失败: field=batchRobEnergy, error=desc must not be null
+28日 21:57:15.80 [WebSettingsActivity]: getModel转换字段失败: field=pkEnergy, error=desc must not be null
+28日 21:57:15.80 [WebSettingsActivity]: getModel转换字段失败: field=closeWhackMole, error=desc must not be null
+28日 21:57:15.80 [WebSettingsActivity]: getModel转换字段失败: field=energyRain, error=desc must not be null
+28日 21:57:15.80 [WebSettingsActivity]: getModel转换字段失败: field=energyRainTime, error=desc must not be null
+28日 21:57:15.81 [WebSettingsActivity]: getModel转换字段失败: field=dontCollectList, error=desc must not be null
+28日 21:57:15.81 [WebSettingsActivity]: getModel转换字段失败: field=giveEnergyRainList, error=desc must not be null
+28日 21:57:15.81 [WebSettingsActivity]: getModel转换字段失败: field=energyRainChance, error=desc must not be null
+28日 21:57:15.81 [WebSettingsActivity]: getModel转换字段失败: field=collectWateringBubble, error=desc must not be null
+28日 21:57:15.82 [WebSettingsActivity]: getModel转换字段失败: field=doubleCard, error=desc must not be null
+28日 21:57:15.82 [WebSettingsActivity]: getModel转换字段失败: field=doubleCountLimit, error=desc must not be null
+28日 21:57:15.82 [WebSettingsActivity]: getModel转换字段失败: field=doubleCardTime, error=desc must not be null
+28日 21:57:15.82 [WebSettingsActivity]: getModel转换字段失败: field=DoubleCardConstant, error=desc must not be null
+28日 21:57:15.83 [WebSettingsActivity]: getModel转换字段失败: field=bubbleBoostCard, error=desc must not be null
+28日 21:57:15.83 [WebSettingsActivity]: getModel转换字段失败: field=bubbleBoostTime, error=desc must not be null
+28日 21:57:15.83 [WebSettingsActivity]: getModel转换字段失败: field=shieldCard, error=desc must not be null
+28日 21:57:15.83 [WebSettingsActivity]: getModel转换字段失败: field=shieldCardConstant, error=desc must not be null
+28日 21:57:15.84 [WebSettingsActivity]: getModel转换字段失败: field=robExpandCard, error=desc must not be null
+28日 21:57:15.84 [WebSettingsActivity]: getModel转换字段失败: field=robExpandCardTime, error=desc must not be null
+28日 21:57:15.84 [WebSettingsActivity]: getModel转换字段失败: field=stealthCard, error=desc must not be null
+28日 21:57:15.84 [WebSettingsActivity]: getModel转换字段失败: field=stealthCardConstant, error=desc must not be null
+28日 21:57:15.85 [WebSettingsActivity]: getModel转换字段失败: field=returnWater10, error=desc must not be null
+28日 21:57:15.85 [WebSettingsActivity]: getModel转换字段失败: field=returnWater18, error=desc must not be null
+28日 21:57:15.85 [WebSettingsActivity]: getModel转换字段失败: field=returnWater33, error=desc must not be null
+28日 21:57:15.86 [WebSettingsActivity]: getModel转换字段失败: field=waterFriendCount, error=desc must not be null
+28日 21:57:15.86 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriend, error=desc must not be null
+28日 21:57:15.86 [WebSettingsActivity]: getModel转换字段失败: field=giveProp, error=desc must not be null
+28日 21:57:15.86 [WebSettingsActivity]: getModel转换字段失败: field=collectProp, error=desc must not be null
+28日 21:57:15.87 [WebSettingsActivity]: getModel转换字段失败: field=helpFriendCollectType, error=desc must not be null
+28日 21:57:15.87 [WebSettingsActivity]: getModel转换字段失败: field=helpFriendCollectList, error=desc must not be null
+28日 21:57:15.87 [WebSettingsActivity]: getModel转换字段失败: field=alternativeAccountList, error=desc must not be null
+28日 21:57:15.87 [WebSettingsActivity]: getModel转换字段失败: field=vitalityExchange, error=desc must not be null
+28日 21:57:15.88 [WebSettingsActivity]: getModel转换字段失败: field=userPatrol, error=desc must not be null
+28日 21:57:15.88 [WebSettingsActivity]: getModel转换字段失败: field=combineAnimalPiece, error=desc must not be null
+28日 21:57:15.88 [WebSettingsActivity]: getModel转换字段失败: field=consumeAnimalProp, error=desc must not be null
+28日 21:57:15.88 [WebSettingsActivity]: getModel转换字段失败: field=receiveForestTaskAward, error=desc must not be null
+28日 21:57:15.89 [WebSettingsActivity]: getModel转换字段失败: field=forestChouChouLe, error=desc must not be null
+28日 21:57:15.89 [WebSettingsActivity]: getModel转换字段失败: field=collectGiftBox, error=desc must not be null
+28日 21:57:15.89 [WebSettingsActivity]: getModel转换字段失败: field=medicalHealth, error=desc must not be null
+28日 21:57:15.89 [WebSettingsActivity]: getModel转换字段失败: field=forestMarket, error=desc must not be null
+28日 21:57:15.90 [WebSettingsActivity]: getModel转换字段失败: field=youthPrivilege, error=desc must not be null
+28日 21:57:15.90 [WebSettingsActivity]: getModel转换字段失败: field=studentCheckIn, error=desc must not be null
+28日 21:57:15.90 [WebSettingsActivity]: getModel转换字段失败: field=ecoLife, error=desc must not be null
+28日 21:57:15.90 [WebSettingsActivity]: getModel转换字段失败: field=ecoLifeTime, error=desc must not be null
+28日 21:57:15.91 [WebSettingsActivity]: getModel转换字段失败: field=ecoLifeOpen, error=desc must not be null
+28日 21:57:15.91 [WebSettingsActivity]: getModel转换字段失败: field=queryInterval, error=desc must not be null
+28日 21:57:15.91 [WebSettingsActivity]: getModel转换字段失败: field=collectInterval, error=desc must not be null
+28日 21:57:15.91 [WebSettingsActivity]: getModel转换字段失败: field=doubleCollectInterval, error=desc must not be null
+28日 21:57:15.92 [WebSettingsActivity]: getModel转换字段失败: field=balanceNetworkDelay, error=desc must not be null
+28日 21:57:15.92 [WebSettingsActivity]: getModel转换字段失败: field=advanceTime, error=desc must not be null
+28日 21:57:15.92 [WebSettingsActivity]: getModel转换字段失败: field=tryCount, error=desc must not be null
+28日 21:57:15.92 [WebSettingsActivity]: getModel转换字段失败: field=retryInterval, error=desc must not be null
+28日 21:57:15.92 [WebSettingsActivity]: getModel转换字段失败: field=cycleinterval, error=desc must not be null
+28日 21:57:15.93 [WebSettingsActivity]: getModel转换字段失败: field=showBagList, error=desc must not be null
+28日 21:57:15.93 [WebSettingsActivity]: WebSettingsActivity.getModel: [{"code":"energyBombCardType","configValue":"0","desc":"若开启了保护罩，则不会使用炸弹卡","expandKey":["关闭","所有道具","限时道具"],"name":"炸弹卡开关 | 消耗类型","type":"CHOICE"},{"code":"waterFriendList","configValue":"{\n  \"2088002896523311\" : 3\n}","desc":"设置浇水次数","name":"浇水 | 好友列表","type":"SELECT_AND_COUNT"},{"code":"whoYouWantToGiveTo","configValue":"[ ]","desc":"所有可赠送的道具将全部赠","name":"赠送 | 道具","type":"SELECT"},{"code":"vitalityExchangeList","configValue":"{ }","desc":"兑换次数","name":"活力值 | 兑换列表","type":"SELECT_AND_COUNT"},{"code":"medicalHealthOption","configValue":"[ \"BILL\", \"FEEDS\" ]","desc":"医疗健康需要先完成一次医疗打卡","name":"健康医疗 | 选项","type":"SELECT"},{"code":"ecoLifeOption","configValue":"[ \"plate\", \"tick\" ]","desc":"光盘行动需要先完成一次光盘打卡","name":"绿色行动 | 选项","type":"SELECT"}]
+28日 21:57:15.93 [WebSettingsActivity]: getModel调用: modelCode=AntFarm
+28日 21:57:15.93 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:15.94 [WebSettingsActivity]: getModel转换字段失败: field=sleepTime, error=desc must not be null
+28日 21:57:15.94 [WebSettingsActivity]: getModel转换字段失败: field=sleepMinutes, error=desc must not be null
+28日 21:57:15.94 [WebSettingsActivity]: getModel转换字段失败: field=recallAnimalType, error=desc must not be null
+28日 21:57:15.94 [WebSettingsActivity]: getModel转换字段失败: field=rewardFriend, error=desc must not be null
+28日 21:57:15.95 [WebSettingsActivity]: getModel转换字段失败: field=feedAnimal, error=desc must not be null
+28日 21:57:15.95 [WebSettingsActivity]: getModel转换字段失败: field=feedFriendAnimalList, error=desc must not be null
+28日 21:57:15.95 [WebSettingsActivity]: getModel转换字段失败: field=getFeed, error=desc must not be null
+28日 21:57:15.95 [WebSettingsActivity]: getModel转换字段失败: field=getFeedType, error=desc must not be null
+28日 21:57:15.96 [WebSettingsActivity]: getModel转换字段失败: field=getFeedlList, error=desc must not be null
+28日 21:57:15.96 [WebSettingsActivity]: getModel转换字段失败: field=acceptGift, error=desc must not be null
+28日 21:57:15.96 [WebSettingsActivity]: getModel转换字段失败: field=visitFriendList, error=desc must not be null
+28日 21:57:15.97 [WebSettingsActivity]: getModel转换字段失败: field=hireAnimal, error=desc must not be null
+28日 21:57:15.97 [WebSettingsActivity]: getModel转换字段失败: field=hireAnimalType, error=desc must not be null
+28日 21:57:15.97 [WebSettingsActivity]: getModel转换字段失败: field=hireAnimalList, error=desc must not be null
+28日 21:57:15.97 [WebSettingsActivity]: getModel转换字段失败: field=sendBackAnimal, error=desc must not be null
+28日 21:57:15.98 [WebSettingsActivity]: getModel转换字段失败: field=sendBackAnimalWay, error=desc must not be null
+28日 21:57:15.98 [WebSettingsActivity]: getModel转换字段失败: field=sendBackAnimalType, error=desc must not be null
+28日 21:57:15.98 [WebSettingsActivity]: getModel转换字段失败: field=dontSendFriendList, error=desc must not be null
+28日 21:57:15.98 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriend, error=desc must not be null
+28日 21:57:15.99 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriendType, error=desc must not be null
+28日 21:57:15.99 [WebSettingsActivity]: getModel转换字段失败: field=notifyFriendList, error=desc must not be null
+28日 21:57:15.99 [WebSettingsActivity]: getModel转换字段失败: field=donation, error=desc must not be null
+28日 21:57:15.99 [WebSettingsActivity]: getModel转换字段失败: field=donationCount, error=desc must not be null
+28日 21:57:16.00 [WebSettingsActivity]: getModel转换字段失败: field=useBigEaterTool, error=desc must not be null
+28日 21:57:16.00 [WebSettingsActivity]: getModel转换字段失败: field=useAccelerateTool, error=desc must not be null
+28日 21:57:16.00 [WebSettingsActivity]: getModel转换字段失败: field=useAccelerateToolContinue, error=desc must not be null
+28日 21:57:16.01 [WebSettingsActivity]: getModel转换字段失败: field=useAccelerateToolWhenMaxEmotion, error=desc must not be null
+28日 21:57:16.01 [WebSettingsActivity]: getModel转换字段失败: field=useSpecialFood, error=desc must not be null
+28日 21:57:16.01 [WebSettingsActivity]: getModel转换字段失败: field=useNewEggCard, error=desc must not be null
+28日 21:57:16.02 [WebSettingsActivity]: getModel转换字段失败: field=doFarmTask, error=desc must not be null
+28日 21:57:16.02 [WebSettingsActivity]: getModel转换字段失败: field=doFarmTaskTime, error=desc must not be null
+28日 21:57:16.02 [WebSettingsActivity]: getModel转换字段失败: field=receiveFarmTaskAward, error=desc must not be null
+28日 21:57:16.02 [WebSettingsActivity]: getModel转换字段失败: field=receiveFarmToolReward, error=desc must not be null
+28日 21:57:16.03 [WebSettingsActivity]: getModel转换字段失败: field=harvestProduce, error=desc must not be null
+28日 21:57:16.03 [WebSettingsActivity]: getModel转换字段失败: field=kitchen, error=desc must not be null
+28日 21:57:16.03 [WebSettingsActivity]: getModel转换字段失败: field=chickenDiary, error=desc must not be null
+28日 21:57:16.03 [WebSettingsActivity]: getModel转换字段失败: field=diaryTietze, error=desc must not be null
+28日 21:57:16.04 [WebSettingsActivity]: getModel转换字段失败: field=collectChickenDiary, error=desc must not be null
+28日 21:57:16.04 [WebSettingsActivity]: getModel转换字段失败: field=enableChouchoule, error=desc must not be null
+28日 21:57:16.04 [WebSettingsActivity]: getModel转换字段失败: field=enableChouchouleTime, error=desc must not be null
+28日 21:57:16.04 [WebSettingsActivity]: getModel转换字段失败: field=listOrnaments, error=desc must not be null
+28日 21:57:16.05 [WebSettingsActivity]: getModel转换字段失败: field=enableDdrawGameCenterAward, error=desc must not be null
+28日 21:57:16.05 [WebSettingsActivity]: getModel转换字段失败: field=recordFarmGame, error=desc must not be null
+28日 21:57:16.05 [WebSettingsActivity]: getModel转换字段失败: field=farmGameTime, error=desc must not be null
+28日 21:57:16.06 [WebSettingsActivity]: getModel转换字段失败: field=family, error=desc must not be null
+28日 21:57:16.06 [WebSettingsActivity]: getModel转换字段失败: field=familyOptions, error=desc must not be null
+28日 21:57:16.06 [WebSettingsActivity]: getModel转换字段失败: field=notInviteList, error=desc must not be null
+28日 21:57:16.07 [WebSettingsActivity]: getModel转换字段失败: field=paradiseCoinExchangeBenefit, error=desc must not be null
+28日 21:57:16.07 [WebSettingsActivity]: getModel转换字段失败: field=paradiseCoinExchangeBenefitList, error=desc must not be null
+28日 21:57:16.07 [WebSettingsActivity]: getModel转换字段失败: field=visitAnimal, error=desc must not be null
+28日 21:57:16.08 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.08 [WebSettingsActivity]: getModel调用: modelCode=AntOcean
+28日 21:57:16.08 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.08 [WebSettingsActivity]: getModel转换字段失败: field=dailyOceanTask, error=desc must not be null
+28日 21:57:16.09 [WebSettingsActivity]: getModel转换字段失败: field=cleanOcean, error=desc must not be null
+28日 21:57:16.09 [WebSettingsActivity]: getModel转换字段失败: field=cleanOceanType, error=desc must not be null
+28日 21:57:16.09 [WebSettingsActivity]: getModel转换字段失败: field=cleanOceanList, error=desc must not be null
+28日 21:57:16.09 [WebSettingsActivity]: getModel转换字段失败: field=exchangeProp, error=desc must not be null
+28日 21:57:16.10 [WebSettingsActivity]: getModel转换字段失败: field=usePropByType, error=desc must not be null
+28日 21:57:16.10 [WebSettingsActivity]: getModel转换字段失败: field=userprotectType, error=desc must not be null
+28日 21:57:16.10 [WebSettingsActivity]: getModel转换字段失败: field=protectOceanList, error=desc must not be null
+28日 21:57:16.10 [WebSettingsActivity]: getModel转换字段失败: field=PDL_task, error=desc must not be null
+28日 21:57:16.11 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.11 [WebSettingsActivity]: getModel调用: modelCode=AntOrchard
+28日 21:57:16.11 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.11 [WebSettingsActivity]: getModel转换字段失败: field=executeInterval, error=desc must not be null
+28日 21:57:16.12 [WebSettingsActivity]: getModel转换字段失败: field=receiveOrchardTaskAward, error=desc must not be null
+28日 21:57:16.12 [WebSettingsActivity]: getModel转换字段失败: field=orchardSpreadManureCount, error=desc must not be null
+28日 21:57:16.12 [WebSettingsActivity]: getModel转换字段失败: field=assistFriendList, error=desc must not be null
+28日 21:57:16.12 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.13 [WebSettingsActivity]: getModel调用: modelCode=AntStall
+28日 21:57:16.13 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.13 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoOpen, error=desc must not be null
+28日 21:57:16.13 [WebSettingsActivity]: getModel转换字段失败: field=stallOpenType, error=desc must not be null
+28日 21:57:16.14 [WebSettingsActivity]: getModel转换字段失败: field=stallOpenList, error=desc must not be null
+28日 21:57:16.14 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoClose, error=desc must not be null
+28日 21:57:16.14 [WebSettingsActivity]: getModel转换字段失败: field=stallSelfOpenTime, error=desc must not be null
+28日 21:57:16.14 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoTicket, error=desc must not be null
+28日 21:57:16.14 [WebSettingsActivity]: getModel转换字段失败: field=stallTicketType, error=desc must not be null
+28日 21:57:16.15 [WebSettingsActivity]: getModel转换字段失败: field=stallTicketList, error=desc must not be null
+28日 21:57:16.15 [WebSettingsActivity]: getModel转换字段失败: field=stallThrowManure, error=desc must not be null
+28日 21:57:16.15 [WebSettingsActivity]: getModel转换字段失败: field=stallThrowManureType, error=desc must not be null
+28日 21:57:16.15 [WebSettingsActivity]: getModel转换字段失败: field=stallThrowManureList, error=desc must not be null
+28日 21:57:16.16 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteShop, error=desc must not be null
+28日 21:57:16.16 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteShopType, error=desc must not be null
+28日 21:57:16.16 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteShopList, error=desc must not be null
+28日 21:57:16.17 [WebSettingsActivity]: getModel转换字段失败: field=stallAllowOpenReject, error=desc must not be null
+28日 21:57:16.17 [WebSettingsActivity]: getModel转换字段失败: field=stallAllowOpenTime, error=desc must not be null
+28日 21:57:16.17 [WebSettingsActivity]: getModel转换字段失败: field=stallWhiteList, error=desc must not be null
+28日 21:57:16.17 [WebSettingsActivity]: getModel转换字段失败: field=stallBlackList, error=desc must not be null
+28日 21:57:16.17 [WebSettingsActivity]: getModel转换字段失败: field=stallAutoTask, error=desc must not be null
+28日 21:57:16.18 [WebSettingsActivity]: getModel转换字段失败: field=stallReceiveAward, error=desc must not be null
+28日 21:57:16.18 [WebSettingsActivity]: getModel转换字段失败: field=stallDonate, error=desc must not be null
+28日 21:57:16.18 [WebSettingsActivity]: getModel转换字段失败: field=roadmap, error=desc must not be null
+28日 21:57:16.19 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteRegister, error=desc must not be null
+28日 21:57:16.19 [WebSettingsActivity]: getModel转换字段失败: field=stallInviteRegisterList, error=desc must not be null
+28日 21:57:16.19 [WebSettingsActivity]: getModel转换字段失败: field=assistFriendList, error=desc must not be null
+28日 21:57:16.19 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.20 [WebSettingsActivity]: getModel调用: modelCode=AntDodo
+28日 21:57:16.20 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.20 [WebSettingsActivity]: getModel转换字段失败: field=collectToFriend, error=desc must not be null
+28日 21:57:16.20 [WebSettingsActivity]: getModel转换字段失败: field=collectToFriendType, error=desc must not be null
+28日 21:57:16.21 [WebSettingsActivity]: getModel转换字段失败: field=collectToFriendList, error=desc must not be null
+28日 21:57:16.21 [WebSettingsActivity]: getModel转换字段失败: field=sendFriendCard, error=desc must not be null
+28日 21:57:16.21 [WebSettingsActivity]: getModel转换字段失败: field=useProp, error=desc must not be null
+28日 21:57:16.22 [WebSettingsActivity]: getModel转换字段失败: field=usePropCollectTimes7Days, error=desc must not be null
+28日 21:57:16.22 [WebSettingsActivity]: getModel转换字段失败: field=usePropCollectHistoryAnimal7Days, error=desc must not be null
+28日 21:57:16.22 [WebSettingsActivity]: getModel转换字段失败: field=usePropCollectToFriendTimes7Days, error=desc must not be null
+28日 21:57:16.22 [WebSettingsActivity]: getModel转换字段失败: field=autoGenerateBook, error=desc must not be null
+28日 21:57:16.23 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.23 [WebSettingsActivity]: getModel调用: modelCode=AntCooperate
+28日 21:57:16.23 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.23 [WebSettingsActivity]: getModel转换字段失败: field=cooperateWaterTotalLimitList, error=desc must not be null
+28日 21:57:16.24 [WebSettingsActivity]: getModel转换字段失败: field=cooperateSendCooperateBeckon, error=desc must not be null
+28日 21:57:16.24 [WebSettingsActivity]: WebSettingsActivity.getModel: [{"code":"cooperateWaterList","configValue":"{ }","desc":"开启合种浇水后执行一次重载","name":"合种浇水列表","type":"SELECT_AND_COUNT"}]
+28日 21:57:16.24 [WebSettingsActivity]: getModel调用: modelCode=AntSports
+28日 21:57:16.24 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.24 [WebSettingsActivity]: getModel转换字段失败: field=walk, error=desc must not be null
+28日 21:57:16.25 [WebSettingsActivity]: getModel转换字段失败: field=walkPathTheme, error=desc must not be null
+28日 21:57:16.25 [WebSettingsActivity]: getModel转换字段失败: field=walkCustomPath, error=desc must not be null
+28日 21:57:16.25 [WebSettingsActivity]: getModel转换字段失败: field=walkCustomPathId, error=desc must not be null
+28日 21:57:16.25 [WebSettingsActivity]: getModel转换字段失败: field=openTreasureBox, error=desc must not be null
+28日 21:57:16.26 [WebSettingsActivity]: getModel转换字段失败: field=sportsTasks, error=desc must not be null
+28日 21:57:16.26 [WebSettingsActivity]: getModel转换字段失败: field=sportsTaskBlacklist, error=desc must not be null
+28日 21:57:16.26 [WebSettingsActivity]: getModel转换字段失败: field=receiveCoinAsset, error=desc must not be null
+28日 21:57:16.26 [WebSettingsActivity]: getModel转换字段失败: field=donateCharityCoin, error=desc must not be null
+28日 21:57:16.27 [WebSettingsActivity]: getModel转换字段失败: field=donateCharityCoinType, error=desc must not be null
+28日 21:57:16.27 [WebSettingsActivity]: getModel转换字段失败: field=donateCharityCoinAmount, error=desc must not be null
+28日 21:57:16.27 [WebSettingsActivity]: getModel转换字段失败: field=battleForFriends, error=desc must not be null
+28日 21:57:16.27 [WebSettingsActivity]: getModel转换字段失败: field=battleForFriendType, error=desc must not be null
+28日 21:57:16.28 [WebSettingsActivity]: getModel转换字段失败: field=originBossIdList, error=desc must not be null
+28日 21:57:16.28 [WebSettingsActivity]: getModel转换字段失败: field=trainFriend, error=desc must not be null
+28日 21:57:16.28 [WebSettingsActivity]: getModel转换字段失败: field=zeroCoinLimit, error=desc must not be null
+28日 21:57:16.28 [WebSettingsActivity]: getModel转换字段失败: field=bicubic, error=desc must not be null
+28日 21:57:16.29 [WebSettingsActivity]: getModel转换字段失败: field=minExchangeCount, error=desc must not be null
+28日 21:57:16.29 [WebSettingsActivity]: getModel转换字段失败: field=latestExchangeTime, error=desc must not be null
+28日 21:57:16.29 [WebSettingsActivity]: getModel转换字段失败: field=syncStepCount, error=desc must not be null
+28日 21:57:16.30 [WebSettingsActivity]: getModel转换字段失败: field=coinExchangeDoubleCard, error=desc must not be null
+28日 21:57:16.30 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.30 [WebSettingsActivity]: getModel调用: modelCode=AntMember
+28日 21:57:16.30 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.31 [WebSettingsActivity]: getModel转换字段失败: field=memberSign, error=desc must not be null
+28日 21:57:16.31 [WebSettingsActivity]: getModel转换字段失败: field=memberTask, error=desc must not be null
+28日 21:57:16.31 [WebSettingsActivity]: getModel转换字段失败: field=memberPointExchangeBenefit, error=desc must not be null
+28日 21:57:16.31 [WebSettingsActivity]: getModel转换字段失败: field=memberPointExchangeBenefitList, error=desc must not be null
+28日 21:57:16.32 [WebSettingsActivity]: getModel转换字段失败: field=sesameTask, error=desc must not be null
+28日 21:57:16.32 [WebSettingsActivity]: getModel转换字段失败: field=collectSesame, error=desc must not be null
+28日 21:57:16.32 [WebSettingsActivity]: getModel转换字段失败: field=collectSesameWithOneClick, error=desc must not be null
+28日 21:57:16.32 [WebSettingsActivity]: getModel转换字段失败: field=collectInsuredGold, error=desc must not be null
+28日 21:57:16.33 [WebSettingsActivity]: getModel转换字段失败: field=enableGoldTicket, error=desc must not be null
+28日 21:57:16.33 [WebSettingsActivity]: getModel转换字段失败: field=enableGameCenter, error=desc must not be null
+28日 21:57:16.33 [WebSettingsActivity]: getModel转换字段失败: field=merchantSign, error=desc must not be null
+28日 21:57:16.33 [WebSettingsActivity]: getModel转换字段失败: field=merchantKmdk, error=desc must not be null
+28日 21:57:16.34 [WebSettingsActivity]: getModel转换字段失败: field=merchantMoreTask, error=desc must not be null
+28日 21:57:16.34 [WebSettingsActivity]: getModel转换字段失败: field=beanSignIn, error=desc must not be null
+28日 21:57:16.34 [WebSettingsActivity]: getModel转换字段失败: field=beanExchangeBubbleBoost, error=desc must not be null
+28日 21:57:16.35 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.35 [WebSettingsActivity]: getModel调用: modelCode=AncientTree
+28日 21:57:16.35 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.35 [WebSettingsActivity]: getModel转换字段失败: field=ancientTreeOnlyWeek, error=desc must not be null
+28日 21:57:16.36 [WebSettingsActivity]: getModel转换字段失败: field=ancientTreeCityCodeList, error=desc must not be null
+28日 21:57:16.36 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.36 [WebSettingsActivity]: getModel调用: modelCode=GreenFinance
+28日 21:57:16.36 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.37 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLsxd, error=desc must not be null
+28日 21:57:16.37 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLscg, error=desc must not be null
+28日 21:57:16.37 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLsbg, error=desc must not be null
+28日 21:57:16.38 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceWdxd, error=desc must not be null
+28日 21:57:16.38 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceLswl, error=desc must not be null
+28日 21:57:16.38 [WebSettingsActivity]: getModel转换字段失败: field=greenFinancePointFriend, error=desc must not be null
+28日 21:57:16.38 [WebSettingsActivity]: getModel转换字段失败: field=greenFinanceDonation, error=desc must not be null
+28日 21:57:16.39 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.39 [WebSettingsActivity]: getModel调用: modelCode=Reserve
+28日 21:57:16.39 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.39 [WebSettingsActivity]: getModel转换字段失败: field=reserveList, error=desc must not be null
+28日 21:57:16.40 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.40 [WebSettingsActivity]: getModel调用: modelCode=AnswerAI
+28日 21:57:16.40 [WebSettingsActivity]: getModel转换字段失败: field=enable, error=desc must not be null
+28日 21:57:16.40 [WebSettingsActivity]: getModel转换字段失败: field=useGeminiAI, error=desc must not be null
+28日 21:57:16.40 [WebSettingsActivity]: getModel转换字段失败: field=getTongyiAIToken, error=desc must not be null
+28日 21:57:16.41 [WebSettingsActivity]: getModel转换字段失败: field=tongYiToken, error=desc must not be null
+28日 21:57:16.41 [WebSettingsActivity]: getModel转换字段失败: field=getGeminiAIToken, error=desc must not be null
+28日 21:57:16.41 [WebSettingsActivity]: getModel转换字段失败: field=GeminiAIToken, error=desc must not be null
+28日 21:57:16.41 [WebSettingsActivity]: getModel转换字段失败: field=getDeepSeekToken, error=desc must not be null
+28日 21:57:16.42 [WebSettingsActivity]: getModel转换字段失败: field=DeepSeekToken, error=desc must not be null
+28日 21:57:16.42 [WebSettingsActivity]: getModel转换字段失败: field=getCustomServiceToken, error=desc must not be null
+28日 21:57:16.42 [WebSettingsActivity]: getModel转换字段失败: field=CustomServiceToken, error=desc must not be null
+28日 21:57:16.42 [WebSettingsActivity]: getModel转换字段失败: field=CustomServiceBaseUrl, error=desc must not be null
+28日 21:57:16.43 [WebSettingsActivity]: getModel转换字段失败: field=CustomServiceModel, error=desc must not be null
+28日 21:57:16.43 [WebSettingsActivity]: WebSettingsActivity.getModel: []
+28日 21:57:16.61 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html

@@ -39,7 +39,7 @@ data class ModelFieldShowDto(
                 type = modelField.type,
                 expandKey = modelField.expandKey,
                 configValue = modelField.configValue,
-                desc = modelField.desc
+                desc = modelField.desc ?: ""  // 如果desc为null，使用空字符串
             )
         }
     }
