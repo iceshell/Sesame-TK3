@@ -1,69 +1,205 @@
-28日 20:59:35.96 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 24184
-28日 20:59:36.11 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
-28日 20:59:36.12 [ServiceManager]: ServiceManager initialized and listener registered.
-28日 20:59:36.29 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
-28日 20:59:36.30 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
-28日 20:59:36.40 [UIConfig]: 重置UI配置
-28日 20:59:36.48 [MainActivity]: 加载用户配置: 共5个账号
-28日 20:59:36.48 [MainActivity]: isModuleActivated: true
-28日 20:59:40.71 [UIConfig]: 重置UI配置
-28日 20:59:40.79 [MainActivity]: 加载用户配置: 共5个账号
-28日 20:59:40.80 [MainActivity]: isModuleActivated: true
-28日 20:59:43.63 [MainActivity]: 准备载入用户配置: index=0, showName=機風, userId=2088632752200481
-28日 20:59:43.63 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 20:59:43.63 [MainActivity]: Intent已配置: userId=2088632752200481, userName=機風
-28日 20:59:43.63 [MainActivity]: 正在启动SettingActivity...
-28日 20:59:43.65 [MainActivity]: SettingActivity启动成功
-28日 20:59:43.82 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 20:59:43.84 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 20:59:43.85 [Config]: 开始加载配置
-28日 20:59:43.85 [Config]: 加载配置: 機風
-28日 20:59:43.86 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
-28日 20:59:43.90 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
-28日 20:59:43.95 获取 只收能量时间 配置: [0658-0731]
-28日 20:59:43.95 模块休眠时间 配置已关闭
-28日 20:59:48.50 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 24396
-28日 20:59:48.63 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
-28日 20:59:48.64 [ServiceManager]: ServiceManager initialized and listener registered.
-28日 20:59:48.80 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
-28日 20:59:48.81 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
-28日 20:59:48.91 [UIConfig]: 重置UI配置
-28日 20:59:48.99 [MainActivity]: 加载用户配置: 共5个账号
-28日 20:59:48.99 [MainActivity]: isModuleActivated: true
-28日 20:59:57.41 [UIConfig]: 重置UI配置
-28日 20:59:57.48 [MainActivity]: 加载用户配置: 共5个账号
-28日 20:59:57.48 [MainActivity]: isModuleActivated: true
-28日 21:00:00.11 [MainActivity]: 准备载入用户配置: index=4, showName=惠琴, userId=2088602261779903
-28日 21:00:00.11 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:00:00.12 [MainActivity]: Intent已配置: userId=2088602261779903, userName=惠琴
-28日 21:00:00.12 [MainActivity]: 正在启动SettingActivity...
-28日 21:00:00.13 [MainActivity]: SettingActivity启动成功
-28日 21:00:00.31 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:00:00.33 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:00:00.34 [Config]: 开始加载配置
-28日 21:00:00.35 [Config]: 加载配置: 惠琴
-28日 21:00:00.36 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-28日 21:00:00.40 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-28日 21:00:00.44 获取 只收能量时间 配置: [0658-0731]
-28日 21:00:00.44 模块休眠时间 配置已关闭
-28日 21:00:03.32 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 24578
-28日 21:00:03.45 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
-28日 21:00:03.45 [ServiceManager]: ServiceManager initialized and listener registered.
-28日 21:00:03.62 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
-28日 21:00:03.63 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
-28日 21:00:03.73 [UIConfig]: 重置UI配置
-28日 21:00:03.80 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:00:03.80 [MainActivity]: isModuleActivated: true
-28日 21:00:06.89 [MainActivity]: 准备载入用户配置: index=1, showName=風, userId=2088942482497175
-28日 21:00:06.90 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:00:06.90 [MainActivity]: Intent已配置: userId=2088942482497175, userName=風
-28日 21:00:06.90 [MainActivity]: 正在启动SettingActivity...
-28日 21:00:06.91 [MainActivity]: SettingActivity启动成功
-28日 21:00:07.07 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:00:07.09 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:00:07.10 [Config]: 开始加载配置
-28日 21:00:07.11 [Config]: 加载配置: 風
-28日 21:00:07.12 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-28日 21:00:07.16 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-28日 21:00:07.20 获取 只收能量时间 配置: [0658-0731]
-28日 21:00:07.20 模块休眠时间 配置已关闭
+28日 21:16:59.75 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 30079
+28日 21:16:59.91 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
+28日 21:16:59.92 [ServiceManager]: ServiceManager initialized and listener registered.
+28日 21:17:00.12 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+28日 21:17:00.13 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+28日 21:17:00.25 [UIConfig]: 重置UI配置
+28日 21:17:00.35 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:00.35 [MainActivity]: isModuleActivated: true
+28日 21:17:04.76 [UIConfig]: 重置UI配置
+28日 21:17:04.83 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:04.83 [MainActivity]: isModuleActivated: true
+28日 21:17:06.75 [MainActivity]: 准备载入用户配置: index=0, showName=機風, userId=2088632752200481
+28日 21:17:06.75 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:17:06.75 [MainActivity]: Intent已配置: userId=2088632752200481, userName=機風
+28日 21:17:06.75 [MainActivity]: 正在启动SettingActivity...
+28日 21:17:06.77 [MainActivity]: SettingActivity启动成功
+28日 21:17:06.79 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:17:06.81 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:17:06.81 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:17:06.81 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088632752200481, userName=機風
+28日 21:17:06.81 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:17:06.88 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:17:06.88 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:17:06.88 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:17:06.90 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:17:06.91 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:17:06.92 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:17:06.93 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:17:06.94 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:17:06.95 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:17:06.96 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:17:06.97 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:17:06.98 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:17:06.99 [Config]: 开始加载配置
+28日 21:17:06.99 [Config]: 加载配置: 機風
+28日 21:17:07.00 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:17:07.04 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:17:07.10 获取 只收能量时间 配置: [0658-0731]
+28日 21:17:07.10 模块休眠时间 配置已关闭
+28日 21:17:07.10 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:17:07.10 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:17:07.13 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:17:07.13 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:17:07.13 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:17:07.13 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:17:07.14 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:17:07.14 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:17:07.14 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:17:07.14 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:17:07.14 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:17:07.14 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:17:07.14 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:17:07.15 [WebSettingsActivity]: onCreate发生异常: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+28日 21:17:07.16 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+	at fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>(Unknown Source:22)
+	at fansirsqi.xposed.sesame.ui.WebSettingsActivity.onCreate(WebSettingsActivity.java:249)
+	at android.app.Activity.performCreate(Activity.java:8143)
+	at android.app.Activity.performCreate(Activity.java:8114)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1310)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3513)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3700)
+	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)
+	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
+	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2136)
+	at android.os.Handler.dispatchMessage(Handler.java:106)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+28日 21:17:07.16 [ToastUtil]: showToast: 初始化失败: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+28日 21:17:07.21 [UIConfig]: 重置UI配置
+28日 21:17:07.30 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:07.30 [MainActivity]: isModuleActivated: true
+28日 21:17:07.42 [WebSettingsActivity]: WebSettingsActivity.getTabs: []
+28日 21:17:11.19 [MainActivity]: 准备载入用户配置: index=1, showName=風, userId=2088942482497175
+28日 21:17:11.19 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:17:11.19 [MainActivity]: Intent已配置: userId=2088942482497175, userName=風
+28日 21:17:11.20 [MainActivity]: 正在启动SettingActivity...
+28日 21:17:11.21 [MainActivity]: SettingActivity启动成功
+28日 21:17:11.23 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:17:11.25 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:17:11.25 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:17:11.25 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088942482497175, userName=風
+28日 21:17:11.25 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:17:11.27 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:17:11.27 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:17:11.27 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:17:11.28 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:17:11.29 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:17:11.31 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:17:11.32 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:17:11.33 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:17:11.34 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:17:11.35 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:17:11.36 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:17:11.37 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:17:11.37 [Config]: 开始加载配置
+28日 21:17:11.38 [Config]: 加载配置: 風
+28日 21:17:11.39 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
+28日 21:17:11.41 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
+28日 21:17:11.42 [Config]: 格式化配置: 風
+28日 21:17:11.42 获取 只收能量时间 配置: [0658-0731]
+28日 21:17:11.43 模块休眠时间 配置已关闭
+28日 21:17:11.43 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:17:11.43 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:17:11.45 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:17:11.46 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:17:11.46 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:17:11.46 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:17:11.46 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:17:11.46 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:17:11.46 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:17:11.46 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:17:11.47 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:17:11.47 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:17:11.47 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:17:11.48 [WebSettingsActivity]: onCreate发生异常: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+28日 21:17:11.48 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+	at fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>(Unknown Source:22)
+	at fansirsqi.xposed.sesame.ui.WebSettingsActivity.onCreate(WebSettingsActivity.java:249)
+	at android.app.Activity.performCreate(Activity.java:8143)
+	at android.app.Activity.performCreate(Activity.java:8114)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1310)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3513)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3700)
+	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)
+	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
+	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2136)
+	at android.os.Handler.dispatchMessage(Handler.java:106)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+28日 21:17:11.48 [ToastUtil]: showToast: 初始化失败: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+28日 21:17:11.54 [UIConfig]: 重置UI配置
+28日 21:17:11.57 [WebSettingsActivity]: WebSettingsActivity.getTabs: []
+28日 21:17:11.61 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:11.62 [MainActivity]: isModuleActivated: true
+28日 21:17:14.03 [MainActivity]: 准备载入用户配置: index=4, showName=惠琴, userId=2088602261779903
+28日 21:17:14.03 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:17:14.03 [MainActivity]: Intent已配置: userId=2088602261779903, userName=惠琴
+28日 21:17:14.03 [MainActivity]: 正在启动SettingActivity...
+28日 21:17:14.05 [MainActivity]: SettingActivity启动成功
+28日 21:17:14.07 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:17:14.08 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:17:14.08 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:17:14.08 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088602261779903, userName=惠琴
+28日 21:17:14.08 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:17:14.10 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:17:14.10 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:17:14.10 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:17:14.11 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:17:14.13 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:17:14.14 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:17:14.15 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:17:14.16 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:17:14.17 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:17:14.18 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:17:14.19 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:17:14.20 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:17:14.21 [Config]: 开始加载配置
+28日 21:17:14.21 [Config]: 加载配置: 惠琴
+28日 21:17:14.22 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+28日 21:17:14.24 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+28日 21:17:14.25 [Config]: 格式化配置: 惠琴
+28日 21:17:14.26 获取 只收能量时间 配置: [0658-0731]
+28日 21:17:14.26 模块休眠时间 配置已关闭
+28日 21:17:14.26 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:17:14.26 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:17:14.28 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:17:14.29 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:17:14.29 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:17:14.29 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:17:14.29 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:17:14.29 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:17:14.29 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:17:14.30 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:17:14.30 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:17:14.30 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:17:14.30 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:17:14.31 [WebSettingsActivity]: onCreate发生异常: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+28日 21:17:14.31 ⚠️ 错误【NullPointerException:Parameter specified as non-null is null: method fa】已出现3次，后续将不再打印详细堆栈
+28日 21:17:14.32 [ToastUtil]: showToast: 初始化失败: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
+28日 21:17:14.38 [UIConfig]: 重置UI配置
+28日 21:17:14.44 [WebSettingsActivity]: WebSettingsActivity.getTabs: []
+28日 21:17:14.46 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:14.46 [MainActivity]: isModuleActivated: true
+28日 21:17:18.05 [UIConfig]: 重置UI配置
+28日 21:17:18.12 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:18.12 [MainActivity]: isModuleActivated: true
+28日 21:17:19.49 [UIConfig]: 重置UI配置
+28日 21:17:19.57 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:19.57 [MainActivity]: isModuleActivated: true
+28日 21:17:20.88 [UIConfig]: 重置UI配置
+28日 21:17:20.95 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:20.95 [MainActivity]: isModuleActivated: true
+28日 21:17:23.37 [UIConfig]: 重置UI配置
+28日 21:17:23.44 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:17:23.45 [MainActivity]: isModuleActivated: true
