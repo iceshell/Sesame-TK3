@@ -65,8 +65,8 @@ android {
 
         versionCode = gitCommitCount
         val buildTag = "release"
-        // 重构版本号，使用versionCode自动递增
-        versionName = "v0.3.0.重构版rc$versionCode-$buildTag"
+        // 版本号规范：遵循语义化版本+构建号
+        versionName = "0.3.0-rc$versionCode"
 
         buildConfigField("String", "BUILD_DATE", "\"$buildDate\"")
         buildConfigField("String", "BUILD_TIME", "\"$buildTime\"")
@@ -117,7 +117,7 @@ android {
         getByName("debug") {
             isDebuggable = true
             // applicationIdSuffix = ".debug"  // ✅ 已移除后缀，Debug和Release使用相同包名，可覆盖安装
-            versionNameSuffix = ".debug"
+            // versionNameSuffix = ".debug"  // ✅ 移除versionNameSuffix，统一在APK文件名中体现
             isShrinkResources = false
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -151,8 +151,9 @@ android {
     applicationVariants.all {
         val variant = this
         variant.outputs.all {
-            val buildType = variant.buildType.name.replaceFirstChar { it.uppercase() }
-            val fileName = "Sesame-TK-${variant.versionName}-$buildType.apk"
+            val buildType = variant.buildType.name.lowercase()
+            // APK命名规范：sesame-tk-版本号-构建类型.apk
+            val fileName = "sesame-tk-v${variant.versionName}-$buildType.apk"
             (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = fileName
         }
     }
