@@ -1,0 +1,111 @@
+28日 01:21:47.37 [AntSports]: 完成任务🧾[每日步数500步]
+28日 01:21:48.07 [AntSports]: 完成任务🧾[逛一逛运动线上跑]
+28日 01:21:48.59 [AntSports]: 完成任务🧾[参与NBA抽奖1次]
+28日 01:21:48.73 [AntSports]: 完成任务🧾[逛一逛蚂蚁森林]
+28日 01:21:49.29 [AntSports]: 完成任务🧾[参加走路挑战赛1次]
+28日 01:21:50.09 [AntSports]: 领取奖励🎖️[逛一逛运动线上跑]#运动粒*10
+28日 01:21:50.33 [AntSports]: 领取奖励🎖️[参与NBA抽奖1次]#运动粒*10
+28日 01:21:50.86 [AntSports]: 领取奖励🎖️[逛一逛蚂蚁森林]#运动粒*10
+28日 01:21:51.08 [AntSports]: 领取奖励🎖️[参加走路挑战赛1次]#运动粒*100
+28日 01:21:55.02 会员签到📅[3积分]#已签到3天
+28日 01:21:56.14 会员积分🎖️[领取爱心捐赠]#2积分
+28日 01:21:56.54 会员积分🎖️[领取爱心捐赠]#2积分
+28日 01:21:56.95 会员积分🎖️[领取爱心捐赠]#2积分
+28日 01:21:57.35 会员积分🎖️[领取爱心捐赠]#2积分
+28日 01:21:57.77 会员积分🎖️[领取爱心捐赠]#2积分
+28日 01:22:02.69 [AntMember]: 芝麻信用💳[完成任务坚持领积分失败]#{"ariverRpcTraceId":"21ba533117615857216407234e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857216407234e461b"}
+28日 01:22:03.58 [AntMember]: 芝麻信用💳[完成任务逛网商福利失败]#{"ariverRpcTraceId":"21ba533117615857225737252e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857225737252e461b"}
+28日 01:22:04.58 [AntMember]: 芝麻信用💳[完成任务坚持逛回收失败]#{"ariverRpcTraceId":"21ba533117615857235027271e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857235027271e461b"}
+28日 01:22:05.09 [AntMember]: 芝麻信用💳[领取任务坚持领支付宝积分失败]#{"ariverRpcTraceId":"21ba533117615857240217283e461b","resultCode":"PROMISE_HAS_PROCESSING_TEMPLATE","resultView":"存在进行中的生活记录","success":false,"traceId":"21ba533117615857240217283e461b"}
+28日 01:22:06.08 [AntMember]: 芝麻信用💳[完成任务去玩小游戏失败]#{"ariverRpcTraceId":"21ba533117615857250187304e461b","resultCode":"ILLEGAL_ARGUMENT","resultView":"参数[promiseActivityExtCheck]不是有效的入参","success":false,"traceId":"21ba533117615857250187304e461b"}
+28日 01:22:08.03 [AntMember]: 芝麻信用💳[完成任务逛一逛集汗滴找现金失败]#{"ariverRpcTraceId":"21ba533117615857269367336e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857269367336e461b"}
+28日 01:22:08.92 [AntMember]: 芝麻信用💳[完成任务坚持浏览乐游记失败]#{"ariverRpcTraceId":"21ba533117615857279107348e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857279107348e461b"}
+28日 01:22:09.90 [AntMember]: 芝麻信用💳[完成任务逛一逛芝麻树失败]#{"ariverRpcTraceId":"21ba533117615857288047362e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857288047362e461b"}
+28日 01:22:10.86 [AntMember]: 芝麻信用💳[完成任务享信用生活新范式失败]#{"ariverRpcTraceId":"21ba533117615857297737374e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857297737374e461b"}
+28日 01:22:11.76 [AntMember]: 芝麻信用💳[完成任务逛商家积分兑好物失败]#{"ariverRpcTraceId":"21ba533117615857307387390e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857307387390e461b"}
+28日 01:22:12.67 [AntMember]: 芝麻信用💳[完成任务坚持逛福气鱼塘失败]#{"ariverRpcTraceId":"21ba533117615857316457405e461b","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21ba533117615857316457405e461b"}
+28日 01:22:13.18 [AntMember]: 芝麻信用💳[领取任务去浏览租赁会场失败]#{"ariverRpcTraceId":"21ba533117615857321617415e461b","resultCode":"PROMISE_TODAY_FINISH_TIMES_LIMIT","resultView":"当天完成任务次数超过限制，请隔天再加入","success":false,"traceId":"21ba533117615857321617415e461b"}
+28日 01:22:14.44 [AntMember]: 芝麻信用💳[领取任务支付宝回收补贴超给力失败]#{"ariverRpcTraceId":"21ba533117615857334187447e461b","resultCode":"PROMISE_HAS_PROCESSING_TEMPLATE","resultView":"存在进行中的生活记录","success":false,"traceId":"21ba533117615857334187447e461b"}
+28日 01:22:14.99 [AntMember]: 芝麻信用💳[领取任务逛网商领福利金兑权益失败]#{"ariverRpcTraceId":"21ba533117615857339477462e461b","resultCode":"PROMISE_HAS_PROCESSING_TEMPLATE","resultView":"存在进行中的生活记录","success":false,"traceId":"21ba533117615857339477462e461b"}
+28日 01:22:20.06 芝麻信用💳[任务奖励]#3粒(一键收取)
+28日 01:22:20.06 芝麻信用💳[任务奖励]#8粒(一键收取)
+28日 01:22:20.07 芝麻信用💳[任务奖励]#8粒(一键收取)
+28日 06:19:46.86 [AntSports]: 同步步数🏃🏻‍♂️[100000步]
+28日 06:46:53.23 请先开启芭芭农场！
+28日 06:47:06.87 [AntSports]: 同步步数🏃🏻‍♂️[100000步]
+28日 06:51:35.90 [AntSports]: 捐出活动❤️[100000步]#兑换0.28元公益金
+28日 06:51:41.55 [AntSports]: 完成任务🧾[每日步数500步]
+28日 06:51:42.28 [AntSports]: 完成任务🧾[逛一逛运动线上跑]
+28日 06:51:42.46 [AntSports]: 完成任务🧾[参与NBA抽奖1次]
+28日 06:51:43.10 [AntSports]: 完成任务🧾[逛一逛蚂蚁森林]
+28日 06:51:43.26 [AntSports]: 完成任务🧾[参加走路挑战赛1次]
+28日 06:51:44.08 [AntSports]: 领取奖励🎖️[逛一逛运动线上跑]#运动粒*10
+28日 06:51:44.59 [AntSports]: 领取奖励🎖️[参与NBA抽奖1次]#运动粒*10
+28日 06:51:44.84 [AntSports]: 领取奖励🎖️[逛一逛蚂蚁森林]#运动粒*10
+28日 06:51:45.44 [AntSports]: 领取奖励🎖️[参加走路挑战赛1次]#运动粒*100
+28日 06:51:46.89 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了30500步
+28日 06:51:47.72 [AntSports]: 文体宝箱🎁[运动粒*7]
+28日 06:51:47.72 [AntSports]: 完成线路🚶🏻‍♂️[卡塔尔风情线]
+28日 06:51:48.62 [AntSports]: 加入线路🚶🏻‍♂️[卡塔尔风情线]
+28日 06:51:50.14 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了30500步
+28日 06:51:50.94 [AntSports]: 文体宝箱🎁[运动粒*13]
+28日 06:51:50.95 [AntSports]: 完成线路🚶🏻‍♂️[卡塔尔风情线]
+28日 06:51:52.06 [AntSports]: 加入线路🚶🏻‍♂️[卡塔尔风情线]
+28日 06:51:53.50 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了30500步
+28日 06:51:54.43 [AntSports]: 文体宝箱🎁[运动粒*5]
+28日 06:51:54.44 [AntSports]: 完成线路🚶🏻‍♂️[卡塔尔风情线]
+28日 06:51:55.33 [AntSports]: 加入线路🚶🏻‍♂️[卡塔尔风情线]
+28日 06:51:56.83 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了20500步
+28日 06:51:57.89 [AntSports]: 文体宝箱🎁[运动粒*14]
+28日 12:50:45.63 题目📒 [“方寸之间镌刻思念”是哪个职业的特点] | 选项: [篆刻师, 墓碑设计师]
+28日 12:50:45.64 普通回答🤖 [篆刻师]
+28日 12:51:53.32 [AntSports]: 捐出活动❤️[100000步]#兑换0.28元公益金
+28日 12:51:54.11 [AntSports]: 完成任务🧾[每日步数500步]
+28日 12:51:54.86 [AntSports]: 完成任务🧾[逛一逛运动线上跑]
+28日 12:51:55.18 [AntSports]: 完成任务🧾[参与NBA抽奖1次]
+28日 12:51:55.67 [AntSports]: 完成任务🧾[逛一逛蚂蚁森林]
+28日 12:51:55.95 [AntSports]: 完成任务🧾[参加走路挑战赛1次]
+28日 12:51:56.78 [AntSports]: 领取奖励🎖️[逛一逛运动线上跑]#运动粒*10
+28日 12:51:57.31 [AntSports]: 领取奖励🎖️[参与NBA抽奖1次]#运动粒*10
+28日 12:51:57.63 [AntSports]: 领取奖励🎖️[逛一逛蚂蚁森林]#运动粒*10
+28日 12:51:58.19 [AntSports]: 领取奖励🎖️[参加走路挑战赛1次]#运动粒*100
+28日 12:51:59.75 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了30500步
+28日 12:52:00.64 [AntSports]: 文体宝箱🎁[运动粒*5]
+28日 12:52:00.64 [AntSports]: 完成线路🚶🏻‍♂️[卡塔尔风情线]
+28日 12:52:01.72 [AntSports]: 加入线路🚶🏻‍♂️[卡塔尔风情线]
+28日 12:52:03.23 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了30500步
+28日 12:52:04.13 [AntSports]: 文体宝箱🎁[运动粒*9]
+28日 12:52:04.13 [AntSports]: 完成线路🚶🏻‍♂️[卡塔尔风情线]
+28日 12:52:05.07 [AntSports]: 加入线路🚶🏻‍♂️[卡塔尔风情线]
+28日 12:52:06.76 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了30500步
+28日 12:52:07.63 [AntSports]: 文体宝箱🎁[运动粒*6]
+28日 12:52:07.64 [AntSports]: 完成线路🚶🏻‍♂️[卡塔尔风情线]
+28日 12:52:08.57 [AntSports]: 加入线路🚶🏻‍♂️[卡塔尔风情线]
+28日 12:52:10.31 [AntSports]: 行走线路🚶🏻‍♂️[卡塔尔风情线]#前进了21500步
+28日 12:52:11.20 [AntSports]: 文体宝箱🎁[运动粒*9]
+28日 17:59:01.68 [AntSports]: 捐出活动❤️[100000步]#兑换0.26元公益金
+28日 17:59:04.16 [AntSports]: 行走线路🚶🏻‍♂️[2014德国冠军之路]#前进了43450步
+28日 17:59:05.09 [AntSports]: 文体宝箱🎁[运动粒*14]
+28日 17:59:05.10 [AntSports]: 完成线路🚶🏻‍♂️[2014德国冠军之路]
+28日 17:59:06.05 [AntSports]: 加入线路🚶🏻‍♂️[2014德国冠军之路]
+28日 17:59:07.57 [AntSports]: 行走线路🚶🏻‍♂️[2014德国冠军之路]#前进了43450步
+28日 17:59:08.49 [AntSports]: 文体宝箱🎁[运动粒*6]
+28日 17:59:08.49 [AntSports]: 完成线路🚶🏻‍♂️[2014德国冠军之路]
+28日 17:59:09.43 [AntSports]: 加入线路🚶🏻‍♂️[2014德国冠军之路]
+28日 17:59:10.80 [AntSports]: 行走线路🚶🏻‍♂️[2014德国冠军之路]#前进了30321步
+28日 17:59:11.72 [AntSports]: 文体宝箱🎁[运动粒*5]
+28日 17:59:13.82 会员积分🎖️[领取美食饮品]#2积分
+28日 17:59:18.53 [AntMember]: 芝麻信用💳[完成任务逛网商福利失败]#{"ariverRpcTraceId":"21848dd817616455574688520e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455574688520e793e"}
+28日 17:59:19.02 [AntMember]: 芝麻信用💳[完成任务坚持领积分失败]#{"ariverRpcTraceId":"21848dd817616455579318575e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455579318575e793e"}
+28日 17:59:19.98 [AntMember]: 芝麻信用💳[完成任务租1笔图书失败]#{"ariverRpcTraceId":"21848dd817616455589088677e793e","resultCode":"ILLEGAL_ARGUMENT","resultView":"参数[promiseActivityExtCheck]不是有效的入参","success":false,"traceId":"21848dd817616455589088677e793e"}
+28日 17:59:20.98 [AntMember]: 芝麻信用💳[完成任务逛商家积分兑好物失败]#{"ariverRpcTraceId":"21848dd817616455598618762e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455598618762e793e"}
+28日 17:59:21.46 [AntMember]: 芝麻信用💳[完成任务享信用生活新范式失败]#{"ariverRpcTraceId":"21848dd817616455603968798e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455603968798e793e"}
+28日 17:59:21.91 [AntMember]: 芝麻信用💳[完成任务逛一逛芝麻树失败]#{"ariverRpcTraceId":"21848dd817616455608288842e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455608288842e793e"}
+28日 17:59:22.46 [AntMember]: 芝麻信用💳[完成任务坚持浏览乐游记失败]#{"ariverRpcTraceId":"21848dd817616455613488891e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455613488891e793e"}
+28日 17:59:22.86 [AntMember]: 芝麻信用💳[完成任务逛一逛集汗滴找现金失败]#{"ariverRpcTraceId":"21848dd817616455617898954e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455617898954e793e"}
+28日 17:59:23.42 [AntMember]: 芝麻信用💳[完成任务去玩小游戏失败]#{"ariverRpcTraceId":"21848dd817616455623471006e793e","resultCode":"ILLEGAL_ARGUMENT","resultView":"参数[promiseActivityExtCheck]不是有效的入参","success":false,"traceId":"21848dd817616455623471006e793e"}
+28日 17:59:23.83 [AntMember]: 芝麻信用💳[完成任务支付宝回收补贴超给力失败]#{"ariverRpcTraceId":"21848dd817616455627481069e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455627481069e793e"}
+28日 17:59:24.38 [AntMember]: 芝麻信用💳[完成任务逛网商领福利金兑权益失败]#{"ariverRpcTraceId":"21848dd817616455633071106e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455633071106e793e"}
+28日 17:59:24.78 [AntMember]: 芝麻信用💳[完成任务坚持领支付宝积分失败]#{"ariverRpcTraceId":"21848dd817616455637091155e793e","resultCode":"OP_REPEAT_CHECK","resultView":"操作太频繁，请稍后再试~","success":false,"traceId":"21848dd817616455637091155e793e"}
+28日 17:59:30.07 芝麻信用💳[任务奖励]#6粒(一键收取)
+28日 17:59:30.08 芝麻信用💳[任务奖励]#3粒(一键收取)

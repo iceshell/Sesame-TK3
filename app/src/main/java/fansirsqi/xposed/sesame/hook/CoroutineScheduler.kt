@@ -188,7 +188,8 @@ class CoroutineScheduler(private val context: Context) {
     private fun updateNotification(executionTime: Long) {
         val nt = "⏰ 下次执行(协程) ${TimeUtil.getTimeStr(executionTime)}"
         Notify.updateNextExecText(executionTime)
-        Toast.show(nt)
+        // 移除Toast.show，避免频繁弹出提示打扰用户
+        // Toast.show(nt)
         Log.record(TAG, nt)
     }
     

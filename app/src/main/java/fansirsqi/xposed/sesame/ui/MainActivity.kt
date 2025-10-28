@@ -405,6 +405,13 @@ class MainActivity : BaseActivity() {
     }
 
     private fun goFriendWatch(index: Int) {
+        // 添加边界检查，防止数组越界导致闪退
+        if (index < 0 || index >= userEntityArray.size) {
+            ToastUtil.showToast(this, "无效的账号选择索引！")
+            Log.error("MainActivity", "goFriendWatch: 索引越界 index=$index, size=${userEntityArray.size}")
+            return
+        }
+        
         val userEntity = userEntityArray[index]
         if (userEntity != null) {
             ListDialog.show(
@@ -422,6 +429,13 @@ class MainActivity : BaseActivity() {
 
     private fun goSettingActivity(index: Int) {
         if (Detector.loadLibrary("checker")) {
+            // 添加边界检查，防止数组越界导致闪退
+            if (index < 0 || index >= userEntityArray.size) {
+                ToastUtil.showToast(this, "无效的账号选择索引！")
+                Log.error("MainActivity", "goSettingActivity: 索引越界 index=$index, size=${userEntityArray.size}")
+                return
+            }
+            
             val userEntity = userEntityArray[index]
             Log.runtime("载入用户配置 ${userEntity?.showName}")
             val targetActivity = UIConfig.INSTANCE.targetActivityClass

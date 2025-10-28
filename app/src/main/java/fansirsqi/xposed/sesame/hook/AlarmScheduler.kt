@@ -407,7 +407,8 @@ class AlarmScheduler(private val context: Context) {
     private fun updateNotification(exactTimeMillis: Long) {
         val nt = "⏰ 下次执行(Alarm) " + TimeUtil.getTimeStr(exactTimeMillis)
         Notify.updateNextExecText(exactTimeMillis)
-        Toast.show(nt)
+        // 移除Toast.show，避免频繁弹出提示打扰用户
+        // Toast.show(nt)
         Log.record(TAG, nt)
     }
 
