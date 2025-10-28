@@ -447,28 +447,43 @@ class MainActivity : BaseActivity() {
     }
 
     private fun goSettingActivity(index: Int) {
-        if (Detector.loadLibrary("checker")) {
-            // 添加边界检查，防止数组越界导致闪退
-            if (index < 0 || index >= userEntityArray.size) {
-                ToastUtil.showToast(this, "无效的账号选择索引！")
-                Log.error("MainActivity", "goSettingActivity: 索引越界 index=$index, size=${userEntityArray.size}")
-                return
-            }
-            
-            val userEntity = userEntityArray[index]
-            Log.runtime("载入用户配置 ${userEntity?.showName}")
-            val targetActivity = UIConfig.INSTANCE.targetActivityClass
-            val intent = Intent(this, targetActivity)
-            if (userEntity != null) {
-                intent.putExtra("userId", userEntity.userId)
-                intent.putExtra("userName", userEntity.showName)
+        try {
+            if (Detector.loadLibrary("checker")) {
+                // 添加边界检查，防止数组越界导致闪退
+                if (index < 0 || index >= userEntityArray.size) {
+                    ToastUtil.showToast(this, "无效的账号选择索引！")
+                    Log.error(TAG, "goSettingActivity: 索引越界 index=$index, size=${userEntityArray.size}")
+                    return
+                }
+                
+                val userEntity = userEntityArray[index]
+                Log.runtime(TAG, "准备载入用户配置: index=$index, showName=${userEntity?.showName}, userId=${userEntity?.userId}")
+                
+                val targetActivity = UIConfig.INSTANCE.targetActivityClass
+                Log.runtime(TAG, "目标Activity: ${targetActivity.name}")
+                
+                val intent = Intent(this, targetActivity)
+                if (userEntity != null) {
+                    intent.putExtra("userId", userEntity.userId)
+                    intent.putExtra("userName", userEntity.showName)
+                    Log.runtime(TAG, "Intent已配置: userId=${userEntity.userId}, userName=${userEntity.showName}")
+                } else {
+                    ToastUtil.showToast(this, "请选择有效用户！")
+                    Log.error(TAG, "goSettingActivity: userEntity为null")
+                    return
+                }
+                
+                Log.runtime(TAG, "正在启动SettingActivity...")
+                startActivity(intent)
+                Log.runtime(TAG, "SettingActivity启动成功")
             } else {
-                ToastUtil.showToast(this, "请选择有效用户！")
-                return
+                Detector.tips(this, "缺少必要依赖！")
+                Log.error(TAG, "goSettingActivity: checker库加载失败")
             }
-            startActivity(intent)
-        } else {
-            Detector.tips(this, "缺少必要依赖！")
+        } catch (e: Exception) {
+            Log.error(TAG, "goSettingActivity发生异常: ${e.message}")
+            Log.printStackTrace(TAG, e)
+            ToastUtil.showToast(this, "启动设置页面失败: ${e.message}")
         }
     }
 
