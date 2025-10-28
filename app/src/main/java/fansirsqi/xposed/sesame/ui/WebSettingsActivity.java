@@ -212,6 +212,7 @@ public class WebSettingsActivity extends BaseActivity {
             settings.setDefaultTextEncodingName(StandardCharsets.UTF_8.name());
             Log.runtime(TAG, "onCreate: WebSettings配置完成");
             
+            Log.runtime(TAG, "onCreate: 准备加载WebView内容");
             webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -232,26 +233,35 @@ public class WebSettingsActivity extends BaseActivity {
                 Toast.makeText(context, "Forbidden Scheme:\"" + scheme + "\"", Toast.LENGTH_SHORT).show();
                 return false;
             }
-        });
-        if (BuildConfig.DEBUG) {
-            WebView.setWebContentsDebuggingEnabled(true);
+            });
+            Log.runtime(TAG, "onCreate: WebViewClient设置完成");
+            
+            if (BuildConfig.DEBUG) {
+                WebView.setWebContentsDebuggingEnabled(true);
 //            webView.loadUrl("http://192.168.31.69:5500/app/src/main/assets/web/index.html");
-            webView.loadUrl("file:///android_asset/web/index.html");
-        } else {
-            webView.loadUrl("file:///android_asset/web/index.html");
-        }
-        webView.addJavascriptInterface(new WebViewCallback(), "HOOK");
+                webView.loadUrl("file:///android_asset/web/index.html");
+            } else {
+                webView.loadUrl("file:///android_asset/web/index.html");
+            }
+            Log.runtime(TAG, "onCreate: WebView loadUrl完成");
+            
+            webView.addJavascriptInterface(new WebViewCallback(), "HOOK");
+            Log.runtime(TAG, "onCreate: JavaScript接口注册完成");
 
-        webView.requestFocus();
-        Map<String, ModelConfig> modelConfigMap = ModelTask.getModelConfigMap();
-        for (Map.Entry<String, ModelConfig> configEntry : modelConfigMap.entrySet()) {
-            ModelConfig modelConfig = configEntry.getValue();
-            // 修复：modelFields不能为null，使用空列表
-            tabList.add(new ModelDto(configEntry.getKey(), modelConfig.getName(), modelConfig.getIcon(), modelConfig.getGroup().getCode(), new ArrayList<>()));
-        }
-        for (ModelGroup modelGroup : ModelGroup.values()) {
-            groupList.add(new ModelGroupDto(modelGroup.getCode(), modelGroup.getName(), modelGroup.getIcon()));
-        }
+            webView.requestFocus();
+            Log.runtime(TAG, "onCreate: 准备填充tabList和groupList");
+            Map<String, ModelConfig> modelConfigMap = ModelTask.getModelConfigMap();
+            for (Map.Entry<String, ModelConfig> configEntry : modelConfigMap.entrySet()) {
+                ModelConfig modelConfig = configEntry.getValue();
+                // 修复：modelFields不能为null，使用空列表
+                tabList.add(new ModelDto(configEntry.getKey(), modelConfig.getName(), modelConfig.getIcon(), modelConfig.getGroup().getCode(), new ArrayList<>()));
+            }
+            Log.runtime(TAG, "onCreate: tabList填充完成, size=" + tabList.size());
+            
+            for (ModelGroup modelGroup : ModelGroup.values()) {
+                groupList.add(new ModelGroupDto(modelGroup.getCode(), modelGroup.getName(), modelGroup.getIcon()));
+            }
+            Log.runtime(TAG, "onCreate: groupList填充完成, size=" + groupList.size());
             Log.runtime(TAG, "onCreate: 准备设置水印");
             WatermarkView watermarkView = WatermarkView.Companion.install(this);
             String tag = "用户: " + userName + "\n ID: " + userId;

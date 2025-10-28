@@ -1,205 +1,179 @@
-28日 21:16:59.75 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 30079
-28日 21:16:59.91 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
-28日 21:16:59.92 [ServiceManager]: ServiceManager initialized and listener registered.
-28日 21:17:00.12 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
-28日 21:17:00.13 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
-28日 21:17:00.25 [UIConfig]: 重置UI配置
-28日 21:17:00.35 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:00.35 [MainActivity]: isModuleActivated: true
-28日 21:17:04.76 [UIConfig]: 重置UI配置
-28日 21:17:04.83 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:04.83 [MainActivity]: isModuleActivated: true
-28日 21:17:06.75 [MainActivity]: 准备载入用户配置: index=0, showName=機風, userId=2088632752200481
-28日 21:17:06.75 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:17:06.75 [MainActivity]: Intent已配置: userId=2088632752200481, userName=機風
-28日 21:17:06.75 [MainActivity]: 正在启动SettingActivity...
-28日 21:17:06.77 [MainActivity]: SettingActivity启动成功
-28日 21:17:06.79 [WebSettingsActivity]: onCreate: 开始初始化
-28日 21:17:06.81 [WebSettingsActivity]: onCreate: super.onCreate完成
-28日 21:17:06.81 [WebSettingsActivity]: onCreate: 准备获取Intent
-28日 21:17:06.81 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088632752200481, userName=機風
-28日 21:17:06.81 [WebSettingsActivity]: onCreate: 准备初始化Model
-28日 21:17:06.88 [WebSettingsActivity]: onCreate: Model初始化完成
-28日 21:17:06.88 [WebSettingsActivity]: onCreate: 准备设置UserMap
-28日 21:17:06.88 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
-28日 21:17:06.90 [WebSettingsActivity]: onCreate: UserMap.load完成
-28日 21:17:06.91 [WebSettingsActivity]: onCreate: CooperateMap加载完成
-28日 21:17:06.92 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
-28日 21:17:06.93 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
-28日 21:17:06.94 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
-28日 21:17:06.95 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:17:06.96 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
-28日 21:17:06.97 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:17:06.98 [WebSettingsActivity]: onCreate: BeachMap加载完成
-28日 21:17:06.99 [Config]: 开始加载配置
-28日 21:17:06.99 [Config]: 加载配置: 機風
-28日 21:17:07.00 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
-28日 21:17:07.04 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
-28日 21:17:07.10 获取 只收能量时间 配置: [0658-0731]
-28日 21:17:07.10 模块休眠时间 配置已关闭
-28日 21:17:07.10 [WebSettingsActivity]: onCreate: Config加载完成
-28日 21:17:07.10 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
-28日 21:17:07.13 [WebSettingsActivity]: onCreate: setContentView完成
-28日 21:17:07.13 [WebSettingsActivity]: onCreate: 准备设置返回键处理
-28日 21:17:07.13 [WebSettingsActivity]: onCreate: 返回键处理设置完成
-28日 21:17:07.13 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
-28日 21:17:07.14 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
-28日 21:17:07.14 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
-28日 21:17:07.14 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
-28日 21:17:07.14 [WebSettingsActivity]: onCreate: 标题设置完成
-28日 21:17:07.14 [WebSettingsActivity]: onCreate: 准备初始化WebView
-28日 21:17:07.14 [WebSettingsActivity]: onCreate: WebView findViewById完成
-28日 21:17:07.14 [WebSettingsActivity]: onCreate: WebSettings配置完成
-28日 21:17:07.15 [WebSettingsActivity]: onCreate发生异常: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-28日 21:17:07.16 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-	at fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>(Unknown Source:22)
-	at fansirsqi.xposed.sesame.ui.WebSettingsActivity.onCreate(WebSettingsActivity.java:249)
-	at android.app.Activity.performCreate(Activity.java:8143)
-	at android.app.Activity.performCreate(Activity.java:8114)
-	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1310)
-	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3513)
-	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3700)
-	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)
-	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
-	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
-	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2136)
-	at android.os.Handler.dispatchMessage(Handler.java:106)
-	at android.os.Looper.loop(Looper.java:236)
-	at android.app.ActivityThread.main(ActivityThread.java:8060)
-	at java.lang.reflect.Method.invoke(Native Method)
-	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
-	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
-
-28日 21:17:07.16 [ToastUtil]: showToast: 初始化失败: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-28日 21:17:07.21 [UIConfig]: 重置UI配置
-28日 21:17:07.30 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:07.30 [MainActivity]: isModuleActivated: true
-28日 21:17:07.42 [WebSettingsActivity]: WebSettingsActivity.getTabs: []
-28日 21:17:11.19 [MainActivity]: 准备载入用户配置: index=1, showName=風, userId=2088942482497175
-28日 21:17:11.19 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:17:11.19 [MainActivity]: Intent已配置: userId=2088942482497175, userName=風
-28日 21:17:11.20 [MainActivity]: 正在启动SettingActivity...
-28日 21:17:11.21 [MainActivity]: SettingActivity启动成功
-28日 21:17:11.23 [WebSettingsActivity]: onCreate: 开始初始化
-28日 21:17:11.25 [WebSettingsActivity]: onCreate: super.onCreate完成
-28日 21:17:11.25 [WebSettingsActivity]: onCreate: 准备获取Intent
-28日 21:17:11.25 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088942482497175, userName=風
-28日 21:17:11.25 [WebSettingsActivity]: onCreate: 准备初始化Model
-28日 21:17:11.27 [WebSettingsActivity]: onCreate: Model初始化完成
-28日 21:17:11.27 [WebSettingsActivity]: onCreate: 准备设置UserMap
-28日 21:17:11.27 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
-28日 21:17:11.28 [WebSettingsActivity]: onCreate: UserMap.load完成
-28日 21:17:11.29 [WebSettingsActivity]: onCreate: CooperateMap加载完成
-28日 21:17:11.31 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
-28日 21:17:11.32 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
-28日 21:17:11.33 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
-28日 21:17:11.34 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:17:11.35 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
-28日 21:17:11.36 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:17:11.37 [WebSettingsActivity]: onCreate: BeachMap加载完成
-28日 21:17:11.37 [Config]: 开始加载配置
-28日 21:17:11.38 [Config]: 加载配置: 風
-28日 21:17:11.39 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-28日 21:17:11.41 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088942482497175/config_v2.json
-28日 21:17:11.42 [Config]: 格式化配置: 風
-28日 21:17:11.42 获取 只收能量时间 配置: [0658-0731]
-28日 21:17:11.43 模块休眠时间 配置已关闭
-28日 21:17:11.43 [WebSettingsActivity]: onCreate: Config加载完成
-28日 21:17:11.43 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
-28日 21:17:11.45 [WebSettingsActivity]: onCreate: setContentView完成
-28日 21:17:11.46 [WebSettingsActivity]: onCreate: 准备设置返回键处理
-28日 21:17:11.46 [WebSettingsActivity]: onCreate: 返回键处理设置完成
-28日 21:17:11.46 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
-28日 21:17:11.46 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
-28日 21:17:11.46 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
-28日 21:17:11.46 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
-28日 21:17:11.46 [WebSettingsActivity]: onCreate: 标题设置完成
-28日 21:17:11.47 [WebSettingsActivity]: onCreate: 准备初始化WebView
-28日 21:17:11.47 [WebSettingsActivity]: onCreate: WebView findViewById完成
-28日 21:17:11.47 [WebSettingsActivity]: onCreate: WebSettings配置完成
-28日 21:17:11.48 [WebSettingsActivity]: onCreate发生异常: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-28日 21:17:11.48 [WebSettingsActivity]: Throwable error: java.lang.NullPointerException: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-	at fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>(Unknown Source:22)
-	at fansirsqi.xposed.sesame.ui.WebSettingsActivity.onCreate(WebSettingsActivity.java:249)
-	at android.app.Activity.performCreate(Activity.java:8143)
-	at android.app.Activity.performCreate(Activity.java:8114)
-	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1310)
-	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3513)
-	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3700)
-	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)
-	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
-	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
-	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2136)
-	at android.os.Handler.dispatchMessage(Handler.java:106)
-	at android.os.Looper.loop(Looper.java:236)
-	at android.app.ActivityThread.main(ActivityThread.java:8060)
-	at java.lang.reflect.Method.invoke(Native Method)
-	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
-	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
-
-28日 21:17:11.48 [ToastUtil]: showToast: 初始化失败: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-28日 21:17:11.54 [UIConfig]: 重置UI配置
-28日 21:17:11.57 [WebSettingsActivity]: WebSettingsActivity.getTabs: []
-28日 21:17:11.61 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:11.62 [MainActivity]: isModuleActivated: true
-28日 21:17:14.03 [MainActivity]: 准备载入用户配置: index=4, showName=惠琴, userId=2088602261779903
-28日 21:17:14.03 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
-28日 21:17:14.03 [MainActivity]: Intent已配置: userId=2088602261779903, userName=惠琴
-28日 21:17:14.03 [MainActivity]: 正在启动SettingActivity...
-28日 21:17:14.05 [MainActivity]: SettingActivity启动成功
-28日 21:17:14.07 [WebSettingsActivity]: onCreate: 开始初始化
-28日 21:17:14.08 [WebSettingsActivity]: onCreate: super.onCreate完成
-28日 21:17:14.08 [WebSettingsActivity]: onCreate: 准备获取Intent
-28日 21:17:14.08 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088602261779903, userName=惠琴
-28日 21:17:14.08 [WebSettingsActivity]: onCreate: 准备初始化Model
-28日 21:17:14.10 [WebSettingsActivity]: onCreate: Model初始化完成
-28日 21:17:14.10 [WebSettingsActivity]: onCreate: 准备设置UserMap
-28日 21:17:14.10 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
-28日 21:17:14.11 [WebSettingsActivity]: onCreate: UserMap.load完成
-28日 21:17:14.13 [WebSettingsActivity]: onCreate: CooperateMap加载完成
-28日 21:17:14.14 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
-28日 21:17:14.15 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
-28日 21:17:14.16 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
-28日 21:17:14.17 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
-28日 21:17:14.18 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
-28日 21:17:14.19 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
-28日 21:17:14.20 [WebSettingsActivity]: onCreate: BeachMap加载完成
-28日 21:17:14.21 [Config]: 开始加载配置
-28日 21:17:14.21 [Config]: 加载配置: 惠琴
-28日 21:17:14.22 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-28日 21:17:14.24 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-28日 21:17:14.25 [Config]: 格式化配置: 惠琴
-28日 21:17:14.26 获取 只收能量时间 配置: [0658-0731]
-28日 21:17:14.26 模块休眠时间 配置已关闭
-28日 21:17:14.26 [WebSettingsActivity]: onCreate: Config加载完成
-28日 21:17:14.26 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
-28日 21:17:14.28 [WebSettingsActivity]: onCreate: setContentView完成
-28日 21:17:14.29 [WebSettingsActivity]: onCreate: 准备设置返回键处理
-28日 21:17:14.29 [WebSettingsActivity]: onCreate: 返回键处理设置完成
-28日 21:17:14.29 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
-28日 21:17:14.29 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
-28日 21:17:14.29 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
-28日 21:17:14.29 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
-28日 21:17:14.30 [WebSettingsActivity]: onCreate: 标题设置完成
-28日 21:17:14.30 [WebSettingsActivity]: onCreate: 准备初始化WebView
-28日 21:17:14.30 [WebSettingsActivity]: onCreate: WebView findViewById完成
-28日 21:17:14.30 [WebSettingsActivity]: onCreate: WebSettings配置完成
-28日 21:17:14.31 [WebSettingsActivity]: onCreate发生异常: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-28日 21:17:14.31 ⚠️ 错误【NullPointerException:Parameter specified as non-null is null: method fa】已出现3次，后续将不再打印详细堆栈
-28日 21:17:14.32 [ToastUtil]: showToast: 初始化失败: Parameter specified as non-null is null: method fansirsqi.xposed.sesame.ui.dto.ModelDto.<init>, parameter modelFields
-28日 21:17:14.38 [UIConfig]: 重置UI配置
-28日 21:17:14.44 [WebSettingsActivity]: WebSettingsActivity.getTabs: []
-28日 21:17:14.46 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:14.46 [MainActivity]: isModuleActivated: true
-28日 21:17:18.05 [UIConfig]: 重置UI配置
-28日 21:17:18.12 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:18.12 [MainActivity]: isModuleActivated: true
-28日 21:17:19.49 [UIConfig]: 重置UI配置
-28日 21:17:19.57 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:19.57 [MainActivity]: isModuleActivated: true
-28日 21:17:20.88 [UIConfig]: 重置UI配置
-28日 21:17:20.95 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:20.95 [MainActivity]: isModuleActivated: true
-28日 21:17:23.37 [UIConfig]: 重置UI配置
-28日 21:17:23.44 [MainActivity]: 加载用户配置: 共5个账号
-28日 21:17:23.45 [MainActivity]: isModuleActivated: true
+28日 21:21:28.36 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 31858
+28日 21:21:28.53 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
+28日 21:21:28.54 [ServiceManager]: ServiceManager initialized and listener registered.
+28日 21:21:28.72 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+28日 21:21:28.74 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+28日 21:21:28.85 [UIConfig]: 重置UI配置
+28日 21:21:28.95 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:21:28.95 [MainActivity]: isModuleActivated: true
+28日 21:21:32.89 [UIConfig]: 重置UI配置
+28日 21:21:32.95 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:21:32.96 [MainActivity]: isModuleActivated: true
+28日 21:21:34.51 [MainActivity]: 准备载入用户配置: index=0, showName=機風, userId=2088632752200481
+28日 21:21:34.52 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:21:34.52 [MainActivity]: Intent已配置: userId=2088632752200481, userName=機風
+28日 21:21:34.52 [MainActivity]: 正在启动SettingActivity...
+28日 21:21:34.53 [MainActivity]: SettingActivity启动成功
+28日 21:21:34.56 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:21:34.57 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:21:34.57 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:21:34.57 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088632752200481, userName=機風
+28日 21:21:34.57 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:21:34.64 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:21:34.65 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:21:34.65 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:21:34.67 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:21:34.69 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:21:34.70 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:21:34.70 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:21:34.71 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:21:34.72 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:21:34.73 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:21:34.74 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:21:34.75 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:21:34.75 [Config]: 开始加载配置
+28日 21:21:34.76 [Config]: 加载配置: 機風
+28日 21:21:34.77 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:21:34.80 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:21:34.85 [Config]: 格式化配置: 機風
+28日 21:21:34.85 获取 只收能量时间 配置: [0658-0731]
+28日 21:21:34.86 模块休眠时间 配置已关闭
+28日 21:21:34.86 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:21:34.86 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:21:34.88 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:21:34.89 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:21:34.90 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:21:34.90 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:21:34.91 [WebSettingsActivity]: onCreate: 准备设置水印
+28日 21:21:34.91 [WebSettingsActivity]: onCreate: 水印设置完成
+28日 21:21:34.91 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
+28日 21:21:35.17 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
+28日 21:21:39.67 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
+28日 21:21:39.78 [UIConfig]: 重置UI配置
+28日 21:21:39.85 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:21:39.86 [MainActivity]: isModuleActivated: true
+28日 21:21:41.96 [MainActivity]: 准备载入用户配置: index=0, showName=機風, userId=2088632752200481
+28日 21:21:41.96 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:21:41.96 [MainActivity]: Intent已配置: userId=2088632752200481, userName=機風
+28日 21:21:41.96 [MainActivity]: 正在启动SettingActivity...
+28日 21:21:41.97 [MainActivity]: SettingActivity启动成功
+28日 21:21:42.00 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:21:42.02 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:21:42.02 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:21:42.02 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088632752200481, userName=機風
+28日 21:21:42.02 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:21:42.04 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:21:42.04 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:21:42.04 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:21:42.06 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:21:42.07 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:21:42.08 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:21:42.09 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:21:42.10 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:21:42.11 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:21:42.12 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:21:42.14 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:21:42.15 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:21:42.15 [Config]: 开始加载配置
+28日 21:21:42.15 [Config]: 加载配置: 機風
+28日 21:21:42.16 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:21:42.18 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+28日 21:21:42.19 [Config]: 格式化配置: 機風
+28日 21:21:42.20 获取 只收能量时间 配置: [0658-0731]
+28日 21:21:42.20 模块休眠时间 配置已关闭
+28日 21:21:42.20 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:21:42.20 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:21:42.23 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:21:42.23 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:21:42.23 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:21:42.23 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:21:42.23 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:21:42.23 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:21:42.23 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:21:42.24 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:21:42.24 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:21:42.24 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:21:42.24 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:21:42.25 [WebSettingsActivity]: onCreate: 准备设置水印
+28日 21:21:42.25 [WebSettingsActivity]: onCreate: 水印设置完成
+28日 21:21:42.25 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
+28日 21:21:42.33 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
+28日 21:21:46.08 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
+28日 21:21:46.59 [UIConfig]: 重置UI配置
+28日 21:21:46.94 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:21:47.03 [MainActivity]: isModuleActivated: true
+28日 21:21:50.19 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+28日 21:21:50.29 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+28日 21:21:50.53 [UIConfig]: 重置UI配置
+28日 21:21:50.98 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:21:51.08 [MainActivity]: isModuleActivated: true
+28日 21:21:54.51 [MainActivity]: 准备载入用户配置: index=4, showName=惠琴, userId=2088602261779903
+28日 21:21:54.53 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+28日 21:21:54.53 [MainActivity]: Intent已配置: userId=2088602261779903, userName=惠琴
+28日 21:21:54.53 [MainActivity]: 正在启动SettingActivity...
+28日 21:21:54.55 [MainActivity]: SettingActivity启动成功
+28日 21:21:54.57 [WebSettingsActivity]: onCreate: 开始初始化
+28日 21:21:54.58 [WebSettingsActivity]: onCreate: super.onCreate完成
+28日 21:21:54.58 [WebSettingsActivity]: onCreate: 准备获取Intent
+28日 21:21:54.58 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088602261779903, userName=惠琴
+28日 21:21:54.59 [WebSettingsActivity]: onCreate: 准备初始化Model
+28日 21:21:54.60 [WebSettingsActivity]: onCreate: Model初始化完成
+28日 21:21:54.60 [WebSettingsActivity]: onCreate: 准备设置UserMap
+28日 21:21:54.60 [WebSettingsActivity]: onCreate: UserMap.setCurrentUserId完成
+28日 21:21:54.62 [WebSettingsActivity]: onCreate: UserMap.load完成
+28日 21:21:54.63 [WebSettingsActivity]: onCreate: CooperateMap加载完成
+28日 21:21:54.64 [WebSettingsActivity]: onCreate: VitalityRewardsMap加载完成
+28日 21:21:54.65 [WebSettingsActivity]: onCreate: MemberBenefitsMap加载完成
+28日 21:21:54.67 [WebSettingsActivity]: onCreate: ParadiseCoinBenefitIdMap加载完成
+28日 21:21:54.68 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+28日 21:21:54.69 [WebSettingsActivity]: onCreate: ReserveaMap加载完成
+28日 21:21:54.70 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+28日 21:21:54.71 [WebSettingsActivity]: onCreate: BeachMap加载完成
+28日 21:21:54.71 [Config]: 开始加载配置
+28日 21:21:54.71 [Config]: 加载配置: 惠琴
+28日 21:21:54.72 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+28日 21:21:54.74 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+28日 21:21:54.75 获取 只收能量时间 配置: [0658-0731]
+28日 21:21:54.75 模块休眠时间 配置已关闭
+28日 21:21:54.75 [WebSettingsActivity]: onCreate: Config加载完成
+28日 21:21:54.75 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+28日 21:21:54.78 [WebSettingsActivity]: onCreate: setContentView完成
+28日 21:21:54.78 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+28日 21:21:54.78 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+28日 21:21:54.78 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+28日 21:21:54.78 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+28日 21:21:54.79 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+28日 21:21:54.79 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+28日 21:21:54.79 [WebSettingsActivity]: onCreate: 标题设置完成
+28日 21:21:54.79 [WebSettingsActivity]: onCreate: 准备初始化WebView
+28日 21:21:54.79 [WebSettingsActivity]: onCreate: WebView findViewById完成
+28日 21:21:54.80 [WebSettingsActivity]: onCreate: WebSettings配置完成
+28日 21:21:54.81 [WebSettingsActivity]: onCreate: 准备设置水印
+28日 21:21:54.81 [WebSettingsActivity]: onCreate: 水印设置完成
+28日 21:21:54.81 [WebSettingsActivity]: onCreate: ✅ WebSettingsActivity初始化完成！
+28日 21:21:54.90 [WebSettingsActivity]: WebSettingsActivity.getTabs: [{"groupCode":"BASE","modelCode":"BaseModel","modelFields":[],"modelIcon":"BaseModel.png","modelName":"基础"},{"groupCode":"FOREST","modelCode":"AntForest","modelFields":[],"modelIcon":"AntForest.png","modelName":"森林"},{"groupCode":"FARM","modelCode":"AntFarm","modelFields":[],"modelIcon":"AntFarm.png","modelName":"庄园"},{"groupCode":"FOREST","modelCode":"AntOcean","modelFields":[],"modelIcon":"AntOcean.png","modelName":"海洋"},{"groupCode":"ORCHARD","modelCode":"AntOrchard","modelFields":[],"modelIcon":"AntOrchard.png","modelName":"农场"},{"groupCode":"STALL","modelCode":"AntStall","modelFields":[],"modelIcon":"AntStall.png","modelName":"新村"},{"groupCode":"FOREST","modelCode":"AntDodo","modelFields":[],"modelIcon":"AntDodo.png","modelName":"神奇物种"},{"groupCode":"FOREST","modelCode":"AntCooperate","modelFields":[],"modelIcon":"AntCooperate.png","modelName":"合种"},{"groupCode":"SPORTS","modelCode":"AntSports","modelFields":[],"modelIcon":"AntSports.png","modelName":"运动"},{"groupCode":"MEMBER","modelCode":"AntMember","modelFields":[],"modelIcon":"AntMember.png","modelName":"会员"},{"groupCode":"FOREST","modelCode":"AncientTree","modelFields":[],"modelIcon":"AncientTree.png","modelName":"古树"},{"groupCode":"OTHER","modelCode":"GreenFinance","modelFields":[],"modelIcon":"GreenFinance.png","modelName":"绿色经营"},{"groupCode":"FOREST","modelCode":"Reserve","modelFields":[],"modelIcon":"Reserve.png","modelName":"保护地"},{"groupCode":"OTHER","modelCode":"AnswerAI","modelFields":[],"modelIcon":"AnswerAI.svg","modelName":"AI答题"}]
+28日 21:22:01.67 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
+28日 21:22:02.26 [UIConfig]: 重置UI配置
+28日 21:22:02.33 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:22:02.33 [MainActivity]: isModuleActivated: true
+28日 21:22:06.70 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+28日 21:22:06.71 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+28日 21:22:06.76 [UIConfig]: 重置UI配置
+28日 21:22:06.82 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:22:06.82 [MainActivity]: isModuleActivated: true
+28日 21:22:11.10 [UIConfig]: 重置UI配置
+28日 21:22:11.19 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:22:11.19 [MainActivity]: isModuleActivated: true
+28日 21:22:13.52 [UIConfig]: 重置UI配置
+28日 21:22:13.58 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:22:13.59 [MainActivity]: isModuleActivated: true
+28日 21:22:15.11 [UIConfig]: 重置UI配置
+28日 21:22:15.17 [MainActivity]: 加载用户配置: 共5个账号
+28日 21:22:15.18 [MainActivity]: isModuleActivated: true
