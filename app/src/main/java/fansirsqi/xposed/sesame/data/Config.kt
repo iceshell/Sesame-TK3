@@ -32,9 +32,54 @@ class Config private constructor() {
     var isInit: Boolean = false
         private set
 
-    /** 存储模型字段的映射 - Jackson会直接操作这个Map */
-    @JvmField
-    val modelFieldsMap: MutableMap<String, ModelFields> = ConcurrentHashMap()
+    /** 存储模型字段的映射 */
+    private val modelFieldsMap: MutableMap<String, ModelFields> = ConcurrentHashMap()
+    
+    /**
+     * 获取模型字段映射（用于序列化）
+     */
+    fun getModelFieldsMap(): MutableMap<String, ModelFields> = modelFieldsMap
+    
+    /**
+     * 设置模型字段映射（用于反序列化）
+     * 这个方法会在Jackson反序列化时被调用
+     */
+    fun setModelFieldsMap(newModels: Map<String, ModelFields>?) {
+        modelFieldsMap.clear()
+        val modelConfigMap = Model.getModelConfigMap()
+        val models = newModels ?: emptyMap()
+
+        // 遍历所有模型配置，从ModelConfig.fields复制字段
+        for ((modelCode, modelConfig) in modelConfigMap.entries) {
+            val newModelFields = ModelFields()
+            val configModelFields = modelConfig.fields
+            val modelFields = models[modelCode]
+
+            if (modelFields != null) {
+                // 如果JSON中有这个模型的配置，用JSON的值覆盖
+                for (configModelField in configModelFields.values) {
+                    val modelField = modelFields[configModelField.code]
+                    try {
+                        if (modelField != null) {
+                            val value = modelField.value
+                            if (value != null) {
+                                configModelField.setObjectValue(value)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.printStackTrace(e)
+                    }
+                    newModelFields.addField(configModelField)
+                }
+            } else {
+                // 如果JSON中没有这个模型，直接复制ModelConfig的字段
+                for (configModelField in configModelFields.values) {
+                    newModelFields.addField(configModelField)
+                }
+            }
+            modelFieldsMap[modelCode] = newModelFields
+        }
+    }
 
     /**
      * 检查是否存在指定的模型字段
@@ -234,38 +279,9 @@ class Config private constructor() {
                 }
             }
 
-            // 同步配置到ModelConfig.fields
-            syncToModelConfig()
-            
             INSTANCE.isInit = true
             TaskCommon.update()
             return INSTANCE
-        }
-        
-        /**
-         * 将Config.modelFieldsMap同步到ModelConfig.fields
-         * 这是关键步骤：让Model实例的字段值与配置文件保持一致
-         */
-        @JvmStatic
-        private fun syncToModelConfig() {
-            val modelConfigMap = Model.getModelConfigMap()
-            for ((modelCode, modelConfig) in modelConfigMap.entries) {
-                val configFields = INSTANCE.modelFieldsMap[modelCode]
-                if (configFields != null) {
-                    // 将Config中的字段值复制到ModelConfig中
-                    for ((fieldCode, configField) in configFields.entries) {
-                        val modelField = modelConfig.fields[fieldCode]
-                        if (modelField != null && configField != null) {
-                            try {
-                                // 使用setObjectValue来设置值，避免类型问题
-                                modelField.setObjectValue(configField.value)
-                            } catch (e: Exception) {
-                                Log.printStackTrace(TAG, "同步字段失败: $modelCode.$fieldCode", e)
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         /**

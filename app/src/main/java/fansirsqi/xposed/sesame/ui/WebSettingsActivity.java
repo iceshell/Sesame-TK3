@@ -428,9 +428,6 @@ public class WebSettingsActivity extends BaseActivity {
             if (modelConfig != null) {
                 try {
                     ModelFields modelFields = modelConfig.getFields();
-                    // 同时获取Config中的字段（用于持久化）
-                    ModelFields configFields = Config.INSTANCE.modelFieldsMap.get(modelCode);
-                    
                     Map<String, ModelFieldShowDto> map = JsonUtil.parseObject(fieldsValue,
                             new TypeReference<Map<String, ModelFieldShowDto>>() {
                             });
@@ -445,18 +442,6 @@ public class WebSettingsActivity extends BaseActivity {
                                         continue;
                                     }
                                     modelField.setConfigValue(configValue);
-                                    
-                                    // 同步到Config.modelFieldsMap
-                                    if (configFields != null) {
-                                        ModelField<?> configField = configFields.get(entry.getKey());
-                                        if (configField != null) {
-                                            try {
-                                                configField.setConfigValue(configValue);
-                                            } catch (Exception ex) {
-                                                Log.printStackTrace("WebSettingsActivity", "同步配置字段失败: " + entry.getKey(), ex);
-                                            }
-                                        }
-                                    }
                                 }
                             }
                         }
