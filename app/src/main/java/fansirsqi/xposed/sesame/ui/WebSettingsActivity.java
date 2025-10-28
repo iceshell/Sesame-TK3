@@ -215,6 +215,18 @@ public class WebSettingsActivity extends BaseActivity {
             Log.runtime(TAG, "onCreate: 准备加载WebView内容");
             webView.setWebViewClient(new WebViewClient() {
             @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.runtime(TAG, "WebView: 页面加载完成 - " + url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                Log.error(TAG, "WebView加载错误: code=" + errorCode + ", desc=" + description + ", url=" + failingUrl);
+            }
+
+            @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 // 强制在当前 WebView 中加载 url
                 Uri requestUrl = request.getUrl();
@@ -235,6 +247,18 @@ public class WebSettingsActivity extends BaseActivity {
             }
             });
             Log.runtime(TAG, "onCreate: WebViewClient设置完成");
+            
+            // 添加WebChromeClient捕获JavaScript错误
+            webView.setWebChromeClient(new android.webkit.WebChromeClient() {
+                @Override
+                public boolean onConsoleMessage(android.webkit.ConsoleMessage consoleMessage) {
+                    Log.runtime(TAG, "WebView Console [" + consoleMessage.messageLevel() + "]: " + 
+                        consoleMessage.message() + " -- From line " + 
+                        consoleMessage.lineNumber() + " of " + consoleMessage.sourceId());
+                    return true;
+                }
+            });
+            Log.runtime(TAG, "onCreate: WebChromeClient设置完成");
             
             if (BuildConfig.DEBUG) {
                 WebView.setWebContentsDebuggingEnabled(true);
