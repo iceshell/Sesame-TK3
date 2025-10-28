@@ -393,20 +393,33 @@ public class WebSettingsActivity extends BaseActivity {
 
         @JavascriptInterface
         public String getModel(String modelCode) {
-            ModelConfig modelConfig = ModelTask.getModelConfigMap().get(modelCode);
-            if (modelConfig != null) {
-                ModelFields modelFields = modelConfig.getFields();
-                List<ModelFieldShowDto> list = new ArrayList<>();
-                for (ModelField<?> modelField : modelFields.values()) {
-                    list.add(ModelFieldShowDto.toShowDto(modelField));
+            try {
+                Log.runtime(TAG, "getModel调用: modelCode=" + modelCode);
+                ModelConfig modelConfig = ModelTask.getModelConfigMap().get(modelCode);
+                if (modelConfig != null) {
+                    ModelFields modelFields = modelConfig.getFields();
+                    List<ModelFieldShowDto> list = new ArrayList<>();
+                    for (ModelField<?> modelField : modelFields.values()) {
+                        try {
+                            list.add(ModelFieldShowDto.toShowDto(modelField));
+                        } catch (Exception e) {
+                            Log.error(TAG, "getModel转换字段失败: field=" + modelField.getCode() + ", error=" + e.getMessage());
+                            Log.printStackTrace(TAG, e);
+                        }
+                    }
+                    String result = JsonUtil.formatJson(list, false);
+                    if (BuildConfig.DEBUG) {
+                        Log.runtime(TAG, "WebSettingsActivity.getModel: " + result);
+                    }
+                    return result;
                 }
-                String result = JsonUtil.formatJson(list, false);
-                if (BuildConfig.DEBUG) {
-                    Log.runtime(TAG, "WebSettingsActivity.getModel: " + result);
-                }
-                return result;
+                Log.error(TAG, "getModel: modelConfig为null, modelCode=" + modelCode);
+                return "[]";
+            } catch (Exception e) {
+                Log.error(TAG, "getModel发生异常: modelCode=" + modelCode + ", error=" + e.getMessage());
+                Log.printStackTrace(TAG, e);
+                return "[]";
             }
-            return null;
         }
 
         @JavascriptInterface
