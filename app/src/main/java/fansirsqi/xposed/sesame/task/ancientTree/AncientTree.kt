@@ -1,0 +1,168 @@
+package fansirsqi.xposed.sesame.task.ancientTree
+
+import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import fansirsqi.xposed.sesame.entity.AreaCode
+import fansirsqi.xposed.sesame.model.ModelFields
+import fansirsqi.xposed.sesame.model.ModelGroup
+import fansirsqi.xposed.sesame.model.modelFieldExt.BooleanModelField
+import fansirsqi.xposed.sesame.model.modelFieldExt.SelectModelField
+import fansirsqi.xposed.sesame.task.ModelTask
+import fansirsqi.xposed.sesame.task.TaskCommon
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
+import fansirsqi.xposed.sesame.util.Log
+import fansirsqi.xposed.sesame.util.ResChecker
+import fansirsqi.xposed.sesame.data.Status
+
+class AncientTree : ModelTask() {
+    
+    private var ancientTreeOnlyWeek: BooleanModelField? = null
+    private var ancientTreeCityCodeList: SelectModelField? = null
+
+    override fun getName(): String = "古树"
+
+    override fun getGroup(): ModelGroup = ModelGroup.FOREST
+
+    override fun getIcon(): String = "AncientTree.png"
+
+    override fun getFields(): ModelFields {
+        val modelFields = ModelFields()
+        modelFields.addField(BooleanModelField("ancientTreeOnlyWeek", "仅星期一、三、五运行保护古树", false).also { ancientTreeOnlyWeek = it })
+        modelFields.addField(SelectModelField("ancientTreeCityCodeList", "古树区划代码列表", LinkedHashSet(), AreaCode::getListAsMapperEntity).also { ancientTreeCityCodeList = it })
+        return modelFields
+    }
+
+    override fun check(): Boolean? {
+        if (!TaskCommon.IS_ENERGY_TIME && TaskCommon.IS_AFTER_8AM) {
+            if (ancientTreeOnlyWeek?.value != true) {
+                return true
+            }
+            val sdf_week = SimpleDateFormat("EEEE", Locale.getDefault())
+            val week = sdf_week.format(Date())
+            return week == "星期一" || week == "星期三" || week == "星期五"
+        }
+        return false
+    }
+
+    override fun runJava() {
+        try {
+            Log.record(TAG, "开始执行${getName()}")
+            ancientTreeCityCodeList?.value?.filterNotNull()?.let { ancientTree(it) }
+        } catch (t: Throwable) {
+            Log.runtime(TAG, "start.run err:")
+            Log.printStackTrace(TAG, t)
+        } finally {
+            Log.record(TAG, "结束执行${getName()}")
+        }
+    }
+
+    companion object {
+        private val TAG = AncientTree::class.java.simpleName
+
+        @JvmStatic
+        private fun ancientTree(ancientTreeCityCodeList: Collection<String>) {
+            try {
+                for (cityCode in ancientTreeCityCodeList) {
+                    if (!Status.canAncientTreeToday(cityCode))
+                        continue
+                    ancientTreeProtect(cityCode)
+                    GlobalThreadPools.sleepCompat(1000L)
+                }
+            } catch (th: Throwable) {
+                Log.runtime(TAG, "ancientTree err:")
+                Log.printStackTrace(TAG, th)
+            }
+        }
+
+        @JvmStatic
+        private fun ancientTreeProtect(cityCode: String) {
+            try {
+                val jo = JSONObject(AncientTreeRpcCall.homePage(cityCode))
+                if (ResChecker.checkRes(TAG, jo)) {
+                    val data = jo.getJSONObject("data")
+                    if (!data.has("districtBriefInfoList")) {
+                        return
+                    }
+                    val districtBriefInfoList = data.getJSONArray("districtBriefInfoList")
+                    for (i in 0 until districtBriefInfoList.length()) {
+                        val districtBriefInfo = districtBriefInfoList.getJSONObject(i)
+                        val userCanProtectTreeNum = districtBriefInfo.optInt("userCanProtectTreeNum", 0)
+                        if (userCanProtectTreeNum < 1)
+                            continue
+                        val districtInfo = districtBriefInfo.getJSONObject("districtInfo")
+                        val districtCode = districtInfo.getString("districtCode")
+                        districtDetail(districtCode)
+                        GlobalThreadPools.sleepCompat(1000L)
+                    }
+                    Status.ancientTreeToday(cityCode)
+                }
+            } catch (th: Throwable) {
+                Log.runtime(TAG, "ancientTreeProtect err:")
+                Log.printStackTrace(TAG, th)
+            }
+        }
+
+        @JvmStatic
+        private fun districtDetail(districtCode: String) {
+            try {
+                var jo = JSONObject(AncientTreeRpcCall.districtDetail(districtCode))
+                if (ResChecker.checkRes(TAG, jo)) {
+                    var data = jo.getJSONObject("data")
+                    if (!data.has("ancientTreeList")) {
+                        return
+                    }
+                    val districtInfo = data.getJSONObject("districtInfo")
+                    var cityCode = districtInfo.getString("cityCode")
+                    val cityName = districtInfo.getString("cityName")
+                    val districtName = districtInfo.getString("districtName")
+                    val ancientTreeList = data.getJSONArray("ancientTreeList")
+                    for (i in 0 until ancientTreeList.length()) {
+                        val ancientTreeItem = ancientTreeList.getJSONObject(i)
+                        if (ancientTreeItem.getBoolean("hasProtected"))
+                            continue
+                        val ancientTreeControlInfo = ancientTreeItem.getJSONObject("ancientTreeControlInfo")
+                        val quota = ancientTreeControlInfo.optInt("quota", 0)
+                        val useQuota = ancientTreeControlInfo.optInt("useQuota", 0)
+                        if (quota <= useQuota)
+                            continue
+                        val itemId = ancientTreeItem.getString("projectId")
+                        val ancientTreeDetail = JSONObject(AncientTreeRpcCall.projectDetail(itemId, cityCode))
+                        if (ResChecker.checkRes(TAG, ancientTreeDetail)) {
+                            data = ancientTreeDetail.getJSONObject("data")
+                            if (data.getBoolean("canProtect")) {
+                                val currentEnergy = data.getInt("currentEnergy")
+                                val ancientTree = data.getJSONObject("ancientTree")
+                                val activityId = ancientTree.getString("activityId")
+                                val projectId = ancientTree.getString("projectId")
+                                val ancientTreeInfo = ancientTree.getJSONObject("ancientTreeInfo")
+                                val name = ancientTreeInfo.getString("name")
+                                val age = ancientTreeInfo.getInt("age")
+                                val protectExpense = ancientTreeInfo.getInt("protectExpense")
+                                cityCode = ancientTreeInfo.getString("cityCode")
+                                if (currentEnergy < protectExpense)
+                                    break
+                                GlobalThreadPools.sleepCompat(200)
+                                jo = JSONObject(AncientTreeRpcCall.protect(activityId, projectId, cityCode))
+                                if (ResChecker.checkRes(TAG, jo)) {
+                                    Log.forest("保护古树🎐[$cityName-$districtName]#${age}年$name,消耗能量${protectExpense}g")
+                                } else {
+                                    Log.record(jo.getString("resultDesc"))
+                                    Log.runtime(jo.toString())
+                                }
+                            }
+                        } else {
+                            Log.record(jo.getString("resultDesc"))
+                            Log.runtime(ancientTreeDetail.toString())
+                        }
+                        GlobalThreadPools.sleepCompat(500L)
+                    }
+                }
+            } catch (th: Throwable) {
+                Log.runtime(TAG, "districtDetail err:")
+                Log.printStackTrace(TAG, th)
+            }
+        }
+    }
+}
