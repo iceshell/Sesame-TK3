@@ -138,7 +138,12 @@ object ResChecker {
      */
     @JvmStatic
     @Throws(JSONException::class)
-    fun checkRes(tag: String, jsonStr: String): Boolean {
+    fun checkRes(tag: String, jsonStr: String?): Boolean {
+        // 检查null或空字符串
+        if (jsonStr.isNullOrBlank()) {
+            Log.record(TAG, "[$tag] RPC响应为空")
+            return false
+        }
         val jo = JSONObject(jsonStr)
         return checkRes(tag, jo)
     }
