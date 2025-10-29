@@ -248,7 +248,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     private val forestTaskTryCount: ConcurrentHashMap<String, AtomicInteger> =
         ConcurrentHashMap<String, AtomicInteger>()
 
-    private var jsonCollectMap: MutableSet<String?> = HashSet()
+    private var jsonCollectMap: Set<String?> = HashSet()
 
     var emojiList: ArrayList<String> = ArrayList(
         listOf(
@@ -873,7 +873,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         retryIntervalInt = retryInterval?.value ?: 0
         advanceTime?.value
 
-        jsonCollectMap = dontCollectList?.value ?: HashSet()
+        jsonCollectMap = dontCollectList?.value?.toSet() ?: HashSet()
 
         // 创建收取间隔实体
         collectIntervalEntity = createSafeIntervalLimit(
