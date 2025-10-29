@@ -1384,7 +1384,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 }
                 waterCount = min(waterCount, 3)
 
-                if (Status.canWaterFriendToday(uid, waterCount)) {
+                if (uid != null && Status.canWaterFriendToday(uid, waterCount)) {
                     try {
                         val response = AntForestRpcCall.queryFriendHomePage(uid, null)
                         val jo = JSONObject(response)
@@ -1397,7 +1397,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             )
 
                             val actualWaterCount: Int = waterCountKVNode.key ?: 0
-                            if (actualWaterCount > 0) {
+                            if (actualWaterCount > 0 && uid != null) {
                                 Status.waterFriendToday(uid, actualWaterCount)
                             }
                             if (java.lang.Boolean.FALSE == waterCountKVNode.value) {
@@ -1434,7 +1434,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     continue
                 }
                 // 处理活力值兑换
-                while (Status.canVitalityExchangeToday(skuId, count)) {
+                while (skuId != null && Status.canVitalityExchangeToday(skuId, count)) {
                     if (!Vitality.handleVitalityExchange(skuId)) {
                         Log.record(TAG, "活力值兑换失败: " + getNameById(skuId))
                         break
@@ -2330,7 +2330,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             val needHelpProtect =
                 (helpFriendCollectType?.value ?: HelpFriendCollectType.NONE) != HelpFriendCollectType.NONE && obj.optBoolean(
                     "canProtectBubble"
-                ) && Status.canProtectBubbleToday(selfId)
+                ) && selfId?.let { Status.canProtectBubbleToday(it) } == true
             val needCollectGiftBox =
                 (collectGiftBox?.value == true) && obj.optBoolean("canCollectGiftBox")
             if (!needCollectEnergy && !needHelpProtect && !needCollectGiftBox) {
@@ -2437,7 +2437,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             continue
                         }
                         if (wateringBubble.getJSONObject("extInfo").optInt("restTimes", 0) == 0) {
-                            Status.protectBubbleToday(selfId)
+                            selfId?.let { Status.protectBubbleToday(it) }
                         }
                         if (!wateringBubble.getBoolean("canProtect")) {
                             continue

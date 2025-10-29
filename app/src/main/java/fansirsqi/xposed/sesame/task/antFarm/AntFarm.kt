@@ -646,7 +646,7 @@ class AntFarm : ModelTask() {
                 harvestProduce(ownerFarmId)
                 tc.countDebug("收鸡蛋")
             }
-            if (donation?.value == true && Status.canDonationEgg(userId) && harvestBenevolenceScore >= 1) {
+            if (donation?.value == true && userId?.let { Status.canDonationEgg(it) } == true && harvestBenevolenceScore >= 1) {
                 val count = donationCount?.value ?: 0
                 handleDonation(count)
                 tc.countDebug("每日捐蛋")
@@ -1586,7 +1586,7 @@ class AntFarm : ModelTask() {
                 }
                 if (isDonation) {
                     val userId = UserMap.currentUid
-                    Status.donationEgg(userId)
+                    userId?.let { Status.donationEgg(it) }
                 }
                 if (activityId == null) {
                     Log.record(TAG, "今日已无可捐赠的活动")
