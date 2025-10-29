@@ -240,7 +240,7 @@ abstract class ModelTask : Model() {
                     Log.runtime(TAG, "强制重启任务 ${getName()}")
                     stopTask()
                 }
-                if (!isEnable || check() != true) {
+                if (!isEnable() || check() != true) {
                     Log.runtime(TAG, "任务 ${getName()} 不满足执行条件")
                     return@withLock
                 }
@@ -524,7 +524,7 @@ abstract class ModelTask : Model() {
                 for (model in modelArray) {
                     if (model != null) {
                         try {
-                            if (ModelType.TASK == model.type) {
+                            if (ModelType.TASK == model.getType()) {
                                 (model as ModelTask).stopTask()
                             }
                         } catch (e: Exception) {

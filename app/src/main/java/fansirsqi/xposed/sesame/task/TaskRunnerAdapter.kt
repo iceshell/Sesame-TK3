@@ -16,7 +16,7 @@ class TaskRunnerAdapter {
      * 构造函数 - 使用所有已注册的模型
      */
     constructor() {
-        val modelList = Model.modelArray.toList()
+        val modelList = Model.modelArray.filterNotNull()
         coroutineTaskRunner = CoroutineTaskRunner(modelList)
     }
 

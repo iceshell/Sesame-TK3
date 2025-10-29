@@ -740,7 +740,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         val forestPauseTime =
             RuntimeInfo.getInstance().getLong(RuntimeInfo.RuntimeInfoKey.ForestPauseTime)
         if (forestPauseTime > currentTime) {
-            Log.record(name + "任务-异常等待中，暂不执行检测！")
+            Log.record(getName() + "任务-异常等待中，暂不执行检测！")
             return false
         }
         // 2️⃣ 模块休眠时间
@@ -748,7 +748,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             Log.record(
                 TAG,
                 "💤 模块休眠时间【" + BaseModel.modelSleepTime
-                    .value + "】停止执行" + name + "任务！"
+                    .value + "】停止执行" + getName() + "任务！"
             )
             return false
         }
@@ -911,7 +911,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
 
             if (showBagList?.value == true) showBag()
 
-            Log.record(TAG, "执行开始-蚂蚁$name")
+            Log.record(TAG, "执行开始-蚂蚁" + getName())
             taskCount.set(0)
             selfId = UserMap.currentUid
 

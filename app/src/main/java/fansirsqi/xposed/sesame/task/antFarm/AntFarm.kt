@@ -564,14 +564,14 @@ class AntFarm : ModelTask() {
             Log.record(
                 TAG,
                 "⏸ 当前为只收能量时间【" + BaseModel.energyTime
-                    .value + "】，停止执行" + name + "任务！"
+                    .value + "】，停止执行" + getName() + "任务！"
             )
             return false
         } else if (TaskCommon.IS_MODULE_SLEEP_TIME) {
             Log.record(
                 TAG,
                 "💤 模块休眠时间【" + BaseModel.modelSleepTime
-                    .value + "】停止执行" + name + "任务！"
+                    .value + "】停止执行" + getName() + "任务！"
             )
             return false
         } else {
@@ -584,7 +584,7 @@ class AntFarm : ModelTask() {
         try {
             val tc = TimeCounter(TAG)
             val userId = UserMap.currentUid
-            Log.record(TAG, "执行开始-蚂蚁$name")
+            Log.record(TAG, "执行开始-蚂蚁${getName()}")
 
             if (enterFarm() == null) {
                 return
@@ -743,7 +743,7 @@ class AntFarm : ModelTask() {
             Log.runtime(TAG, "AntFarm.start.run err:")
             Log.printStackTrace(TAG, t)
         } finally {
-            Log.record(TAG, "执行结束-蚂蚁$name")
+            Log.record(TAG, "执行结束-蚂蚁${getName()}")
         }
     }
 

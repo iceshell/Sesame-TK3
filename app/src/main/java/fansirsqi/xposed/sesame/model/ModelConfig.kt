@@ -30,17 +30,17 @@ data class ModelConfig(
         // 设置模型的简单类名作为唯一标识符
         this.code = model.javaClass.simpleName
         // 设置模型的名称
-        this.name = model.name
+        this.name = model.getName() ?: ""
         // 设置模型所属组
-        this.group = model.group
+        this.group = model.getGroup()
         // 设置模型的图标文件名称（图标位置app/src/main/assets/web/images/icon/model[/selected]，正常状态和选中状态）
         // 无图标定义时使用default.svg
-        this.icon = model.icon
+        this.icon = model.getIcon() ?: "default.svg"
         // 获取模型的启用字段，并将其加入到字段列表中
         val enableField: BooleanModelField = model.enableField
         fields[enableField.code] = enableField
         // 获取模型的其他字段，并将其加入到字段列表中
-        val modelFields: ModelFields? = model.fields
+        val modelFields: ModelFields? = model.getFields()
         modelFields?.forEach { (_, modelField) ->
             if (modelField != null) {
                 fields[modelField.code] = modelField

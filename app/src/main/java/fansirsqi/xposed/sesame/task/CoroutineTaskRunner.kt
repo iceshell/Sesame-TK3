@@ -128,7 +128,7 @@ class CoroutineTaskRunner(allModels: List<Model>) {
         
         for (round in 1..rounds) {
             val roundStartTime = System.currentTimeMillis()
-            val enabledTasksInRound = taskList.filter { it.isEnable }
+            val enabledTasksInRound = taskList.filter { it.isEnable() }
             
             Log.record(TAG, "🔄 开始顺序执行第${round}/${rounds}轮任务，共${enabledTasksInRound.size}个启用任务")
             
@@ -376,7 +376,7 @@ class CoroutineTaskRunner(allModels: List<Model>) {
      */
     private fun logTaskStatusInfo(task: ModelTask, taskId: String) {
         try {
-            val isEnabled = task.isEnable
+            val isEnabled = task.isEnable()
             val isRunning = task.isRunning
             val taskName = task.getName()
 
@@ -417,7 +417,7 @@ class CoroutineTaskRunner(allModels: List<Model>) {
     private fun printExecutionSummary(startTime: Long, endTime: Long) {
         val totalTime = endTime - startTime
         val totalTasks = taskList.size
-        val enabledTasks = taskList.count { it.isEnable }
+        val enabledTasks = taskList.count { it.isEnable() }
         
         Log.record(TAG, "📈 ===== 协程任务执行统计摘要 =====")
         Log.record(TAG, "🕐 执行时间: ${totalTime}ms (${String.format("%.1f", totalTime/1000.0)}秒)")
