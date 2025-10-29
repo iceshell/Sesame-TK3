@@ -123,9 +123,9 @@ class SettingActivity : BaseActivity() {
             val recyclerTabList = findViewById<RecyclerView>(R.id.recycler_tab_list)
             recyclerTabList.setLayoutManager(LinearLayoutManager(this))
             val modelConfigMap = Model.getModelConfigMap()
-            val tabTitles: MutableList<String?> = ArrayList<String?>()
+            val tabTitles: MutableList<String> = ArrayList<String>()
             for (config in modelConfigMap.values) {
-                tabTitles.add(config.name)
+                config.name?.let { tabTitles.add(it) }
             }
             val tabAdapter = TabAdapter(this, tabTitles, OnTabClickListener { position: Int ->
                 val viewPager = findViewById<ViewPager2>(R.id.view_pager_content)
