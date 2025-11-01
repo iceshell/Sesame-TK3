@@ -200,7 +200,7 @@ object PermissionUtil {
                 if (!ApplicationHook.isHooked()) {
                     return null
                 }
-                return ApplicationHook.getAppContext()
+                return fansirsqi.xposed.sesame.hook.ApplicationHookConstants.appContext
             } catch (_: Exception) {
                 return null
             }

@@ -1,661 +1,643 @@
-02日 01:28:02.10 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 21408
-02日 01:28:02.17 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
-02日 01:28:02.17 [ServiceManager]: ServiceManager initialized and listener registered.
-02日 01:28:02.23 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
-02日 01:28:02.24 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
-02日 01:28:02.27 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:28:02.27 [UIConfig]: 重置UI配置
-02日 01:28:02.28 [Files]: self.json permissions: r=true; w=true
-02日 01:28:02.29 [Files]: self.json permissions: r=true; w=true
-02日 01:28:02.30 [Files]: self.json permissions: r=true; w=true
-02日 01:28:02.30 [Files]: self.json permissions: r=true; w=true
-02日 01:28:02.31 [Files]: self.json permissions: r=true; w=true
-02日 01:28:02.32 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:28:02.32 [MainActivity]: isModuleActivated: true
-02日 01:28:07.09 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
-02日 01:28:07.18 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
-02日 01:28:07.18 [ApplicationHook]: 验证码Hook已启用
-02日 01:28:07.18 [ApplicationHook]: hook login successfully
-02日 01:28:07.19 [ApplicationHook]: hook service onCreate successfully
-02日 01:28:07.32 [ApplicationHook]: hook registerBroadcastReceiver successfully
-02日 01:28:07.34 [AlarmManager]: ✅ AlarmScheduler初始化成功
-02日 01:28:07.35 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:28:07.35 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:07.35 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
-02日 01:28:07.36 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
-02日 01:28:07.36 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
-02日 01:28:07.36 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
-02日 01:28:07.36 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
-02日 01:28:07.36 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
-02日 01:28:07.40 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:07.40 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:07.41 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:07.41 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:07.41 [ApplicationHook]: 10.7.86.8000 Not support fuck
-02日 01:28:07.50 [ApplicationHook]: hook onResume after start
-02日 01:28:07.60 [ApplicationHook]: onResume targetUid: 2088602261779903
-02日 01:28:07.60 [ApplicationHook]: onResume: service未就绪，等待下次触发
-02日 01:28:07.67 [ApplicationHook]: Service onCreate
-02日 01:28:08.01 [ApplicationHook]: hook dexkit successfully
-02日 01:28:08.09 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
-02日 01:28:08.14 [HookUtil]: loading userCache from target app
-02日 01:28:08.21 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
-02日 01:28:08.21 [ApplicationHook]: 验证码Hook已启用
-02日 01:28:08.21 [ApplicationHook]: hook login successfully
-02日 01:28:08.21 [ApplicationHook]: hook service onCreate successfully
-02日 01:28:08.27 [Files]: self.json permissions: r=true; w=true
-02日 01:28:08.29 [Files]: friend.json permissions: r=true; w=true
-02日 01:28:08.31 [HookUtil]: userCache load scuess !
-02日 01:28:08.31 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
-02日 01:28:08.31 [ApplicationHook]: 芝麻粒-TK 开始初始化...
-02日 01:28:08.32 [ApplicationHook]: ⚙️模块版本：0.3.0-rc152
-02日 01:28:08.32 [ApplicationHook]: 📦应用版本：10.7.86.8000
-02日 01:28:08.33 [ApplicationHook]: 📶网络类型：UNKNOWN
-02日 01:28:08.33 [ApplicationHook]: 👤用户ID：2088602261779903
-02日 01:28:08.34 [ApplicationHook]: 🕐初始化时间：02日01:28:08
-02日 01:28:08.34 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-02日 01:28:08.35 [Config]: 开始加载配置
-02日 01:28:08.35 [Config]: 加载配置: 惠琴
-02日 01:28:08.39 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-02日 01:28:08.45 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
-02日 01:28:08.49 获取 只收能量时间 配置: [0658-0731]
-02日 01:28:08.50 模块休眠时间 配置已关闭
-02日 01:28:08.50 [ApplicationHook]: ⚠️ 支付宝无闹钟权限（将影响定时任务执行）
-02日 01:28:08.50 [ApplicationHook]: 支付宝无始终在后台运行权限
-02日 01:28:08.52 [ApplicationHook]: 取消定时唤醒将由destroyHandler统一处理
-02日 01:28:08.53 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
-02日 01:28:08.54 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
-02日 01:28:08.54 [ApplicationHook]: hook registerBroadcastReceiver successfully
-02日 01:28:08.54 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
-02日 01:28:08.54 [AlarmScheduler]: 已设置多重保护闹钟: ID=3, 预定时间=06:50:00
-02日 01:28:08.55 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=3
-02日 01:28:08.55 [ApplicationHook]: ⏰ 设置定时唤醒成功: 0650
-02日 01:28:08.55 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
-02日 01:28:08.56 [AlarmManager]: ✅ AlarmScheduler初始化成功
-02日 01:28:08.56 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
-02日 01:28:08.56 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:28:08.56 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
-02日 01:28:08.56 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:08.56 [ApplicationHook]: ⏰ 共设置了 2 个自定义定时唤醒
-02日 01:28:08.57 [NewRpcBridge]: ClassLoader为null，无法加载NewRpcBridge
-02日 01:28:08.57 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
-02日 01:28:08.57 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
-02日 01:28:08.57 [AntForest]: 查询间隔原始设置值: [500-800]
-02日 01:28:08.57 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
-02日 01:28:08.57 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
-02日 01:28:08.57 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
-02日 01:28:08.57 [AntForest]: 查询间隔成功创建区间限制
-02日 01:28:08.57 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
-02日 01:28:08.58 [AntForest]: 收取间隔原始设置值: [500-800]
-02日 01:28:08.58 [AntForest]: 收取间隔成功创建区间限制
-02日 01:28:08.58 [AntForest]: 双击间隔原始设置值: [50-150]
-02日 01:28:08.59 [AntForest]: 双击间隔成功创建区间限制
-02日 01:28:08.59 [AntForestRpcCall]: 当前支付宝版本: 
-02日 01:28:08.60 [AntForestRpcCall]: 使用API版本: 20250813
-02日 01:28:08.61 [EnergyWaitingManager]: 精确能量球蹲点管理器已初始化（支持持久化）
-02日 01:28:08.61 [EnergyWaitingManager]: 已设置能量收取回调
-02日 01:28:08.61 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:08.62 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:08.62 [AntSports]: hook readDailyStep successfully
-02日 01:28:08.62 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:08.62 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:08.63 [Files]: status.json permissions: r=true; w=true
-02日 01:28:08.63 [ApplicationHook]: 10.7.86.8000 Not support fuck
-02日 01:28:08.63 [Status]: 加载 status.json
-02日 01:28:08.76 [Status]: 重置 statistics.json
-02日 01:28:08.77 [Files]: status.json permissions: r=true; w=true
-02日 01:28:08.78 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
-02日 01:28:08.79 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
-02日 01:28:08.79 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-02日 01:28:08.79 [Toast]: Context is null, cannot show toast
-02日 01:28:08.80 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:08.80 [ApplicationHook]: ▶️ 首次手动触发，开始运行
-02日 01:28:08.81 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
-02日 01:28:08.83 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
-02日 01:28:08.84 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共9个启用任务
-02日 01:28:08.85 [AlarmScheduler]: 已设置多重保护闹钟: ID=88117, 预定时间=02:58:08
-02日 01:28:08.85 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/9 - 森林
-02日 01:28:08.86 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
-02日 01:28:08.86 [AlarmScheduler]: 已设置备份闹钟: ID=18861, 预定时间=02:58:38 (+30秒)
-02日 01:28:08.87 [AlarmScheduler]: ⏰ 下次执行(Alarm) 02:58:08
-02日 01:28:08.89 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
-02日 01:28:08.89 获取 只收能量时间 配置: [0658-0731]
-02日 01:28:08.90 模块休眠时间 配置已关闭
-02日 01:28:08.90 [Files]: runtime.json permissions: r=true; w=true
-02日 01:28:08.90 [AlarmScheduler]: 已设置闹钟唤醒执行，ID=88117，时间：02日02:58:08，延迟：5400秒
-02日 01:28:08.91 [AlarmManager]: ⏰ 精确执行调度成功: 延迟5400000ms
-02日 01:28:08.92 [ModelTask]: 开始执行第1轮任务: 森林
-02日 01:28:08.92 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
-02日 01:28:08.93 [AntForest]: 任务计数器已重置
-02日 01:28:08.93 [AntForest]: ✅ 检测到新的一天[2025年11月2日]，重置计数器
-02日 01:28:08.93 [AntForest]: 执行开始-蚂蚁森林
-02日 01:28:08.93 网络未连接，等待5秒
-02日 01:28:09.92 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:28:10.57 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:28:10.86 [Toast]: Context is null, cannot show toast
-02日 01:28:10.94 [Toast]: Context is null, cannot show toast
-02日 01:28:11.88 [ApplicationHook]: hook onResume after start
-02日 01:28:11.89 [ApplicationHook]: onResume targetUid: 2088602261779903
-02日 01:28:11.89 [ApplicationHook]: onResume currentUid: 2088602261779903
-02日 01:28:11.90 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:28:11.90 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:11.91 [ApplicationHook]: hook onResume after end
-02日 01:28:11.91 [ApplicationHook]: 手动APP触发，已关闭
-02日 01:28:12.63 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
-02日 01:28:12.64 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
-02日 01:28:12.78 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
-02日 01:28:12.78 [ApplicationHook]: 验证码Hook已启用
-02日 01:28:12.79 [ApplicationHook]: hook login successfully
-02日 01:28:12.79 [ApplicationHook]: hook service onCreate successfully
-02日 01:28:12.82 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
-02日 01:28:12.82 [ApplicationHook]: 验证码Hook已启用
-02日 01:28:12.83 [ApplicationHook]: hook login successfully
-02日 01:28:12.83 [ApplicationHook]: hook service onCreate successfully
-02日 01:28:12.86 [ApplicationHook]: hook registerBroadcastReceiver successfully
-02日 01:28:12.88 [AlarmManager]: ✅ AlarmScheduler初始化成功
-02日 01:28:12.89 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:28:12.89 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:12.90 [ApplicationHook]: hook registerBroadcastReceiver successfully
-02日 01:28:12.90 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
-02日 01:28:12.91 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
-02日 01:28:12.91 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
-02日 01:28:12.91 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
-02日 01:28:12.91 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
-02日 01:28:12.91 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
-02日 01:28:12.92 [AlarmManager]: ✅ AlarmScheduler初始化成功
-02日 01:28:12.93 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:28:12.93 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:12.94 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
-02日 01:28:12.94 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
-02日 01:28:12.95 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:12.94 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
-02日 01:28:12.96 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
-02日 01:28:12.96 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:12.96 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
-02日 01:28:12.96 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
-02日 01:28:12.97 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:12.98 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:12.98 [ApplicationHook]: 10.7.86.8000 Not support fuck
-02日 01:28:13.00 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:13.01 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:13.02 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:13.02 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:13.02 [ApplicationHook]: 10.7.86.8000 Not support fuck
-02日 01:28:13.94 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:28:13.94 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:14.10 [执行蚂蚁森林任务时发生错误: ]: [AntForest] Throwable error: org.json.JSONException: End of input at character 0 of 
+02日 01:54:20.70 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 6233
+02日 01:54:20.94 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
+02日 01:54:20.95 [ServiceManager]: ServiceManager initialized and listener registered.
+02日 01:54:21.11 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+02日 01:54:21.12 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+02日 01:54:21.22 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:54:21.22 [UIConfig]: 重置UI配置
+02日 01:54:21.24 [Files]: self.json permissions: r=true; w=true
+02日 01:54:21.27 [Files]: self.json permissions: r=true; w=true
+02日 01:54:21.28 [Files]: self.json permissions: r=true; w=true
+02日 01:54:21.29 [Files]: self.json permissions: r=true; w=true
+02日 01:54:21.30 [Files]: self.json permissions: r=true; w=true
+02日 01:54:21.31 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:54:21.31 [MainActivity]: isModuleActivated: true
+02日 01:54:25.95 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:54:26.06 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:54:26.06 [ApplicationHook]: 验证码Hook已启用
+02日 01:54:26.07 [ApplicationHook]: hook login successfully
+02日 01:54:26.07 [ApplicationHook]: hook service onCreate successfully
+02日 01:54:26.21 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:54:26.23 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:54:26.24 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:54:26.24 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:26.24 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:54:26.25 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:54:26.25 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:54:26.25 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:54:26.25 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:54:26.26 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:54:26.29 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:26.29 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:26.30 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:26.30 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:26.31 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:54:26.31 [ApplicationHook]: start service for debug rpc
+02日 01:54:26.31 [ModuleHttpServer]: Registering handler : {/debugHandler=调试接口}[/debugHandler]
+02日 01:54:26.32 [ModuleHttpServerManager]: HTTP 服务启动成功，端口: 8080
+02日 01:54:26.42 [ApplicationHook]: hook onResume after start
+02日 01:54:26.50 [ApplicationHook]: onResume targetUid: 2088602261779903
+02日 01:54:26.51 [ApplicationHook]: onResume: service未就绪，等待下次触发
+02日 01:54:26.61 [ApplicationHook]: Service onCreate
+02日 01:54:27.04 [ApplicationHook]: hook dexkit successfully
+02日 01:54:27.20 [HookUtil]: loading userCache from target app
+02日 01:54:27.32 [Files]: self.json permissions: r=true; w=true
+02日 01:54:27.34 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:54:27.35 [Files]: friend.json permissions: r=true; w=true
+02日 01:54:27.37 [HookUtil]: userCache load scuess !
+02日 01:54:27.37 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+02日 01:54:27.37 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+02日 01:54:27.38 [ApplicationHook]: ⚙️模块版本：0.3.0-rc156
+02日 01:54:27.38 [ApplicationHook]: 📦应用版本：10.7.86.8000
+02日 01:54:27.39 [ApplicationHook]: 📶网络类型：WIFI
+02日 01:54:27.39 [ApplicationHook]: 👤用户ID：2088602261779903
+02日 01:54:27.39 [ApplicationHook]: 🕐初始化时间：02日01:54:27
+02日 01:54:27.39 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:54:27.40 [Config]: 开始加载配置
+02日 01:54:27.40 [Config]: 加载配置: 惠琴
+02日 01:54:27.41 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:54:27.46 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:54:27.46 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:54:27.47 [ApplicationHook]: 验证码Hook已启用
+02日 01:54:27.47 [ApplicationHook]: hook login successfully
+02日 01:54:27.47 [ApplicationHook]: hook service onCreate successfully
+02日 01:54:27.50 获取 只收能量时间 配置: [0658-0731]
+02日 01:54:27.50 模块休眠时间 配置已关闭
+02日 01:54:27.50 [ApplicationHook]: ⚠️ 支付宝无闹钟权限（将影响定时任务执行）
+02日 01:54:27.50 [ApplicationHook]: 支付宝无始终在后台运行权限
+02日 01:54:27.52 [ApplicationHook]: 取消定时唤醒将由destroyHandler统一处理
+02日 01:54:27.52 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+02日 01:54:27.52 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+02日 01:54:27.53 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+02日 01:54:27.53 [AlarmScheduler]: 已设置多重保护闹钟: ID=3, 预定时间=06:50:00
+02日 01:54:27.54 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=3
+02日 01:54:27.54 [ApplicationHook]: ⏰ 设置定时唤醒成功: 0650
+02日 01:54:27.55 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+02日 01:54:27.56 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+02日 01:54:27.56 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+02日 01:54:27.56 [ApplicationHook]: ⏰ 共设置了 2 个自定义定时唤醒
+02日 01:54:27.64 [NewRpcBridge]: get newRpcCallMethod successfully
+02日 01:54:27.65 [AntForest]: 查询间隔原始设置值: [500-800]
+02日 01:54:27.65 [AntForest]: 查询间隔成功创建区间限制
+02日 01:54:27.66 [AntForest]: 收取间隔原始设置值: [500-800]
+02日 01:54:27.67 [AntForest]: 收取间隔成功创建区间限制
+02日 01:54:27.69 [AntForest]: 双击间隔原始设置值: [50-150]
+02日 01:54:27.71 [AntForest]: 双击间隔成功创建区间限制
+02日 01:54:27.71 [AntForestRpcCall]: 当前支付宝版本: 
+02日 01:54:27.73 [AntForestRpcCall]: 使用API版本: 20250813
+02日 01:54:27.75 [EnergyWaitingManager]: 精确能量球蹲点管理器已初始化（支持持久化）
+02日 01:54:27.76 [EnergyWaitingManager]: 已设置能量收取回调
+02日 01:54:27.78 [AntSports]: hook readDailyStep successfully
+02日 01:54:27.79 [Files]: status.json permissions: r=true; w=true
+02日 01:54:27.79 [Status]: 加载 status.json
+02日 01:54:27.83 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:54:27.86 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:54:27.87 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:54:27.87 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:27.87 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:54:27.87 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:54:27.88 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:54:27.88 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:54:27.88 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:54:27.89 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:54:27.91 [Status]: 保存 status.json
+02日 01:54:27.92 [Files]: status.json permissions: r=true; w=true
+02日 01:54:27.92 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:27.93 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:27.93 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+02日 01:54:27.93 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+02日 01:54:27.93 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:54:27.94 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:27.94 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:27.94 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+02日 01:54:27.94 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:27.94 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:54:27.95 [ApplicationHook]: start service for debug rpc
+02日 01:54:27.95 [ModuleHttpServerManager]: 非主进程，无需启动内置 HTTP 服务: com.eg.android.AlipayGphone:push
+02日 01:54:27.96 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+02日 01:54:27.98 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+02日 01:54:27.99 [AlarmScheduler]: 已设置多重保护闹钟: ID=79525, 预定时间=03:24:27
+02日 01:54:28.00 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共9个启用任务
+02日 01:54:28.01 [AlarmScheduler]: 已设置备份闹钟: ID=18010, 预定时间=03:24:57 (+30秒)
+02日 01:54:28.01 [AlarmScheduler]: ⏰ 下次执行(Alarm) 03:24:27
+02日 01:54:28.02 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/9 - 森林
+02日 01:54:28.02 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
+02日 01:54:28.03 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
+02日 01:54:28.04 获取 只收能量时间 配置: [0658-0731]
+02日 01:54:28.06 模块休眠时间 配置已关闭
+02日 01:54:28.06 [AlarmScheduler]: 已设置闹钟唤醒执行，ID=79525，时间：02日03:24:27，延迟：5400秒
+02日 01:54:28.07 [AlarmManager]: ⏰ 精确执行调度成功: 延迟5400000ms
+02日 01:54:28.08 [Files]: runtime.json permissions: r=true; w=true
+02日 01:54:28.09 [ModelTask]: 开始执行第1轮任务: 森林
+02日 01:54:28.09 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
+02日 01:54:28.10 [AntForest]: 任务计数器已重置
+02日 01:54:28.11 [AntForest]: ✅ 检测到新的一天[2025年11月2日]，重置计数器
+02日 01:54:28.12 [AntForest]: 执行开始-蚂蚁森林
+02日 01:54:28.14 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:54:29.08 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:54:29.87 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:54:32.24 [ApplicationHook]: hook onResume after start
+02日 01:54:32.24 [ApplicationHook]: onResume targetUid: 2088602261779903
+02日 01:54:32.24 [ApplicationHook]: onResume currentUid: 2088602261779903
+02日 01:54:32.25 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:54:32.26 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:32.27 [ApplicationHook]: hook onResume after end
+02日 01:54:32.27 [ApplicationHook]: 手动APP触发，已关闭
+02日 01:54:32.81 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:54:32.87 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:54:32.98 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:54:32.98 [ApplicationHook]: 验证码Hook已启用
+02日 01:54:32.99 [ApplicationHook]: hook login successfully
+02日 01:54:33.00 [ApplicationHook]: hook service onCreate successfully
+02日 01:54:33.03 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:54:33.03 [ApplicationHook]: 验证码Hook已启用
+02日 01:54:33.04 [ApplicationHook]: hook login successfully
+02日 01:54:33.04 [ApplicationHook]: hook service onCreate successfully
+02日 01:54:33.09 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:54:33.13 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:54:33.14 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:54:33.15 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:33.15 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:54:33.16 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:54:33.17 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:54:33.18 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:54:33.18 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:54:33.19 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:54:33.19 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:54:33.19 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:54:33.21 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:54:33.22 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:33.22 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:54:33.23 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:54:33.23 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:33.23 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:54:33.24 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:33.24 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:54:33.25 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:54:33.25 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:33.25 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:33.26 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:54:33.26 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:54:33.26 [ApplicationHook]: start service for debug rpc
+02日 01:54:33.27 [ModuleHttpServerManager]: 非主进程，无需启动内置 HTTP 服务: com.eg.android.AlipayGphone:gpu_process
+02日 01:54:33.32 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:33.33 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:33.33 [执行蚂蚁森林任务时发生错误: ]: [AntForest] Throwable error: org.json.JSONException: End of input at character 0 of 
 	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
 	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
 	at org.json.JSONObject.<init>(JSONObject.java:165)
 	at org.json.JSONObject.<init>(JSONObject.java:182)
-	at fansirsqi.xposed.sesame.task.antForest.AntForest.updateSelfHomePage(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:3)
-	at fansirsqi.xposed.sesame.task.antForest.AntForest.runSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:375)
-	at fansirsqi.xposed.sesame.task.ModelTask.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
-	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:94)
-	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:148)
-	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
-	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:258)
-	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:12)
-	at b5.l0.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:133)
-	at g5.b.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:118)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.updateSelfHomePage(AntForest.kt:2696)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.runSuspend(AntForest.kt:922)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(ModelTask.kt:136)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(ModelTask.kt:297)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(ModelTask.kt:276)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(ModelTask.kt:50)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(ModelTask.kt:251)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
 
-02日 01:28:14.13 [AntForest]: ==================================================
-02日 01:28:14.14 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
-02日 01:28:14.14 [AntForest]: ⏱️ 主任务耗时: 5秒 (5210ms)
-02日 01:28:14.15 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
-02日 01:28:14.16 [AntForest]: ✅ 无后台蹲点任务
-02日 01:28:14.17 [AntForest]: ==================================================
-02日 01:28:14.21 任务[森林-Round1]执行成功，耗时: 5287ms
-02日 01:28:14.23 [ModelTask]: 任务 森林 完成，总耗时: 5304ms
-02日 01:28:14.24 [ModelTask]: 任务执行统计 - 总耗时: 5303ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:28:14.26 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 5374ms
-02日 01:28:14.27 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 5414ms
-02日 01:28:14.28 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/9 - 庄园
-02日 01:28:14.29 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
-02日 01:28:14.30 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
-02日 01:28:14.31 [ModelTask]: 开始执行第1轮任务: 庄园
-02日 01:28:14.33 [AntFarm]: 执行开始-蚂蚁庄园
-02日 01:28:14.34 网络未连接，等待5秒
-02日 01:28:14.90 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:28:14.94 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:28:15.82 [EnergyWaitingPersistence]:   跳过[惠琴|*惠琴]：保存时间超过25小时
-02日 01:28:15.83 [EnergyWaitingPersistence]:   跳过[惠琴|*惠琴]：保存时间超过25小时
-02日 01:28:15.85 [EnergyWaitingPersistence]:   跳过[惠琴|*惠琴]：保存时间超过25小时
-02日 01:28:15.86 [EnergyWaitingPersistence]: 📥 从持久化存储恢复0个有效任务（跳过0个过期，3个过旧）
-02日 01:28:15.92 [EnergyWaitingManager]: 持久化存储中无任务需要恢复
-02日 01:28:19.38 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:19.48 Exception error: org.json.JSONException: End of input at character 0 of 
+02日 01:54:33.34 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:33.35 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:33.35 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:54:33.35 [ApplicationHook]: start service for debug rpc
+02日 01:54:33.36 [ModuleHttpServerManager]: 非主进程，无需启动内置 HTTP 服务: com.eg.android.AlipayGphone:sandboxed_privilege_process0
+02日 01:54:33.36 [AntForest]: ==================================================
+02日 01:54:33.38 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
+02日 01:54:33.38 [AntForest]: ⏱️ 主任务耗时: 5秒 (5265ms)
+02日 01:54:33.39 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
+02日 01:54:33.40 [AntForest]: ✅ 无后台蹲点任务
+02日 01:54:33.41 [AntForest]: ==================================================
+02日 01:54:33.46 任务[森林-Round1]执行成功，耗时: 5369ms
+02日 01:54:33.48 [ModelTask]: 任务 森林 完成，总耗时: 5397ms
+02日 01:54:33.50 [ModelTask]: 任务执行统计 - 总耗时: 5397ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:54:33.51 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 5480ms
+02日 01:54:33.52 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 5491ms
+02日 01:54:33.53 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/9 - 庄园
+02日 01:54:33.54 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
+02日 01:54:33.55 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
+02日 01:54:33.63 [ModelTask]: 开始执行第1轮任务: 庄园
+02日 01:54:33.67 [AntFarm]: 执行开始-蚂蚁庄园
+02日 01:54:33.69 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:54:34.67 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:54:35.15 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:54:35.22 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:54:35.98 [EnergyWaitingPersistence]:   跳过[惠琴|*惠琴]：保存时间超过25小时
+02日 01:54:35.99 [EnergyWaitingPersistence]:   跳过[惠琴|*惠琴]：保存时间超过25小时
+02日 01:54:35.99 [EnergyWaitingPersistence]:   跳过[惠琴|*惠琴]：保存时间超过25小时
+02日 01:54:35.99 [EnergyWaitingPersistence]: 📥 从持久化存储恢复0个有效任务（跳过0个过期，3个过旧）
+02日 01:54:36.00 [EnergyWaitingManager]: 持久化存储中无任务需要恢复
+02日 01:54:38.71 Exception error: org.json.JSONException: End of input at character 0 of 
 	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
 	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
 	at org.json.JSONObject.<init>(JSONObject.java:165)
 	at org.json.JSONObject.<init>(JSONObject.java:182)
-	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.enterFarm(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:14)
-	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.runSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:348)
-	at fansirsqi.xposed.sesame.task.ModelTask.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
-	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:94)
-	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:148)
-	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
-	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:258)
-	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:12)
-	at b5.l0.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:133)
-	at g5.b.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:118)
+	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.enterFarm(AntFarm.kt:1021)
+	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.runSuspend(AntFarm.kt:589)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(ModelTask.kt:136)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(ModelTask.kt:297)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(ModelTask.kt:276)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(ModelTask.kt:50)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(ModelTask.kt:251)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:829)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
 
-02日 01:28:19.55 [AntFarm]: 执行结束-蚂蚁庄园
-02日 01:28:19.62 任务[庄园-Round1]执行成功，耗时: 5293ms
-02日 01:28:19.87 [ModelTask]: 任务 庄园 完成，总耗时: 5562ms
-02日 01:28:20.10 [ModelTask]: 任务执行统计 - 总耗时: 5562ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:28:20.29 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 5994ms
-02日 01:28:20.31 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 6023ms
-02日 01:28:20.35 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/9 - 海洋
-02日 01:28:20.38 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round1]，超时设置: 600秒
-02日 01:28:20.40 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第1轮执行...
-02日 01:28:20.50 [ModelTask]: 开始执行第1轮任务: 海洋
-02日 01:28:20.51 [AntOcean]: 执行开始-海洋
-02日 01:28:20.53 网络未连接，等待5秒
-02日 01:28:20.59 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:28:20.59 [UIConfig]: 重置UI配置
-02日 01:28:20.60 [Files]: self.json permissions: r=true; w=true
-02日 01:28:20.61 [Files]: self.json permissions: r=true; w=true
-02日 01:28:20.62 [Files]: self.json permissions: r=true; w=true
-02日 01:28:20.63 [Files]: self.json permissions: r=true; w=true
-02日 01:28:20.64 [Files]: self.json permissions: r=true; w=true
-02日 01:28:20.65 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:28:20.65 [MainActivity]: isModuleActivated: true
-02日 01:28:22.19 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:28:22.19 [UIConfig]: 重置UI配置
-02日 01:28:22.20 [Files]: self.json permissions: r=true; w=true
-02日 01:28:22.21 [Files]: self.json permissions: r=true; w=true
-02日 01:28:22.23 [Files]: self.json permissions: r=true; w=true
-02日 01:28:22.24 [Files]: self.json permissions: r=true; w=true
-02日 01:28:22.24 [Files]: self.json permissions: r=true; w=true
-02日 01:28:22.25 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:28:22.25 [MainActivity]: isModuleActivated: true
-02日 01:28:23.71 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:28:23.72 [UIConfig]: 重置UI配置
-02日 01:28:23.73 [Files]: self.json permissions: r=true; w=true
-02日 01:28:23.74 [Files]: self.json permissions: r=true; w=true
-02日 01:28:23.75 [Files]: self.json permissions: r=true; w=true
-02日 01:28:23.76 [Files]: self.json permissions: r=true; w=true
-02日 01:28:23.77 [Files]: self.json permissions: r=true; w=true
-02日 01:28:23.77 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:28:23.78 [MainActivity]: isModuleActivated: true
-02日 01:28:24.35 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
-02日 01:28:25.02 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
-02日 01:28:25.02 [ApplicationHook]: 验证码Hook已启用
-02日 01:28:25.04 [ApplicationHook]: hook login successfully
-02日 01:28:25.04 [ApplicationHook]: hook service onCreate successfully
-02日 01:28:25.55 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:25.58 [AntOcean]: queryOceanStatus err:
-02日 01:28:25.59 ⚠️ 错误【JSONException:EmptyResponse】已出现3次，后续将不再打印详细堆栈
-02日 01:28:25.60 [AntOcean]: 执行结束-海洋
-02日 01:28:25.62 任务[海洋-Round1]执行成功，耗时: 5110ms
-02日 01:28:25.63 [ModelTask]: 任务 海洋 完成，总耗时: 5134ms
-02日 01:28:25.64 [ModelTask]: 任务执行统计 - 总耗时: 5134ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:28:25.65 [CoroutineTaskRunner]: ✅ 模块[海洋]第1轮执行成功，耗时: 5252ms
-02日 01:28:25.66 [CoroutineTaskRunner]: ✅ 任务[海洋-Round1]执行完成，耗时: 5276ms
-02日 01:28:25.66 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/9 - 农场
-02日 01:28:25.67 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
-02日 01:28:25.68 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
-02日 01:28:25.69 [ModelTask]: 开始执行第1轮任务: 农场
-02日 01:28:25.69 [AntOrchard]: 执行开始-农场
-02日 01:28:25.70 网络未连接，等待5秒
-02日 01:28:26.22 [ApplicationHook]: hook registerBroadcastReceiver successfully
-02日 01:28:26.29 [AlarmManager]: ✅ AlarmScheduler初始化成功
-02日 01:28:26.29 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:28:26.30 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:26.32 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
-02日 01:28:26.33 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
-02日 01:28:26.33 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
-02日 01:28:26.33 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
-02日 01:28:26.33 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
-02日 01:28:26.34 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
-02日 01:28:26.46 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:26.46 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
-02日 01:28:26.48 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:26.48 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
-02日 01:28:26.48 [ApplicationHook]: 10.7.86.8000 Not support fuck
-02日 01:28:28.35 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:28:30.72 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:30.72 [AntOrchard]: start.run err:
-02日 01:28:30.72 [AntOrchard]: 执行结束-农场
-02日 01:28:30.73 任务[农场-Round1]执行成功，耗时: 5033ms
-02日 01:28:30.73 [ModelTask]: 任务 农场 完成，总耗时: 5042ms
-02日 01:28:30.73 [ModelTask]: 任务执行统计 - 总耗时: 5042ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:28:30.74 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 5059ms
-02日 01:28:30.74 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 5069ms
-02日 01:28:30.74 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/9 - 新村
-02日 01:28:30.74 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
-02日 01:28:30.75 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
-02日 01:28:30.75 [ModelTask]: 开始执行第1轮任务: 新村
-02日 01:28:30.76 [AntStall]: 执行开始-新村
-02日 01:28:30.77 网络未连接，等待5秒
-02日 01:28:35.77 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:35.77 [AntStall]: home err:
-02日 01:28:35.77 [AntStall]: 执行结束-新村
-02日 01:28:35.78 任务[新村-Round1]执行成功，耗时: 5016ms
-02日 01:28:35.78 [ModelTask]: 任务 新村 完成，总耗时: 5024ms
-02日 01:28:35.78 [ModelTask]: 任务执行统计 - 总耗时: 5024ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:28:35.79 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 5043ms
-02日 01:28:35.79 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 5050ms
-02日 01:28:35.80 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/9 - 神奇物种
-02日 01:28:35.80 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
-02日 01:28:35.81 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
-02日 01:28:35.81 [ModelTask]: 开始执行第1轮任务: 神奇物种
-02日 01:28:35.82 [AntDodo]: 执行开始-神奇物种
-02日 01:28:35.82 网络未连接，等待5秒
-02日 01:28:38.63 [EnergyWaitingManager]: 定期清理检查：无过期任务
-02日 01:28:38.64 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
-02日 01:28:40.84 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:40.84 [AntDodo]: taskList返回空
-02日 01:28:40.85 网络未连接，等待5秒
-02日 01:28:45.83 [CoroutineTaskRunner]: 🔄 模块[神奇物种]第1轮运行中... 已执行10秒
-02日 01:28:45.87 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:45.87 [AntDodo]: propList返回空
-02日 01:28:45.87 网络未连接，等待5秒
-02日 01:28:46.49 [ApplicationHook]: hook onResume after start
-02日 01:28:46.50 [ApplicationHook]: onResume targetUid: 2088602261779903
-02日 01:28:46.51 [ApplicationHook]: onResume currentUid: 2088602261779903
-02日 01:28:46.51 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:28:46.52 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:28:46.53 [ApplicationHook]: hook onResume after end
-02日 01:28:46.53 [ApplicationHook]: 手动APP触发，已关闭
-02日 01:28:48.52 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:28:50.89 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:50.90 [AntDodo]: queryAnimalStatus返回空
-02日 01:28:50.90 网络未连接，等待5秒
-02日 01:28:55.87 [CoroutineTaskRunner]: 🔄 模块[神奇物种]第1轮运行中... 已执行20秒
-02日 01:28:55.90 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:28:55.93 [AntDodo]: queryFriend返回空
-02日 01:28:55.94 [AntDodo]: 执行结束-神奇物种
-02日 01:28:55.94 任务[神奇物种-Round1]执行成功，耗时: 20127ms
-02日 01:28:55.96 [ModelTask]: 任务 神奇物种 完成，总耗时: 20142ms
-02日 01:28:55.96 [ModelTask]: 任务执行统计 - 总耗时: 20142ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:28:55.99 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 20178ms
-02日 01:28:56.01 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 20205ms
-02日 01:28:56.04 [CoroutineTaskRunner]: 📍 第1轮任务进度: 7/9 - 运动
-02日 01:28:56.05 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
-02日 01:28:56.06 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
-02日 01:28:56.08 [ModelTask]: 开始执行第1轮任务: 运动
-02日 01:28:56.09 [AntSports]: 执行开始-运动
-02日 01:28:56.10 网络未连接，等待5秒
-02日 01:29:01.10 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:01.11 [AntSports]: 运动签到失败: RPC返回为空
-02日 01:29:01.12 网络未连接，等待5秒
-02日 01:29:02.04 [ApplicationHook]: hook onResume after start
-02日 01:29:02.05 [ApplicationHook]: onResume targetUid: 2088602261779903
-02日 01:29:02.06 [ApplicationHook]: onResume currentUid: 2088602261779903
-02日 01:29:02.07 [AlipayComponentHelper]: 🔓 已获取唤醒锁
-02日 01:29:02.08 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
-02日 01:29:02.09 [ApplicationHook]: hook onResume after end
-02日 01:29:02.09 [ApplicationHook]: 手动APP触发，已关闭
-02日 01:29:04.09 [AlipayComponentHelper]: 🔒 已释放唤醒锁
-02日 01:29:06.08 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行10秒
-02日 01:29:06.13 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:06.14 [AntSports]: 运动任务查询失败: RPC返回为空
-02日 01:29:06.17 [AntSports]: ========================
-运动任务 耗时: 10086 ms
-02日 01:29:06.18 网络未连接，等待5秒
-02日 01:29:08.66 [EnergyWaitingManager]: 定期清理检查：无过期任务
-02日 01:29:08.66 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
-02日 01:29:11.20 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:11.21 [AntSports]: walk err:
-02日 01:29:11.21 [AntSports]: ========================
-行走 耗时: 5038 ms
-02日 01:29:11.22 网络未连接，等待5秒
-02日 01:29:16.09 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:29:16.09 [UIConfig]: 重置UI配置
-02日 01:29:16.10 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行20秒
-02日 01:29:16.10 [Files]: self.json permissions: r=true; w=true
-02日 01:29:16.11 [Files]: self.json permissions: r=true; w=true
-02日 01:29:16.12 [Files]: self.json permissions: r=true; w=true
-02日 01:29:16.13 [Files]: self.json permissions: r=true; w=true
-02日 01:29:16.14 [Files]: self.json permissions: r=true; w=true
-02日 01:29:16.15 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:29:16.15 [MainActivity]: isModuleActivated: true
-02日 01:29:16.25 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:16.25 [AntSports]: queryProjectList err:
-02日 01:29:16.25 [AntSports]: ========================
-捐能量🎈 耗时: 5043 ms
-02日 01:29:16.26 网络未连接，等待5秒
-02日 01:29:17.57 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:29:17.57 [UIConfig]: 重置UI配置
-02日 01:29:17.58 [Files]: self.json permissions: r=true; w=true
-02日 01:29:17.60 [Files]: self.json permissions: r=true; w=true
-02日 01:29:17.62 [Files]: self.json permissions: r=true; w=true
-02日 01:29:17.63 [Files]: self.json permissions: r=true; w=true
-02日 01:29:17.65 [Files]: self.json permissions: r=true; w=true
-02日 01:29:17.65 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:29:17.65 [MainActivity]: isModuleActivated: true
-02日 01:29:21.27 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:21.28 [AntSports]: queryWalkStep err:
-02日 01:29:21.28 [AntSports]: ========================
-最小捐步步数 耗时: 5028 ms
-02日 01:29:21.28 网络未连接，等待5秒
-02日 01:29:26.12 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行30秒
-02日 01:29:26.29 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:26.30 [AntSports]: userTaskGroupQuery err:
-02日 01:29:26.30 网络未连接，等待5秒
-02日 01:29:27.68 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:29:27.69 [UIConfig]: 重置UI配置
-02日 01:29:27.70 [Files]: self.json permissions: r=true; w=true
-02日 01:29:27.72 [Files]: self.json permissions: r=true; w=true
-02日 01:29:27.73 [Files]: self.json permissions: r=true; w=true
-02日 01:29:27.74 [Files]: self.json permissions: r=true; w=true
-02日 01:29:27.75 [Files]: self.json permissions: r=true; w=true
-02日 01:29:27.75 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:29:27.75 [MainActivity]: isModuleActivated: true
-02日 01:29:29.29 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:29:29.29 [UIConfig]: 重置UI配置
-02日 01:29:29.30 [Files]: self.json permissions: r=true; w=true
-02日 01:29:29.31 [Files]: self.json permissions: r=true; w=true
-02日 01:29:29.33 [Files]: self.json permissions: r=true; w=true
-02日 01:29:29.33 [Files]: self.json permissions: r=true; w=true
-02日 01:29:29.35 [Files]: self.json permissions: r=true; w=true
-02日 01:29:29.35 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:29:29.36 [MainActivity]: isModuleActivated: true
-02日 01:29:31.30 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:31.31 [AntSports]: userTaskGroupQuery err:
-02日 01:29:31.31 [AntSports]: ========================
-查询任务 耗时: 10030 ms
-02日 01:29:31.31 网络未连接，等待5秒
-02日 01:29:36.15 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行40秒
-02日 01:29:36.34 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:36.34 [AntSports]: userTaskRightsReceive err:
-02日 01:29:36.34 [AntSports]: ========================
-userTaskRightsReceive 耗时: 5032 ms
-02日 01:29:36.35 网络未连接，等待5秒
-02日 01:29:38.67 [EnergyWaitingManager]: 定期清理检查：无过期任务
-02日 01:29:38.67 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
-02日 01:29:41.36 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:41.36 [AntSports]: pathFeatureQuery err:
-02日 01:29:41.36 [AntSports]: ========================
-pathFeatureQuery 耗时: 5022 ms
-02日 01:29:41.37 网络未连接，等待5秒
-02日 01:29:46.17 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行50秒
-02日 01:29:46.38 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:46.38 [AntSports]: participate err:
-02日 01:29:46.39 [AntSports]: ========================
-文体中心 耗时: 5022 ms
-02日 01:29:46.39 [AntSports]: 训练好友今日已达0金币上限，跳过执行
-02日 01:29:46.39 网络未连接，等待5秒
-02日 01:29:51.42 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:51.42 [AntSports]: receiveCoinAsset err:
-02日 01:29:51.42 [AntSports]: ========================
-收能量🎈 耗时: 5037 ms
-02日 01:29:51.43 [AntSports]: ========================
-AntSports 耗时: 55341 ms ()
-02日 01:29:51.43 [AntSports]: 执行结束-运动
-02日 01:29:51.43 任务[运动-Round1]执行成功，耗时: 55346ms
-02日 01:29:51.43 [ModelTask]: 任务 运动 完成，总耗时: 55360ms
-02日 01:29:51.44 [ModelTask]: 任务执行统计 - 总耗时: 55360ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:29:51.44 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 55381ms
-02日 01:29:51.45 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 55402ms
-02日 01:29:51.45 [CoroutineTaskRunner]: 📍 第1轮任务进度: 8/9 - 会员
-02日 01:29:51.45 [CoroutineTaskRunner]: 🚀 开始执行任务[会员-Round1]，超时设置: 600秒
-02日 01:29:51.46 [CoroutineTaskRunner]: 🎯 启动模块[会员]第1轮执行...
-02日 01:29:51.46 [ModelTask]: 开始执行第1轮任务: 会员
-02日 01:29:51.47 [AntMember]: 执行开始-会员
-02日 01:29:51.47 网络未连接，等待5秒
-02日 01:29:56.49 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:29:56.99 网络未连接，等待5秒
-02日 01:30:01.47 [CoroutineTaskRunner]: 🔄 模块[会员]第1轮运行中... 已执行10秒
-02日 01:30:02.01 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:02.54 [AntMember]: doAllMemberAvailableTask err:
-02日 01:30:02.54 网络未连接，等待5秒
-02日 01:30:07.55 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:07.56 [AntMember]: 执行结束-会员
-02日 01:30:07.56 任务[会员-Round1]执行成功，耗时: 16094ms
-02日 01:30:07.56 [ModelTask]: 任务 会员 完成，总耗时: 16099ms
-02日 01:30:07.56 [ModelTask]: 任务执行统计 - 总耗时: 16099ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:30:07.57 [CoroutineTaskRunner]: ✅ 模块[会员]第1轮执行成功，耗时: 16114ms
-02日 01:30:07.57 [CoroutineTaskRunner]: ✅ 任务[会员-Round1]执行完成，耗时: 16119ms
-02日 01:30:07.58 [CoroutineTaskRunner]: 📍 第1轮任务进度: 9/9 - 绿色经营
-02日 01:30:07.58 [CoroutineTaskRunner]: 🚀 开始执行任务[绿色经营-Round1]，超时设置: 600秒
-02日 01:30:07.58 [CoroutineTaskRunner]: 🎯 启动模块[绿色经营]第1轮执行...
-02日 01:30:07.59 [ModelTask]: 开始执行第1轮任务: 绿色经营
-02日 01:30:07.59 [GreenFinance]: 执行开始-绿色经营
-02日 01:30:07.59 网络未连接，等待5秒
-02日 01:30:08.67 [EnergyWaitingManager]: 定期清理检查：无过期任务
-02日 01:30:08.68 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
-02日 01:30:12.32 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:30:12.32 [UIConfig]: 重置UI配置
-02日 01:30:12.34 [Files]: self.json permissions: r=true; w=true
-02日 01:30:12.35 [Files]: self.json permissions: r=true; w=true
-02日 01:30:12.36 [Files]: self.json permissions: r=true; w=true
-02日 01:30:12.37 [Files]: self.json permissions: r=true; w=true
-02日 01:30:12.38 [Files]: self.json permissions: r=true; w=true
-02日 01:30:12.39 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:30:12.39 [MainActivity]: isModuleActivated: true
-02日 01:30:12.60 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:12.60 [GreenFinance]: index err:
-02日 01:30:12.61 [GreenFinance]: 执行结束-绿色经营
-02日 01:30:12.61 任务[绿色经营-Round1]执行成功，耗时: 5018ms
-02日 01:30:12.61 [ModelTask]: 任务 绿色经营 完成，总耗时: 5024ms
-02日 01:30:12.61 [ModelTask]: 任务执行统计 - 总耗时: 5024ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:30:12.62 [CoroutineTaskRunner]: ✅ 模块[绿色经营]第1轮执行成功，耗时: 5036ms
-02日 01:30:12.62 [CoroutineTaskRunner]: ✅ 任务[绿色经营-Round1]执行完成，耗时: 5042ms
-02日 01:30:12.62 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 123782ms
-02日 01:30:12.63 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共9个启用任务
-02日 01:30:12.63 [CoroutineTaskRunner]: 📍 第2轮任务进度: 1/9 - 森林
-02日 01:30:12.63 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round2]，超时设置: 600秒
-02日 01:30:12.63 [CoroutineTaskRunner]: 🎯 启动模块[森林]第2轮执行...
-02日 01:30:12.64 获取 只收能量时间 配置: [0658-0731]
-02日 01:30:12.64 模块休眠时间 配置已关闭
-02日 01:30:12.64 [ModelTask]: 开始执行第1轮任务: 森林
-02日 01:30:12.65 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
-02日 01:30:12.65 [AntForest]: 执行开始-蚂蚁森林
-02日 01:30:12.65 网络未连接，等待5秒
-02日 01:30:13.88 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:30:13.89 [UIConfig]: 重置UI配置
-02日 01:30:13.90 [Files]: self.json permissions: r=true; w=true
-02日 01:30:13.91 [Files]: self.json permissions: r=true; w=true
-02日 01:30:13.93 [Files]: self.json permissions: r=true; w=true
-02日 01:30:13.94 [Files]: self.json permissions: r=true; w=true
-02日 01:30:13.95 [Files]: self.json permissions: r=true; w=true
-02日 01:30:13.96 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:30:13.96 [MainActivity]: isModuleActivated: true
-02日 01:30:15.33 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:30:15.34 [UIConfig]: 重置UI配置
-02日 01:30:15.34 [Files]: self.json permissions: r=true; w=true
-02日 01:30:15.36 [Files]: self.json permissions: r=true; w=true
-02日 01:30:15.37 [Files]: self.json permissions: r=true; w=true
-02日 01:30:15.38 [Files]: self.json permissions: r=true; w=true
-02日 01:30:15.39 [Files]: self.json permissions: r=true; w=true
-02日 01:30:15.39 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:30:15.40 [MainActivity]: isModuleActivated: true
-02日 01:30:16.51 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:30:16.52 [UIConfig]: 重置UI配置
-02日 01:30:16.52 [Files]: self.json permissions: r=true; w=true
-02日 01:30:16.53 [Files]: self.json permissions: r=true; w=true
-02日 01:30:16.54 [Files]: self.json permissions: r=true; w=true
-02日 01:30:16.55 [Files]: self.json permissions: r=true; w=true
-02日 01:30:16.55 [Files]: self.json permissions: r=true; w=true
-02日 01:30:16.56 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:30:16.56 [MainActivity]: isModuleActivated: true
-02日 01:30:17.67 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:17.78 [AntForest]: ==================================================
-02日 01:30:17.79 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
-02日 01:30:17.79 [AntForest]: ⏱️ 主任务耗时: 5秒 (5139ms)
-02日 01:30:17.79 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
-02日 01:30:17.80 [AntForest]: ✅ 无后台蹲点任务
-02日 01:30:17.80 [AntForest]: ==================================================
-02日 01:30:17.81 任务[森林-Round1]执行成功，耗时: 5160ms
-02日 01:30:17.81 [ModelTask]: 任务 森林 完成，总耗时: 5169ms
-02日 01:30:17.81 [ModelTask]: 任务执行统计 - 总耗时: 5169ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:30:17.82 [CoroutineTaskRunner]: ✅ 模块[森林]第2轮执行成功，耗时: 5184ms
-02日 01:30:17.82 [CoroutineTaskRunner]: ✅ 任务[森林-Round2]执行完成，耗时: 5189ms
-02日 01:30:17.82 [CoroutineTaskRunner]: 📍 第2轮任务进度: 2/9 - 庄园
-02日 01:30:17.83 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round2]，超时设置: 600秒
-02日 01:30:17.83 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第2轮执行...
-02日 01:30:17.83 [ModelTask]: 开始执行第1轮任务: 庄园
-02日 01:30:17.84 [AntFarm]: 执行开始-蚂蚁庄园
-02日 01:30:17.84 网络未连接，等待5秒
-02日 01:30:17.94 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
-02日 01:30:17.94 [UIConfig]: 重置UI配置
-02日 01:30:17.95 [Files]: self.json permissions: r=true; w=true
-02日 01:30:17.96 [Files]: self.json permissions: r=true; w=true
-02日 01:30:17.97 [Files]: self.json permissions: r=true; w=true
-02日 01:30:17.98 [Files]: self.json permissions: r=true; w=true
-02日 01:30:17.99 [Files]: self.json permissions: r=true; w=true
-02日 01:30:18.00 [MainActivity]: 加载用户配置: 共5个账号
-02日 01:30:18.00 [MainActivity]: isModuleActivated: true
-02日 01:30:22.85 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:22.85 [AntFarm]: 执行结束-蚂蚁庄园
-02日 01:30:22.85 任务[庄园-Round1]执行成功，耗时: 5016ms
-02日 01:30:22.86 [ModelTask]: 任务 庄园 完成，总耗时: 5022ms
-02日 01:30:22.86 [ModelTask]: 任务执行统计 - 总耗时: 5022ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:30:22.87 [CoroutineTaskRunner]: ✅ 模块[庄园]第2轮执行成功，耗时: 5037ms
-02日 01:30:22.87 [CoroutineTaskRunner]: ✅ 任务[庄园-Round2]执行完成，耗时: 5044ms
-02日 01:30:22.87 [CoroutineTaskRunner]: 📍 第2轮任务进度: 3/9 - 海洋
-02日 01:30:22.88 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round2]，超时设置: 600秒
-02日 01:30:22.88 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第2轮执行...
-02日 01:30:22.88 [ModelTask]: 开始执行第1轮任务: 海洋
-02日 01:30:22.89 [AntOcean]: 执行开始-海洋
-02日 01:30:22.89 网络未连接，等待5秒
-02日 01:30:27.91 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:27.92 [AntOcean]: queryOceanStatus err:
-02日 01:30:27.92 [AntOcean]: 执行结束-海洋
-02日 01:30:27.92 任务[海洋-Round1]执行成功，耗时: 5035ms
-02日 01:30:27.92 [ModelTask]: 任务 海洋 完成，总耗时: 5041ms
-02日 01:30:27.93 [ModelTask]: 任务执行统计 - 总耗时: 5041ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:30:27.93 [CoroutineTaskRunner]: ✅ 模块[海洋]第2轮执行成功，耗时: 5056ms
-02日 01:30:27.94 [CoroutineTaskRunner]: ✅ 任务[海洋-Round2]执行完成，耗时: 5063ms
-02日 01:30:27.94 [CoroutineTaskRunner]: 📍 第2轮任务进度: 4/9 - 农场
-02日 01:30:27.94 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round2]，超时设置: 600秒
-02日 01:30:27.95 [CoroutineTaskRunner]: 🎯 启动模块[农场]第2轮执行...
-02日 01:30:27.95 [ModelTask]: 开始执行第1轮任务: 农场
-02日 01:30:27.96 [AntOrchard]: 执行开始-农场
-02日 01:30:27.96 网络未连接，等待5秒
-02日 01:30:32.98 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:32.99 [AntOrchard]: start.run err:
-02日 01:30:32.99 [AntOrchard]: 执行结束-农场
-02日 01:30:32.99 任务[农场-Round1]执行成功，耗时: 5035ms
-02日 01:30:32.99 [ModelTask]: 任务 农场 完成，总耗时: 5041ms
-02日 01:30:33.00 [ModelTask]: 任务执行统计 - 总耗时: 5041ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:30:33.00 [CoroutineTaskRunner]: ✅ 模块[农场]第2轮执行成功，耗时: 5055ms
-02日 01:30:33.01 [CoroutineTaskRunner]: ✅ 任务[农场-Round2]执行完成，耗时: 5063ms
-02日 01:30:33.01 [CoroutineTaskRunner]: 📍 第2轮任务进度: 5/9 - 新村
-02日 01:30:33.01 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round2]，超时设置: 600秒
-02日 01:30:33.01 [CoroutineTaskRunner]: 🎯 启动模块[新村]第2轮执行...
-02日 01:30:33.02 [ModelTask]: 开始执行第1轮任务: 新村
-02日 01:30:33.02 [AntStall]: 执行开始-新村
-02日 01:30:33.03 网络未连接，等待5秒
-02日 01:30:38.04 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:38.04 [AntStall]: home err:
-02日 01:30:38.05 [AntStall]: 执行结束-新村
-02日 01:30:38.05 任务[新村-Round1]执行成功，耗时: 5025ms
-02日 01:30:38.05 [ModelTask]: 任务 新村 完成，总耗时: 5031ms
-02日 01:30:38.05 [ModelTask]: 任务执行统计 - 总耗时: 5031ms, 成功: 1, 失败: 0, 跳过: 0
-02日 01:30:38.06 [CoroutineTaskRunner]: ✅ 模块[新村]第2轮执行成功，耗时: 5047ms
-02日 01:30:38.06 [CoroutineTaskRunner]: ✅ 任务[新村-Round2]执行完成，耗时: 5053ms
-02日 01:30:38.07 [CoroutineTaskRunner]: 📍 第2轮任务进度: 6/9 - 神奇物种
-02日 01:30:38.07 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round2]，超时设置: 600秒
-02日 01:30:38.07 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第2轮执行...
-02日 01:30:38.08 [ModelTask]: 开始执行第1轮任务: 神奇物种
-02日 01:30:38.08 [AntDodo]: 执行开始-神奇物种
-02日 01:30:38.09 网络未连接，等待5秒
-02日 01:30:38.70 [EnergyWaitingManager]: 定期清理检查：无过期任务
-02日 01:30:38.70 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
-02日 01:30:43.11 网络仍未连接，当前网络类型: UNKNOWN，放弃本次请求...
-02日 01:30:43.11 [AntDodo]: taskList返回空
-02日 01:30:43.11 网络未连接，等待5秒
+02日 01:54:38.71 [AntFarm]: 执行结束-蚂蚁庄园
+02日 01:54:38.72 任务[庄园-Round1]执行成功，耗时: 5074ms
+02日 01:54:38.72 [ModelTask]: 任务 庄园 完成，总耗时: 5092ms
+02日 01:54:38.72 [ModelTask]: 任务执行统计 - 总耗时: 5092ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:54:38.73 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 5180ms
+02日 01:54:38.73 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 5192ms
+02日 01:54:38.73 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/9 - 海洋
+02日 01:54:38.74 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round1]，超时设置: 600秒
+02日 01:54:38.74 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第1轮执行...
+02日 01:54:38.75 [ModelTask]: 开始执行第1轮任务: 海洋
+02日 01:54:38.75 [AntOcean]: 执行开始-海洋
+02日 01:54:38.75 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:54:40.64 [ApplicationHook]: hook onResume after start
+02日 01:54:40.66 [ApplicationHook]: onResume targetUid: 2088632752200481
+02日 01:54:40.66 [ApplicationHook]: onResume currentUid: 2088602261779903
+02日 01:54:40.67 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:54:40.68 [ApplicationHook]: 🔄 检测到用户切换
+02日 01:54:40.70 [ApplicationHook]:    旧用户: 2088602261779903
+02日 01:54:40.73 [ApplicationHook]:    新用户: 2088632752200481
+02日 01:54:40.75 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:54:40.75 [ApplicationHook]: initHandler: 强制重新初始化
+02日 01:54:40.76 [BaseModel]: 🧹清理所有数据
+02日 01:54:40.90 [AlarmManager]: 🧹 开始清理AlarmScheduler: 协程状态: 作用域=活跃, 活跃任务=2, 完成任务=0, 取消任务=0
+02日 01:54:40.91 [AlarmScheduler]: AlarmScheduler协程资源已清理 (清理了2个备份任务)
+02日 01:54:40.91 [AlarmManager]: ✅ AlarmScheduler清理完成
+02日 01:54:40.92 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:54:41.00 [HookUtil]: loading userCache from target app
+02日 01:54:41.45 [Files]: self.json permissions: r=true; w=true
+02日 01:54:41.47 [Files]: friend.json permissions: r=true; w=true
+02日 01:54:41.50 [HookUtil]: userCache load scuess !
+02日 01:54:41.51 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+02日 01:54:41.51 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+02日 01:54:41.52 [ApplicationHook]: ⚙️模块版本：0.3.0-rc156
+02日 01:54:41.52 [ApplicationHook]: 📦应用版本：10.7.86.8000
+02日 01:54:41.53 [ApplicationHook]: 📶网络类型：WIFI
+02日 01:54:41.54 [ApplicationHook]: 👤用户ID：2088632752200481
+02日 01:54:41.54 [ApplicationHook]: 🕐初始化时间：02日01:54:41
+02日 01:54:41.55 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:54:41.56 [Config]: 开始加载配置
+02日 01:54:41.57 [Config]: 加载配置: 機風
+02日 01:54:41.58 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+02日 01:54:41.94 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088632752200481/config_v2.json
+02日 01:54:41.95 [Config]: 格式化配置: 機風
+02日 01:54:41.98 获取 只收能量时间 配置: [0658-0731]
+02日 01:54:41.98 模块休眠时间 配置已关闭
+02日 01:54:41.98 [ApplicationHook]: ⚠️ 支付宝无闹钟权限（将影响定时任务执行）
+02日 01:54:41.99 [ApplicationHook]: 取消定时唤醒将由destroyHandler统一处理
+02日 01:54:42.00 [AlarmScheduler]: 已设置多重保护闹钟: ID=0, 预定时间=00:00:00
+02日 01:54:42.01 [AlarmManager]: ⏰ 主闹钟设置成功: ID=0
+02日 01:54:42.02 [ApplicationHook]: ⏰ 设置0点定时唤醒成功
+02日 01:54:42.04 [AlarmScheduler]: 已设置多重保护闹钟: ID=3, 预定时间=06:50:00
+02日 01:54:42.04 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=3
+02日 01:54:42.06 [ApplicationHook]: ⏰ 设置定时唤醒成功: 0650
+02日 01:54:42.07 [AlarmScheduler]: 已设置多重保护闹钟: ID=4, 预定时间=23:50:00
+02日 01:54:42.08 [AlarmManager]: ⏰ 自定义闹钟设置成功: ID=4
+02日 01:54:42.09 [ApplicationHook]: ⏰ 设置定时唤醒成功: 2350
+02日 01:54:42.10 [ApplicationHook]: ⏰ 共设置了 2 个自定义定时唤醒
+02日 01:54:42.10 [NewRpcBridge]: get newRpcCallMethod successfully
+02日 01:54:42.10 [AntForest]: 查询间隔原始设置值: [500-800]
+02日 01:54:42.11 [AntForest]: 查询间隔成功创建区间限制
+02日 01:54:42.11 [AntForest]: 收取间隔原始设置值: [500-800]
+02日 01:54:42.12 [AntForest]: 收取间隔成功创建区间限制
+02日 01:54:42.12 [AntForest]: 双击间隔原始设置值: [50-150]
+02日 01:54:42.12 [AntForest]: 双击间隔成功创建区间限制
+02日 01:54:42.13 [AntForestRpcCall]: 当前支付宝版本: 
+02日 01:54:42.13 [AntForestRpcCall]: 使用API版本: 20250813
+02日 01:54:42.14 [EnergyWaitingManager]: 已设置能量收取回调
+02日 01:54:42.14 [AntSports]: hook readDailyStep successfully
+02日 01:54:42.15 [Files]: status.json permissions: r=true; w=true
+02日 01:54:42.16 [Status]: 加载 status.json
+02日 01:54:42.27 [Status]: 保存 status.json
+02日 01:54:42.28 [Files]: status.json permissions: r=true; w=true
+02日 01:54:42.32 [ApplicationHook]: ━━━━━━━━━━ 初始化完成 ━━━━━━━━━━
+02日 01:54:42.34 [ApplicationHook]: ✅ 芝麻粒-TK 加载成功✨
+02日 01:54:42.34 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:54:42.34 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:54:42.37 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:42.38 [ApplicationHook]: ✅ 用户切换完成，已重新初始化
+02日 01:54:42.38 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+02日 01:54:42.42 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+02日 01:54:42.43 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+02日 01:54:42.43 [AlarmScheduler]: 已设置多重保护闹钟: ID=24215, 预定时间=03:24:42
+02日 01:54:42.44 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共8个启用任务
+02日 01:54:42.45 [AlarmScheduler]: 已设置备份闹钟: ID=12451, 预定时间=03:25:12 (+30秒)
+02日 01:54:42.46 [CoroutineTaskRunner]: 📍 第1轮任务进度: 1/8 - 森林
+02日 01:54:42.47 [AlarmScheduler]: ⏰ 下次执行(Alarm) 03:24:42
+02日 01:54:42.49 [CoroutineTaskRunner]: 🚀 开始执行任务[森林-Round1]，超时设置: 600秒
+02日 01:54:42.51 [CoroutineTaskRunner]: 🎯 启动模块[森林]第1轮执行...
+02日 01:54:42.53 获取 只收能量时间 配置: [0658-0731]
+02日 01:54:42.53 模块休眠时间 配置已关闭
+02日 01:54:42.56 [Files]: runtime.json permissions: r=true; w=true
+02日 01:54:42.57 [ModelTask]: 开始执行第1轮任务: 森林
+02日 01:54:42.57 [AlarmScheduler]: 已设置闹钟唤醒执行，ID=24215，时间：02日03:24:42，延迟：5400秒
+02日 01:54:42.58 [AlarmManager]: ⏰ 精确执行调度成功: 延迟5400000ms
+02日 01:54:42.58 [AntForest]: 🌲🌲🌲 森林主任务开始执行 🌲🌲🌲
+02日 01:54:42.59 [AntForest]: 任务计数器已重置
+02日 01:54:42.61 [AntForest]: ✅ 检测到新的一天[2025年11月2日]，重置计数器
+02日 01:54:42.67 [AntForest]: 执行开始-蚂蚁森林
+02日 01:54:42.68 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:54:43.76 [AntOcean]: queryOceanStatus err:
+02日 01:54:43.76 ⚠️ 错误【JSONException:EmptyResponse】已出现3次，后续将不再打印详细堆栈
+02日 01:54:43.77 [AntOcean]: 执行结束-海洋
+02日 01:54:43.77 任务[海洋-Round1]执行成功，耗时: 5023ms
+02日 01:54:43.78 [ModelTask]: 任务 海洋 完成，总耗时: 5034ms
+02日 01:54:43.78 [ModelTask]: 任务执行统计 - 总耗时: 5034ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:54:43.81 [CoroutineTaskRunner]: ✅ 模块[海洋]第1轮执行成功，耗时: 5069ms
+02日 01:54:43.84 [CoroutineTaskRunner]: ✅ 任务[海洋-Round1]执行完成，耗时: 5099ms
+02日 01:54:43.84 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/9 - 农场
+02日 01:54:43.86 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
+02日 01:54:43.87 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
+02日 01:54:43.88 [ModelTask]: 任务 农场 不满足执行条件
+02日 01:54:43.89 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 22ms
+02日 01:54:43.91 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 60ms
+02日 01:54:43.95 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/9 - 新村
+02日 01:54:43.95 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
+02日 01:54:43.97 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
+02日 01:54:43.98 [ModelTask]: 任务 新村 不满足执行条件
+02日 01:54:43.99 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 17ms
+02日 01:54:44.01 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 58ms
+02日 01:54:44.01 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/9 - 神奇物种
+02日 01:54:44.02 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
+02日 01:54:44.03 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
+02日 01:54:44.04 [ModelTask]: 任务 神奇物种 不满足执行条件
+02日 01:54:44.08 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 52ms
+02日 01:54:44.09 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 73ms
+02日 01:54:44.10 [CoroutineTaskRunner]: 📍 第1轮任务进度: 7/9 - 运动
+02日 01:54:44.11 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
+02日 01:54:44.12 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
+02日 01:54:44.13 [ModelTask]: 任务 运动 不满足执行条件
+02日 01:54:44.13 [CoroutineTaskRunner]: ✅ 模块[运动]第1轮执行成功，耗时: 14ms
+02日 01:54:44.14 [CoroutineTaskRunner]: ✅ 任务[运动-Round1]执行完成，耗时: 33ms
+02日 01:54:44.14 [CoroutineTaskRunner]: 📍 第1轮任务进度: 8/9 - 会员
+02日 01:54:44.16 [CoroutineTaskRunner]: 🚀 开始执行任务[会员-Round1]，超时设置: 600秒
+02日 01:54:44.18 [CoroutineTaskRunner]: 🎯 启动模块[会员]第1轮执行...
+02日 01:54:44.18 [ModelTask]: 任务 会员 不满足执行条件
+02日 01:54:44.19 [CoroutineTaskRunner]: ✅ 模块[会员]第1轮执行成功，耗时: 15ms
+02日 01:54:44.20 [CoroutineTaskRunner]: ✅ 任务[会员-Round1]执行完成，耗时: 40ms
+02日 01:54:44.21 [CoroutineTaskRunner]: 📍 第1轮任务进度: 9/9 - 绿色经营
+02日 01:54:44.23 [CoroutineTaskRunner]: 🚀 开始执行任务[绿色经营-Round1]，超时设置: 600秒
+02日 01:54:44.24 [CoroutineTaskRunner]: 🎯 启动模块[绿色经营]第1轮执行...
+02日 01:54:44.26 [ModelTask]: 任务 绿色经营 不满足执行条件
+02日 01:54:44.26 [CoroutineTaskRunner]: ✅ 模块[绿色经营]第1轮执行成功，耗时: 20ms
+02日 01:54:44.27 [CoroutineTaskRunner]: ✅ 任务[绿色经营-Round1]执行完成，耗时: 36ms
+02日 01:54:44.28 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 16274ms
+02日 01:54:44.28 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
+02日 01:54:44.29 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 7ms
+02日 01:54:44.29 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
+02日 01:54:44.30 [CoroutineTaskRunner]: 🕐 执行时间: 16316ms (16.3秒)
+02日 01:54:44.30 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
+02日 01:54:44.31 [CoroutineTaskRunner]: ✅ 成功任务: 9
+02日 01:54:44.33 [CoroutineTaskRunner]: ❌ 失败任务: 0
+02日 01:54:44.33 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
+02日 01:54:44.34 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
+02日 01:54:44.35 [CoroutineTaskRunner]: 📊 成功率: 100.0%
+02日 01:54:44.36 [CoroutineTaskRunner]: ================================
+02日 01:54:44.40 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:54:47.81 [AntForest]: ==================================================
+02日 01:54:47.88 [AntForest]: 🌲🌲🌲 森林主任务执行完毕 🌲🌲🌲
+02日 01:54:47.90 [AntForest]: ⏱️ 主任务耗时: 5秒 (5230ms)
+02日 01:54:47.94 [AntForest]: 📊 收取统计: 收0g 帮0g 浇0g
+02日 01:54:48.04 [AntForest]: ✅ 无后台蹲点任务
+02日 01:54:48.19 [AntForest]: ==================================================
+02日 01:54:48.34 任务[森林-Round1]执行成功，耗时: 5759ms
+02日 01:54:48.53 [ModelTask]: 任务 森林 完成，总耗时: 5957ms
+02日 01:54:48.68 [ModelTask]: 任务执行统计 - 总耗时: 5957ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:54:48.81 [CoroutineTaskRunner]: ✅ 模块[森林]第1轮执行成功，耗时: 6306ms
+02日 01:54:48.96 [CoroutineTaskRunner]: ✅ 任务[森林-Round1]执行完成，耗时: 6466ms
+02日 01:54:49.08 [CoroutineTaskRunner]: 📍 第1轮任务进度: 2/8 - 庄园
+02日 01:54:49.21 [CoroutineTaskRunner]: 🚀 开始执行任务[庄园-Round1]，超时设置: 600秒
+02日 01:54:49.33 [CoroutineTaskRunner]: 🎯 启动模块[庄园]第1轮执行...
+02日 01:54:49.47 [ModelTask]: 开始执行第1轮任务: 庄园
+02日 01:54:49.61 [AntFarm]: 执行开始-蚂蚁庄园
+02日 01:54:49.75 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:54:51.41 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:54:52.02 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:54:52.03 [ApplicationHook]: 验证码Hook已启用
+02日 01:54:52.04 [ApplicationHook]: hook login successfully
+02日 01:54:52.05 [ApplicationHook]: hook service onCreate successfully
+02日 01:54:52.51 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:54:52.52 [UIConfig]: 重置UI配置
+02日 01:54:52.54 [Files]: self.json permissions: r=true; w=true
+02日 01:54:52.56 [Files]: self.json permissions: r=true; w=true
+02日 01:54:52.57 [Files]: self.json permissions: r=true; w=true
+02日 01:54:52.58 [Files]: self.json permissions: r=true; w=true
+02日 01:54:52.60 [Files]: self.json permissions: r=true; w=true
+02日 01:54:52.60 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:54:52.61 [MainActivity]: isModuleActivated: true
+02日 01:54:53.43 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:54:53.54 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:54:53.55 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:54:53.55 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:54:53.56 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:54:53.56 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:54:53.57 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:54:53.57 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:54:53.58 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:54:53.58 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:54:53.70 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:53.71 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:54:53.73 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:53.74 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:54:53.74 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:54:53.75 [ApplicationHook]: start service for debug rpc
+02日 01:54:53.75 [ModuleHttpServerManager]: 非主进程，无需启动内置 HTTP 服务: com.eg.android.AlipayGphone:tools
+02日 01:54:54.08 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:54:54.09 [UIConfig]: 重置UI配置
+02日 01:54:54.11 [Files]: self.json permissions: r=true; w=true
+02日 01:54:54.13 [Files]: self.json permissions: r=true; w=true
+02日 01:54:54.14 [Files]: self.json permissions: r=true; w=true
+02日 01:54:54.15 [Files]: self.json permissions: r=true; w=true
+02日 01:54:54.16 [Files]: self.json permissions: r=true; w=true
+02日 01:54:54.17 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:54:54.17 [MainActivity]: isModuleActivated: true
+02日 01:54:54.91 [AntFarm]: 执行结束-蚂蚁庄园
+02日 01:54:55.03 任务[庄园-Round1]执行成功，耗时: 5420ms
+02日 01:54:55.16 [ModelTask]: 任务 庄园 完成，总耗时: 5689ms
+02日 01:54:55.29 [ModelTask]: 任务执行统计 - 总耗时: 5689ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:54:55.41 [CoroutineTaskRunner]: ✅ 模块[庄园]第1轮执行成功，耗时: 6082ms
+02日 01:54:55.54 [CoroutineTaskRunner]: ✅ 任务[庄园-Round1]执行完成，耗时: 6332ms
+02日 01:54:55.57 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:54:55.63 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:54:55.63 [UIConfig]: 重置UI配置
+02日 01:54:55.65 [Files]: self.json permissions: r=true; w=true
+02日 01:54:55.66 [Files]: self.json permissions: r=true; w=true
+02日 01:54:55.66 [CoroutineTaskRunner]: 📍 第1轮任务进度: 3/8 - 海洋
+02日 01:54:55.67 [Files]: self.json permissions: r=true; w=true
+02日 01:54:55.71 [Files]: self.json permissions: r=true; w=true
+02日 01:54:55.72 [Files]: self.json permissions: r=true; w=true
+02日 01:54:55.73 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:54:55.74 [MainActivity]: isModuleActivated: true
+02日 01:54:55.79 [CoroutineTaskRunner]: 🚀 开始执行任务[海洋-Round1]，超时设置: 600秒
+02日 01:54:55.93 [CoroutineTaskRunner]: 🎯 启动模块[海洋]第1轮执行...
+02日 01:54:56.07 [ModelTask]: 开始执行第1轮任务: 海洋
+02日 01:54:56.23 [AntOcean]: 执行开始-海洋
+02日 01:54:56.38 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:54:57.80 [EnergyWaitingManager]: 定期清理检查：无过期任务
+02日 01:54:57.93 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
+02日 01:55:01.53 [AntOcean]: queryOceanStatus err:
+02日 01:55:01.62 [AntOcean]: 执行结束-海洋
+02日 01:55:01.75 任务[海洋-Round1]执行成功，耗时: 5517ms
+02日 01:55:01.88 [ModelTask]: 任务 海洋 完成，总耗时: 5817ms
+02日 01:55:02.01 [ModelTask]: 任务执行统计 - 总耗时: 5817ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:55:02.15 [CoroutineTaskRunner]: ✅ 模块[海洋]第1轮执行成功，耗时: 6224ms
+02日 01:55:02.28 [CoroutineTaskRunner]: ✅ 任务[海洋-Round1]执行完成，耗时: 6497ms
+02日 01:55:02.41 [CoroutineTaskRunner]: 📍 第1轮任务进度: 4/8 - 农场
+02日 01:55:02.55 [CoroutineTaskRunner]: 🚀 开始执行任务[农场-Round1]，超时设置: 600秒
+02日 01:55:02.69 [CoroutineTaskRunner]: 🎯 启动模块[农场]第1轮执行...
+02日 01:55:02.82 [ModelTask]: 开始执行第1轮任务: 农场
+02日 01:55:02.96 [AntOrchard]: 执行开始-农场
+02日 01:55:03.10 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:55:03.11 [UIConfig]: 重置UI配置
+02日 01:55:03.12 [Files]: self.json permissions: r=true; w=true
+02日 01:55:03.13 [Files]: self.json permissions: r=true; w=true
+02日 01:55:03.14 [Files]: self.json permissions: r=true; w=true
+02日 01:55:03.15 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:03.15 [Files]: self.json permissions: r=true; w=true
+02日 01:55:03.20 [Files]: self.json permissions: r=true; w=true
+02日 01:55:03.21 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:55:03.24 [MainActivity]: isModuleActivated: true
+02日 01:55:08.31 [AntOrchard]: start.run err:
+02日 01:55:08.40 [AntOrchard]: 执行结束-农场
+02日 01:55:08.53 任务[农场-Round1]执行成功，耗时: 5576ms
+02日 01:55:08.68 [ModelTask]: 任务 农场 完成，总耗时: 5856ms
+02日 01:55:08.82 [ModelTask]: 任务执行统计 - 总耗时: 5856ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:55:08.97 [CoroutineTaskRunner]: ✅ 模块[农场]第1轮执行成功，耗时: 6284ms
+02日 01:55:09.12 [CoroutineTaskRunner]: ✅ 任务[农场-Round1]执行完成，耗时: 6571ms
+02日 01:55:09.26 [CoroutineTaskRunner]: 📍 第1轮任务进度: 5/8 - 新村
+02日 01:55:09.41 [CoroutineTaskRunner]: 🚀 开始执行任务[新村-Round1]，超时设置: 600秒
+02日 01:55:09.56 [CoroutineTaskRunner]: 🎯 启动模块[新村]第1轮执行...
+02日 01:55:09.61 [ModelTask]: 开始执行第1轮任务: 新村
+02日 01:55:09.62 [AntStall]: 执行开始-新村
+02日 01:55:09.62 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:14.65 [AntStall]: home err:
+02日 01:55:14.67 [AntStall]: 执行结束-新村
+02日 01:55:14.69 任务[新村-Round1]执行成功，耗时: 5069ms
+02日 01:55:14.71 [ModelTask]: 任务 新村 完成，总耗时: 5097ms
+02日 01:55:14.71 [ModelTask]: 任务执行统计 - 总耗时: 5097ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:55:14.72 [CoroutineTaskRunner]: ✅ 模块[新村]第1轮执行成功，耗时: 5165ms
+02日 01:55:14.72 [CoroutineTaskRunner]: ✅ 任务[新村-Round1]执行完成，耗时: 5318ms
+02日 01:55:14.75 [CoroutineTaskRunner]: 📍 第1轮任务进度: 6/8 - 神奇物种
+02日 01:55:14.76 [CoroutineTaskRunner]: 🚀 开始执行任务[神奇物种-Round1]，超时设置: 600秒
+02日 01:55:14.76 [CoroutineTaskRunner]: 🎯 启动模块[神奇物种]第1轮执行...
+02日 01:55:14.77 [ModelTask]: 开始执行第1轮任务: 神奇物种
+02日 01:55:14.77 [AntDodo]: 执行开始-神奇物种
+02日 01:55:14.78 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:19.79 [AntDodo]: taskList返回空
+02日 01:55:19.79 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:24.78 [CoroutineTaskRunner]: 🔄 模块[神奇物种]第1轮运行中... 已执行10秒
+02日 01:55:24.80 [AntDodo]: propList返回空
+02日 01:55:24.80 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:27.82 [EnergyWaitingManager]: 定期清理检查：无过期任务
+02日 01:55:27.86 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
+02日 01:55:29.83 [AntDodo]: queryAnimalStatus返回空
+02日 01:55:29.83 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:34.81 [CoroutineTaskRunner]: 🔄 模块[神奇物种]第1轮运行中... 已执行20秒
+02日 01:55:34.85 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:55:34.85 [AntDodo]: queryFriend返回空
+02日 01:55:34.86 [AntDodo]: 执行结束-神奇物种
+02日 01:55:34.86 [UIConfig]: 重置UI配置
+02日 01:55:34.87 [Files]: self.json permissions: r=true; w=true
+02日 01:55:34.89 [Files]: self.json permissions: r=true; w=true
+02日 01:55:34.89 任务[神奇物种-Round1]执行成功，耗时: 20116ms
+02日 01:55:34.89 [ModelTask]: 任务 神奇物种 完成，总耗时: 20124ms
+02日 01:55:34.89 [ModelTask]: 任务执行统计 - 总耗时: 20124ms, 成功: 1, 失败: 0, 跳过: 0
+02日 01:55:34.90 [Files]: self.json permissions: r=true; w=true
+02日 01:55:34.93 [CoroutineTaskRunner]: ✅ 模块[神奇物种]第1轮执行成功，耗时: 20173ms
+02日 01:55:34.94 [Files]: self.json permissions: r=true; w=true
+02日 01:55:34.94 [CoroutineTaskRunner]: ✅ 任务[神奇物种-Round1]执行完成，耗时: 20181ms
+02日 01:55:34.94 [CoroutineTaskRunner]: 📍 第1轮任务进度: 7/8 - 运动
+02日 01:55:34.94 [CoroutineTaskRunner]: 🚀 开始执行任务[运动-Round1]，超时设置: 600秒
+02日 01:55:34.95 [CoroutineTaskRunner]: 🎯 启动模块[运动]第1轮执行...
+02日 01:55:34.95 [Files]: self.json permissions: r=true; w=true
+02日 01:55:34.96 [ModelTask]: 开始执行第1轮任务: 运动
+02日 01:55:34.96 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:55:34.96 [MainActivity]: isModuleActivated: true
+02日 01:55:34.96 [AntSports]: 执行开始-运动
+02日 01:55:34.97 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:36.46 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:55:36.47 [UIConfig]: 重置UI配置
+02日 01:55:36.48 [Files]: self.json permissions: r=true; w=true
+02日 01:55:36.49 [Files]: self.json permissions: r=true; w=true
+02日 01:55:36.50 [Files]: self.json permissions: r=true; w=true
+02日 01:55:36.51 [Files]: self.json permissions: r=true; w=true
+02日 01:55:36.53 [Files]: self.json permissions: r=true; w=true
+02日 01:55:36.53 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:55:36.53 [MainActivity]: isModuleActivated: true
+02日 01:55:37.83 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:55:37.83 [UIConfig]: 重置UI配置
+02日 01:55:37.85 [Files]: self.json permissions: r=true; w=true
+02日 01:55:37.86 [Files]: self.json permissions: r=true; w=true
+02日 01:55:37.87 [Files]: self.json permissions: r=true; w=true
+02日 01:55:37.88 [Files]: self.json permissions: r=true; w=true
+02日 01:55:37.89 [Files]: self.json permissions: r=true; w=true
+02日 01:55:37.90 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:55:37.90 [MainActivity]: isModuleActivated: true
+02日 01:55:39.15 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:55:39.15 [UIConfig]: 重置UI配置
+02日 01:55:39.16 [Files]: self.json permissions: r=true; w=true
+02日 01:55:39.17 [Files]: self.json permissions: r=true; w=true
+02日 01:55:39.18 [Files]: self.json permissions: r=true; w=true
+02日 01:55:39.19 [Files]: self.json permissions: r=true; w=true
+02日 01:55:39.20 [Files]: self.json permissions: r=true; w=true
+02日 01:55:39.21 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:55:39.21 [MainActivity]: isModuleActivated: true
+02日 01:55:39.99 [AntSports]: 运动签到失败: RPC返回为空
+02日 01:55:39.99 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:43.80 [ApplicationHook]: hook onResume after start
+02日 01:55:43.81 [ApplicationHook]: onResume targetUid: 2088632752200481
+02日 01:55:43.81 [ApplicationHook]: onResume currentUid: 2088632752200481
+02日 01:55:43.81 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:55:43.82 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:55:43.82 [ApplicationHook]: hook onResume after end
+02日 01:55:43.82 [ApplicationHook]: 手动APP触发，已关闭
+02日 01:55:44.97 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行10秒
+02日 01:55:45.01 [AntSports]: 运动任务查询失败: RPC返回为空
+02日 01:55:45.02 [AntSports]: ========================
+运动任务 耗时: 10058 ms
+02日 01:55:45.02 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:45.82 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:55:50.03 [AntSports]: walk err:
+02日 01:55:50.07 [AntSports]: ========================
+行走 耗时: 5047 ms
+02日 01:55:50.13 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:55.01 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行20秒
+02日 01:55:55.14 [AntSports]: queryProjectList err:
+02日 01:55:55.14 [AntSports]: ========================
+捐能量🎈 耗时: 5079 ms
+02日 01:55:55.15 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:55:57.84 [EnergyWaitingManager]: 定期清理检查：无过期任务
+02日 01:55:57.87 [EnergyWaitingManager]: 定期清理完成，当前无活跃蹲点任务
+02日 01:56:00.16 [AntSports]: queryWalkStep err:
+02日 01:56:00.17 [AntSports]: ========================
+最小捐步步数 耗时: 5023 ms
+02日 01:56:00.17 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:56:05.05 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行30秒
+02日 01:56:05.20 [AntSports]: userTaskGroupQuery err:
+02日 01:56:05.20 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:56:10.25 [AntSports]: userTaskGroupQuery err:
+02日 01:56:10.26 [AntSports]: ========================
+查询任务 耗时: 10090 ms
+02日 01:56:10.26 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:56:15.07 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行40秒
+02日 01:56:15.28 [AntSports]: userTaskRightsReceive err:
+02日 01:56:15.28 [AntSports]: ========================
+userTaskRightsReceive 耗时: 5025 ms
+02日 01:56:15.29 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:56:20.31 [AntSports]: pathFeatureQuery err:
+02日 01:56:20.33 [AntSports]: ========================
+pathFeatureQuery 耗时: 5048 ms
+02日 01:56:20.33 ApplicationHook.rpcBridge 为空，等待5秒
+02日 01:56:25.10 [CoroutineTaskRunner]: 🔄 模块[运动]第1轮运行中... 已执行50秒

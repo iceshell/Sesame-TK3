@@ -311,7 +311,11 @@ class AntSports : ModelTask() {
                 addChildTask(ChildModelTask("syncStep", Runnable {
                     val step = tmpStepCount()
                     try {
-                        val classLoader = ApplicationHook.getClassLoader()
+                        val classLoader = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.classLoader
+                        if (classLoader == null) {
+                            error(TAG, "同步运动步数失败: ClassLoader为null")
+                            return@Runnable
+                        }
                         val syncResult = XposedHelpers.callMethod(
                             XposedHelpers.callStaticMethod(
                                 classLoader.loadClass(
@@ -344,7 +348,7 @@ class AntSports : ModelTask() {
                 }
             }
 
-            val loader = ApplicationHook.getClassLoader()
+            val loader = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.classLoader
             if (walk!!.value == true) {
                 walkPathThemeIdOnConfig()
                 walk()

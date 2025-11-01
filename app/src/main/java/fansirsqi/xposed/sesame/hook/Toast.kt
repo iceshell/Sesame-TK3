@@ -30,7 +30,7 @@ object Toast {
      */
     @JvmStatic
     fun show(message: CharSequence, force: Boolean) {
-        val context = ApplicationHook.getAppContext()
+        val context = ApplicationHookConstants.appContext
         if (context == null) {
             Log.runtime(TAG, "Context is null, cannot show toast")
             return
