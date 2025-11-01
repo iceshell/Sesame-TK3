@@ -49,9 +49,19 @@ object RequestManager {
 
     @JvmStatic
     fun requestString(rpcEntity: RpcEntity): String {
+        // 尝试从缓存获取
+        val cached = fansirsqi.xposed.sesame.util.RpcCache.get(rpcEntity.methodName, rpcEntity.requestData)
+        if (cached != null) return cached
+        
         val rpcBridge = getRpcBridge() ?: return ""
         val result = rpcBridge.requestString(rpcEntity, 3, 1200)
-        return checkResult(result, rpcEntity.methodName)
+        val checkedResult = checkResult(result, rpcEntity.methodName)
+        
+        // 缓存成功的响应
+        if (checkedResult.isNotEmpty()) {
+            fansirsqi.xposed.sesame.util.RpcCache.put(rpcEntity.methodName, rpcEntity.requestData, checkedResult)
+        }
+        return checkedResult
     }
 
     @JvmStatic
@@ -63,9 +73,19 @@ object RequestManager {
 
     @JvmStatic
     fun requestString(method: String?, data: String?): String {
+        // 尝试从缓存获取
+        val cached = fansirsqi.xposed.sesame.util.RpcCache.get(method, data)
+        if (cached != null) return cached
+        
         val rpcBridge = getRpcBridge() ?: return ""
         val result = rpcBridge.requestString(method, data)
-        return checkResult(result, method)
+        val checkedResult = checkResult(result, method)
+        
+        // 缓存成功的响应
+        if (checkedResult.isNotEmpty()) {
+            fansirsqi.xposed.sesame.util.RpcCache.put(method, data, checkedResult)
+        }
+        return checkedResult
     }
 
     @JvmStatic
