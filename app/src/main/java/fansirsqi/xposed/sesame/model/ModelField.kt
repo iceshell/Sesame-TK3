@@ -25,7 +25,7 @@ open class ModelField<T> : Serializable {
     
     /** 存储字段值的类型 */
     @get:JsonIgnore
-    val valueType: Type
+    var valueType: Type
     
     /** 字段代码 */
     @JsonIgnore
@@ -73,8 +73,8 @@ open class ModelField<T> : Serializable {
         this.name = name
         this.defaultValue = value
         this.desc = ""
-        // 如果反射获取类型失败（返回Any或null），从value推断类型
-        if (valueType == Any::class.java || valueType == Void::class.java) {
+        // 如果反射获取类型失败（返回Any、Void或void），从value推断类型
+        if (valueType == Any::class.java || valueType == Void::class.java || valueType == Void.TYPE) {
             valueType = when (value) {
                 null -> Any::class.java
                 else -> value.javaClass
@@ -96,8 +96,8 @@ open class ModelField<T> : Serializable {
         this.name = name
         this.defaultValue = value
         this.desc = desc
-        // 如果反射获取类型失败（返回Any或null），从value推断类型
-        if (valueType == Any::class.java || valueType == Void::class.java) {
+        // 如果反射获取类型失败（返回Any、Void或void），从value推断类型
+        if (valueType == Any::class.java || valueType == Void::class.java || valueType == Void.TYPE) {
             valueType = when (value) {
                 null -> Any::class.java
                 else -> value.javaClass
@@ -207,6 +207,11 @@ open class ModelField<T> : Serializable {
         if (objectValue == null) {
             reset() // 如果转换后的对象值为 null，则重置为默认值
             return
+        }
+        
+        // 如果反射类型推断失败，从objectValue推断真实类型
+        if (valueType == Any::class.java || valueType == Void::class.java || valueType == Void.TYPE) {
+            valueType = objectValue.javaClass
         }
         
         // 如果对象值与配置值相等，则直接解析配置值
