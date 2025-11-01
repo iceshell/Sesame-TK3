@@ -500,7 +500,13 @@ public class WebSettingsActivity extends BaseActivity {
                                     if (configValue == null || configValue.trim().isEmpty()) {
                                         continue;
                                     }
-                                    modelField.setConfigValue(configValue);
+                                    try {
+                                        Log.runtime(TAG, "setModel: 设置字段 " + modelCode + "." + entry.getKey() + " = " + configValue + ", 字段类型=" + modelField.getClass().getSimpleName());
+                                        modelField.setConfigValue(configValue);
+                                    } catch (ClassCastException e) {
+                                        Log.error(TAG, "setModel: 字段类型转换失败 " + modelCode + "." + entry.getKey() + ", 字段类=" + modelField.getClass().getName() + ", valueType=" + modelField.getType());
+                                        Log.printStackTrace(TAG, e);
+                                    }
                                 }
                             }
                         }

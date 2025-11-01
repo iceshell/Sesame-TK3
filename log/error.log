@@ -1,4 +1,4 @@
-01日 19:53:31.49 [WebSettingsActivity]: Throwable error: java.lang.ClassCastException: java.lang.Boolean cannot be cast to java.lang.Void
+01日 20:05:26.76 [WebSettingsActivity]: Throwable error: java.lang.ClassCastException: java.lang.Boolean cannot be cast to java.lang.Void
 	at fansirsqi.xposed.sesame.model.ModelField.setConfigValue(ModelField.kt:200)
 	at fansirsqi.xposed.sesame.ui.WebSettingsActivity$WebViewCallback.setModel(WebSettingsActivity.java:503)
 	at android.os.MessageQueue.nativePollOnce(Native Method)
@@ -6,7 +6,7 @@
 	at android.os.Looper.loop(Looper.java:193)
 	at android.os.HandlerThread.run(HandlerThread.java:67)
 
-01日 19:53:31.50 [WebSettingsActivity]: Throwable error: java.lang.ClassCastException: java.lang.Boolean cannot be cast to java.lang.Void
+01日 20:05:27.11 [WebSettingsActivity]: Throwable error: java.lang.ClassCastException: java.lang.Boolean cannot be cast to java.lang.Void
 	at fansirsqi.xposed.sesame.model.ModelField.setConfigValue(ModelField.kt:200)
 	at fansirsqi.xposed.sesame.ui.WebSettingsActivity$WebViewCallback.setModel(WebSettingsActivity.java:503)
 	at android.os.MessageQueue.nativePollOnce(Native Method)
