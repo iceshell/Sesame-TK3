@@ -219,7 +219,7 @@ class ForestChouChouLe {
                     drawCount++
                     Log.record("$sceneName 第 $drawCount 次抽奖")
                     
-                    jo = JSONObject(AntForestRpcCall.drawopengreen(activityId, sceneCode, source, UserMap.currentUid))
+                    jo = JSONObject(AntForestRpcCall.drawopengreen(activityId, sceneCode, source, UserMap.currentUid ?: ""))
                     if (ResChecker.checkRes(TAG, jo)) {
                         drawAsset = jo.getJSONObject("drawAsset")
                         val newBlance = drawAsset.getInt("blance")

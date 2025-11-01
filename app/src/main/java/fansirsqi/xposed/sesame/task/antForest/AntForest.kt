@@ -1212,7 +1212,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     private fun collectWater(wateringBubble: JSONObject) {
         try {
             val id = wateringBubble.getLong("id")
-            val response = AntForestRpcCall.collectEnergy("jiaoshui", selfId, id)
+            val response = AntForestRpcCall.collectEnergy("jiaoshui", selfId ?: "", id)
             processCollectResult(response, "收取金球🍯浇水")
         } catch (e: JSONException) {
             Log.record(TAG, "收取浇水JSON解析错误: " + e.message)
@@ -1232,7 +1232,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         try {
             val friendId = wateringBubble.getString("userId")
             val id = wateringBubble.getLong("id")
-            val response = AntForestRpcCall.collectEnergy("baohuhuizeng", selfId, id)
+            val response = AntForestRpcCall.collectEnergy("baohuhuizeng", selfId ?: "", id)
             processCollectResult(
                 response,
                 "收取金球🍯[" + UserMap.getMaskName(friendId) + "]复活回赠"
@@ -1386,7 +1386,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
 
                 if (uid != null && Status.canWaterFriendToday(uid, waterCount)) {
                     try {
-                        val response = AntForestRpcCall.queryFriendHomePage(uid, null)
+                        val response = AntForestRpcCall.queryFriendHomePage(uid ?: "", null)
                         val jo = JSONObject(response)
                         if (ResChecker.checkRes(TAG, jo)) {
                             val bizNo = jo.getString("bizNo")
@@ -1497,17 +1497,18 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      * 更新好友主页信息
      *
      * @param userId 好友ID
+     * @param fromAct 来源动作
      * @return 更新后的好友主页信息，如果发生错误则返回null。
      */
-    private fun queryFriendHome(userId: String?, fromAct: String?): JSONObject? {
+    private fun queryFriendHomePage(userId: String?, fromAct: String?): JSONObject? {
         var friendHomeObj: JSONObject? = null
         try {
             val start = System.currentTimeMillis()
-            val response = AntForestRpcCall.queryFriendHomePage(userId, fromAct)
+            val response = AntForestRpcCall.queryFriendHomePage(userId ?: "", fromAct)
             if (response.trim { it <= ' ' }.isEmpty()) {
                 Log.error(
                     TAG,
-                    "获取好友主页信息失败：响应为空, userId: " + UserMap.getMaskName(userId) + response
+                    "查询好友主页返回空: " + UserMap.getMaskName(userId)
                 )
                 return null
             }
@@ -1812,9 +1813,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     CollectEnergyEntity(
                         userId,
                         userHomeObj,
-                        AntForestRpcCall.batchEnergyRpcEntity(bizType, userId, subList),
+                        AntForestRpcCall.batchEnergyRpcEntity(bizType, userId ?: "", subList.filterNotNull()),
                         fromTag,
-                        skipPropCheck  // 🚀 传递快速通道标记
+                        skipPropCheck  // 传递快速通道标记
                     )
                 )
                 i += MAX_BATCH_SIZE
@@ -1825,9 +1826,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     CollectEnergyEntity(
                         userId,
                         userHomeObj,
-                        AntForestRpcCall.energyRpcEntity(bizType, userId, id),
+                        AntForestRpcCall.energyRpcEntity(bizType, userId ?: "", id),
                         fromTag,
-                        skipPropCheck  // 🚀 传递快速通道标记
+                        skipPropCheck  // 传递快速通道标记
                     )
                 )
             }
@@ -2103,7 +2104,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     continue
                 }
                 // 查询好友主页并收取能量
-                val friendHomeObj = queryFriendHome(friendId, "TAKE_LOOK")
+                val friendHomeObj = queryFriendHomePage(friendId, "TAKE_LOOK")
                 if (friendHomeObj != null) {
                     foundCount++
                     var friendName = UserMap.getMaskName(friendId)
@@ -2323,7 +2324,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 return
             }
             Log.debug(TAG, "  正在查询PK好友 [$userName$userId] 的主页...")
-            collectEnergy(userId, queryFriendHome(userId, "PKContest"), "pk")
+            collectEnergy(userId, queryFriendHomePage(userId, "PKContest"), "pk")
         } else { // 普通好友
             val needCollectEnergy =
                 (collectEnergy?.value == true) && !jsonCollectMap.contains(userId)
@@ -2342,14 +2343,14 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             if (needCollectEnergy) {
                 // 即使排行榜信息显示没有可收能量，也进去检查，以便添加蹲点任务
                 Log.debug(TAG, "  正在查询好友 [$userName$userId] 的主页...")
-                userHomeObj = collectEnergy(userId, queryFriendHome(userId, null), "friend")
+                userHomeObj = collectEnergy(userId, queryFriendHomePage(userId, null), "friend")
             }
             if (needHelpProtect) {
                 val isProtected = isIsProtected(userId)
                 /** lzw add end */
                 if (isProtected) {
                     if (userHomeObj == null) {
-                        userHomeObj = queryFriendHome(userId, null)
+                        userHomeObj = queryFriendHomePage(userId, null)
                     }
                     if (userHomeObj != null) {
                         protectFriendEnergy(userHomeObj)
@@ -2359,7 +2360,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             // 尝试领取礼物盒
             if (needCollectGiftBox) {
                 if (userHomeObj == null) {
-                    userHomeObj = queryFriendHome(userId, null)
+                    userHomeObj = queryFriendHomePage(userId, null)
                 }
                 if (userHomeObj != null) {
                     collectGiftBox(userHomeObj)
@@ -2401,7 +2402,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             val giftBoxId = giftBox.getString("giftBoxId")
                             val title = giftBox.getString("title")
                             val giftBoxResult =
-                                JSONObject(AntForestRpcCall.collectFriendGiftBox(giftBoxId, userId))
+                                JSONObject(AntForestRpcCall.collectFriendGiftBox(giftBoxId, userId ?: ""))
                             if (!ResChecker.checkRes(TAG + "领取好友礼盒失败:", giftBoxResult)) {
                                 Log.record(giftBoxResult.getString("resultDesc"))
                                 Log.runtime(giftBoxResult.toString())
@@ -2442,7 +2443,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                         if (!wateringBubble.getBoolean("canProtect")) {
                             continue
                         }
-                        val joProtect = JSONObject(AntForestRpcCall.protectBubble(userId))
+                        val joProtect = JSONObject(AntForestRpcCall.protectBubble(userId ?: ""))
                         if (!ResChecker.checkRes(TAG + "复活能量失败:", joProtect)) {
                             Log.record(joProtect.getString("resultDesc"))
                             Log.runtime(joProtect.toString())
@@ -2608,8 +2609,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     if (!newBubbleIdList.isEmpty()) {
                         collectEnergyEntity.rpcEntity = AntForestRpcCall.batchEnergyRpcEntity(
                             "",
-                            userId,
-                            newBubbleIdList
+                            userId ?: "",
+                            newBubbleIdList.filterNotNull()
                         )
                         collectEnergyEntity.setNeedDouble()
                         collectEnergyEntity.resetTryCount()
@@ -2813,7 +2814,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             label@ while (waterCount <= count) {
                 // 调用RPC进行浇水，并传入是否通知好友
                 val rpcResponse =
-                    AntForestRpcCall.transferEnergy(userId, bizNo, energyId, notifyFriend)
+                    AntForestRpcCall.transferEnergy(userId ?: "", bizNo, energyId, notifyFriend)
 
                 if (rpcResponse.isEmpty()) {
                     Log.record(TAG, "好友浇水返回空: " + UserMap.getMaskName(userId))
@@ -2949,8 +2950,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 if (signKey == currentSignKey && !signRecord.getBoolean("signed")) {
                     val joSign = JSONObject(
                         AntForestRpcCall.antiepSign(
-                            signId,
-                            UserMap.currentUid,
+                            signId ?: "",
+                            UserMap.currentUid ?: "",
                             sceneCode
                         )
                     )
@@ -3501,7 +3502,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             AntForestRpcCall.giveProp(
                                 giveConfigId,
                                 propId,
-                                targetUserId
+                                targetUserId ?: ""
                             )
                         )
                         if (ResChecker.checkRes(TAG + "赠送道具失败:", giveResultJo)) {
@@ -3541,12 +3542,22 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         try {
             do {
                 // 查询当前巡护任务
-                var jo = JSONObject(AntForestRpcCall.queryUserPatrol())
+                val response = AntForestRpcCall.queryUserPatrol()
+                if (response.isNullOrEmpty()) {
+                    Log.runtime(TAG, "查询巡护任务返回空")
+                    return
+                }
+                var jo = JSONObject(response)
                 // GlobalThreadPools.sleepCompat(waitTime);
                 // 如果查询成功
                 if (ResChecker.checkRes(TAG + "查询巡护任务失败:", jo)) {
                     // 查询我的巡护记录
-                    var resData = JSONObject(AntForestRpcCall.queryMyPatrolRecord())
+                    val recordResponse = AntForestRpcCall.queryMyPatrolRecord()
+                    if (recordResponse.isNullOrEmpty()) {
+                        Log.runtime(TAG, "查询巡护记录返回空")
+                        return
+                    }
+                    var resData = JSONObject(recordResponse)
                     // GlobalThreadPools.sleepCompat(waitTime);
                     if (resData.optBoolean("canSwitch")) {
                         val records = resData.getJSONArray("records")
@@ -3734,7 +3745,12 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     private fun queryAnimalAndPiece() {
         try {
             // 调用远程接口查询动物及碎片信息
-            val response = JSONObject(AntForestRpcCall.queryAnimalAndPiece(0))
+            val responseStr = AntForestRpcCall.queryAnimalAndPiece(0)
+            if (responseStr.isNullOrEmpty()) {
+                Log.runtime(TAG, "查询动物碎片返回空")
+                return
+            }
+            val response = JSONObject(responseStr)
             val resultCode = response.optString("resultCode")
             // 检查接口调用是否成功
             if ("SUCCESS" != resultCode) {
@@ -3798,7 +3814,12 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         try {
             while (true) {
                 // 查询动物及碎片信息
-                val response = JSONObject(AntForestRpcCall.queryAnimalAndPiece(animalId))
+                val responseStr = AntForestRpcCall.queryAnimalAndPiece(animalId)
+                if (responseStr.isNullOrEmpty()) {
+                    Log.runtime(TAG, "查询动物碎片返回空")
+                    return
+                }
+                val response = JSONObject(responseStr)
                 var resultCode = response.optString("resultCode")
                 if ("SUCCESS" != resultCode) {
                     Log.runtime(TAG, "查询失败: " + response.optString("resultDesc"))
@@ -4010,7 +4031,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             } else {
                 // 非续用类道具，直接使用
                 Log.record(TAG, "非续用类道具，直接使用")
-                val consumeResponse = AntForestRpcCall.consumeProp2(propGroup, propId, propType)
+                val consumeResponse = AntForestRpcCall.consumeProp2(propGroup ?: "", propId ?: "", propType ?: "")
                 jo = JSONObject(consumeResponse)
             }
 
@@ -4806,7 +4827,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         return try {
             withContext(Dispatchers.Default) {
                 // 查询好友主页
-                val friendHomeObj = queryFriendHome(task.userId, task.fromTag)
+                val friendHomeObj = queryFriendHomePage(task.userId, task.fromTag)
                 if (friendHomeObj != null) {
                     // 获取真实用户名
                     val realUserName = getAndCacheUserName(task.userId, friendHomeObj, task.fromTag)

@@ -122,7 +122,7 @@ object EcoLife {
                     val actionName = actionItem.getString("actionName")
                     if ("photoguangpan" == actionId) continue
                     GlobalThreadPools.sleepCompat(300)
-                    val jo = JSONObject(AntForestRpcCall.ecolifeTick(actionId, dayPoint, source))
+                    val jo = JSONObject(AntForestRpcCall.ecolifeTick(actionId ?: "", dayPoint ?: "", source ?: ""))
                     if (ResChecker.checkRes(TAG, jo)) {
                         Log.forest("绿色打卡🍀[" + actionName + "]") // 成功打卡日志
                     } else {
@@ -162,8 +162,8 @@ object EcoLife {
                 DataStore.getOrCreate("plate", typeRef)
             Log.runtime("$TAG [DEBUG] guangPanPhoto 数据内容: $allPhotos")
             // 查询今日任务状态
-            var str = AntForestRpcCall.ecolifeQueryDish(source, dayPoint)
-            var jo = JSONObject(str)
+            var jo = JSONObject(AntForestRpcCall.ecolifeQueryDish(source ?: "", dayPoint ?: ""))
+            var str: String
             // 如果请求失败，则记录错误信息并返回
             if (!ResChecker.checkRes(TAG, jo)) {
                 Log.runtime("$TAG.photoGuangPan.ecolifeQueryDish", jo.optString("resultDesc"))
@@ -223,11 +223,11 @@ object EcoLife {
             }
             str = AntForestRpcCall.ecolifeUploadDishImage(
                 "BEFORE_MEALS",
-                photo.get("before"),
+                photo.get("before") ?: "",
                 0.16571736,
                 0.07448776,
                 0.7597949,
-                dayPoint
+                dayPoint ?: ""
             )
             jo = JSONObject(str)
             if (!ResChecker.checkRes(TAG, jo)) {
@@ -236,18 +236,18 @@ object EcoLife {
             GlobalThreadPools.sleepCompat(3000)
             str = AntForestRpcCall.ecolifeUploadDishImage(
                 "AFTER_MEALS",
-                photo.get("after"),
+                photo.get("after") ?: "",
                 0.00040030346,
                 0.99891376,
                 0.0006858421,
-                dayPoint
+                dayPoint ?: ""
             )
             jo = JSONObject(str)
             if (!ResChecker.checkRes(TAG, jo)) {
                 return
             }
             // 提交任务
-            str = AntForestRpcCall.ecolifeTick("photoguangpan", dayPoint, source)
+            str = AntForestRpcCall.ecolifeTick("photoguangpan", dayPoint ?: "", source ?: "")
             jo = JSONObject(str)
             // 如果提交失败，记录错误信息并返回
             if (!ResChecker.checkRes(TAG, jo)) {
