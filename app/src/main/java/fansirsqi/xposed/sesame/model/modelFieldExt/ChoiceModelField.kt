@@ -8,27 +8,33 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import fansirsqi.xposed.sesame.R
-import fansirsqi.xposed.sesame.model.ModelField
+import fansirsqi.xposed.sesame.model.IntegerModelField
 import fansirsqi.xposed.sesame.ui.ChoiceDialog
 
 /**
  * 选择型字段，用于在多个选项中选择一个
  */
-class ChoiceModelField : ModelField<Int> {
+class ChoiceModelField : IntegerModelField {
     
     private var choiceArray: Array<out String?>? = null
 
-    constructor(code: String, name: String, value: Int) : super(code, name, value)
+    constructor(code: String, name: String, value: Int) : super(code, name, value) {
+        valueType = Int::class.java
+    }
 
     constructor(code: String, name: String, value: Int, choiceArray: Array<out String?>) : super(code, name, value) {
         this.choiceArray = choiceArray
+        valueType = Int::class.java
     }
 
-    constructor(code: String, name: String, value: Int, desc: String) : super(code, name, value, desc)
+    constructor(code: String, name: String, value: Int, desc: String) : super(code, name, value, desc) {
+        valueType = Int::class.java
+    }
 
     constructor(code: String, name: String, value: Int, choiceArray: Array<out String?>, desc: String) 
         : super(code, name, value, desc) {
         this.choiceArray = choiceArray
+        valueType = Int::class.java
     }
 
     override fun getType(): String = "CHOICE"

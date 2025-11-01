@@ -34,6 +34,7 @@ open class IntegerModelField : ModelField<Int> {
     constructor(code: String, name: String, value: Int) : super(code, name, value) {
         this.minLimit = null
         this.maxLimit = null
+        valueType = Int::class.java
     }
 
     /**
@@ -48,6 +49,7 @@ open class IntegerModelField : ModelField<Int> {
     constructor(code: String, name: String, value: Int, minLimit: Int?, maxLimit: Int?) : super(code, name, value) {
         this.minLimit = minLimit
         this.maxLimit = maxLimit
+        valueType = Int::class.java
     }
 
     /**

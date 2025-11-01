@@ -14,6 +14,11 @@ import fansirsqi.xposed.sesame.model.ModelField
  * 该类用于表示布尔值字段，使用Switch控件进行展示
  */
 class BooleanModelField(code: String, name: String, value: Boolean) : ModelField<Boolean>(code, name, value) {
+    
+    init {
+        // 强制设置Boolean类型，避免Xposed环境下泛型推断失败
+        valueType = Boolean::class.java
+    }
 
     /**
      * 获取字段类型

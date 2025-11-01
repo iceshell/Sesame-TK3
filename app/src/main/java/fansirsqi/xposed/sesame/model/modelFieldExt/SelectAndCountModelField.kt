@@ -26,21 +26,25 @@ class SelectAndCountModelField : ModelField<MutableMap<String?, Int?>>, SelectMo
     constructor(code: String, name: String, value: MutableMap<String?, Int?>, expandValue: List<MapperEntity>) : super(code, name, value) {
         this.expandValueList = expandValue
         this.selectListFunc = null
+        valueType = value.javaClass
     }
 
     constructor(code: String, name: String, value: MutableMap<String?, Int?>, selectListFunc: SelectListFunc) : super(code, name, value) {
         this.selectListFunc = selectListFunc
         this.expandValueList = null
+        valueType = value.javaClass
     }
 
     constructor(code: String, name: String, value: MutableMap<String?, Int?>, expandValue: List<MapperEntity>, desc: String) : super(code, name, value, desc) {
         this.expandValueList = expandValue
         this.selectListFunc = null
+        valueType = value.javaClass
     }
 
     constructor(code: String, name: String, value: MutableMap<String?, Int?>, selectListFunc: SelectListFunc, desc: String) : super(code, name, value, desc) {
         this.selectListFunc = selectListFunc
         this.expandValueList = null
+        valueType = value.javaClass
     }
 
     override fun getType(): String = "SELECT_AND_COUNT"
