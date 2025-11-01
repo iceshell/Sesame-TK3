@@ -38,11 +38,11 @@ object RequestManager {
                 return null
             }
         }
-        var rpcBridge = ApplicationHook.rpcBridge
+        var rpcBridge = ApplicationHookConstants.rpcBridge
         if (rpcBridge == null) {
-            Log.record("ApplicationHook.rpcBridge 为空，等待5秒")
+            Log.record("RpcBridge 为空，等待5秒")
             fansirsqi.xposed.sesame.util.CoroutineUtils.sleepCompat(5000)
-            rpcBridge = ApplicationHook.rpcBridge
+            rpcBridge = ApplicationHookConstants.rpcBridge
         }
         return rpcBridge
     }
