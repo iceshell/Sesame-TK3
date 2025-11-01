@@ -73,6 +73,13 @@ open class ModelField<T> : Serializable {
         this.name = name
         this.defaultValue = value
         this.desc = ""
+        // 如果反射获取类型失败（返回Any或null），从value推断类型
+        if (valueType == Any::class.java || valueType == Void::class.java) {
+            valueType = when (value) {
+                null -> Any::class.java
+                else -> value.javaClass
+            }
+        }
         setObjectValue(value)
     }
 
@@ -89,6 +96,13 @@ open class ModelField<T> : Serializable {
         this.name = name
         this.defaultValue = value
         this.desc = desc
+        // 如果反射获取类型失败（返回Any或null），从value推断类型
+        if (valueType == Any::class.java || valueType == Void::class.java) {
+            valueType = when (value) {
+                null -> Any::class.java
+                else -> value.javaClass
+            }
+        }
         setObjectValue(value)
     }
 
