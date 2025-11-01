@@ -2,6 +2,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import org.gradle.api.provider.ValueSource
+import org.gradle.api.provider.ValueSourceParameters
 
 plugins {
     alias(libs.plugins.android.application)
@@ -13,6 +15,20 @@ var isCIBuild: Boolean = System.getenv("CI").toBoolean()
 
 //isCIBuild = true // 没有c++源码时开启CI构建, push前关闭
 
+// 定义 ValueSource 以兼容配置缓存
+abstract class GitCommitCountValueSource : ValueSource<Int, ValueSourceParameters.None> {
+    override fun obtain(): Int? {
+        return try {
+            val process = ProcessBuilder("git", "rev-list", "--count", "HEAD")
+                .redirectErrorStream(true)
+                .start()
+            process.inputStream.bufferedReader().use { it.readText().trim() }.toIntOrNull()
+        } catch (e: Exception) {
+            null
+        }
+    }
+}
+
 android {
     namespace = "fansirsqi.xposed.sesame"
     compileSdk = 36
@@ -21,21 +37,13 @@ android {
             useLegacyPackaging = true
         }
     }
-    // 获取版本递增计数
-    val versionIncrement: Int = runCatching {
-        // 优先使用git commit count
-        val process = ProcessBuilder("git", "rev-list", "--count", "HEAD")
-            .redirectErrorStream(true)
-            .start()
-        val output = process.inputStream.bufferedReader().use { it.readText().trim() }
-        output.toInt()
-    }.getOrElse {
-        // 如果git不可用，使用时间戳的后4位作为递增值
-        val timestamp = System.currentTimeMillis() / 1000
-        (timestamp % 10000).toInt()
-    }
-    
-    val gitCommitCount: Int = versionIncrement
+    // 获取版本递增计数（兼容配置缓存）
+    val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
+        .orElse(providers.provider {
+            // 如果git不可用，使用时间戳的后4位作为递增值
+            val timestamp = System.currentTimeMillis() / 1000
+            (timestamp % 10000).toInt()
+        }).get()
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId = "fansirsqi.xposed.sesame"
