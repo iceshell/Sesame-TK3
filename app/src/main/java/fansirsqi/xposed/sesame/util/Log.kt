@@ -68,7 +68,7 @@ object Log {
     @JvmStatic
     fun runtime(msg: String) {
         system(msg)
-        if (BaseModel.runtimeLog.value || BuildConfig.DEBUG) {
+        if (BaseModel.runtimeLog.value == true || BuildConfig.DEBUG) {
             RUNTIME_LOGGER.info("$TAG{}", msg)
         }
     }
@@ -81,7 +81,7 @@ object Log {
     @JvmStatic
     fun record(msg: String) {
         runtime(msg)
-        if (BaseModel.recordLog.value) {
+        if (BaseModel.recordLog.value == true) {
             RECORD_LOGGER.info("$TAG{}", msg)
         }
     }

@@ -19,9 +19,9 @@ class StringModelField(code: String, name: String, value: String) : ModelField<S
 
     override fun getType(): String = "STRING"
 
-    override fun getConfigValue(): String = value
+    override fun getConfigValue(): String? = value
 
-    override fun setConfigValue(configValue: String) {
+    override fun setConfigValue(configValue: String?) {
         value = configValue
     }
 

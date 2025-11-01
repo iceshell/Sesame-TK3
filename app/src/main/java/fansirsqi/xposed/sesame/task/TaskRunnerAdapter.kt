@@ -42,7 +42,7 @@ class TaskRunnerAdapter {
         isFirst: Boolean,
         mode: ModelTask.TaskExecutionMode = ModelTask.TaskExecutionMode.SEQUENTIAL
     ) {
-        run(isFirst, mode, BaseModel.taskExecutionRounds.value)
+        run(isFirst, mode, BaseModel.taskExecutionRounds.value ?: 1)
     }
 
     /**

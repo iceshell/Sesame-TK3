@@ -2522,9 +2522,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                         "error"
                     ) as String?
                     if ("1004" == errorCode) {
-                        if (BaseModel.waitWhenException.value > 0) {
+                        val waitValue = BaseModel.waitWhenException.value ?: 0
+                        if (waitValue > 0) {
                             val waitTime =
-                                System.currentTimeMillis() + BaseModel.waitWhenException.value
+                                System.currentTimeMillis() + waitValue
                             RuntimeInfo.getInstance()
                                 .put(RuntimeInfo.RuntimeInfoKey.ForestPauseTime, waitTime)
                             updateStatusText("异常")

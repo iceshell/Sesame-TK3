@@ -8,16 +8,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import fansirsqi.xposed.sesame.R
 import fansirsqi.xposed.sesame.data.Config
 import fansirsqi.xposed.sesame.data.UIConfig
@@ -55,6 +61,10 @@ class SettingActivity : BaseActivity() {
 
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 设置语言和布局
+        LanguageUtil.setLocale(this)
+        setContentView(R.layout.activity_settings)
+        
         // 初始化用户信息
         this.userId = null
         this.userName = null
@@ -64,20 +74,11 @@ class SettingActivity : BaseActivity() {
             this.userName = intent.getStringExtra("userName")
         }
 
-        // 初始化各种配置数据
-        Model.initAllModel()
-        UserMap.setCurrentUserId(this.userId)
-        UserMap.load(this.userId)
-        IdMapManager.getInstance(CooperateMap::class.java).load(this.userId)
-        IdMapManager.getInstance(VitalityRewardsMap::class.java).load(this.userId)
-        IdMapManager.getInstance(MemberBenefitsMap::class.java).load(this.userId)
-        IdMapManager.getInstance(ParadiseCoinBenefitIdMap::class.java).load(this.userId)
-        IdMapManager.getInstance(ReserveaMap::class.java).load()
-        IdMapManager.getInstance(BeachMap::class.java).load()
-        Config.load(this.userId)
-        // 设置语言和布局
-        LanguageUtil.setLocale(this)
-        setContentView(R.layout.activity_settings)
+        // 设置副标题
+        if (this.userName != null) {
+            baseSubtitle = getString(R.string.settings) + ": " + this.userName
+        }
+
         // 处理返回键
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -85,6 +86,7 @@ class SettingActivity : BaseActivity() {
                 finish()
             }
         })
+        
         // 初始化导出逻辑
         exportLauncher = registerForActivityResult(
             StartActivityForResult()
@@ -95,6 +97,7 @@ class SettingActivity : BaseActivity() {
                 }
             }
         }
+        
         // 初始化导入逻辑
         importLauncher = registerForActivityResult(
             StartActivityForResult()
@@ -105,17 +108,62 @@ class SettingActivity : BaseActivity() {
                 }
             }
         }
-        // 设置副标题
-        if (this.userName != null) {
-            baseSubtitle = getString(R.string.settings) + ": " + this.userName
+
+        // 异步加载配置数据
+        loadConfigDataAsync()
+    }
+    
+    private fun loadConfigDataAsync() {
+        // 显示加载进度
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
+        val viewPager = findViewById<ViewPager2>(R.id.view_pager_content)
+        val recyclerTabList = findViewById<RecyclerView>(R.id.recycler_tab_list)
+        
+        progressBar?.visibility = View.VISIBLE
+        viewPager?.visibility = View.GONE
+        recyclerTabList?.visibility = View.GONE
+        
+        lifecycleScope.launch {
+            try {
+                // 在后台线程加载配置数据
+                withContext(Dispatchers.IO) {
+                    Model.initAllModel()
+                    UserMap.setCurrentUserId(userId)
+                    UserMap.load(userId)
+                    IdMapManager.getInstance(CooperateMap::class.java).load(userId)
+                    IdMapManager.getInstance(VitalityRewardsMap::class.java).load(userId)
+                    IdMapManager.getInstance(MemberBenefitsMap::class.java).load(userId)
+                    IdMapManager.getInstance(ParadiseCoinBenefitIdMap::class.java).load(userId)
+                    IdMapManager.getInstance(ReserveaMap::class.java).load()
+                    IdMapManager.getInstance(BeachMap::class.java).load()
+                    Config.load(userId)
+                }
+                
+                // 回到主线程初始化UI
+                withContext(Dispatchers.Main) {
+                    progressBar?.visibility = View.GONE
+                    viewPager?.visibility = View.VISIBLE
+                    recyclerTabList?.visibility = View.VISIBLE
+                    
+                    initializeTabs()
+                    
+                    val watermarkView = WatermarkView.install(this@SettingActivity)
+                    var tag = "用户: " + userName + "\n ID: " + userId
+                    if (userName == "默认" || userId == null) {
+                        tag = "用户: " + "未登录" + "\n ID: " + "*************"
+                    }
+                    watermarkView.watermarkText = tag
+                }
+            } catch (t: Throwable) {
+                Log.error(TAG, "加载配置失败: " + t.message)
+                Log.printStackTrace(TAG, t)
+                withContext(Dispatchers.Main) {
+                    progressBar?.visibility = View.GONE
+                    Toast.makeText(this@SettingActivity, "加载配置失败: ${t.message}", Toast.LENGTH_LONG).show()
+                    finish()
+                }
+            }
         }
-        initializeTabs()
-        val watermarkView = WatermarkView.install(this)
-        var tag = "用户: " + userName + "\n ID: " + userId
-        if (userName == "默认" || userId == null) {
-            tag = "用户: " + "未登录" + "\n ID: " + "*************"
-        }
-        watermarkView.watermarkText = tag
     }
 
     private fun initializeTabs() {
@@ -244,13 +292,16 @@ class SettingActivity : BaseActivity() {
 //            if (!ViewAppInfo.INSTANCE.getVeriftag()) {
 //                ToastUtil.showToastWithDelay(this, "非内测用户！", 100);
 //            }
-            if (Config.isModify(this.userId) && Config.save(this.userId, false)) {
+            // 强制保存配置，避免isModify检测失败导致不保存
+            if (Config.save(this.userId, true)) {
                 ToastUtil.showToastWithDelay(this, "保存成功！", 100)
                 if (!this.userId.isNullOrEmpty()) {
                     val intent = Intent("com.eg.android.AlipayGphone.sesame.restart")
                     intent.putExtra("userId", this.userId)
                     sendBroadcast(intent)
                 }
+            } else {
+                ToastUtil.showToastWithDelay(this, "保存失败！", 100)
             }
             if (!this.userId.isNullOrEmpty()) {
                 UserMap.save(this.userId)
@@ -258,6 +309,7 @@ class SettingActivity : BaseActivity() {
             }
         } catch (th: Throwable) {
             Log.printStackTrace(th)
+            ToastUtil.showToastWithDelay(this, "保存异常: ${th.message}", 100)
         }
     }
 

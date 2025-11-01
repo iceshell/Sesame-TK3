@@ -87,7 +87,7 @@ class CoroutineTaskRunner(allModels: List<Model>) {
      */
     fun run(
         isFirst: Boolean = true,
-        rounds: Int = BaseModel.taskExecutionRounds.value
+        rounds: Int = BaseModel.taskExecutionRounds.value ?: 1
     ) {
         runnerScope.launch {
             if (isFirst) {

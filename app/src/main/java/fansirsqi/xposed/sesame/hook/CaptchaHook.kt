@@ -48,12 +48,12 @@ object CaptchaHook {
      */
     fun hookCaptcha(classLoader: ClassLoader) {
         // 检查是否启用验证码拦截
-        if (!BaseModel.enableCaptchaHook.value) {
+        if (BaseModel.enableCaptchaHook.value != true) {
             Log.runtime(TAG, "⚠️ 验证码拦截未启用，跳过Hook")
             return
         }
         
-        val hookLevel = BaseModel.captchaHookLevel.value
+        val hookLevel = BaseModel.captchaHookLevel.value ?: BaseModel.CaptchaHookLevel.NORMAL_CAPTCHA
         val levelName = when (hookLevel) {
             BaseModel.CaptchaHookLevel.NORMAL_CAPTCHA -> "普通验证(放行滑块)"
             BaseModel.CaptchaHookLevel.SLIDE_CAPTCHA -> "滑块验证(屏蔽所有)"
@@ -64,13 +64,13 @@ object CaptchaHook {
         Log.runtime(TAG, "  拦截级别: $levelName")
         
         // 第一层：阻止验证码对话框显示
-        hookCaptchaDialogShow(classLoader, hookLevel)
+        hookCaptchaDialogShow(classLoader, hookLevel ?: 0)
         
         // 第二层：返回0跳过RPC验证处理
-        hookRpcRdsUtilHandle(classLoader, hookLevel)
+        hookRpcRdsUtilHandle(classLoader, hookLevel ?: 0)
         
         // 第三层：Hook验证码RPC调用（可选，更激进的方案）
-        hookCaptchaRpcVerify(classLoader, hookLevel)
+        hookCaptchaRpcVerify(classLoader, hookLevel ?: 0)
         
         Log.runtime(TAG, "滑块验证码Hook设置完成 ✅")
     }

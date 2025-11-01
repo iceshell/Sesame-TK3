@@ -28,9 +28,9 @@ object ChoiceDialog {
         val dialog = MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setSingleChoiceItems(
-                choiceModelField.expandKey,
-                choiceModelField.value
-            ) { _, which ->
+                choiceModelField.getExpandKey() as? Array<CharSequence>,
+                choiceModelField.value ?: 0
+            ) { _, which: Int ->
                 choiceModelField.setObjectValue(which)
             }
             .setPositiveButton(context.getString(R.string.ok), null)

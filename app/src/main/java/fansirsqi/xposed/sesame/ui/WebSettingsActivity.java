@@ -14,6 +14,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -110,48 +112,18 @@ public class WebSettingsActivity extends BaseActivity {
                 Log.runtime(TAG, "onCreate: Intent解析完成, userId=" + userId + ", userName=" + userName);
             }
             
-            Log.runtime(TAG, "onCreate: 准备初始化Model");
-            Model.initAllModel();
-            Log.runtime(TAG, "onCreate: Model初始化完成");
-            Log.runtime(TAG, "onCreate: 准备设置UserMap");
-            UserMap.setCurrentUserId(userId);
-            Log.runtime(TAG, "onCreate: UserMap.setCurrentUserId完成");
-            
-            UserMap.load(userId);
-            Log.runtime(TAG, "onCreate: UserMap.load完成");
-            
-            CooperateMap.getInstance(CooperateMap.class).load(userId);
-            Log.runtime(TAG, "onCreate: CooperateMap加载完成");
-            
-            IdMapManager.getInstance(VitalityRewardsMap.class).load(this.userId);
-            Log.runtime(TAG, "onCreate: VitalityRewardsMap加载完成");
-            
-            IdMapManager.getInstance(MemberBenefitsMap.class).load(this.userId);
-            Log.runtime(TAG, "onCreate: MemberBenefitsMap加载完成");
-            
-            IdMapManager.getInstance(ParadiseCoinBenefitIdMap.class).load(this.userId);
-            Log.runtime(TAG, "onCreate: ParadiseCoinBenefitIdMap加载完成");
-            
-            IdMapManager.getInstance(ReserveaMap.class).load();
-            Log.runtime(TAG, "onCreate: ReserveaMap加载完成");
-            
-            IdMapManager.getInstance(BeachMap.class).load();
-            Log.runtime(TAG, "onCreate: BeachMap加载完成");
-            
-            Config.load(userId);
-            Log.runtime(TAG, "onCreate: Config加载完成");
-            
             LanguageUtil.setLocale(this);
             Log.runtime(TAG, "onCreate: LanguageUtil设置完成");
             
             setContentView(R.layout.activity_web_settings);
             Log.runtime(TAG, "onCreate: setContentView完成");
-            //处理返回键
+            
+            // 处理返回键（必须在onCreate中注册）
             Log.runtime(TAG, "onCreate: 准备设置返回键处理");
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (webView.canGoBack()) {
+                if (webView != null && webView.canGoBack()) {
                     Log.runtime(TAG, "WebSettingsActivity.handleOnBackPressed: go back");
                     webView.goBack();
                 } else {
@@ -163,7 +135,7 @@ public class WebSettingsActivity extends BaseActivity {
             });
             Log.runtime(TAG, "onCreate: 返回键处理设置完成");
 
-            // 初始化导出逻辑
+            // 初始化导出逻辑（必须在onCreate中注册）
             Log.runtime(TAG, "onCreate: 准备初始化导出逻辑");
             exportLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -175,7 +147,7 @@ public class WebSettingsActivity extends BaseActivity {
             );
             Log.runtime(TAG, "onCreate: 导出逻辑初始化完成");
             
-            // 初始化导入逻辑
+            // 初始化导入逻辑（必须在onCreate中注册）
             Log.runtime(TAG, "onCreate: 准备初始化导入逻辑");
             importLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -192,8 +164,96 @@ public class WebSettingsActivity extends BaseActivity {
                 Log.runtime(TAG, "onCreate: 标题设置完成");
             }
             
-            context = this;
-            Log.runtime(TAG, "onCreate: 准备初始化WebView");
+            // 显示加载进度
+            ProgressBar progressBar = findViewById(R.id.progress_bar);
+            WebView webViewTemp = findViewById(R.id.webView);
+            if (progressBar != null) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            if (webViewTemp != null) {
+                webViewTemp.setVisibility(View.GONE);
+            }
+            Log.runtime(TAG, "onCreate: 开始异步加载配置数据");
+            
+            // 在后台线程加载配置数据
+            new Thread(() -> {
+                try {
+                    Log.runtime(TAG, "后台线程: 准备初始化Model");
+                    Model.initAllModel();
+                    Log.runtime(TAG, "后台线程: Model初始化完成");
+                    
+                    UserMap.setCurrentUserId(userId);
+                    Log.runtime(TAG, "后台线程: UserMap.setCurrentUserId完成");
+                    
+                    UserMap.load(userId);
+                    Log.runtime(TAG, "后台线程: UserMap.load完成");
+                    
+                    CooperateMap.getInstance(CooperateMap.class).load(userId);
+                    Log.runtime(TAG, "后台线程: CooperateMap加载完成");
+                    
+                    IdMapManager.getInstance(VitalityRewardsMap.class).load(userId);
+                    Log.runtime(TAG, "后台线程: VitalityRewardsMap加载完成");
+                    
+                    IdMapManager.getInstance(MemberBenefitsMap.class).load(userId);
+                    Log.runtime(TAG, "后台线程: MemberBenefitsMap加载完成");
+                    
+                    IdMapManager.getInstance(ParadiseCoinBenefitIdMap.class).load(userId);
+                    Log.runtime(TAG, "后台线程: ParadiseCoinBenefitIdMap加载完成");
+                    
+                    IdMapManager.getInstance(ReserveaMap.class).load();
+                    Log.runtime(TAG, "后台线程: ReserveaMap加载完成");
+                    
+                    IdMapManager.getInstance(BeachMap.class).load();
+                    Log.runtime(TAG, "后台线程: BeachMap加载完成");
+                    
+                    Config.load(userId);
+                    Log.runtime(TAG, "后台线程: Config加载完成");
+                    
+                    // 回到主线程初始化UI
+                    runOnUiThread(() -> {
+                        try {
+                            Log.runtime(TAG, "主线程: 开始初始化UI");
+                            if (progressBar != null) {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                            if (webViewTemp != null) {
+                                webViewTemp.setVisibility(View.VISIBLE);
+                            }
+                            initializeWebView();
+                            Log.runtime(TAG, "主线程: UI初始化完成");
+                        } catch (Exception e) {
+                            Log.error(TAG, "主线程: UI初始化失败");
+                            Log.printStackTrace(TAG, e);
+                            Toast.makeText(context, "UI初始化失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.error(TAG, "后台线程: 配置加载失败");
+                    Log.printStackTrace(TAG, e);
+                    runOnUiThread(() -> {
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                        Toast.makeText(context, "加载配置失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        finish();
+                    });
+                }
+            }).start();
+            
+            Log.runtime(TAG, "onCreate: ✅ 异步加载已启动");
+        } catch (Exception e) {
+            Log.error(TAG, "onCreate: 发生异常");
+            Log.printStackTrace(TAG, e);
+            Toast.makeText(this, "初始化失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
+    
+    private void initializeWebView() {
+        try {
+            Log.runtime(TAG, "initializeWebView: 开始");
+            Log.runtime(TAG, "initializeWebView: 准备初始化WebView");
             webView = findViewById(R.id.webView);
             Log.runtime(TAG, "onCreate: WebView findViewById完成");
         WebSettings settings = webView.getSettings();
@@ -293,14 +353,13 @@ public class WebSettingsActivity extends BaseActivity {
                 tag = "用户: " + "未登录" + "\n ID: " + "*************";
             }
             watermarkView.setWatermarkText(tag);
-            Log.runtime(TAG, "onCreate: 水印设置完成");
+            Log.runtime(TAG, "initializeWebView: 水印设置完成");
             
-            Log.runtime(TAG, "onCreate: ✅ WebSettingsActivity初始化完成！");
+            Log.runtime(TAG, "initializeWebView: ✅ WebSettingsActivity初始化完成！");
         } catch (Exception e) {
-            Log.error(TAG, "onCreate发生异常: " + e.getMessage());
+            Log.error(TAG, "initializeWebView发生异常: " + e.getMessage());
             Log.printStackTrace(TAG, e);
-            ToastUtil.showToast(this, "初始化失败: " + e.getMessage());
-            finish();
+            throw e;
         }
     }
 
@@ -583,24 +642,21 @@ public class WebSettingsActivity extends BaseActivity {
 
     private void save() {
         // 已移除授权检查提示，避免每次保存配置时弹窗
-        if (Config.isModify(userId)) {
-            if (Config.save(userId, false)) {
-                Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
-                if (userId != null && !userId.isEmpty()) {
-                    try {
-                        Intent intent = new Intent("com.eg.android.AlipayGphone.sesame.restart");
-                        intent.putExtra("userId", userId);
-                        intent.putExtra("configReload", true);  // 标记为配置重新加载，而不是强制重启
-                        sendBroadcast(intent);
-                    } catch (Throwable th) {
-                        Log.printStackTrace(th);
-                    }
+        // 强制保存配置，避免isModify检测失败导致不保存
+        if (Config.save(userId, true)) {
+            Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
+            if (userId != null && !userId.isEmpty()) {
+                try {
+                    Intent intent = new Intent("com.eg.android.AlipayGphone.sesame.restart");
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("configReload", true);  // 标记为配置重新加载，而不是强制重启
+                    sendBroadcast(intent);
+                } catch (Throwable th) {
+                    Log.printStackTrace(th);
                 }
-            } else {
-                Toast.makeText(context, "保存失败！", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(context, "配置未修改，无需保存！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "保存失败！", Toast.LENGTH_SHORT).show();
         }
         if (userId != null && !userId.isEmpty()) {
             UserMap.save(userId);

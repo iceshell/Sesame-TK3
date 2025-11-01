@@ -36,10 +36,10 @@ data class ModelFieldShowDto(
             return ModelFieldShowDto(
                 code = modelField.code,
                 name = modelField.name,
-                type = modelField.type,
-                expandKey = modelField.expandKey,
-                configValue = modelField.configValue,
-                desc = modelField.desc ?: ""  // 如果desc为null，使用空字符串
+                type = modelField.getType(),
+                expandKey = modelField.getExpandKey(),
+                configValue = modelField.getConfigValue() ?: "",
+                desc = modelField.desc
             )
         }
     }

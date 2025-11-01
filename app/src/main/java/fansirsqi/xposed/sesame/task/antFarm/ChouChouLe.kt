@@ -28,7 +28,7 @@ class ChouChouLe {
 
     fun chouchoule() {
         try {
-            val response = AntFarmRpcCall.queryLoveCabin(UserMap.currentUid)
+            val response = AntFarmRpcCall.queryLoveCabin(UserMap.currentUid ?: return)
             val jo = JSONObject(response)
             if (!ResChecker.checkRes(TAG, jo)) {
                 return

@@ -22,9 +22,9 @@ open class TextModelField(code: String, name: String, value: String) : ModelFiel
 
     override fun getType(): String = "TEXT"
 
-    override fun getConfigValue(): String = value
+    override fun getConfigValue(): String? = value
 
-    override fun setConfigValue(configValue: String) {
+    override fun setConfigValue(configValue: String?) {
         value = configValue
     }
 
@@ -74,7 +74,7 @@ open class TextModelField(code: String, name: String, value: String) : ModelFiel
                 setOnClickListener { v ->
                     val innerContext = v.context
                     val intent = Intent(innerContext, HtmlViewerActivity::class.java).apply {
-                        data = Uri.parse(configValue)
+                        data = Uri.parse(getConfigValue())
                     }
                     innerContext.startActivity(intent)
                 }
@@ -89,7 +89,7 @@ open class TextModelField(code: String, name: String, value: String) : ModelFiel
 
         override fun getType(): String = "READ_TEXT"
 
-        override fun setConfigValue(configValue: String) {
+        override fun setConfigValue(configValue: String?) {
             // 只读，不设置值
         }
     }

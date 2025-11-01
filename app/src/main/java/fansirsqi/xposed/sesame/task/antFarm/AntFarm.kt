@@ -2308,11 +2308,9 @@ class AntFarm : ModelTask() {
                                     if (ResChecker.checkRes(TAG, feedFriendAnimaljo)) {
                                         foodStock = feedFriendAnimaljo.getInt("foodStock")
                                         Log.farm("帮喂好友🥣[" + user + "]的小鸡[180g]#剩余" + foodStock + "g")
-                                        Status.feedFriendToday(
-                                            AntFarmRpcCall.farmId2UserId(
-                                                friendFarmId
-                                            )
-                                        )
+                                        AntFarmRpcCall.farmId2UserId(friendFarmId)?.let {
+                                            Status.feedFriendToday(it)
+                                        }
                                     } else {
                                         Log.error(
                                             TAG,

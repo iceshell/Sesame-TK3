@@ -40,10 +40,10 @@ data class ModelFieldInfoDto(
             return ModelFieldInfoDto(
                 code = modelField.code,
                 name = modelField.name,
-                type = modelField.type,
-                expandKey = modelField.expandKey,
-                expandValue = modelField.expandValue,
-                configValue = modelField.configValue,
+                type = modelField.getType(),
+                expandKey = modelField.getExpandKey(),
+                expandValue = modelField.getExpandValue(),
+                configValue = modelField.getConfigValue() ?: "",
                 desc = modelField.desc
             )
         }

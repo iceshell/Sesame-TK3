@@ -96,7 +96,7 @@ object Notify {
                 .setAutoCancel(false)
                 .setContentIntent(pi)
             
-            if (BaseModel.enableOnGoing.value) {
+            if (BaseModel.enableOnGoing.value == true) {
                 notificationBuilder.setOngoing(true)
             }
             

@@ -71,25 +71,25 @@ class SelectAndCountModelField : ModelField<MutableMap<String?, Int?>>, SelectMo
     }
 
     override fun clear() {
-        value.clear()
+        value?.clear()
     }
 
     override fun get(id: String?): Int? {
-        return value[id]
+        return value?.get(id)
     }
 
     override fun add(id: String?, count: Int?) {
         if (id != null && count != null) {
-            value[id] = count
+            value?.set(id, count)
         }
     }
 
     override fun remove(id: String?) {
-        value.remove(id)
+        value?.remove(id)
     }
 
     override fun contains(id: String?): Boolean? {
-        return value.containsKey(id)
+        return value?.containsKey(id)
     }
 
     fun interface SelectListFunc {

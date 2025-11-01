@@ -19,7 +19,7 @@ object LanguageUtil {
     @JvmStatic
     fun setLocale(context: Context) {
         // 检查是否设置了简体中文
-        if (BaseModel.languageSimplifiedChinese.value) {
+        if (BaseModel.languageSimplifiedChinese.value == true) {
             // 创建简体中文的Locale对象
             val locale = Locale.Builder()
                 .setLanguage("zh")

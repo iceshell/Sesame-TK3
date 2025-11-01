@@ -57,7 +57,7 @@ object ToastUtil {
     fun showToast(context: Context, message: String) {
         Log.runtime(TAG, "showToast: $message")
         val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
-        toast.setGravity(toast.gravity, toast.xOffset, BaseModel.toastOffsetY.value)
+        toast.setGravity(toast.gravity, toast.xOffset, BaseModel.toastOffsetY.value ?: 0)
         toast.show()
     }
     
@@ -84,7 +84,7 @@ object ToastUtil {
     @JvmStatic
     fun makeText(context: Context, message: String, duration: Int): Toast {
         val toast = Toast.makeText(context, message, duration)
-        toast.setGravity(toast.gravity, toast.xOffset, BaseModel.toastOffsetY.value)
+        toast.setGravity(toast.gravity, toast.xOffset, BaseModel.toastOffsetY.value ?: 0)
         return toast
     }
     

@@ -28,7 +28,7 @@ abstract class Model {
         get() = "开启${getName() ?: ""}"
     
     /** 判断模型是否启用 */
-    fun isEnable(): Boolean = enableField.value
+    fun isEnable(): Boolean = enableField.value ?: false
     
     /** 获取模型类型 */
     open fun getType(): ModelType = ModelType.NORMAL

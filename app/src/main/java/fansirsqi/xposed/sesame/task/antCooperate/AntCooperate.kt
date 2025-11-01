@@ -79,7 +79,7 @@ class AntCooperate : ModelTask() {
                     }
                     val admin = jo.getString("admin")
                     val name = jo.getString("name")
-                    if (cooperateSendCooperateBeckon.value && UserMap.currentUid == admin) {
+                    if (cooperateSendCooperateBeckon.value == true && UserMap.currentUid == admin) {
                         cooperateSendCooperateBeckon(cooperationId, name)
                     }
                     val waterDayLimit = jo.getInt("waterDayLimit")
@@ -92,9 +92,9 @@ class AntCooperate : ModelTask() {
                         continue
                     }
                     
-                    var waterId = cooperateWaterList.value[cooperationId]
+                    var waterId = cooperateWaterList.value?.get(cooperationId)
                     if (waterId != null) {
-                        val limitNum = cooperateWaterTotalLimitList.value[cooperationId]
+                        val limitNum = cooperateWaterTotalLimitList.value?.get(cooperationId)
                         if (limitNum != null) {
                             val cumulativeWaterAmount = calculatedWaterNum(cooperationId)
                             if (cumulativeWaterAmount < 0) {

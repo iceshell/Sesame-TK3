@@ -62,7 +62,7 @@ open class ListModelField(code: String, name: String, value: MutableList<String>
         }
 
         override fun getConfigValue(): String {
-            return value.joinToString(",")
+            return value?.joinToString(",") ?: ""
         }
     }
 }

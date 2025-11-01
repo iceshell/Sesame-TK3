@@ -97,6 +97,10 @@ public class ApplicationHook {
     @Getter
     static AlipayVersion alipayVersion = new AlipayVersion("");
 
+    public static AlipayVersion getAlipayVersion() {
+        return alipayVersion;
+    }
+
     private static volatile boolean hooked = false;
 
     @JvmStatic

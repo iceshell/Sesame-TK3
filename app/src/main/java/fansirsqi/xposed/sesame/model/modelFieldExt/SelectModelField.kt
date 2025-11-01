@@ -77,21 +77,21 @@ class SelectModelField : ModelField<MutableSet<String?>>, SelectModelFieldFunc {
     }
 
     override fun clear() {
-        value.clear()
+        value?.clear()
     }
 
     override fun get(id: String?): Int? = 0
 
     override fun add(id: String?, count: Int?) {
-        id?.let { value.add(it) }
+        id?.let { value?.add(it) }
     }
 
     override fun remove(id: String?) {
-        value.remove(id)
+        value?.remove(id)
     }
 
     override fun contains(id: String?): Boolean? {
-        return value.contains(id)
+        return value?.contains(id)
     }
 
     fun interface SelectListFunc {

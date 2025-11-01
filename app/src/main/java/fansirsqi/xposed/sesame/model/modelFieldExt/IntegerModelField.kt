@@ -62,22 +62,22 @@ open class IntegerModelField : ModelField<Int> {
      *
      * @return 返回字段的字符串形式的配置值
      */
-    override fun getConfigValue(): String = value.toString()
+    override fun getConfigValue(): String? = value?.toString()
 
     /**
      * 设置字段的配置值（根据配置值设置新的值，并且在有最小/最大值限制的情况下进行限制）
      *
      * @param configValue 字段的配置值
      */
-    override fun setConfigValue(configValue: String) {
-        var newValue: Int = if (configValue.trim().isEmpty()) {
-            defaultValue
+    override fun setConfigValue(configValue: String?) {
+        var newValue: Int = if (configValue.isNullOrBlank()) {
+            defaultValue ?: 0
         } else {
             try {
                 configValue.toInt()
             } catch (e: Exception) {
                 Log.printStackTrace(e)
-                defaultValue
+                defaultValue ?: 0
             }
         }
 
@@ -143,8 +143,8 @@ open class IntegerModelField : ModelField<Int> {
          *
          * @param configValue 字段的配置值
          */
-        override fun setConfigValue(configValue: String) {
-            if (configValue.trim().isEmpty()) {
+        override fun setConfigValue(configValue: String?) {
+            if (configValue.isNullOrBlank()) {
                 reset()
                 return
             }
@@ -152,7 +152,7 @@ open class IntegerModelField : ModelField<Int> {
             super.setConfigValue(configValue)
             try {
                 // 根据乘数调整值
-                value *= multiple
+                value = (value ?: 0) * multiple
                 return
             } catch (e: Exception) {
                 Log.printStackTrace(e)
@@ -165,6 +165,6 @@ open class IntegerModelField : ModelField<Int> {
          *
          * @return 配置值（字段值除以乘数）
          */
-        override fun getConfigValue(): String = (value / multiple).toString()
+        override fun getConfigValue(): String? = value?.let { (it / multiple).toString() }
     }
 }

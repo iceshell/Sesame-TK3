@@ -254,7 +254,7 @@ class OldRpcBridge : RpcBridge {
         if (!ApplicationHook.isOffline()) {
             ApplicationHook.setOffline(true)
             Notify.updateStatusText("登录超时")
-            if (BaseModel.timeoutRestart.value) {
+            if (BaseModel.timeoutRestart.value == true) {
                 Log.record(TAG, "尝试重新登录")
                 ApplicationHook.reLoginByBroadcast()
             }
@@ -265,8 +265,9 @@ class OldRpcBridge : RpcBridge {
      * 处理能量收集异常的情况
      */
     private fun handleEnergyCollectException() {
-        if (BaseModel.waitWhenException.value > 0) {
-            val waitTime = System.currentTimeMillis() + BaseModel.waitWhenException.value
+        val waitValue = BaseModel.waitWhenException.value ?: 0
+        if (waitValue > 0) {
+            val waitTime = System.currentTimeMillis() + waitValue
             RuntimeInfo.getInstance().put(RuntimeInfo.RuntimeInfoKey.ForestPauseTime, waitTime)
             Notify.updateStatusText("异常")
             Log.record(TAG, "触发异常, 等待至${TimeUtil.getCommonDate(waitTime)}")

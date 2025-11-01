@@ -35,6 +35,15 @@ class EmptyModelField : ModelField<Any?> {
     override fun setObjectValue(value: Any?) {
         // 空实现，不存储值
     }
+    
+    override fun setConfigValue(configValue: String?) {
+        // 空实现，EmptyModelField不需要存储配置值
+    }
+    
+    override fun getConfigValue(): String? {
+        // 返回null，EmptyModelField没有配置值
+        return null
+    }
 
     @JsonIgnore
     override fun getView(context: Context): View {

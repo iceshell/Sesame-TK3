@@ -1,34 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/base_title" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- 左侧竖向 Tab -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_tab_list"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:overScrollMode="always"
-            android:scrollbars="none"
-            android:background="@null" />
+        <include layout="@layout/base_title" />
 
-        <!-- 右侧内容区域 -->
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:nestedScrollingEnabled="false"
-            android:layout_marginBottom="48dp"
-            android:overScrollMode="never" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <!-- 左侧竖向 Tab -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_tab_list"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:overScrollMode="always"
+                android:scrollbars="none"
+                android:background="@null" />
+
+            <!-- 右侧内容区域 -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="48dp"
+                android:overScrollMode="never" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <!-- 加载进度条 -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+</FrameLayout>

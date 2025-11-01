@@ -88,7 +88,7 @@ class AnswerAI : Model() {
     override fun boot(classLoader: ClassLoader?) {
         try {
             enable = enableField?.value ?: false
-            val selectedType = aiType.value
+            val selectedType = aiType.value ?: AIType.TONGYI
             Log.runtime(String.format("初始化AI服务：已选择[%s]", AIType.nickNames[selectedType]))
             initializeAIService(selectedType)
         } catch (e: Exception) {
@@ -106,7 +106,7 @@ class AnswerAI : Model() {
             AIType.DEEPSEEK -> DeepSeek(DeepSeekToken.value)
             AIType.CUSTOM -> {
                 val service = CustomService(CustomServiceToken.value, CustomServiceUrl.value)
-                service.setModelName(CustomServiceModel.value)
+                service.setModelName(CustomServiceModel.value ?: "")
                 Log.runtime(
                     String.format(
                         "已配置自定义服务：URL=[%s], Model=[%s]",
@@ -165,7 +165,7 @@ class AnswerAI : Model() {
                         val logMsg = String.format(
                             AI_ANSWER_LOG_FORMAT,
                             answerStr,
-                            AIType.nickNames[aiType.value],
+                            AIType.nickNames[aiType.value ?: AIType.TONGYI],
                             answerAIInterface?.getModelName() ?: ""
                         )
                         when (flag) {

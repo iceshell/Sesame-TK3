@@ -27,7 +27,7 @@ class NewRpcBridge : RpcBridge {
     private var bridgeCallbackClazzArray: Array<Class<*>>? = null
     private var newRpcCallMethod: Method? = null
     private val maxErrorCount = AtomicInteger(0)
-    private val setMaxErrorCount: Int = BaseModel.setMaxErrorCount.value
+    private val setMaxErrorCount: Int = BaseModel.setMaxErrorCount.value ?: 10
 
     private val errorMark = arrayListOf("1004", "1009", "2000", "46", "48")
     private val errorStringMark = arrayListOf("繁忙", "拒绝", "网络不可用", "重试")
@@ -309,20 +309,20 @@ class NewRpcBridge : RpcBridge {
                                 if (currentErrorCount > setMaxErrorCount) {
                                     ApplicationHook.setOffline(true)
                                     Notify.updateStatusText("网络连接异常，已进入离线模式")
-                                    if (BaseModel.errNotify.value) {
+                                    if (BaseModel.errNotify.value == true) {
                                         Notify.sendErrorNotification(
                                             "${TimeUtil.getTimeStr()} | 网络异常次数超过阈值[$setMaxErrorCount]",
                                             response
                                         )
                                     }
                                 }
-                                if (BaseModel.errNotify.value) {
+                                if (BaseModel.errNotify.value == true) {
                                     Notify.sendErrorNotification(
                                         "${TimeUtil.getTimeStr()} | 网络异常: $methodName",
                                         response
                                     )
                                 }
-                                if (BaseModel.timeoutRestart.value) {
+                                if (BaseModel.timeoutRestart.value == true) {
                                     Log.record(TAG, "尝试重新登录")
                                     ApplicationHook.reLoginByBroadcast()
                                 }
@@ -360,7 +360,7 @@ class NewRpcBridge : RpcBridge {
             return null
         } finally {
             // 仅在调试模式下打印堆栈
-            if (BaseModel.debugMode.value) {
+            if (BaseModel.debugMode.value == true) {
                 Log.system(TAG, "New RPC\n方法: ${rpcEntity.requestMethod}\n参数: ${rpcEntity.requestData}\n数据: ${rpcEntity.responseString}")
                 Log.printStack(TAG)
             }
