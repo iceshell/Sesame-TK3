@@ -8,13 +8,13 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import fansirsqi.xposed.sesame.R
-import fansirsqi.xposed.sesame.model.IntegerModelField
+import fansirsqi.xposed.sesame.model.ModelField
 import fansirsqi.xposed.sesame.ui.ChoiceDialog
 
 /**
  * 选择型字段，用于在多个选项中选择一个
  */
-class ChoiceModelField : IntegerModelField {
+class ChoiceModelField : ModelField<Int> {
     
     private var choiceArray: Array<out String?>? = null
 
