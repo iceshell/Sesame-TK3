@@ -40,6 +40,28 @@ class ChoiceModelField : ModelField<Int> {
     override fun getType(): String = "CHOICE"
 
     override fun getExpandKey(): Array<out String?>? = choiceArray
+    
+    /**
+     * 设置配置值
+     * 直接解析整数值，避免父类的类型推断错误
+     */
+    override fun setConfigValue(configValue: String?) {
+        value = when {
+            configValue.isNullOrBlank() -> defaultValue
+            else -> {
+                try {
+                    configValue.toInt()
+                } catch (e: Exception) {
+                    defaultValue ?: 0
+                }
+            }
+        }
+    }
+    
+    /**
+     * 获取配置值
+     */
+    override fun getConfigValue(): String? = value?.toString()
 
     override fun getView(context: Context): View {
         return Button(context).apply {

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.google.android.material.button.MaterialButton
 import fansirsqi.xposed.sesame.R
 import fansirsqi.xposed.sesame.util.JsonUtil
+import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.TypeUtil
 import org.json.JSONException
 import java.io.Serializable
@@ -209,9 +210,14 @@ open class ModelField<T> : Serializable {
             return
         }
         
+        // DEBUG: 记录类型信息
+        val valueTypeBefore = valueType
+        val isVoidType = (valueType == Void::class.java || valueType == Void.TYPE)
+        
         // 如果反射类型推断失败，从objectValue推断真实类型
         if (valueType == Any::class.java || valueType == Void::class.java || valueType == Void.TYPE) {
             valueType = objectValue.javaClass
+            Log.runtime(TAG_FIELD, "setConfigValue: 类型已修复 $code: $valueTypeBefore -> $valueType (objectValue类型=${objectValue.javaClass})")
         }
         
         // 如果对象值与配置值相等，则直接解析配置值
@@ -233,6 +239,10 @@ open class ModelField<T> : Serializable {
                 return
             }
         }
+    }
+    
+    companion object {
+        private const val TAG_FIELD = "ModelField"
     }
 
     /**

@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import com.fasterxml.jackson.core.type.TypeReference
 import org.json.JSONException
 import fansirsqi.xposed.sesame.R
 import fansirsqi.xposed.sesame.entity.MapperEntity
 import fansirsqi.xposed.sesame.model.ModelField
 import fansirsqi.xposed.sesame.model.SelectModelFieldFunc
 import fansirsqi.xposed.sesame.ui.widget.ListDialog
+import fansirsqi.xposed.sesame.util.JsonUtil
 
 /**
  * 数据结构说明
@@ -53,6 +55,23 @@ class SelectModelField : ModelField<MutableSet<String?>>, SelectModelFieldFunc {
     @Throws(JSONException::class)
     override fun getExpandValue(): List<out MapperEntity>? {
         return selectListFunc?.getList() ?: expandValueList
+    }
+    
+    /**
+     * 设置配置值
+     * 直接解析Set类型，避免父类的类型推断错误
+     */
+    override fun setConfigValue(configValue: String?) {
+        value = when {
+            configValue.isNullOrBlank() -> defaultValue
+            else -> {
+                try {
+                    JsonUtil.parseObject(configValue, object : TypeReference<LinkedHashSet<String?>>() {})
+                } catch (e: Exception) {
+                    defaultValue ?: LinkedHashSet()
+                }
+            }
+        }
     }
 
     override fun getView(context: Context): View {

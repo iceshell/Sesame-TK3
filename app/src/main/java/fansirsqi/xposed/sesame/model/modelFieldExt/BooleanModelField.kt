@@ -26,6 +26,30 @@ class BooleanModelField(code: String, name: String, value: Boolean) : ModelField
      * @return 字段类型字符串
      */
     override fun getType(): String = "BOOLEAN"
+    
+    /**
+     * 设置配置值
+     * 直接解析布尔值，避免父类的类型推断错误
+     */
+    override fun setConfigValue(configValue: String?) {
+        value = when {
+            configValue.isNullOrBlank() -> defaultValue
+            configValue.equals("true", ignoreCase = true) || configValue == "1" -> true
+            configValue.equals("false", ignoreCase = true) || configValue == "0" -> false
+            else -> {
+                try {
+                    configValue.toBoolean()
+                } catch (e: Exception) {
+                    defaultValue
+                }
+            }
+        }
+    }
+    
+    /**
+     * 获取配置值
+     */
+    override fun getConfigValue(): String? = value?.toString()
 
     /**
      * 创建并返回 Switch 视图
