@@ -54,7 +54,9 @@ object ResChecker {
                 memo.contains("适可而止") ||
                 memo.contains("不支持rpc完成的任务") ||
                 memo.contains("庄园的小鸡太多了") ||
-                "I07" == resultCode
+                memo.contains("任务已完成") ||
+                "I07" == resultCode ||
+                "FAMILY48" == resultCode
             ) {
                 return false // 返回false，但不打印错误日志
             }

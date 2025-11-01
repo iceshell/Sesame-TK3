@@ -457,7 +457,12 @@ class AntSports : ModelTask() {
         try {
             sportsCheck_in()
             // 运动任务查询
-            var jo = JSONObject(queryCoinTaskPanel())
+            val taskResult = queryCoinTaskPanel()
+            if (taskResult.isEmpty()) {
+                record(TAG, "运动任务查询失败: RPC返回为空")
+                return
+            }
+            var jo = JSONObject(taskResult)
             //  Log.record(TAG,"运动任务响应："+jo);
             if (jo.optBoolean("success")) {
                 val data = jo.getJSONObject("data")
@@ -634,7 +639,12 @@ class AntSports : ModelTask() {
 
     private fun sportsCheck_in() {
         try {
-            val jo = JSONObject(AntSportsRpcCall.sportsCheck_in())
+            val result = AntSportsRpcCall.sportsCheck_in()
+            if (result.isEmpty()) {
+                record(TAG, "运动签到失败: RPC返回为空")
+                return
+            }
+            val jo = JSONObject(result)
             if (jo.optBoolean("success")) {
                 val data = jo.getJSONObject("data")
                 if (!data.getBoolean("signed")) {
