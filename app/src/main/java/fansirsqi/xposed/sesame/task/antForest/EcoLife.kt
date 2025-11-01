@@ -33,7 +33,12 @@ object EcoLife {
     fun ecoLife() {
         try {
             // 查询首页信息
-            var jsonObject = JSONObject(AntForestRpcCall.ecolifeQueryHomePage())
+            val response = AntForestRpcCall.ecolifeQueryHomePage()
+            if (response.isNullOrBlank()) {
+                Log.error(TAG, "绿色行动查询返回空响应")
+                return
+            }
+            var jsonObject = JSONObject(response)
             if (!jsonObject.optBoolean("success")) {
                 Log.runtime("$TAG.ecoLife.queryHomePage", jsonObject.optString("resultDesc"))
                 return

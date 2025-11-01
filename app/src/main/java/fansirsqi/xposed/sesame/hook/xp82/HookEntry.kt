@@ -4,7 +4,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import fansirsqi.xposed.sesame.data.General
-import fansirsqi.xposed.sesame.hook.ApplicationHook
+import fansirsqi.xposed.sesame.hook.ApplicationHookEntry
 import fansirsqi.xposed.sesame.hook.XposedEnv
 
 /**
@@ -14,7 +14,6 @@ import fansirsqi.xposed.sesame.hook.XposedEnv
 class HookEntry : IXposedHookLoadPackage {
 
     private val tag = "Xp82Entry"
-    private var customHooker: ApplicationHook? = null
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         try {
@@ -26,11 +25,9 @@ class HookEntry : IXposedHookLoadPackage {
             XposedEnv.packageName = lpparam.packageName
             XposedEnv.processName = lpparam.processName
 
-            customHooker = ApplicationHook()
-
             XposedBridge.log("$tag: Hooking ${lpparam.packageName} in process ${lpparam.processName}")
-            // 调用你自己的 Hook 逻辑
-            customHooker?.loadPackageCompat(lpparam)
+            // 调用Kotlin迁移后的Hook逻辑
+            ApplicationHookEntry.loadPackageCompat(lpparam)
 
         } catch (e: Throwable) {
             XposedBridge.log("$tag: Hook failed - ${e.message}")

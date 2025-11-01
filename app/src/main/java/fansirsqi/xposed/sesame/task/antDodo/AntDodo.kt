@@ -100,7 +100,12 @@ class AntDodo : ModelTask() {
 
     private fun collect() {
         try {
-            val jo = JSONObject(AntDodoRpcCall.queryAnimalStatus())
+            val response = AntDodoRpcCall.queryAnimalStatus()
+            if (response.isNullOrEmpty()) {
+                Log.runtime(TAG, "queryAnimalStatus返回空")
+                return
+            }
+            val jo = JSONObject(response)
             if (ResChecker.checkRes(TAG, jo)) {
                 val data = jo.getJSONObject("data")
                 if (data.getBoolean("collect")) {
@@ -119,7 +124,12 @@ class AntDodo : ModelTask() {
 
     private fun collectAnimalCard() {
         try {
-            var jo = JSONObject(AntDodoRpcCall.homePage())
+            val homeResponse = AntDodoRpcCall.homePage()
+            if (homeResponse.isNullOrEmpty()) {
+                Log.runtime(TAG, "homePage返回空")
+                return
+            }
+            var jo = JSONObject(homeResponse)
             if (ResChecker.checkRes(TAG, jo)) {
                 var data = jo.getJSONObject("data")
                 val animalBook = data.getJSONObject("animalBook")
@@ -141,7 +151,12 @@ class AntDodo : ModelTask() {
                 if (index >= 0) {
                     val leftFreeQuota = jo.getInt("leftFreeQuota")
                     for (j in 0 until leftFreeQuota) {
-                        jo = JSONObject(AntDodoRpcCall.collect())
+                        val collectResponse = AntDodoRpcCall.collect()
+                        if (collectResponse.isNullOrEmpty()) {
+                            Log.runtime(TAG, "collect返回空")
+                            continue
+                        }
+                        jo = JSONObject(collectResponse)
                         if (ResChecker.checkRes(TAG, jo)) {
                             data = jo.getJSONObject("data")
                             val animal = data.getJSONObject("animal")
@@ -193,6 +208,10 @@ class AntDodo : ModelTask() {
             while (true) {
                 var doubleCheck = false
                 val response = AntDodoRpcCall.taskList()
+                if (response.isNullOrEmpty()) {
+                    Log.runtime(TAG, "taskList返回空")
+                    break
+                }
                 val jsonResponse = JSONObject(response)
                 if (!ResChecker.checkRes(TAG, jsonResponse)) {
                     Log.record(TAG, "查询任务列表失败：${jsonResponse.getString("resultDesc")}")
@@ -214,7 +233,12 @@ class AntDodo : ModelTask() {
                         val taskStatus = taskBaseInfo.getString("taskStatus")
                         when {
                             TaskStatus.FINISHED.name == taskStatus -> {
-                                val joAward = JSONObject(AntDodoRpcCall.receiveTaskAward(sceneCode, taskType))
+                                val awardResponse = AntDodoRpcCall.receiveTaskAward(sceneCode, taskType)
+                                if (awardResponse.isNullOrEmpty()) {
+                                    Log.runtime(TAG, "receiveTaskAward返回空")
+                                    continue
+                                }
+                                val joAward = JSONObject(awardResponse)
                                 if (joAward.optBoolean("success")) {
                                     doubleCheck = true
                                     Log.forest("任务奖励🎖️[$taskTitle]#${awardCount}个")
@@ -225,7 +249,12 @@ class AntDodo : ModelTask() {
                             }
                             TaskStatus.TODO.name == taskStatus -> {
                                 if (!badTaskSet.contains(taskType)) {
-                                    val joFinishTask = JSONObject(AntDodoRpcCall.finishTask(sceneCode, taskType))
+                                    val finishResponse = AntDodoRpcCall.finishTask(sceneCode, taskType)
+                                    if (finishResponse.isNullOrEmpty()) {
+                                        Log.runtime(TAG, "finishTask返回空")
+                                        continue
+                                    }
+                                    val joFinishTask = JSONObject(finishResponse)
                                     if (joFinishTask.optBoolean("success")) {
                                         Log.forest("物种任务🧾️[$taskTitle]")
                                         doubleCheck = true
@@ -254,7 +283,12 @@ class AntDodo : ModelTask() {
     private fun propList() {
         try {
             th@ while (true) {
-                val jo = JSONObject(AntDodoRpcCall.propList())
+                val response = AntDodoRpcCall.propList()
+                if (response.isNullOrEmpty()) {
+                    Log.runtime(TAG, "propList返回空")
+                    return
+                }
+                val jo = JSONObject(response)
                 if (ResChecker.checkRes(TAG, jo)) {
                     val propList = jo.getJSONObject("data").optJSONArray("propList") ?: return
                     for (i in 0 until propList.length()) {
@@ -268,7 +302,12 @@ class AntDodo : ModelTask() {
                         val propId = propIdList.getString(0)
                         val propName = prop.getJSONObject("propConfig").getString("propName")
                         val holdsNum = prop.optInt("holdsNum", 0)
-                        val joConsume = JSONObject(AntDodoRpcCall.consumeProp(propId, propType))
+                        val consumeResponse = AntDodoRpcCall.consumeProp(propId, propType)
+                        if (consumeResponse.isNullOrEmpty()) {
+                            Log.runtime(TAG, "consumeProp返回空")
+                            continue
+                        }
+                        val joConsume = JSONObject(consumeResponse)
                         if (!ResChecker.checkRes(TAG, joConsume)) {
                             Log.record(joConsume.getString("resultDesc"))
                             Log.runtime(joConsume.toString())
@@ -320,7 +359,12 @@ class AntDodo : ModelTask() {
 
     private fun sendAntDodoCard(bookId: String, targetUser: String) {
         try {
-            val jo = JSONObject(AntDodoRpcCall.queryBookInfo(bookId))
+            val response = AntDodoRpcCall.queryBookInfo(bookId)
+            if (response.isNullOrEmpty()) {
+                Log.runtime(TAG, "queryBookInfo返回空")
+                return
+            }
+            val jo = JSONObject(response)
             if (ResChecker.checkRes(TAG, jo)) {
                 val animalForUserList = jo.getJSONObject("data").optJSONArray("animalForUserList")
                 for (i in 0 until (animalForUserList?.length() ?: 0)) {
@@ -346,7 +390,12 @@ class AntDodo : ModelTask() {
             val animalId = animal.getString("animalId")
             val ecosystem = animal.getString("ecosystem")
             val name = animal.getString("name")
-            val jo = JSONObject(AntDodoRpcCall.social(animalId, targetUser))
+            val socialResponse = AntDodoRpcCall.social(animalId, targetUser)
+            if (socialResponse.isNullOrEmpty()) {
+                Log.runtime(TAG, "social返回空")
+                return
+            }
+            val jo = JSONObject(socialResponse)
             if (ResChecker.checkRes(TAG, jo)) {
                 Log.forest("赠送卡片🦕[${UserMap.getMaskName(targetUser)}]#$ecosystem-$name")
             } else {
@@ -360,7 +409,12 @@ class AntDodo : ModelTask() {
 
     private fun collectToFriend() {
         try {
-            var jo = JSONObject(AntDodoRpcCall.queryFriend())
+            val queryResponse = AntDodoRpcCall.queryFriend()
+            if (queryResponse.isNullOrEmpty()) {
+                Log.runtime(TAG, "queryFriend返回空")
+                return
+            }
+            var jo = JSONObject(queryResponse)
             if (ResChecker.checkRes(TAG, jo)) {
                 var count = 0
                 val limitList = jo.getJSONObject("data").getJSONObject("extend").getJSONArray("limit")
@@ -389,7 +443,12 @@ class AntDodo : ModelTask() {
                     if (!isCollectToFriend) {
                         continue
                     }
-                    jo = JSONObject(AntDodoRpcCall.collect(useId))
+                    val collectFriendResponse = AntDodoRpcCall.collect(useId)
+                    if (collectFriendResponse.isNullOrEmpty()) {
+                        Log.runtime(TAG, "collect(friend)返回空")
+                        continue
+                    }
+                    jo = JSONObject(collectFriendResponse)
                     if (ResChecker.checkRes(TAG, jo)) {
                         val ecosystem = jo.getJSONObject("data").getJSONObject("animal").getString("ecosystem")
                         val name = jo.getJSONObject("data").getJSONObject("animal").getString("name")
@@ -414,7 +473,12 @@ class AntDodo : ModelTask() {
             var hasMore: Boolean
             var pageStart = 0
             do {
-                var jo = JSONObject(AntDodoRpcCall.queryBookList(9, pageStart))
+                val bookListResponse = AntDodoRpcCall.queryBookList(9, pageStart)
+                if (bookListResponse.isNullOrEmpty()) {
+                    Log.runtime(TAG, "queryBookList返回空")
+                    break
+                }
+                var jo = JSONObject(bookListResponse)
                 if (!ResChecker.checkRes(TAG, jo)) {
                     break
                 }
@@ -430,7 +494,12 @@ class AntDodo : ModelTask() {
                     val animalBookResult = jo.getJSONObject("animalBookResult")
                     val bookId = animalBookResult.getString("bookId")
                     val ecosystem = animalBookResult.getString("ecosystem")
-                    jo = JSONObject(AntDodoRpcCall.generateBookMedal(bookId))
+                    val medalResponse = AntDodoRpcCall.generateBookMedal(bookId)
+                    if (medalResponse.isNullOrEmpty()) {
+                        Log.runtime(TAG, "generateBookMedal返回空")
+                        continue
+                    }
+                    jo = JSONObject(medalResponse)
                     if (!ResChecker.checkRes(TAG, jo)) {
                         break
                     }

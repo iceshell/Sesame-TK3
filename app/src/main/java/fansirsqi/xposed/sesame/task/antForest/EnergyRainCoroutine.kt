@@ -68,7 +68,12 @@ object EnergyRainCoroutine {
      */
     private suspend fun energyRain() {
         try {
-            var joEnergyRainHome = JSONObject(AntForestRpcCall.queryEnergyRainHome())
+            val response = AntForestRpcCall.queryEnergyRainHome()
+            if (response.isNullOrBlank()) {
+                Log.error(TAG, "能量雨查询返回空响应")
+                return
+            }
+            var joEnergyRainHome = JSONObject(response)
             randomDelay(300, 400) // 随机延迟 300-400ms
             if (!ResChecker.checkRes(TAG, joEnergyRainHome)) {
                 Log.record(TAG, "查询能量雨状态失败")
