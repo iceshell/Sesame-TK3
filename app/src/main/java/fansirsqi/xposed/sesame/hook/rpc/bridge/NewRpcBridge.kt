@@ -65,7 +65,7 @@ class NewRpcBridge : RpcBridge {
     override fun getVersion(): RpcVersion = RpcVersion.NEW
 
     override fun load() {
-        loader = ApplicationHook.getClassLoader()
+        loader = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.classLoader
         val classLoader = loader ?: run {
             Log.error(TAG, "ClassLoader为null，无法加载NewRpcBridge")
             return

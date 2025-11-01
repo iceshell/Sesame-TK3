@@ -1,0 +1,33 @@
+02日 01:28:08.57 [NewRpcBridge]: ClassLoader为null，无法加载NewRpcBridge
+02日 01:28:14.12 [执行蚂蚁森林任务时发生错误: ]: [AntForest] Throwable error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.updateSelfHomePage(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:3)
+	at fansirsqi.xposed.sesame.task.antForest.AntForest.runSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:375)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:94)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:148)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:258)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:12)
+	at b5.l0.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:133)
+	at g5.b.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:118)
+
+02日 01:28:19.52 Exception error: org.json.JSONException: End of input at character 0 of 
+	at org.json.JSONTokener.syntaxError(JSONTokener.java:460)
+	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+	at org.json.JSONObject.<init>(JSONObject.java:165)
+	at org.json.JSONObject.<init>(JSONObject.java:182)
+	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.enterFarm(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:14)
+	at fansirsqi.xposed.sesame.task.antFarm.AntFarm.runSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:348)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:94)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:148)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:1)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:258)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:12)
+	at b5.l0.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:133)
+	at g5.b.run(r8-map-id-0919f4ce47d675c6bbed59cf8e962813d2a6675dcc875eab75359ba63e8945ed:118)
+

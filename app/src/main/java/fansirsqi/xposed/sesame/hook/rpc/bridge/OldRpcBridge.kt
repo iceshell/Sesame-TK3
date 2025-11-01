@@ -31,7 +31,7 @@ class OldRpcBridge : RpcBridge {
      * 加载RPC所需的类和方法
      */
     override fun load() {
-        loader = ApplicationHook.getClassLoader()
+        loader = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.classLoader
         val classLoader = loader ?: run {
             Log.error(TAG, "ClassLoader为null，无法加载OldRpcBridge")
             return
