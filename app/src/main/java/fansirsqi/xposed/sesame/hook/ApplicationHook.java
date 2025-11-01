@@ -688,17 +688,17 @@ public class ApplicationHook {
                     return false;
                 }
 
-                // 闹钟权限检查
+                // 闹钟权限检查（非阻塞性）
                 if (!PermissionUtil.checkAlarmPermissions()) {
-                    Log.record(TAG, "❌ 支付宝无闹钟权限");
+                    Log.record(TAG, "⚠️ 支付宝无闹钟权限（将影响定时任务执行）");
                     mainHandler.postDelayed(
                             () -> {
                                 if (!PermissionUtil.checkOrRequestAlarmPermissions(appContext)) {
-                                    Toast.show("请授予支付宝使用闹钟权限");
+                                    Toast.show("请授予支付宝使用闹钟权限以启用定时任务");
                                 }
                             },
                             2000);
-                    return false;
+                    // 不阻止初始化继续，允许手动触发任务
                 }
 
                 // 后台运行权限检查

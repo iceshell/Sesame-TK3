@@ -1,0 +1,1290 @@
+02日 01:16:24.28 [SesameApplication]: 🚀 应用启动 | 进程: fansirsqi.xposed.sesame | PID: 5212
+02日 01:16:24.35 [ServiceManager]: LSPosed service connected: LSPosed v1.10.2
+02日 01:16:24.35 [ServiceManager]: ServiceManager initialized and listener registered.
+02日 01:16:24.41 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libchecker.so
+02日 01:16:24.42 [AssetUtil]: SO file already exists: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/lib/libdexkit.so
+02日 01:16:24.45 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:16:24.46 [UIConfig]: 重置UI配置
+02日 01:16:24.47 [Files]: self.json permissions: r=true; w=true
+02日 01:16:24.48 [Files]: self.json permissions: r=true; w=true
+02日 01:16:24.49 [Files]: self.json permissions: r=true; w=true
+02日 01:16:24.50 [Files]: self.json permissions: r=true; w=true
+02日 01:16:24.51 [Files]: self.json permissions: r=true; w=true
+02日 01:16:24.52 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:16:24.52 [MainActivity]: isModuleActivated: true
+02日 01:16:28.68 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:16:28.69 [UIConfig]: 重置UI配置
+02日 01:16:28.70 [Files]: self.json permissions: r=true; w=true
+02日 01:16:28.71 [Files]: self.json permissions: r=true; w=true
+02日 01:16:28.72 [Files]: self.json permissions: r=true; w=true
+02日 01:16:28.73 [Files]: self.json permissions: r=true; w=true
+02日 01:16:28.74 [Files]: self.json permissions: r=true; w=true
+02日 01:16:28.75 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:16:28.75 [MainActivity]: isModuleActivated: true
+02日 01:16:31.20 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:16:31.21 [UIConfig]: 重置UI配置
+02日 01:16:31.22 [Files]: self.json permissions: r=true; w=true
+02日 01:16:31.23 [Files]: self.json permissions: r=true; w=true
+02日 01:16:31.24 [Files]: self.json permissions: r=true; w=true
+02日 01:16:31.25 [Files]: self.json permissions: r=true; w=true
+02日 01:16:31.26 [Files]: self.json permissions: r=true; w=true
+02日 01:16:31.27 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:16:31.27 [MainActivity]: isModuleActivated: true
+02日 01:16:32.70 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:16:32.70 [UIConfig]: 重置UI配置
+02日 01:16:32.71 [Files]: self.json permissions: r=true; w=true
+02日 01:16:32.72 [Files]: self.json permissions: r=true; w=true
+02日 01:16:32.73 [Files]: self.json permissions: r=true; w=true
+02日 01:16:32.74 [Files]: self.json permissions: r=true; w=true
+02日 01:16:32.76 [Files]: self.json permissions: r=true; w=true
+02日 01:16:32.76 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:16:32.76 [MainActivity]: isModuleActivated: true
+02日 01:16:35.56 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:16:35.66 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:16:35.66 [ApplicationHook]: 验证码Hook已启用
+02日 01:16:35.67 [ApplicationHook]: hook login successfully
+02日 01:16:35.67 [ApplicationHook]: hook service onCreate successfully
+02日 01:16:35.82 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:16:35.84 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:16:35.84 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:16:35.84 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:16:35.85 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:16:35.85 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:16:35.85 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:16:35.85 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:16:35.86 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:16:35.86 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:16:35.89 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:35.89 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:35.90 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:35.90 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:35.90 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:16:36.01 [ApplicationHook]: hook onResume after start
+02日 01:16:36.11 [ApplicationHook]: onResume targetUid: 2088002896523311
+02日 01:16:36.11 [ApplicationHook]: onResume: service未就绪，等待下次触发
+02日 01:16:36.20 [ApplicationHook]: Service onCreate
+02日 01:16:36.60 [ApplicationHook]: hook dexkit successfully
+02日 01:16:36.61 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:16:36.73 [HookUtil]: loading userCache from target app
+02日 01:16:36.73 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:16:36.73 [ApplicationHook]: 验证码Hook已启用
+02日 01:16:36.74 [ApplicationHook]: hook login successfully
+02日 01:16:36.74 [ApplicationHook]: hook service onCreate successfully
+02日 01:16:36.97 [Files]: self.json permissions: r=true; w=true
+02日 01:16:37.00 [Files]: friend.json permissions: r=true; w=true
+02日 01:16:37.03 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:16:37.06 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:16:37.06 [HookUtil]: userCache load scuess !
+02日 01:16:37.06 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+02日 01:16:37.06 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:16:37.06 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+02日 01:16:37.06 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:16:37.06 [ApplicationHook]: ⚙️模块版本：0.3.0-rc150
+02日 01:16:37.06 [ApplicationHook]: 📦应用版本：10.7.86.8000
+02日 01:16:37.07 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:16:37.07 [ApplicationHook]: 📶网络类型：UNKNOWN
+02日 01:16:37.07 [ApplicationHook]: 👤用户ID：2088002896523311
+02日 01:16:37.07 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:16:37.07 [ApplicationHook]: 🕐初始化时间：02日01:16:37
+02日 01:16:37.07 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:16:37.07 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:16:37.07 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:16:37.07 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:16:37.08 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:16:37.08 [Config]: 开始加载配置
+02日 01:16:37.08 [Config]: 加载配置: 青玄
+02日 01:16:37.09 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:16:37.11 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:37.12 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:37.13 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:37.13 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:37.13 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:16:37.13 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:16:37.16 [Config]: 格式化配置: 青玄
+02日 01:16:37.17 获取 只收能量时间 配置: [0700-0730]
+02日 01:16:37.18 获取 模块休眠时间 配置: [0200-0201]
+02日 01:16:37.18 [ApplicationHook]: ❌ 支付宝无闹钟权限
+02日 01:16:38.38 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:16:39.08 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:16:39.32 [Toast]: Context is null, cannot show toast
+02日 01:16:40.96 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:16:41.05 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:16:41.12 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:16:41.12 [ApplicationHook]: 验证码Hook已启用
+02日 01:16:41.12 [ApplicationHook]: hook login successfully
+02日 01:16:41.13 [ApplicationHook]: hook service onCreate successfully
+02日 01:16:41.20 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:16:41.20 [ApplicationHook]: 验证码Hook已启用
+02日 01:16:41.21 [ApplicationHook]: hook login successfully
+02日 01:16:41.21 [ApplicationHook]: hook service onCreate successfully
+02日 01:16:41.22 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:16:41.25 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:16:41.26 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:16:41.26 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:16:41.27 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:16:41.27 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:16:41.27 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:16:41.28 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:16:41.28 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:16:41.28 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:16:41.28 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:16:41.31 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:16:41.31 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:16:41.31 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:16:41.32 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:16:41.33 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:41.33 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:41.32 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:16:41.33 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:16:41.34 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:16:41.34 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:16:41.34 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:16:41.34 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:41.35 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:41.35 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:16:41.38 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:41.39 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:41.42 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:41.42 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:41.42 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:16:43.27 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:16:43.32 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:16:55.04 [ApplicationHook]: xposed start loadPackage: com.eg.android.AlipayGphone
+02日 01:16:55.52 [CaptchaHook]: ⚠️ 验证码拦截未启用，跳过Hook
+02日 01:16:55.53 [ApplicationHook]: 验证码Hook已启用
+02日 01:16:55.57 [ApplicationHook]: hook login successfully
+02日 01:16:55.58 [ApplicationHook]: hook service onCreate successfully
+02日 01:16:57.07 [ApplicationHook]: hook registerBroadcastReceiver successfully
+02日 01:16:57.18 [AlarmManager]: ✅ AlarmScheduler初始化成功
+02日 01:16:57.19 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:16:57.20 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:16:57.22 [AlipayComponentHelper]: ✅ 保活启动：已立即执行精简唤醒
+02日 01:16:57.23 [AlipayComponentHelper]: ✅ 保活启动：已设置定期闹钟 - 间隔60秒 (request code: 1001)
+02日 01:16:57.23 [ApplicationHook]: ✅ 已初始化支付宝组件帮助类
+02日 01:16:57.23 [ApplicationHook]: PackageInfo versionName: 10.7.86.8000
+02日 01:16:57.23 [ApplicationHook]: ✅ 支付宝版本号设置成功: 10.7.86.8000
+02日 01:16:57.23 [ApplicationHook]: handleLoadPackage alipayVersion: 10.7.86.8000
+02日 01:16:57.35 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:57.35 [ApplicationHook]: Loading libchecker.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libchecker.so
+02日 01:16:57.37 [AssetUtil]: SO file already exists: /data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:57.37 [ApplicationHook]: Loading libdexkit.so from :/data/user/0/com.eg.android.AlipayGphone/app_sesame_libs/libdexkit.so
+02日 01:16:57.37 [ApplicationHook]: 10.7.86.8000 Not support fuck
+02日 01:16:59.24 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:17:01.63 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:17:01.64 [UIConfig]: 重置UI配置
+02日 01:17:01.65 [Files]: self.json permissions: r=true; w=true
+02日 01:17:01.66 [Files]: self.json permissions: r=true; w=true
+02日 01:17:01.67 [Files]: self.json permissions: r=true; w=true
+02日 01:17:01.68 [Files]: self.json permissions: r=true; w=true
+02日 01:17:01.69 [Files]: self.json permissions: r=true; w=true
+02日 01:17:01.70 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:17:01.70 [MainActivity]: isModuleActivated: true
+02日 01:17:03.08 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:17:03.08 [UIConfig]: 重置UI配置
+02日 01:17:03.09 [Files]: self.json permissions: r=true; w=true
+02日 01:17:03.10 [Files]: self.json permissions: r=true; w=true
+02日 01:17:03.11 [Files]: self.json permissions: r=true; w=true
+02日 01:17:03.12 [Files]: self.json permissions: r=true; w=true
+02日 01:17:03.13 [Files]: self.json permissions: r=true; w=true
+02日 01:17:03.13 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:17:03.13 [MainActivity]: isModuleActivated: true
+02日 01:17:04.31 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:17:04.32 [UIConfig]: 重置UI配置
+02日 01:17:04.33 [Files]: self.json permissions: r=true; w=true
+02日 01:17:04.34 [Files]: self.json permissions: r=true; w=true
+02日 01:17:04.35 [Files]: self.json permissions: r=true; w=true
+02日 01:17:04.36 [Files]: self.json permissions: r=true; w=true
+02日 01:17:04.37 [Files]: self.json permissions: r=true; w=true
+02日 01:17:04.38 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:17:04.38 [MainActivity]: isModuleActivated: true
+02日 01:17:05.56 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:17:05.56 [UIConfig]: 重置UI配置
+02日 01:17:05.57 [Files]: self.json permissions: r=true; w=true
+02日 01:17:05.58 [Files]: self.json permissions: r=true; w=true
+02日 01:17:05.59 [Files]: self.json permissions: r=true; w=true
+02日 01:17:05.60 [Files]: self.json permissions: r=true; w=true
+02日 01:17:05.60 [Files]: self.json permissions: r=true; w=true
+02日 01:17:05.61 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:17:05.61 [MainActivity]: isModuleActivated: true
+02日 01:17:17.80 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:17:17.80 [UIConfig]: 重置UI配置
+02日 01:17:17.82 [Files]: self.json permissions: r=true; w=true
+02日 01:17:17.83 [Files]: self.json permissions: r=true; w=true
+02日 01:17:17.84 [Files]: self.json permissions: r=true; w=true
+02日 01:17:17.85 [Files]: self.json permissions: r=true; w=true
+02日 01:17:17.86 [Files]: self.json permissions: r=true; w=true
+02日 01:17:17.86 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:17:17.86 [MainActivity]: isModuleActivated: true
+02日 01:17:21.10 [ApplicationHook]: hook onResume after start
+02日 01:17:21.10 [ApplicationHook]: onResume targetUid: 2088002896523311
+02日 01:17:21.15 [HookUtil]: loading userCache from target app
+02日 01:17:21.28 [Files]: self.json permissions: r=true; w=true
+02日 01:17:21.32 [Files]: friend.json permissions: r=true; w=true
+02日 01:17:21.88 [HookUtil]: userCache load scuess !
+02日 01:17:21.90 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+02日 01:17:21.94 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+02日 01:17:21.97 [ApplicationHook]: ⚙️模块版本：0.3.0-rc150
+02日 01:17:21.98 [ApplicationHook]: 📦应用版本：10.7.86.8000
+02日 01:17:21.98 [ApplicationHook]: 📶网络类型：UNKNOWN
+02日 01:17:21.98 [ApplicationHook]: 👤用户ID：2088002896523311
+02日 01:17:21.98 [ApplicationHook]: 🕐初始化时间：02日01:17:21
+02日 01:17:21.99 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:17:21.99 [Config]: 开始加载配置
+02日 01:17:21.99 [Config]: 加载配置: 青玄
+02日 01:17:22.00 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:17:22.04 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:17:22.04 [Config]: 格式化配置: 青玄
+02日 01:17:22.19 获取 只收能量时间 配置: [0700-0730]
+02日 01:17:22.19 获取 模块休眠时间 配置: [0200-0201]
+02日 01:17:22.19 [ApplicationHook]: ❌ 支付宝无闹钟权限
+02日 01:17:22.19 [ApplicationHook]: initHandler failed
+02日 01:17:23.36 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:17:23.39 [UIConfig]: 重置UI配置
+02日 01:17:23.40 [Files]: self.json permissions: r=true; w=true
+02日 01:17:23.41 [Files]: self.json permissions: r=true; w=true
+02日 01:17:23.43 [Files]: self.json permissions: r=true; w=true
+02日 01:17:23.44 [Files]: self.json permissions: r=true; w=true
+02日 01:17:23.46 [Files]: self.json permissions: r=true; w=true
+02日 01:17:23.46 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:17:23.47 [MainActivity]: isModuleActivated: true
+02日 01:17:24.20 [Toast]: Context is null, cannot show toast
+02日 01:19:08.31 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:08.32 [UIConfig]: 重置UI配置
+02日 01:19:08.33 [Files]: self.json permissions: r=true; w=true
+02日 01:19:08.36 [Files]: self.json permissions: r=true; w=true
+02日 01:19:08.37 [Files]: self.json permissions: r=true; w=true
+02日 01:19:08.38 [Files]: self.json permissions: r=true; w=true
+02日 01:19:08.39 [Files]: self.json permissions: r=true; w=true
+02日 01:19:08.40 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:08.40 [MainActivity]: isModuleActivated: true
+02日 01:19:09.90 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:09.91 [UIConfig]: 重置UI配置
+02日 01:19:09.92 [Files]: self.json permissions: r=true; w=true
+02日 01:19:09.94 [Files]: self.json permissions: r=true; w=true
+02日 01:19:09.95 [Files]: self.json permissions: r=true; w=true
+02日 01:19:09.96 [Files]: self.json permissions: r=true; w=true
+02日 01:19:09.97 [Files]: self.json permissions: r=true; w=true
+02日 01:19:09.98 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:09.98 [MainActivity]: isModuleActivated: true
+02日 01:19:11.24 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:11.24 [UIConfig]: 重置UI配置
+02日 01:19:11.25 [Files]: self.json permissions: r=true; w=true
+02日 01:19:11.27 [Files]: self.json permissions: r=true; w=true
+02日 01:19:11.28 [Files]: self.json permissions: r=true; w=true
+02日 01:19:11.29 [Files]: self.json permissions: r=true; w=true
+02日 01:19:11.30 [Files]: self.json permissions: r=true; w=true
+02日 01:19:11.31 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:11.31 [MainActivity]: isModuleActivated: true
+02日 01:19:12.47 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:12.47 [UIConfig]: 重置UI配置
+02日 01:19:12.48 [Files]: self.json permissions: r=true; w=true
+02日 01:19:12.49 [Files]: self.json permissions: r=true; w=true
+02日 01:19:12.50 [Files]: self.json permissions: r=true; w=true
+02日 01:19:12.51 [Files]: self.json permissions: r=true; w=true
+02日 01:19:12.52 [Files]: self.json permissions: r=true; w=true
+02日 01:19:12.53 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:12.53 [MainActivity]: isModuleActivated: true
+02日 01:19:14.75 [ApplicationHook]: hook onResume after start
+02日 01:19:14.77 [ApplicationHook]: onResume targetUid: 2088002896523311
+02日 01:19:14.80 [HookUtil]: loading userCache from target app
+02日 01:19:14.87 [Files]: self.json permissions: r=true; w=true
+02日 01:19:14.88 [Files]: friend.json permissions: r=true; w=true
+02日 01:19:17.96 [HookUtil]: userCache load scuess !
+02日 01:19:17.99 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+02日 01:19:18.02 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+02日 01:19:18.06 [ApplicationHook]: ⚙️模块版本：0.3.0-rc150
+02日 01:19:18.09 [ApplicationHook]: 📦应用版本：10.7.86.8000
+02日 01:19:18.13 [ApplicationHook]: 📶网络类型：UNKNOWN
+02日 01:19:18.17 [ApplicationHook]: 👤用户ID：2088002896523311
+02日 01:19:18.20 [ApplicationHook]: 🕐初始化时间：02日01:19:18
+02日 01:19:18.24 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:19:18.27 [Config]: 开始加载配置
+02日 01:19:18.31 [Config]: 加载配置: 青玄
+02日 01:19:18.35 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:19:18.41 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:19:18.45 获取 只收能量时间 配置: [0700-0730]
+02日 01:19:18.48 获取 模块休眠时间 配置: [0200-0201]
+02日 01:19:18.50 [ApplicationHook]: ❌ 支付宝无闹钟权限
+02日 01:19:18.54 [ApplicationHook]: initHandler failed
+02日 01:19:20.55 [Toast]: Context is null, cannot show toast
+02日 01:19:20.64 [ApplicationHook]: hook onResume after start
+02日 01:19:20.66 [ApplicationHook]: onResume targetUid: 2088002896523311
+02日 01:19:20.71 [HookUtil]: loading userCache from target app
+02日 01:19:20.77 [Files]: self.json permissions: r=true; w=true
+02日 01:19:20.80 [Files]: friend.json permissions: r=true; w=true
+02日 01:19:21.99 [HookUtil]: userCache load scuess !
+02日 01:19:22.01 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+02日 01:19:22.05 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+02日 01:19:22.08 [ApplicationHook]: ⚙️模块版本：0.3.0-rc150
+02日 01:19:22.12 [ApplicationHook]: 📦应用版本：10.7.86.8000
+02日 01:19:22.15 [ApplicationHook]: 📶网络类型：UNKNOWN
+02日 01:19:22.16 [ApplicationHook]: 👤用户ID：2088002896523311
+02日 01:19:22.16 [ApplicationHook]: 🕐初始化时间：02日01:19:22
+02日 01:19:22.16 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:19:22.16 [Config]: 开始加载配置
+02日 01:19:22.17 [Config]: 加载配置: 青玄
+02日 01:19:22.18 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:19:22.20 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088002896523311/config_v2.json
+02日 01:19:22.21 获取 只收能量时间 配置: [0700-0730]
+02日 01:19:22.21 获取 模块休眠时间 配置: [0200-0201]
+02日 01:19:22.21 [ApplicationHook]: ❌ 支付宝无闹钟权限
+02日 01:19:22.21 [ApplicationHook]: initHandler failed
+02日 01:19:24.21 [Toast]: Context is null, cannot show toast
+02日 01:19:30.27 [ApplicationHook]: hook onResume after start
+02日 01:19:30.28 [ApplicationHook]: onResume targetUid: 2088602261779903
+02日 01:19:30.32 [HookUtil]: loading userCache from target app
+02日 01:19:30.35 [Files]: self.json permissions: r=true; w=true
+02日 01:19:30.37 [Files]: friend.json permissions: r=true; w=true
+02日 01:19:30.39 [HookUtil]: userCache load scuess !
+02日 01:19:30.39 [ApplicationHook]: ━━━━━━━━━━ 初始化开始 ━━━━━━━━━━
+02日 01:19:30.40 [ApplicationHook]: 芝麻粒-TK 开始初始化...
+02日 01:19:30.40 [ApplicationHook]: ⚙️模块版本：0.3.0-rc150
+02日 01:19:30.41 [ApplicationHook]: 📦应用版本：10.7.86.8000
+02日 01:19:30.42 [ApplicationHook]: 📶网络类型：UNKNOWN
+02日 01:19:30.43 [ApplicationHook]: 👤用户ID：2088602261779903
+02日 01:19:30.43 [ApplicationHook]: 🕐初始化时间：02日01:19:30
+02日 01:19:30.44 [ApplicationHook]: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+02日 01:19:30.45 [Config]: 开始加载配置
+02日 01:19:30.45 [Config]: 加载配置: 惠琴
+02日 01:19:30.47 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:19:30.70 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:19:30.72 [Config]: 格式化配置: 惠琴
+02日 01:19:30.73 获取 只收能量时间 配置: [0658-0731]
+02日 01:19:30.73 模块休眠时间 配置已关闭
+02日 01:19:30.74 [ApplicationHook]: ❌ 支付宝无闹钟权限
+02日 01:19:30.75 [ApplicationHook]: initHandler failed
+02日 01:19:32.82 [Toast]: Context is null, cannot show toast
+02日 01:19:34.42 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:34.43 [UIConfig]: 重置UI配置
+02日 01:19:34.45 [Files]: self.json permissions: r=true; w=true
+02日 01:19:34.47 [Files]: self.json permissions: r=true; w=true
+02日 01:19:34.49 [Files]: self.json permissions: r=true; w=true
+02日 01:19:34.53 [Files]: self.json permissions: r=true; w=true
+02日 01:19:34.55 [Files]: self.json permissions: r=true; w=true
+02日 01:19:34.57 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:34.58 [MainActivity]: isModuleActivated: true
+02日 01:19:38.60 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:38.61 [UIConfig]: 重置UI配置
+02日 01:19:38.64 [Files]: self.json permissions: r=true; w=true
+02日 01:19:38.66 [Files]: self.json permissions: r=true; w=true
+02日 01:19:38.68 [Files]: self.json permissions: r=true; w=true
+02日 01:19:38.70 [Files]: self.json permissions: r=true; w=true
+02日 01:19:38.72 [Files]: self.json permissions: r=true; w=true
+02日 01:19:38.74 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:38.75 [MainActivity]: isModuleActivated: true
+02日 01:19:40.28 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:40.29 [UIConfig]: 重置UI配置
+02日 01:19:40.31 [Files]: self.json permissions: r=true; w=true
+02日 01:19:40.33 [Files]: self.json permissions: r=true; w=true
+02日 01:19:40.35 [Files]: self.json permissions: r=true; w=true
+02日 01:19:40.37 [Files]: self.json permissions: r=true; w=true
+02日 01:19:40.39 [Files]: self.json permissions: r=true; w=true
+02日 01:19:40.40 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:40.41 [MainActivity]: isModuleActivated: true
+02日 01:19:41.63 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:41.63 [UIConfig]: 重置UI配置
+02日 01:19:41.65 [Files]: self.json permissions: r=true; w=true
+02日 01:19:41.67 [Files]: self.json permissions: r=true; w=true
+02日 01:19:41.69 [Files]: self.json permissions: r=true; w=true
+02日 01:19:41.71 [Files]: self.json permissions: r=true; w=true
+02日 01:19:41.73 [Files]: self.json permissions: r=true; w=true
+02日 01:19:41.76 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:41.77 [MainActivity]: isModuleActivated: true
+02日 01:19:42.96 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:42.96 [UIConfig]: 重置UI配置
+02日 01:19:42.98 [Files]: self.json permissions: r=true; w=true
+02日 01:19:43.00 [Files]: self.json permissions: r=true; w=true
+02日 01:19:43.02 [Files]: self.json permissions: r=true; w=true
+02日 01:19:43.04 [Files]: self.json permissions: r=true; w=true
+02日 01:19:43.06 [Files]: self.json permissions: r=true; w=true
+02日 01:19:43.08 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:43.09 [MainActivity]: isModuleActivated: true
+02日 01:19:45.62 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:45.63 [UIConfig]: 重置UI配置
+02日 01:19:45.65 [Files]: self.json permissions: r=true; w=true
+02日 01:19:45.68 [Files]: self.json permissions: r=true; w=true
+02日 01:19:45.70 [Files]: self.json permissions: r=true; w=true
+02日 01:19:45.72 [Files]: self.json permissions: r=true; w=true
+02日 01:19:45.74 [Files]: self.json permissions: r=true; w=true
+02日 01:19:45.76 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:45.77 [MainActivity]: isModuleActivated: true
+02日 01:19:51.84 [MainActivity]: 准备载入用户配置: index=4, showName=惠琴, userId=2088602261779903
+02日 01:19:51.84 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+02日 01:19:51.85 [MainActivity]: Intent已配置: userId=2088602261779903, userName=惠琴
+02日 01:19:51.86 [MainActivity]: 正在启动SettingActivity...
+02日 01:19:51.88 [MainActivity]: SettingActivity启动成功
+02日 01:19:51.91 [WebSettingsActivity]: onCreate: 开始初始化
+02日 01:19:51.93 [WebSettingsActivity]: onCreate: super.onCreate完成
+02日 01:19:51.95 [WebSettingsActivity]: onCreate: 准备获取Intent
+02日 01:19:51.96 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088602261779903, userName=惠琴
+02日 01:19:51.97 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+02日 01:19:52.00 [WebSettingsActivity]: onCreate: setContentView完成
+02日 01:19:52.01 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+02日 01:19:52.03 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+02日 01:19:52.04 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+02日 01:19:52.05 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+02日 01:19:52.06 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+02日 01:19:52.07 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+02日 01:19:52.09 [WebSettingsActivity]: onCreate: 标题设置完成
+02日 01:19:52.10 [WebSettingsActivity]: onCreate: 开始异步加载配置数据
+02日 01:19:52.11 [WebSettingsActivity]: onCreate: ✅ 异步加载已启动
+02日 01:19:52.11 [WebSettingsActivity]: 后台线程: 准备初始化Model
+02日 01:19:52.15 [WebSettingsActivity]: 后台线程: Model初始化完成
+02日 01:19:52.15 [WebSettingsActivity]: 后台线程: UserMap.setCurrentUserId完成
+02日 01:19:52.16 [Files]: friend.json permissions: r=true; w=true
+02日 01:19:52.17 [WebSettingsActivity]: 后台线程: UserMap.load完成
+02日 01:19:52.18 [Files]: cooperateMap.json permissions: r=true; w=true
+02日 01:19:52.19 [WebSettingsActivity]: 后台线程: CooperateMap加载完成
+02日 01:19:52.19 [Files]: vitalityRewardsMap.json permissions: r=true; w=true
+02日 01:19:52.20 [WebSettingsActivity]: 后台线程: VitalityRewardsMap加载完成
+02日 01:19:52.21 [Files]: MemberBenefitsMap.json permissions: r=true; w=true
+02日 01:19:52.22 [WebSettingsActivity]: 后台线程: MemberBenefitsMap加载完成
+02日 01:19:52.22 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
+02日 01:19:52.23 [WebSettingsActivity]: 后台线程: ParadiseCoinBenefitIdMap加载完成
+02日 01:19:52.24 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/ReserveaMap.json: r=true; w=true
+02日 01:19:52.24 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+02日 01:19:52.25 [WebSettingsActivity]: 后台线程: ReserveaMap加载完成
+02日 01:19:52.25 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
+02日 01:19:52.26 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+02日 01:19:52.27 [WebSettingsActivity]: 后台线程: BeachMap加载完成
+02日 01:19:52.27 [Config]: 开始加载配置
+02日 01:19:52.27 [Config]: 加载配置: 惠琴
+02日 01:19:52.28 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:19:52.30 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:19:52.34 [Config]: 格式化配置: 惠琴
+02日 01:19:52.39 获取 只收能量时间 配置: [0658-0731]
+02日 01:19:52.41 模块休眠时间 配置已关闭
+02日 01:19:52.43 [WebSettingsActivity]: 后台线程: Config加载完成
+02日 01:19:52.46 [WebSettingsActivity]: 主线程: 开始初始化UI
+02日 01:19:52.46 [WebSettingsActivity]: initializeWebView: 开始
+02日 01:19:52.46 [WebSettingsActivity]: initializeWebView: 准备初始化WebView
+02日 01:19:52.46 [WebSettingsActivity]: onCreate: WebView findViewById完成
+02日 01:19:52.47 [WebSettingsActivity]: onCreate: WebSettings配置完成
+02日 01:19:52.47 [WebSettingsActivity]: onCreate: 准备加载WebView内容
+02日 01:19:52.47 [WebSettingsActivity]: onCreate: WebViewClient设置完成
+02日 01:19:52.47 [WebSettingsActivity]: onCreate: WebChromeClient设置完成
+02日 01:19:52.48 [WebSettingsActivity]: onCreate: WebView loadUrl完成
+02日 01:19:52.48 [WebSettingsActivity]: onCreate: JavaScript接口注册完成
+02日 01:19:52.49 [WebSettingsActivity]: onCreate: 准备填充tabList和groupList
+02日 01:19:52.49 [WebSettingsActivity]: onCreate: tabList填充完成, size=14
+02日 01:19:52.49 [WebSettingsActivity]: onCreate: groupList填充完成, size=8
+02日 01:19:52.49 [WebSettingsActivity]: onCreate: 准备设置水印
+02日 01:19:52.49 [WebSettingsActivity]: initializeWebView: 水印设置完成
+02日 01:19:52.50 [WebSettingsActivity]: initializeWebView: ✅ WebSettingsActivity初始化完成！
+02日 01:19:52.50 [WebSettingsActivity]: 主线程: UI初始化完成
+02日 01:19:52.65 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+02日 01:19:52.69 [WebSettingsActivity]: WebView Console [LOG]: You are running a development build of Vue.
+Make sure to use the production build (*.prod.js) when deploying for production. -- From line 11201 of file:///android_asset/web/js/vue3.js
+02日 01:19:52.76 [WebSettingsActivity]: getModel调用: modelCode=BaseModel
+02日 01:19:52.77 [WebSettingsActivity]: getModel调用: modelCode=AntForest
+02日 01:19:52.77 [WebSettingsActivity]: getModel调用: modelCode=AntFarm
+02日 01:19:52.77 [WebSettingsActivity]: getModel调用: modelCode=AntOcean
+02日 01:19:52.78 [WebSettingsActivity]: getModel调用: modelCode=AntOrchard
+02日 01:19:52.78 [WebSettingsActivity]: getModel调用: modelCode=AntStall
+02日 01:19:52.78 [WebSettingsActivity]: getModel调用: modelCode=AntDodo
+02日 01:19:52.78 [WebSettingsActivity]: getModel调用: modelCode=AntCooperate
+02日 01:19:52.79 [WebSettingsActivity]: getModel调用: modelCode=AntSports
+02日 01:19:52.79 [WebSettingsActivity]: getModel调用: modelCode=AntMember
+02日 01:19:52.79 [WebSettingsActivity]: getModel调用: modelCode=AncientTree
+02日 01:19:52.79 [WebSettingsActivity]: getModel调用: modelCode=GreenFinance
+02日 01:19:52.79 [WebSettingsActivity]: getModel调用: modelCode=Reserve
+02日 01:19:52.80 [WebSettingsActivity]: getModel调用: modelCode=AnswerAI
+02日 01:19:53.20 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+02日 01:19:55.91 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: go back
+02日 01:19:55.91 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+02日 01:19:55.92 [WebSettingsActivity]: setModel: 设置字段 BaseModel.enable = true, 字段类型=BooleanModelField
+02日 01:19:55.92 [WebSettingsActivity]: setModel: 设置字段 BaseModel.stayAwake = true, 字段类型=BooleanModelField
+02日 01:19:55.92 [WebSettingsActivity]: setModel: 设置字段 BaseModel.manualTriggerAutoSchedule = false, 字段类型=BooleanModelField
+02日 01:19:55.92 [WebSettingsActivity]: setModel: 设置字段 BaseModel.checkInterval = 90, 字段类型=MultiplyIntegerModelField
+02日 01:19:55.92 [WebSettingsActivity]: setModel: 设置字段 BaseModel.taskExecutionRounds = 2, 字段类型=IntegerModelField
+02日 01:19:55.93 [WebSettingsActivity]: setModel: 设置字段 BaseModel.modelSleepTime = -1, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:55.93 [WebSettingsActivity]: setModel: 设置字段 BaseModel.execAtTimeList = 0000,0100,0520,0659,0730,1200,1230,1700,1730,2000,2030,2359, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:55.93 [WebSettingsActivity]: setModel: 设置字段 BaseModel.wakenAtTimeList = 0010,0030,0100,0650,2350, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:55.93 [WebSettingsActivity]: setModel: 设置字段 BaseModel.energyTime = 0658-0731, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:55.93 [WebSettingsActivity]: setModel: 设置字段 BaseModel.timedTaskModel = 0, 字段类型=ChoiceModelField
+02日 01:19:55.93 [WebSettingsActivity]: setModel: 设置字段 BaseModel.timeoutRestart = true, 字段类型=BooleanModelField
+02日 01:19:55.94 [WebSettingsActivity]: setModel: 设置字段 BaseModel.waitWhenException = 60, 字段类型=MultiplyIntegerModelField
+02日 01:19:55.94 [WebSettingsActivity]: setModel: 设置字段 BaseModel.errNotify = false, 字段类型=BooleanModelField
+02日 01:19:55.94 [WebSettingsActivity]: setModel: 设置字段 BaseModel.setMaxErrorCount = 8, 字段类型=IntegerModelField
+02日 01:19:55.94 [WebSettingsActivity]: setModel: 设置字段 BaseModel.newRpc = true, 字段类型=BooleanModelField
+02日 01:19:55.94 [WebSettingsActivity]: setModel: 设置字段 BaseModel.debugMode = false, 字段类型=BooleanModelField
+02日 01:19:55.94 [WebSettingsActivity]: setModel: 设置字段 BaseModel.sendHookData = false, 字段类型=BooleanModelField
+02日 01:19:55.94 [WebSettingsActivity]: setModel: 设置字段 BaseModel.sendHookDataUrl = http://127.0.0.1:9527/hook, 字段类型=StringModelField
+02日 01:19:55.95 [WebSettingsActivity]: setModel: 设置字段 BaseModel.batteryPerm = true, 字段类型=BooleanModelField
+02日 01:19:55.95 [WebSettingsActivity]: setModel: 设置字段 BaseModel.enableCaptchaHook = true, 字段类型=BooleanModelField
+02日 01:19:55.95 [WebSettingsActivity]: setModel: 设置字段 BaseModel.captchaHookLevel = 1, 字段类型=ChoiceModelField
+02日 01:19:55.95 [WebSettingsActivity]: setModel: 设置字段 BaseModel.recordLog = true, 字段类型=BooleanModelField
+02日 01:19:55.95 [WebSettingsActivity]: setModel: 设置字段 BaseModel.runtimeLog = true, 字段类型=BooleanModelField
+02日 01:19:55.96 [WebSettingsActivity]: setModel: 设置字段 BaseModel.showToast = false, 字段类型=BooleanModelField
+02日 01:19:55.96 [WebSettingsActivity]: setModel: 设置字段 BaseModel.enableOnGoing = false, 字段类型=BooleanModelField
+02日 01:19:55.96 [WebSettingsActivity]: setModel: 设置字段 BaseModel.languageSimplifiedChinese = true, 字段类型=BooleanModelField
+02日 01:19:55.96 [WebSettingsActivity]: setModel: 设置字段 BaseModel.toastOffsetY = 99, 字段类型=IntegerModelField
+02日 01:19:55.96 [WebSettingsActivity]: setModel: 设置字段 AntForest.enable = true, 字段类型=BooleanModelField
+02日 01:19:55.97 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectEnergy = true, 字段类型=BooleanModelField
+02日 01:19:55.97 [WebSettingsActivity]: setModel: 设置字段 AntForest.batchRobEnergy = true, 字段类型=BooleanModelField
+02日 01:19:55.97 [WebSettingsActivity]: setModel: 设置字段 AntForest.pkEnergy = true, 字段类型=BooleanModelField
+02日 01:19:55.97 [WebSettingsActivity]: setModel: 设置字段 AntForest.closeWhackMole = true, 字段类型=BooleanModelField
+02日 01:19:55.97 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyRain = true, 字段类型=BooleanModelField
+02日 01:19:55.97 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyRainTime = 0810, 字段类型=StringModelField
+02日 01:19:55.98 [WebSettingsActivity]: setModel: 设置字段 AntForest.dontCollectList = [ ], 字段类型=SelectModelField
+02日 01:19:55.98 [WebSettingsActivity]: setModel: 设置字段 AntForest.giveEnergyRainList = [ ], 字段类型=SelectModelField
+02日 01:19:55.98 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyRainChance = true, 字段类型=BooleanModelField
+02日 01:19:55.98 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectWateringBubble = true, 字段类型=BooleanModelField
+02日 01:19:55.98 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCard = 0, 字段类型=ChoiceModelField
+02日 01:19:55.98 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCountLimit = 5, 字段类型=IntegerModelField
+02日 01:19:55.99 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCardTime = 0655,1700,2358, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:55.99 [WebSettingsActivity]: setModel: 设置字段 AntForest.DoubleCardConstant = false, 字段类型=BooleanModelField
+02日 01:19:55.99 [WebSettingsActivity]: setModel: 设置字段 AntForest.bubbleBoostCard = 0, 字段类型=ChoiceModelField
+02日 01:19:55.99 [WebSettingsActivity]: setModel: 设置字段 AntForest.bubbleBoostTime = 0655,1700, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:55.99 [WebSettingsActivity]: setModel: 设置字段 AntForest.shieldCard = 0, 字段类型=ChoiceModelField
+02日 01:19:55.99 [WebSettingsActivity]: setModel: 设置字段 AntForest.shieldCardConstant = false, 字段类型=BooleanModelField
+02日 01:19:55.99 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyBombCardType = 0, 字段类型=ChoiceModelField
+02日 01:19:56.00 [WebSettingsActivity]: setModel: 设置字段 AntForest.robExpandCard = 0, 字段类型=ChoiceModelField
+02日 01:19:56.00 [WebSettingsActivity]: setModel: 设置字段 AntForest.robExpandCardTime = 0700,0730,1200,1230,1700,1730,2000,2030,2359, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:56.00 [WebSettingsActivity]: setModel: 设置字段 AntForest.stealthCard = 0, 字段类型=ChoiceModelField
+02日 01:19:56.00 [WebSettingsActivity]: setModel: 设置字段 AntForest.stealthCardConstant = false, 字段类型=BooleanModelField
+02日 01:19:56.00 [WebSettingsActivity]: setModel: 设置字段 AntForest.returnWater10 = 0, 字段类型=IntegerModelField
+02日 01:19:56.00 [WebSettingsActivity]: setModel: 设置字段 AntForest.returnWater18 = 0, 字段类型=IntegerModelField
+02日 01:19:56.01 [WebSettingsActivity]: setModel: 设置字段 AntForest.returnWater33 = 0, 字段类型=IntegerModelField
+02日 01:19:56.01 [WebSettingsActivity]: setModel: 设置字段 AntForest.waterFriendList = {
+  "2088002896523311" : 3
+}, 字段类型=SelectAndCountModelField
+02日 01:19:56.01 [WebSettingsActivity]: setModel: 设置字段 AntForest.waterFriendCount = 66, 字段类型=IntegerModelField
+02日 01:19:56.01 [WebSettingsActivity]: setModel: 设置字段 AntForest.notifyFriend = true, 字段类型=BooleanModelField
+02日 01:19:56.01 [WebSettingsActivity]: setModel: 设置字段 AntForest.giveProp = false, 字段类型=BooleanModelField
+02日 01:19:56.02 [WebSettingsActivity]: setModel: 设置字段 AntForest.whoYouWantToGiveTo = [ ], 字段类型=SelectModelField
+02日 01:19:56.02 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectProp = true, 字段类型=BooleanModelField
+02日 01:19:56.02 [WebSettingsActivity]: setModel: 设置字段 AntForest.helpFriendCollectType = 0, 字段类型=ChoiceModelField
+02日 01:19:56.02 [WebSettingsActivity]: setModel: 设置字段 AntForest.helpFriendCollectList = [ ], 字段类型=SelectModelField
+02日 01:19:56.02 [WebSettingsActivity]: setModel: 设置字段 AntForest.alternativeAccountList = [ ], 字段类型=SelectModelField
+02日 01:19:56.03 [WebSettingsActivity]: setModel: 设置字段 AntForest.vitalityExchange = false, 字段类型=BooleanModelField
+02日 01:19:56.03 [WebSettingsActivity]: setModel: 设置字段 AntForest.vitalityExchangeList = { }, 字段类型=SelectAndCountModelField
+02日 01:19:56.03 [WebSettingsActivity]: setModel: 设置字段 AntForest.userPatrol = true, 字段类型=BooleanModelField
+02日 01:19:56.03 [WebSettingsActivity]: setModel: 设置字段 AntForest.combineAnimalPiece = true, 字段类型=BooleanModelField
+02日 01:19:56.03 [WebSettingsActivity]: setModel: 设置字段 AntForest.consumeAnimalProp = true, 字段类型=BooleanModelField
+02日 01:19:56.03 [WebSettingsActivity]: setModel: 设置字段 AntForest.receiveForestTaskAward = true, 字段类型=BooleanModelField
+02日 01:19:56.04 [WebSettingsActivity]: setModel: 设置字段 AntForest.forestChouChouLe = true, 字段类型=BooleanModelField
+02日 01:19:56.04 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectGiftBox = true, 字段类型=BooleanModelField
+02日 01:19:56.04 [WebSettingsActivity]: setModel: 设置字段 AntForest.medicalHealth = true, 字段类型=BooleanModelField
+02日 01:19:56.04 [WebSettingsActivity]: setModel: 设置字段 AntForest.medicalHealthOption = [ "BILL", "FEEDS" ], 字段类型=SelectModelField
+02日 01:19:56.04 [WebSettingsActivity]: setModel: 设置字段 AntForest.forestMarket = true, 字段类型=BooleanModelField
+02日 01:19:56.04 [WebSettingsActivity]: setModel: 设置字段 AntForest.youthPrivilege = false, 字段类型=BooleanModelField
+02日 01:19:56.04 [WebSettingsActivity]: setModel: 设置字段 AntForest.studentCheckIn = false, 字段类型=BooleanModelField
+02日 01:19:56.05 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLife = true, 字段类型=BooleanModelField
+02日 01:19:56.05 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLifeTime = 0800, 字段类型=StringModelField
+02日 01:19:56.05 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLifeOpen = true, 字段类型=BooleanModelField
+02日 01:19:56.05 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLifeOption = [ "plate", "tick" ], 字段类型=SelectModelField
+02日 01:19:56.05 [WebSettingsActivity]: setModel: 设置字段 AntForest.queryInterval = 500-800, 字段类型=StringModelField
+02日 01:19:56.05 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectInterval = 500-800, 字段类型=StringModelField
+02日 01:19:56.05 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCollectInterval = 50-150, 字段类型=StringModelField
+02日 01:19:56.06 [WebSettingsActivity]: setModel: 设置字段 AntForest.balanceNetworkDelay = true, 字段类型=BooleanModelField
+02日 01:19:56.06 [WebSettingsActivity]: setModel: 设置字段 AntForest.advanceTime = 0, 字段类型=IntegerModelField
+02日 01:19:56.06 [WebSettingsActivity]: setModel: 设置字段 AntForest.tryCount = 1, 字段类型=IntegerModelField
+02日 01:19:56.06 [WebSettingsActivity]: setModel: 设置字段 AntForest.retryInterval = 1200, 字段类型=IntegerModelField
+02日 01:19:56.06 [WebSettingsActivity]: setModel: 设置字段 AntForest.cycleinterval = 1000, 字段类型=IntegerModelField
+02日 01:19:56.06 [WebSettingsActivity]: setModel: 设置字段 AntForest.showBagList = false, 字段类型=BooleanModelField
+02日 01:19:56.07 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.07 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sleepTime = 2330, 字段类型=StringModelField
+02日 01:19:56.07 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sleepMinutes = 360, 字段类型=IntegerModelField
+02日 01:19:56.07 [WebSettingsActivity]: setModel: 设置字段 AntFarm.recallAnimalType = 0, 字段类型=ChoiceModelField
+02日 01:19:56.07 [WebSettingsActivity]: setModel: 设置字段 AntFarm.rewardFriend = true, 字段类型=BooleanModelField
+02日 01:19:56.08 [WebSettingsActivity]: setModel: 设置字段 AntFarm.feedAnimal = true, 字段类型=BooleanModelField
+02日 01:19:56.08 [WebSettingsActivity]: setModel: 设置字段 AntFarm.feedFriendAnimalList = { }, 字段类型=SelectAndCountModelField
+02日 01:19:56.08 [WebSettingsActivity]: setModel: 设置字段 AntFarm.getFeed = true, 字段类型=BooleanModelField
+02日 01:19:56.08 [WebSettingsActivity]: setModel: 设置字段 AntFarm.getFeedType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.08 [WebSettingsActivity]: setModel: 设置字段 AntFarm.getFeedlList = [ ], 字段类型=SelectModelField
+02日 01:19:56.08 [WebSettingsActivity]: setModel: 设置字段 AntFarm.acceptGift = true, 字段类型=BooleanModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.visitFriendList = { }, 字段类型=SelectAndCountModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.hireAnimal = true, 字段类型=BooleanModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.hireAnimalType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.hireAnimalList = [ ], 字段类型=SelectModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sendBackAnimal = true, 字段类型=BooleanModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sendBackAnimalWay = 0, 字段类型=ChoiceModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sendBackAnimalType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.09 [WebSettingsActivity]: setModel: 设置字段 AntFarm.dontSendFriendList = [ ], 字段类型=SelectModelField
+02日 01:19:56.10 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notifyFriend = true, 字段类型=BooleanModelField
+02日 01:19:56.10 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notifyFriendType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.10 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notifyFriendList = [ ], 字段类型=SelectModelField
+02日 01:19:56.10 [WebSettingsActivity]: setModel: 设置字段 AntFarm.donation = true, 字段类型=BooleanModelField
+02日 01:19:56.10 [WebSettingsActivity]: setModel: 设置字段 AntFarm.donationCount = 1, 字段类型=ChoiceModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useBigEaterTool = true, 字段类型=BooleanModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useAccelerateTool = false, 字段类型=BooleanModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useAccelerateToolContinue = false, 字段类型=BooleanModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useAccelerateToolWhenMaxEmotion = true, 字段类型=BooleanModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useSpecialFood = false, 字段类型=BooleanModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useNewEggCard = true, 字段类型=BooleanModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.doFarmTask = true, 字段类型=BooleanModelField
+02日 01:19:56.11 [WebSettingsActivity]: setModel: 设置字段 AntFarm.doFarmTaskTime = 0830, 字段类型=StringModelField
+02日 01:19:56.12 [WebSettingsActivity]: setModel: 设置字段 AntFarm.receiveFarmTaskAward = true, 字段类型=BooleanModelField
+02日 01:19:56.12 [WebSettingsActivity]: setModel: 设置字段 AntFarm.receiveFarmToolReward = true, 字段类型=BooleanModelField
+02日 01:19:56.12 [WebSettingsActivity]: setModel: 设置字段 AntFarm.harvestProduce = true, 字段类型=BooleanModelField
+02日 01:19:56.12 [WebSettingsActivity]: setModel: 设置字段 AntFarm.kitchen = true, 字段类型=BooleanModelField
+02日 01:19:56.12 [WebSettingsActivity]: setModel: 设置字段 AntFarm.chickenDiary = true, 字段类型=BooleanModelField
+02日 01:19:56.12 [WebSettingsActivity]: setModel: 设置字段 AntFarm.diaryTietze = true, 字段类型=BooleanModelField
+02日 01:19:56.12 [WebSettingsActivity]: setModel: 设置字段 AntFarm.collectChickenDiary = 1, 字段类型=ChoiceModelField
+02日 01:19:56.13 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enableChouchoule = true, 字段类型=BooleanModelField
+02日 01:19:56.13 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enableChouchouleTime = 0900, 字段类型=StringModelField
+02日 01:19:56.13 [WebSettingsActivity]: setModel: 设置字段 AntFarm.listOrnaments = true, 字段类型=BooleanModelField
+02日 01:19:56.13 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enableDdrawGameCenterAward = true, 字段类型=BooleanModelField
+02日 01:19:56.13 [WebSettingsActivity]: setModel: 设置字段 AntFarm.recordFarmGame = true, 字段类型=BooleanModelField
+02日 01:19:56.13 [WebSettingsActivity]: setModel: 设置字段 AntFarm.farmGameTime = 2200-2400, 字段类型=ListJoinCommaToStringModelField
+02日 01:19:56.14 [WebSettingsActivity]: setModel: 设置字段 AntFarm.family = true, 字段类型=BooleanModelField
+02日 01:19:56.14 [WebSettingsActivity]: setModel: 设置字段 AntFarm.familyOptions = [ "eatTogetherConfig", "assignRights", "feedFamilyAnimal", "deliverMsgSend", "familyClaimReward", "familySign", "shareToFriends" ], 字段类型=SelectModelField
+02日 01:19:56.14 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notInviteList = [ ], 字段类型=SelectModelField
+02日 01:19:56.14 [WebSettingsActivity]: setModel: 设置字段 AntFarm.paradiseCoinExchangeBenefit = true, 字段类型=BooleanModelField
+02日 01:19:56.14 [WebSettingsActivity]: setModel: 设置字段 AntFarm.paradiseCoinExchangeBenefitList = [ "SP20241105001981", "SP20241105001992", "SP20250707003038" ], 字段类型=SelectModelField
+02日 01:19:56.14 [WebSettingsActivity]: setModel: 设置字段 AntFarm.visitAnimal = true, 字段类型=BooleanModelField
+02日 01:19:56.15 [WebSettingsActivity]: setModel: 设置字段 AntOcean.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.15 [WebSettingsActivity]: setModel: 设置字段 AntOcean.dailyOceanTask = true, 字段类型=BooleanModelField
+02日 01:19:56.15 [WebSettingsActivity]: setModel: 设置字段 AntOcean.cleanOcean = true, 字段类型=BooleanModelField
+02日 01:19:56.15 [WebSettingsActivity]: setModel: 设置字段 AntOcean.cleanOceanType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.15 [WebSettingsActivity]: setModel: 设置字段 AntOcean.cleanOceanList = [ ], 字段类型=SelectModelField
+02日 01:19:56.15 [WebSettingsActivity]: setModel: 设置字段 AntOcean.exchangeProp = true, 字段类型=BooleanModelField
+02日 01:19:56.16 [WebSettingsActivity]: setModel: 设置字段 AntOcean.usePropByType = true, 字段类型=BooleanModelField
+02日 01:19:56.16 [WebSettingsActivity]: setModel: 设置字段 AntOcean.userprotectType = 0, 字段类型=ChoiceModelField
+02日 01:19:56.16 [WebSettingsActivity]: setModel: 设置字段 AntOcean.protectOceanList = { }, 字段类型=SelectAndCountModelField
+02日 01:19:56.16 [WebSettingsActivity]: setModel: 设置字段 AntOcean.PDL_task = true, 字段类型=BooleanModelField
+02日 01:19:56.16 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.16 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.executeInterval = 500, 字段类型=IntegerModelField
+02日 01:19:56.17 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.receiveOrchardTaskAward = true, 字段类型=BooleanModelField
+02日 01:19:56.17 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.orchardSpreadManureCount = 5, 字段类型=IntegerModelField
+02日 01:19:56.17 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.assistFriendList = [ ], 字段类型=SelectModelField
+02日 01:19:56.17 [WebSettingsActivity]: setModel: 设置字段 AntStall.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.17 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoOpen = true, 字段类型=BooleanModelField
+02日 01:19:56.18 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallOpenType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.18 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallOpenList = [ ], 字段类型=SelectModelField
+02日 01:19:56.18 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoClose = true, 字段类型=BooleanModelField
+02日 01:19:56.18 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallSelfOpenTime = 120, 字段类型=IntegerModelField
+02日 01:19:56.18 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoTicket = true, 字段类型=BooleanModelField
+02日 01:19:56.18 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallTicketType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.18 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallTicketList = [ ], 字段类型=SelectModelField
+02日 01:19:56.19 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallThrowManure = true, 字段类型=BooleanModelField
+02日 01:19:56.19 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallThrowManureType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.19 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallThrowManureList = [ ], 字段类型=SelectModelField
+02日 01:19:56.19 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteShop = true, 字段类型=BooleanModelField
+02日 01:19:56.19 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteShopType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.19 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteShopList = [ ], 字段类型=SelectModelField
+02日 01:19:56.20 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAllowOpenReject = true, 字段类型=BooleanModelField
+02日 01:19:56.20 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAllowOpenTime = 121, 字段类型=IntegerModelField
+02日 01:19:56.20 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallWhiteList = [ ], 字段类型=SelectModelField
+02日 01:19:56.20 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallBlackList = [ ], 字段类型=SelectModelField
+02日 01:19:56.20 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoTask = true, 字段类型=BooleanModelField
+02日 01:19:56.20 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallReceiveAward = true, 字段类型=BooleanModelField
+02日 01:19:56.20 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallDonate = true, 字段类型=BooleanModelField
+02日 01:19:56.21 [WebSettingsActivity]: setModel: 设置字段 AntStall.roadmap = true, 字段类型=BooleanModelField
+02日 01:19:56.21 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteRegister = false, 字段类型=BooleanModelField
+02日 01:19:56.21 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteRegisterList = [ ], 字段类型=SelectModelField
+02日 01:19:56.21 [WebSettingsActivity]: setModel: 设置字段 AntStall.assistFriendList = [ ], 字段类型=SelectModelField
+02日 01:19:56.21 [WebSettingsActivity]: setModel: 设置字段 AntDodo.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.22 [WebSettingsActivity]: setModel: 设置字段 AntDodo.collectToFriend = true, 字段类型=BooleanModelField
+02日 01:19:56.22 [WebSettingsActivity]: setModel: 设置字段 AntDodo.collectToFriendType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.22 [WebSettingsActivity]: setModel: 设置字段 AntDodo.collectToFriendList = [ ], 字段类型=SelectModelField
+02日 01:19:56.22 [WebSettingsActivity]: setModel: 设置字段 AntDodo.sendFriendCard = [ ], 字段类型=SelectModelField
+02日 01:19:56.22 [WebSettingsActivity]: setModel: 设置字段 AntDodo.useProp = true, 字段类型=BooleanModelField
+02日 01:19:56.22 [WebSettingsActivity]: setModel: 设置字段 AntDodo.usePropCollectTimes7Days = true, 字段类型=BooleanModelField
+02日 01:19:56.22 [WebSettingsActivity]: setModel: 设置字段 AntDodo.usePropCollectHistoryAnimal7Days = true, 字段类型=BooleanModelField
+02日 01:19:56.23 [WebSettingsActivity]: setModel: 设置字段 AntDodo.usePropCollectToFriendTimes7Days = true, 字段类型=BooleanModelField
+02日 01:19:56.23 [WebSettingsActivity]: setModel: 设置字段 AntDodo.autoGenerateBook = false, 字段类型=BooleanModelField
+02日 01:19:56.23 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.enable = false, 字段类型=BooleanModelField
+02日 01:19:56.23 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.cooperateWaterList = { }, 字段类型=SelectAndCountModelField
+02日 01:19:56.23 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.cooperateWaterTotalLimitList = { }, 字段类型=SelectAndCountModelField
+02日 01:19:56.24 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.cooperateSendCooperateBeckon = true, 字段类型=BooleanModelField
+02日 01:19:56.24 [WebSettingsActivity]: setModel: 设置字段 AntSports.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.24 [WebSettingsActivity]: setModel: 设置字段 AntSports.walk = true, 字段类型=BooleanModelField
+02日 01:19:56.24 [WebSettingsActivity]: setModel: 设置字段 AntSports.walkPathTheme = 0, 字段类型=ChoiceModelField
+02日 01:19:56.24 [WebSettingsActivity]: setModel: 设置字段 AntSports.walkCustomPath = false, 字段类型=BooleanModelField
+02日 01:19:56.24 [WebSettingsActivity]: setModel: 设置字段 AntSports.walkCustomPathId = p0002023122214520001, 字段类型=StringModelField
+02日 01:19:56.25 [WebSettingsActivity]: setModel: 设置字段 AntSports.openTreasureBox = true, 字段类型=BooleanModelField
+02日 01:19:56.25 [WebSettingsActivity]: setModel: 设置字段 AntSports.sportsTasks = true, 字段类型=BooleanModelField
+02日 01:19:56.25 [WebSettingsActivity]: setModel: 设置字段 AntSports.sportsTaskBlacklist = 开通包裹查询服务,添加支付宝小组件,领取价值1.7万元配置,支付宝积分可兑券, 字段类型=StringModelField
+02日 01:19:56.25 [WebSettingsActivity]: setModel: 设置字段 AntSports.receiveCoinAsset = true, 字段类型=BooleanModelField
+02日 01:19:56.25 [WebSettingsActivity]: setModel: 设置字段 AntSports.donateCharityCoin = true, 字段类型=BooleanModelField
+02日 01:19:56.25 [WebSettingsActivity]: setModel: 设置字段 AntSports.donateCharityCoinType = 0, 字段类型=ChoiceModelField
+02日 01:19:56.25 [WebSettingsActivity]: setModel: 设置字段 AntSports.donateCharityCoinAmount = 100, 字段类型=IntegerModelField
+02日 01:19:56.26 [WebSettingsActivity]: setModel: 设置字段 AntSports.battleForFriends = false, 字段类型=BooleanModelField
+02日 01:19:56.26 [WebSettingsActivity]: setModel: 设置字段 AntSports.battleForFriendType = 1, 字段类型=ChoiceModelField
+02日 01:19:56.26 [WebSettingsActivity]: setModel: 设置字段 AntSports.originBossIdList = [ ], 字段类型=SelectModelField
+02日 01:19:56.26 [WebSettingsActivity]: setModel: 设置字段 AntSports.trainFriend = true, 字段类型=BooleanModelField
+02日 01:19:56.26 [WebSettingsActivity]: setModel: 设置字段 AntSports.zeroCoinLimit = 5, 字段类型=IntegerModelField
+02日 01:19:56.26 [WebSettingsActivity]: setModel: 设置字段 AntSports.bicubic = true, 字段类型=BooleanModelField
+02日 01:19:56.26 [WebSettingsActivity]: setModel: 设置字段 AntSports.minExchangeCount = 100000, 字段类型=IntegerModelField
+02日 01:19:56.27 [WebSettingsActivity]: setModel: 设置字段 AntSports.latestExchangeTime = 22, 字段类型=IntegerModelField
+02日 01:19:56.27 [WebSettingsActivity]: setModel: 设置字段 AntSports.syncStepCount = 100000, 字段类型=IntegerModelField
+02日 01:19:56.27 [WebSettingsActivity]: setModel: 设置字段 AntSports.coinExchangeDoubleCard = false, 字段类型=BooleanModelField
+02日 01:19:56.27 [WebSettingsActivity]: setModel: 设置字段 AntMember.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.27 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberSign = true, 字段类型=BooleanModelField
+02日 01:19:56.27 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberTask = true, 字段类型=BooleanModelField
+02日 01:19:56.28 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberPointExchangeBenefit = false, 字段类型=BooleanModelField
+02日 01:19:56.28 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberPointExchangeBenefitList = [ "202312190048249280" ], 字段类型=SelectModelField
+02日 01:19:56.28 [WebSettingsActivity]: setModel: 设置字段 AntMember.sesameTask = true, 字段类型=BooleanModelField
+02日 01:19:56.28 [WebSettingsActivity]: setModel: 设置字段 AntMember.collectSesame = true, 字段类型=BooleanModelField
+02日 01:19:56.28 [WebSettingsActivity]: setModel: 设置字段 AntMember.collectSesameWithOneClick = true, 字段类型=BooleanModelField
+02日 01:19:56.28 [WebSettingsActivity]: setModel: 设置字段 AntMember.collectInsuredGold = false, 字段类型=BooleanModelField
+02日 01:19:56.28 [WebSettingsActivity]: setModel: 设置字段 AntMember.enableGoldTicket = false, 字段类型=BooleanModelField
+02日 01:19:56.29 [WebSettingsActivity]: setModel: 设置字段 AntMember.enableGameCenter = false, 字段类型=BooleanModelField
+02日 01:19:56.29 [WebSettingsActivity]: setModel: 设置字段 AntMember.merchantSign = false, 字段类型=BooleanModelField
+02日 01:19:56.29 [WebSettingsActivity]: setModel: 设置字段 AntMember.merchantKmdk = false, 字段类型=BooleanModelField
+02日 01:19:56.29 [WebSettingsActivity]: setModel: 设置字段 AntMember.merchantMoreTask = false, 字段类型=BooleanModelField
+02日 01:19:56.29 [WebSettingsActivity]: setModel: 设置字段 AntMember.beanSignIn = false, 字段类型=BooleanModelField
+02日 01:19:56.29 [WebSettingsActivity]: setModel: 设置字段 AntMember.beanExchangeBubbleBoost = false, 字段类型=BooleanModelField
+02日 01:19:56.30 [WebSettingsActivity]: setModel: 设置字段 AncientTree.enable = false, 字段类型=BooleanModelField
+02日 01:19:56.30 [WebSettingsActivity]: setModel: 设置字段 AncientTree.ancientTreeOnlyWeek = false, 字段类型=BooleanModelField
+02日 01:19:56.30 [WebSettingsActivity]: setModel: 设置字段 AncientTree.ancientTreeCityCodeList = [ ], 字段类型=SelectModelField
+02日 01:19:56.30 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.enable = true, 字段类型=BooleanModelField
+02日 01:19:56.31 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLsxd = true, 字段类型=BooleanModelField
+02日 01:19:56.31 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLscg = true, 字段类型=BooleanModelField
+02日 01:19:56.31 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLsbg = true, 字段类型=BooleanModelField
+02日 01:19:56.31 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceWdxd = true, 字段类型=BooleanModelField
+02日 01:19:56.31 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLswl = true, 字段类型=BooleanModelField
+02日 01:19:56.31 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinancePointFriend = true, 字段类型=BooleanModelField
+02日 01:19:56.32 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceDonation = true, 字段类型=BooleanModelField
+02日 01:19:56.32 [WebSettingsActivity]: setModel: 设置字段 Reserve.enable = false, 字段类型=BooleanModelField
+02日 01:19:56.32 [WebSettingsActivity]: setModel: 设置字段 Reserve.reserveList = { }, 字段类型=SelectAndCountModelField
+02日 01:19:56.32 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.enable = false, 字段类型=BooleanModelField
+02日 01:19:56.32 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.useGeminiAI = 0, 字段类型=ChoiceModelField
+02日 01:19:56.33 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getTongyiAIToken = https://help.aliyun.com/zh/dashscope/developer-reference/acquisition-and-configuration-of-api-key, 字段类型=UrlTextModelField
+02日 01:19:56.33 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getGeminiAIToken = https://aistudio.google.com/app/apikey, 字段类型=UrlTextModelField
+02日 01:19:56.33 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getDeepSeekToken = https://platform.deepseek.com/usage, 字段类型=UrlTextModelField
+02日 01:19:56.33 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getCustomServiceToken = 下面这个不用动可以白嫖到3月10号让我们感谢讯飞大善人🙏, 字段类型=ReadOnlyTextModelField
+02日 01:19:56.33 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.CustomServiceToken = sk-pQF9jek0CTTh3boKDcA9DdD7340a4e929eD00a13F681Cd8e, 字段类型=StringModelField
+02日 01:19:56.33 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.CustomServiceBaseUrl = https://maas-api.cn-huabei-1.xf-yun.com/v1, 字段类型=StringModelField
+02日 01:19:56.33 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.CustomServiceModel = xdeepseekr1, 字段类型=StringModelField
+02日 01:19:56.71 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
+02日 01:19:56.73 [Config]: 保存 [惠琴] 配置
+02日 01:19:56.74 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:19:56.74 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:19:56.74 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:19:56.74 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:19:56.74 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:19:56.74 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:19:56.74 [Files]: friend.json permissions: r=true; w=true
+02日 01:19:56.74 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:19:56.74 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:19:56.74 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:19:56.74 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:19:56.76 [Files]: cooperateMap.json permissions: r=true; w=true
+02日 01:19:56.80 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:19:56.80 [UIConfig]: 重置UI配置
+02日 01:19:56.82 [Files]: self.json permissions: r=true; w=true
+02日 01:19:56.83 [Files]: self.json permissions: r=true; w=true
+02日 01:19:56.84 [Files]: self.json permissions: r=true; w=true
+02日 01:19:56.85 [Files]: self.json permissions: r=true; w=true
+02日 01:19:56.86 [Files]: self.json permissions: r=true; w=true
+02日 01:19:56.87 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:19:56.87 [MainActivity]: isModuleActivated: true
+02日 01:19:56.92 [AlipayComponentHelper]: 🔓 已获取唤醒锁
+02日 01:19:56.93 [AlipayComponentHelper]: ✅ 精简唤醒完成（仅流量监控）
+02日 01:19:56.94 [ApplicationHook]: ▶️ 首次手动触发，开始运行
+02日 01:19:56.98 [CoroutineTaskRunner]: 初始化协程任务执行器，共发现 12 个任务
+02日 01:19:57.00 [CoroutineTaskRunner]: ⚙️ 任务执行配置：传入2轮，BaseModel配置2轮（用户可在基础设置中调整）
+02日 01:19:57.01 [CoroutineTaskRunner]: 🔄 开始顺序执行第1/2轮任务，共0个启用任务
+02日 01:19:57.03 [CoroutineTaskRunner]: ✅ 第1/2轮任务完成，耗时: 14ms
+02日 01:19:57.03 [AlarmScheduler]: 已设置多重保护闹钟: ID=69515, 预定时间=02:49:56
+02日 01:19:57.03 [CoroutineTaskRunner]: 🔄 开始顺序执行第2/2轮任务，共0个启用任务
+02日 01:19:57.04 [CoroutineTaskRunner]: ✅ 第2/2轮任务完成，耗时: 3ms
+02日 01:19:57.04 [CoroutineTaskRunner]: 📈 ===== 协程任务执行统计摘要 =====
+02日 01:19:57.05 [AlarmScheduler]: 已设置备份闹钟: ID=17048, 预定时间=02:50:26 (+30秒)
+02日 01:19:57.06 [CoroutineTaskRunner]: 🕐 执行时间: 41ms (0.0秒)
+02日 01:19:57.07 [CoroutineTaskRunner]: 📋 任务总数: 12 (启用: 0)
+02日 01:19:57.07 [CoroutineTaskRunner]: ✅ 成功任务: 0
+02日 01:19:57.08 [ApplicationHook]: ⚠️ mainTask未初始化，跳过执行
+02日 01:19:57.08 [AlarmScheduler]: ⏰ 下次执行(Alarm) 02:49:56
+02日 01:19:57.08 [CoroutineTaskRunner]: ❌ 失败任务: 0
+02日 01:19:57.10 [CoroutineTaskRunner]: ⏭️ 跳过任务: 0
+02日 01:19:57.11 [CoroutineTaskRunner]: 🔄 恢复尝试: 0
+02日 01:19:57.11 [CoroutineTaskRunner]: ================================
+02日 01:19:57.15 [AlarmScheduler]: 已设置闹钟唤醒执行，ID=69515，时间：02日02:49:56，延迟：5400秒
+02日 01:19:57.16 [AlarmManager]: ⏰ 精确执行调度成功: 延迟5400000ms
+02日 01:19:57.15 [ApplicationHook]: ⚠️ mainTask未初始化，跳过执行
+02日 01:19:57.29 [ApplicationHook]: ⚠️ mainTask未初始化，跳过执行
+02日 01:19:57.32 [ApplicationHook]: ⚠️ mainTask未初始化，跳过执行
+02日 01:19:58.95 [AlipayComponentHelper]: 🔒 已释放唤醒锁
+02日 01:19:59.82 [MainActivity]: 准备载入用户配置: index=4, showName=惠琴, userId=2088602261779903
+02日 01:19:59.82 [MainActivity]: 目标Activity: fansirsqi.xposed.sesame.ui.WebSettingsActivity
+02日 01:19:59.82 [MainActivity]: Intent已配置: userId=2088602261779903, userName=惠琴
+02日 01:19:59.82 [MainActivity]: 正在启动SettingActivity...
+02日 01:19:59.83 [MainActivity]: SettingActivity启动成功
+02日 01:19:59.85 [WebSettingsActivity]: onCreate: 开始初始化
+02日 01:19:59.85 [WebSettingsActivity]: onCreate: super.onCreate完成
+02日 01:19:59.85 [WebSettingsActivity]: onCreate: 准备获取Intent
+02日 01:19:59.86 [WebSettingsActivity]: onCreate: Intent解析完成, userId=2088602261779903, userName=惠琴
+02日 01:19:59.86 [WebSettingsActivity]: onCreate: LanguageUtil设置完成
+02日 01:19:59.87 [WebSettingsActivity]: onCreate: setContentView完成
+02日 01:19:59.87 [WebSettingsActivity]: onCreate: 准备设置返回键处理
+02日 01:19:59.87 [WebSettingsActivity]: onCreate: 返回键处理设置完成
+02日 01:19:59.87 [WebSettingsActivity]: onCreate: 准备初始化导出逻辑
+02日 01:19:59.87 [WebSettingsActivity]: onCreate: 导出逻辑初始化完成
+02日 01:19:59.88 [WebSettingsActivity]: onCreate: 准备初始化导入逻辑
+02日 01:19:59.88 [WebSettingsActivity]: onCreate: 导入逻辑初始化完成
+02日 01:19:59.88 [WebSettingsActivity]: onCreate: 标题设置完成
+02日 01:19:59.88 [WebSettingsActivity]: onCreate: 开始异步加载配置数据
+02日 01:19:59.88 [WebSettingsActivity]: onCreate: ✅ 异步加载已启动
+02日 01:19:59.88 [WebSettingsActivity]: 后台线程: 准备初始化Model
+02日 01:19:59.90 [WebSettingsActivity]: 后台线程: Model初始化完成
+02日 01:19:59.90 [WebSettingsActivity]: 后台线程: UserMap.setCurrentUserId完成
+02日 01:19:59.90 [Files]: friend.json permissions: r=true; w=true
+02日 01:19:59.91 [WebSettingsActivity]: 后台线程: UserMap.load完成
+02日 01:19:59.92 [Files]: cooperateMap.json permissions: r=true; w=true
+02日 01:19:59.93 [WebSettingsActivity]: 后台线程: CooperateMap加载完成
+02日 01:19:59.93 [Files]: vitalityRewardsMap.json permissions: r=true; w=true
+02日 01:19:59.94 [WebSettingsActivity]: 后台线程: VitalityRewardsMap加载完成
+02日 01:19:59.94 [Files]: MemberBenefitsMap.json permissions: r=true; w=true
+02日 01:19:59.95 [WebSettingsActivity]: 后台线程: MemberBenefitsMap加载完成
+02日 01:19:59.96 [Files]: paradiseCoinBenefitMap.json permissions: r=true; w=true
+02日 01:19:59.96 [WebSettingsActivity]: 后台线程: ParadiseCoinBenefitIdMap加载完成
+02日 01:19:59.97 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/ReserveaMap.json: r=true; w=true
+02日 01:19:59.97 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/ReserveaMap.json
+02日 01:19:59.98 [WebSettingsActivity]: 后台线程: ReserveaMap加载完成
+02日 01:19:59.99 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/BeachMap.json: r=true; w=true
+02日 01:19:59.99 [Files]: File created successfully: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/BeachMap.json
+02日 01:20:00.00 [WebSettingsActivity]: 后台线程: BeachMap加载完成
+02日 01:20:00.00 [Config]: 开始加载配置
+02日 01:20:00.00 [Config]: 加载配置: 惠琴
+02日 01:20:00.01 [Config]: 读取配置文件成功: /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:20:00.03 [Config]: 格式化配置成功:/storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/2088602261779903/config_v2.json
+02日 01:20:00.03 [Config]: 格式化配置: 惠琴
+02日 01:20:00.04 获取 只收能量时间 配置: [0658-0731]
+02日 01:20:00.04 模块休眠时间 配置已关闭
+02日 01:20:00.04 [WebSettingsActivity]: 后台线程: Config加载完成
+02日 01:20:00.04 [WebSettingsActivity]: 主线程: 开始初始化UI
+02日 01:20:00.04 [WebSettingsActivity]: initializeWebView: 开始
+02日 01:20:00.05 [WebSettingsActivity]: initializeWebView: 准备初始化WebView
+02日 01:20:00.05 [WebSettingsActivity]: onCreate: WebView findViewById完成
+02日 01:20:00.05 [WebSettingsActivity]: onCreate: WebSettings配置完成
+02日 01:20:00.05 [WebSettingsActivity]: onCreate: 准备加载WebView内容
+02日 01:20:00.05 [WebSettingsActivity]: onCreate: WebViewClient设置完成
+02日 01:20:00.05 [WebSettingsActivity]: onCreate: WebChromeClient设置完成
+02日 01:20:00.06 [WebSettingsActivity]: onCreate: WebView loadUrl完成
+02日 01:20:00.06 [WebSettingsActivity]: onCreate: JavaScript接口注册完成
+02日 01:20:00.06 [WebSettingsActivity]: onCreate: 准备填充tabList和groupList
+02日 01:20:00.06 [WebSettingsActivity]: onCreate: tabList填充完成, size=14
+02日 01:20:00.07 [WebSettingsActivity]: onCreate: groupList填充完成, size=8
+02日 01:20:00.07 [WebSettingsActivity]: onCreate: 准备设置水印
+02日 01:20:00.07 [WebSettingsActivity]: initializeWebView: 水印设置完成
+02日 01:20:00.07 [WebSettingsActivity]: initializeWebView: ✅ WebSettingsActivity初始化完成！
+02日 01:20:00.07 [WebSettingsActivity]: 主线程: UI初始化完成
+02日 01:20:00.11 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+02日 01:20:00.12 [WebSettingsActivity]: WebView Console [LOG]: You are running a development build of Vue.
+Make sure to use the production build (*.prod.js) when deploying for production. -- From line 11201 of file:///android_asset/web/js/vue3.js
+02日 01:20:00.14 [WebSettingsActivity]: getModel调用: modelCode=BaseModel
+02日 01:20:00.15 [WebSettingsActivity]: getModel调用: modelCode=AntForest
+02日 01:20:00.15 [WebSettingsActivity]: getModel调用: modelCode=AntFarm
+02日 01:20:00.15 [WebSettingsActivity]: getModel调用: modelCode=AntOcean
+02日 01:20:00.15 [WebSettingsActivity]: getModel调用: modelCode=AntOrchard
+02日 01:20:00.15 [WebSettingsActivity]: getModel调用: modelCode=AntStall
+02日 01:20:00.16 [WebSettingsActivity]: getModel调用: modelCode=AntDodo
+02日 01:20:00.16 [WebSettingsActivity]: getModel调用: modelCode=AntCooperate
+02日 01:20:00.16 [WebSettingsActivity]: getModel调用: modelCode=AntSports
+02日 01:20:00.16 [WebSettingsActivity]: getModel调用: modelCode=AntMember
+02日 01:20:00.16 [WebSettingsActivity]: getModel调用: modelCode=AncientTree
+02日 01:20:00.17 [WebSettingsActivity]: getModel调用: modelCode=GreenFinance
+02日 01:20:00.17 [WebSettingsActivity]: getModel调用: modelCode=Reserve
+02日 01:20:00.17 [WebSettingsActivity]: getModel调用: modelCode=AnswerAI
+02日 01:20:00.42 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+02日 01:20:05.79 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: go back
+02日 01:20:05.79 [WebSettingsActivity]: WebView: 页面加载完成 - file:///android_asset/web/index.html
+02日 01:20:05.80 [WebSettingsActivity]: setModel: 设置字段 BaseModel.enable = true, 字段类型=BooleanModelField
+02日 01:20:05.80 [WebSettingsActivity]: setModel: 设置字段 BaseModel.stayAwake = true, 字段类型=BooleanModelField
+02日 01:20:05.80 [WebSettingsActivity]: setModel: 设置字段 BaseModel.manualTriggerAutoSchedule = false, 字段类型=BooleanModelField
+02日 01:20:05.80 [WebSettingsActivity]: setModel: 设置字段 BaseModel.checkInterval = 90, 字段类型=MultiplyIntegerModelField
+02日 01:20:05.80 [WebSettingsActivity]: setModel: 设置字段 BaseModel.taskExecutionRounds = 2, 字段类型=IntegerModelField
+02日 01:20:05.80 [WebSettingsActivity]: setModel: 设置字段 BaseModel.modelSleepTime = -1, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:05.81 [WebSettingsActivity]: setModel: 设置字段 BaseModel.execAtTimeList = 0000,0100,0520,0659,0730,1200,1230,1700,1730,2000,2030,2359, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:05.81 [WebSettingsActivity]: setModel: 设置字段 BaseModel.wakenAtTimeList = 0010,0030,0100,0650,2350, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:05.81 [WebSettingsActivity]: setModel: 设置字段 BaseModel.energyTime = 0658-0731, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:05.81 [WebSettingsActivity]: setModel: 设置字段 BaseModel.timedTaskModel = 0, 字段类型=ChoiceModelField
+02日 01:20:05.81 [WebSettingsActivity]: setModel: 设置字段 BaseModel.timeoutRestart = true, 字段类型=BooleanModelField
+02日 01:20:05.81 [WebSettingsActivity]: setModel: 设置字段 BaseModel.waitWhenException = 60, 字段类型=MultiplyIntegerModelField
+02日 01:20:05.82 [WebSettingsActivity]: setModel: 设置字段 BaseModel.errNotify = false, 字段类型=BooleanModelField
+02日 01:20:05.82 [WebSettingsActivity]: setModel: 设置字段 BaseModel.setMaxErrorCount = 8, 字段类型=IntegerModelField
+02日 01:20:05.82 [WebSettingsActivity]: setModel: 设置字段 BaseModel.newRpc = true, 字段类型=BooleanModelField
+02日 01:20:05.82 [WebSettingsActivity]: setModel: 设置字段 BaseModel.debugMode = false, 字段类型=BooleanModelField
+02日 01:20:05.82 [WebSettingsActivity]: setModel: 设置字段 BaseModel.sendHookData = false, 字段类型=BooleanModelField
+02日 01:20:05.82 [WebSettingsActivity]: setModel: 设置字段 BaseModel.sendHookDataUrl = http://127.0.0.1:9527/hook, 字段类型=StringModelField
+02日 01:20:05.82 [WebSettingsActivity]: setModel: 设置字段 BaseModel.batteryPerm = true, 字段类型=BooleanModelField
+02日 01:20:05.83 [WebSettingsActivity]: setModel: 设置字段 BaseModel.enableCaptchaHook = true, 字段类型=BooleanModelField
+02日 01:20:05.83 [WebSettingsActivity]: setModel: 设置字段 BaseModel.captchaHookLevel = 1, 字段类型=ChoiceModelField
+02日 01:20:05.83 [WebSettingsActivity]: setModel: 设置字段 BaseModel.recordLog = true, 字段类型=BooleanModelField
+02日 01:20:05.83 [WebSettingsActivity]: setModel: 设置字段 BaseModel.runtimeLog = true, 字段类型=BooleanModelField
+02日 01:20:05.83 [WebSettingsActivity]: setModel: 设置字段 BaseModel.showToast = false, 字段类型=BooleanModelField
+02日 01:20:05.83 [WebSettingsActivity]: setModel: 设置字段 BaseModel.enableOnGoing = false, 字段类型=BooleanModelField
+02日 01:20:05.84 [WebSettingsActivity]: setModel: 设置字段 BaseModel.languageSimplifiedChinese = true, 字段类型=BooleanModelField
+02日 01:20:05.84 [WebSettingsActivity]: setModel: 设置字段 BaseModel.toastOffsetY = 99, 字段类型=IntegerModelField
+02日 01:20:05.84 [WebSettingsActivity]: setModel: 设置字段 AntForest.enable = true, 字段类型=BooleanModelField
+02日 01:20:05.84 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectEnergy = true, 字段类型=BooleanModelField
+02日 01:20:05.84 [WebSettingsActivity]: setModel: 设置字段 AntForest.batchRobEnergy = true, 字段类型=BooleanModelField
+02日 01:20:05.85 [WebSettingsActivity]: setModel: 设置字段 AntForest.pkEnergy = true, 字段类型=BooleanModelField
+02日 01:20:05.85 [WebSettingsActivity]: setModel: 设置字段 AntForest.closeWhackMole = true, 字段类型=BooleanModelField
+02日 01:20:05.85 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyRain = true, 字段类型=BooleanModelField
+02日 01:20:05.85 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyRainTime = 0810, 字段类型=StringModelField
+02日 01:20:05.85 [WebSettingsActivity]: setModel: 设置字段 AntForest.dontCollectList = [ ], 字段类型=SelectModelField
+02日 01:20:05.85 [WebSettingsActivity]: setModel: 设置字段 AntForest.giveEnergyRainList = [ ], 字段类型=SelectModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyRainChance = true, 字段类型=BooleanModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectWateringBubble = true, 字段类型=BooleanModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCard = 0, 字段类型=ChoiceModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCountLimit = 5, 字段类型=IntegerModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCardTime = 0655,1700,2358, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.DoubleCardConstant = false, 字段类型=BooleanModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.bubbleBoostCard = 0, 字段类型=ChoiceModelField
+02日 01:20:05.86 [WebSettingsActivity]: setModel: 设置字段 AntForest.bubbleBoostTime = 0655,1700, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:05.87 [WebSettingsActivity]: setModel: 设置字段 AntForest.shieldCard = 0, 字段类型=ChoiceModelField
+02日 01:20:05.87 [WebSettingsActivity]: setModel: 设置字段 AntForest.shieldCardConstant = false, 字段类型=BooleanModelField
+02日 01:20:05.87 [WebSettingsActivity]: setModel: 设置字段 AntForest.energyBombCardType = 0, 字段类型=ChoiceModelField
+02日 01:20:05.87 [WebSettingsActivity]: setModel: 设置字段 AntForest.robExpandCard = 0, 字段类型=ChoiceModelField
+02日 01:20:05.87 [WebSettingsActivity]: setModel: 设置字段 AntForest.robExpandCardTime = 0700,0730,1200,1230,1700,1730,2000,2030,2359, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:05.87 [WebSettingsActivity]: setModel: 设置字段 AntForest.stealthCard = 0, 字段类型=ChoiceModelField
+02日 01:20:05.87 [WebSettingsActivity]: setModel: 设置字段 AntForest.stealthCardConstant = false, 字段类型=BooleanModelField
+02日 01:20:05.88 [WebSettingsActivity]: setModel: 设置字段 AntForest.returnWater10 = 0, 字段类型=IntegerModelField
+02日 01:20:05.88 [WebSettingsActivity]: setModel: 设置字段 AntForest.returnWater18 = 0, 字段类型=IntegerModelField
+02日 01:20:05.88 [WebSettingsActivity]: setModel: 设置字段 AntForest.returnWater33 = 0, 字段类型=IntegerModelField
+02日 01:20:05.88 [WebSettingsActivity]: setModel: 设置字段 AntForest.waterFriendList = {
+  "2088002896523311" : 3
+}, 字段类型=SelectAndCountModelField
+02日 01:20:05.88 [WebSettingsActivity]: setModel: 设置字段 AntForest.waterFriendCount = 66, 字段类型=IntegerModelField
+02日 01:20:05.88 [WebSettingsActivity]: setModel: 设置字段 AntForest.notifyFriend = true, 字段类型=BooleanModelField
+02日 01:20:05.89 [WebSettingsActivity]: setModel: 设置字段 AntForest.giveProp = false, 字段类型=BooleanModelField
+02日 01:20:05.89 [WebSettingsActivity]: setModel: 设置字段 AntForest.whoYouWantToGiveTo = [ ], 字段类型=SelectModelField
+02日 01:20:05.89 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectProp = true, 字段类型=BooleanModelField
+02日 01:20:05.89 [WebSettingsActivity]: setModel: 设置字段 AntForest.helpFriendCollectType = 0, 字段类型=ChoiceModelField
+02日 01:20:05.89 [WebSettingsActivity]: setModel: 设置字段 AntForest.helpFriendCollectList = [ ], 字段类型=SelectModelField
+02日 01:20:05.89 [WebSettingsActivity]: setModel: 设置字段 AntForest.alternativeAccountList = [ ], 字段类型=SelectModelField
+02日 01:20:05.89 [WebSettingsActivity]: setModel: 设置字段 AntForest.vitalityExchange = false, 字段类型=BooleanModelField
+02日 01:20:05.90 [WebSettingsActivity]: setModel: 设置字段 AntForest.vitalityExchangeList = { }, 字段类型=SelectAndCountModelField
+02日 01:20:05.90 [WebSettingsActivity]: setModel: 设置字段 AntForest.userPatrol = true, 字段类型=BooleanModelField
+02日 01:20:05.90 [WebSettingsActivity]: setModel: 设置字段 AntForest.combineAnimalPiece = true, 字段类型=BooleanModelField
+02日 01:20:05.90 [WebSettingsActivity]: setModel: 设置字段 AntForest.consumeAnimalProp = true, 字段类型=BooleanModelField
+02日 01:20:05.90 [WebSettingsActivity]: setModel: 设置字段 AntForest.receiveForestTaskAward = true, 字段类型=BooleanModelField
+02日 01:20:05.90 [WebSettingsActivity]: setModel: 设置字段 AntForest.forestChouChouLe = true, 字段类型=BooleanModelField
+02日 01:20:05.90 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectGiftBox = true, 字段类型=BooleanModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.medicalHealth = true, 字段类型=BooleanModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.medicalHealthOption = [ "BILL", "FEEDS" ], 字段类型=SelectModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.forestMarket = true, 字段类型=BooleanModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.youthPrivilege = false, 字段类型=BooleanModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.studentCheckIn = false, 字段类型=BooleanModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLife = true, 字段类型=BooleanModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLifeTime = 0800, 字段类型=StringModelField
+02日 01:20:05.91 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLifeOpen = true, 字段类型=BooleanModelField
+02日 01:20:05.92 [WebSettingsActivity]: setModel: 设置字段 AntForest.ecoLifeOption = [ "plate", "tick" ], 字段类型=SelectModelField
+02日 01:20:05.92 [WebSettingsActivity]: setModel: 设置字段 AntForest.queryInterval = 500-800, 字段类型=StringModelField
+02日 01:20:05.92 [WebSettingsActivity]: setModel: 设置字段 AntForest.collectInterval = 500-800, 字段类型=StringModelField
+02日 01:20:05.92 [WebSettingsActivity]: setModel: 设置字段 AntForest.doubleCollectInterval = 50-150, 字段类型=StringModelField
+02日 01:20:05.92 [WebSettingsActivity]: setModel: 设置字段 AntForest.balanceNetworkDelay = true, 字段类型=BooleanModelField
+02日 01:20:05.92 [WebSettingsActivity]: setModel: 设置字段 AntForest.advanceTime = 0, 字段类型=IntegerModelField
+02日 01:20:05.92 [WebSettingsActivity]: setModel: 设置字段 AntForest.tryCount = 1, 字段类型=IntegerModelField
+02日 01:20:05.93 [WebSettingsActivity]: setModel: 设置字段 AntForest.retryInterval = 1200, 字段类型=IntegerModelField
+02日 01:20:05.93 [WebSettingsActivity]: setModel: 设置字段 AntForest.cycleinterval = 1000, 字段类型=IntegerModelField
+02日 01:20:05.93 [WebSettingsActivity]: setModel: 设置字段 AntForest.showBagList = false, 字段类型=BooleanModelField
+02日 01:20:05.93 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enable = true, 字段类型=BooleanModelField
+02日 01:20:05.94 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sleepTime = 2330, 字段类型=StringModelField
+02日 01:20:05.94 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sleepMinutes = 360, 字段类型=IntegerModelField
+02日 01:20:05.94 [WebSettingsActivity]: setModel: 设置字段 AntFarm.recallAnimalType = 0, 字段类型=ChoiceModelField
+02日 01:20:05.94 [WebSettingsActivity]: setModel: 设置字段 AntFarm.rewardFriend = true, 字段类型=BooleanModelField
+02日 01:20:05.94 [WebSettingsActivity]: setModel: 设置字段 AntFarm.feedAnimal = true, 字段类型=BooleanModelField
+02日 01:20:05.94 [WebSettingsActivity]: setModel: 设置字段 AntFarm.feedFriendAnimalList = { }, 字段类型=SelectAndCountModelField
+02日 01:20:05.95 [WebSettingsActivity]: setModel: 设置字段 AntFarm.getFeed = true, 字段类型=BooleanModelField
+02日 01:20:05.95 [WebSettingsActivity]: setModel: 设置字段 AntFarm.getFeedType = 1, 字段类型=ChoiceModelField
+02日 01:20:05.95 [WebSettingsActivity]: setModel: 设置字段 AntFarm.getFeedlList = [ ], 字段类型=SelectModelField
+02日 01:20:05.95 [WebSettingsActivity]: setModel: 设置字段 AntFarm.acceptGift = true, 字段类型=BooleanModelField
+02日 01:20:05.95 [WebSettingsActivity]: setModel: 设置字段 AntFarm.visitFriendList = { }, 字段类型=SelectAndCountModelField
+02日 01:20:05.95 [WebSettingsActivity]: setModel: 设置字段 AntFarm.hireAnimal = true, 字段类型=BooleanModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.hireAnimalType = 1, 字段类型=ChoiceModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.hireAnimalList = [ ], 字段类型=SelectModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sendBackAnimal = true, 字段类型=BooleanModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sendBackAnimalWay = 0, 字段类型=ChoiceModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.sendBackAnimalType = 1, 字段类型=ChoiceModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.dontSendFriendList = [ ], 字段类型=SelectModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notifyFriend = true, 字段类型=BooleanModelField
+02日 01:20:05.96 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notifyFriendType = 1, 字段类型=ChoiceModelField
+02日 01:20:05.97 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notifyFriendList = [ ], 字段类型=SelectModelField
+02日 01:20:05.97 [WebSettingsActivity]: setModel: 设置字段 AntFarm.donation = true, 字段类型=BooleanModelField
+02日 01:20:05.97 [WebSettingsActivity]: setModel: 设置字段 AntFarm.donationCount = 1, 字段类型=ChoiceModelField
+02日 01:20:05.97 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useBigEaterTool = true, 字段类型=BooleanModelField
+02日 01:20:05.97 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useAccelerateTool = false, 字段类型=BooleanModelField
+02日 01:20:05.97 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useAccelerateToolContinue = false, 字段类型=BooleanModelField
+02日 01:20:05.97 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useAccelerateToolWhenMaxEmotion = true, 字段类型=BooleanModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useSpecialFood = false, 字段类型=BooleanModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.useNewEggCard = true, 字段类型=BooleanModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.doFarmTask = true, 字段类型=BooleanModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.doFarmTaskTime = 0830, 字段类型=StringModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.receiveFarmTaskAward = true, 字段类型=BooleanModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.receiveFarmToolReward = true, 字段类型=BooleanModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.harvestProduce = true, 字段类型=BooleanModelField
+02日 01:20:05.98 [WebSettingsActivity]: setModel: 设置字段 AntFarm.kitchen = true, 字段类型=BooleanModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.chickenDiary = true, 字段类型=BooleanModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.diaryTietze = true, 字段类型=BooleanModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.collectChickenDiary = 1, 字段类型=ChoiceModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enableChouchoule = true, 字段类型=BooleanModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enableChouchouleTime = 0900, 字段类型=StringModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.listOrnaments = true, 字段类型=BooleanModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.enableDdrawGameCenterAward = true, 字段类型=BooleanModelField
+02日 01:20:05.99 [WebSettingsActivity]: setModel: 设置字段 AntFarm.recordFarmGame = true, 字段类型=BooleanModelField
+02日 01:20:06.00 [WebSettingsActivity]: setModel: 设置字段 AntFarm.farmGameTime = 2200-2400, 字段类型=ListJoinCommaToStringModelField
+02日 01:20:06.00 [WebSettingsActivity]: setModel: 设置字段 AntFarm.family = true, 字段类型=BooleanModelField
+02日 01:20:06.00 [WebSettingsActivity]: setModel: 设置字段 AntFarm.familyOptions = [ "eatTogetherConfig", "assignRights", "feedFamilyAnimal", "deliverMsgSend", "familyClaimReward", "familySign", "shareToFriends" ], 字段类型=SelectModelField
+02日 01:20:06.00 [WebSettingsActivity]: setModel: 设置字段 AntFarm.notInviteList = [ ], 字段类型=SelectModelField
+02日 01:20:06.00 [WebSettingsActivity]: setModel: 设置字段 AntFarm.paradiseCoinExchangeBenefit = true, 字段类型=BooleanModelField
+02日 01:20:06.00 [WebSettingsActivity]: setModel: 设置字段 AntFarm.paradiseCoinExchangeBenefitList = [ "SP20241105001981", "SP20241105001992", "SP20250707003038" ], 字段类型=SelectModelField
+02日 01:20:06.00 [WebSettingsActivity]: setModel: 设置字段 AntFarm.visitAnimal = true, 字段类型=BooleanModelField
+02日 01:20:06.01 [WebSettingsActivity]: setModel: 设置字段 AntOcean.enable = true, 字段类型=BooleanModelField
+02日 01:20:06.01 [WebSettingsActivity]: setModel: 设置字段 AntOcean.dailyOceanTask = true, 字段类型=BooleanModelField
+02日 01:20:06.01 [WebSettingsActivity]: setModel: 设置字段 AntOcean.cleanOcean = true, 字段类型=BooleanModelField
+02日 01:20:06.01 [WebSettingsActivity]: setModel: 设置字段 AntOcean.cleanOceanType = 1, 字段类型=ChoiceModelField
+02日 01:20:06.01 [WebSettingsActivity]: setModel: 设置字段 AntOcean.cleanOceanList = [ ], 字段类型=SelectModelField
+02日 01:20:06.01 [WebSettingsActivity]: setModel: 设置字段 AntOcean.exchangeProp = true, 字段类型=BooleanModelField
+02日 01:20:06.02 [WebSettingsActivity]: setModel: 设置字段 AntOcean.usePropByType = true, 字段类型=BooleanModelField
+02日 01:20:06.02 [WebSettingsActivity]: setModel: 设置字段 AntOcean.userprotectType = 0, 字段类型=ChoiceModelField
+02日 01:20:06.02 [WebSettingsActivity]: setModel: 设置字段 AntOcean.protectOceanList = { }, 字段类型=SelectAndCountModelField
+02日 01:20:06.02 [WebSettingsActivity]: setModel: 设置字段 AntOcean.PDL_task = true, 字段类型=BooleanModelField
+02日 01:20:06.02 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.enable = true, 字段类型=BooleanModelField
+02日 01:20:06.02 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.executeInterval = 500, 字段类型=IntegerModelField
+02日 01:20:06.03 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.receiveOrchardTaskAward = true, 字段类型=BooleanModelField
+02日 01:20:06.03 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.orchardSpreadManureCount = 5, 字段类型=IntegerModelField
+02日 01:20:06.03 [WebSettingsActivity]: setModel: 设置字段 AntOrchard.assistFriendList = [ ], 字段类型=SelectModelField
+02日 01:20:06.03 [WebSettingsActivity]: setModel: 设置字段 AntStall.enable = true, 字段类型=BooleanModelField
+02日 01:20:06.03 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoOpen = true, 字段类型=BooleanModelField
+02日 01:20:06.03 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallOpenType = 1, 字段类型=ChoiceModelField
+02日 01:20:06.04 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallOpenList = [ ], 字段类型=SelectModelField
+02日 01:20:06.04 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoClose = true, 字段类型=BooleanModelField
+02日 01:20:06.04 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallSelfOpenTime = 120, 字段类型=IntegerModelField
+02日 01:20:06.04 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoTicket = true, 字段类型=BooleanModelField
+02日 01:20:06.04 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallTicketType = 1, 字段类型=ChoiceModelField
+02日 01:20:06.04 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallTicketList = [ ], 字段类型=SelectModelField
+02日 01:20:06.04 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallThrowManure = true, 字段类型=BooleanModelField
+02日 01:20:06.05 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallThrowManureType = 1, 字段类型=ChoiceModelField
+02日 01:20:06.05 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallThrowManureList = [ ], 字段类型=SelectModelField
+02日 01:20:06.05 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteShop = true, 字段类型=BooleanModelField
+02日 01:20:06.05 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteShopType = 1, 字段类型=ChoiceModelField
+02日 01:20:06.05 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteShopList = [ ], 字段类型=SelectModelField
+02日 01:20:06.05 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAllowOpenReject = true, 字段类型=BooleanModelField
+02日 01:20:06.05 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAllowOpenTime = 121, 字段类型=IntegerModelField
+02日 01:20:06.06 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallWhiteList = [ ], 字段类型=SelectModelField
+02日 01:20:06.06 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallBlackList = [ ], 字段类型=SelectModelField
+02日 01:20:06.06 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallAutoTask = true, 字段类型=BooleanModelField
+02日 01:20:06.06 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallReceiveAward = true, 字段类型=BooleanModelField
+02日 01:20:06.06 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallDonate = true, 字段类型=BooleanModelField
+02日 01:20:06.06 [WebSettingsActivity]: setModel: 设置字段 AntStall.roadmap = true, 字段类型=BooleanModelField
+02日 01:20:06.06 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteRegister = false, 字段类型=BooleanModelField
+02日 01:20:06.07 [WebSettingsActivity]: setModel: 设置字段 AntStall.stallInviteRegisterList = [ ], 字段类型=SelectModelField
+02日 01:20:06.07 [WebSettingsActivity]: setModel: 设置字段 AntStall.assistFriendList = [ ], 字段类型=SelectModelField
+02日 01:20:06.07 [WebSettingsActivity]: setModel: 设置字段 AntDodo.enable = true, 字段类型=BooleanModelField
+02日 01:20:06.07 [WebSettingsActivity]: setModel: 设置字段 AntDodo.collectToFriend = true, 字段类型=BooleanModelField
+02日 01:20:06.07 [WebSettingsActivity]: setModel: 设置字段 AntDodo.collectToFriendType = 1, 字段类型=ChoiceModelField
+02日 01:20:06.07 [WebSettingsActivity]: setModel: 设置字段 AntDodo.collectToFriendList = [ ], 字段类型=SelectModelField
+02日 01:20:06.08 [WebSettingsActivity]: setModel: 设置字段 AntDodo.sendFriendCard = [ ], 字段类型=SelectModelField
+02日 01:20:06.08 [WebSettingsActivity]: setModel: 设置字段 AntDodo.useProp = true, 字段类型=BooleanModelField
+02日 01:20:06.08 [WebSettingsActivity]: setModel: 设置字段 AntDodo.usePropCollectTimes7Days = true, 字段类型=BooleanModelField
+02日 01:20:06.08 [WebSettingsActivity]: setModel: 设置字段 AntDodo.usePropCollectHistoryAnimal7Days = true, 字段类型=BooleanModelField
+02日 01:20:06.08 [WebSettingsActivity]: setModel: 设置字段 AntDodo.usePropCollectToFriendTimes7Days = true, 字段类型=BooleanModelField
+02日 01:20:06.08 [WebSettingsActivity]: setModel: 设置字段 AntDodo.autoGenerateBook = false, 字段类型=BooleanModelField
+02日 01:20:06.09 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.enable = false, 字段类型=BooleanModelField
+02日 01:20:06.09 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.cooperateWaterList = { }, 字段类型=SelectAndCountModelField
+02日 01:20:06.09 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.cooperateWaterTotalLimitList = { }, 字段类型=SelectAndCountModelField
+02日 01:20:06.09 [WebSettingsActivity]: setModel: 设置字段 AntCooperate.cooperateSendCooperateBeckon = true, 字段类型=BooleanModelField
+02日 01:20:06.09 [WebSettingsActivity]: setModel: 设置字段 AntSports.enable = true, 字段类型=BooleanModelField
+02日 01:20:06.09 [WebSettingsActivity]: setModel: 设置字段 AntSports.walk = true, 字段类型=BooleanModelField
+02日 01:20:06.09 [WebSettingsActivity]: setModel: 设置字段 AntSports.walkPathTheme = 0, 字段类型=ChoiceModelField
+02日 01:20:06.10 [WebSettingsActivity]: setModel: 设置字段 AntSports.walkCustomPath = false, 字段类型=BooleanModelField
+02日 01:20:06.10 [WebSettingsActivity]: setModel: 设置字段 AntSports.walkCustomPathId = p0002023122214520001, 字段类型=StringModelField
+02日 01:20:06.10 [WebSettingsActivity]: setModel: 设置字段 AntSports.openTreasureBox = true, 字段类型=BooleanModelField
+02日 01:20:06.10 [WebSettingsActivity]: setModel: 设置字段 AntSports.sportsTasks = true, 字段类型=BooleanModelField
+02日 01:20:06.10 [WebSettingsActivity]: setModel: 设置字段 AntSports.sportsTaskBlacklist = 开通包裹查询服务,添加支付宝小组件,领取价值1.7万元配置,支付宝积分可兑券, 字段类型=StringModelField
+02日 01:20:06.10 [WebSettingsActivity]: setModel: 设置字段 AntSports.receiveCoinAsset = true, 字段类型=BooleanModelField
+02日 01:20:06.10 [WebSettingsActivity]: setModel: 设置字段 AntSports.donateCharityCoin = true, 字段类型=BooleanModelField
+02日 01:20:06.11 [WebSettingsActivity]: setModel: 设置字段 AntSports.donateCharityCoinType = 0, 字段类型=ChoiceModelField
+02日 01:20:06.11 [WebSettingsActivity]: setModel: 设置字段 AntSports.donateCharityCoinAmount = 100, 字段类型=IntegerModelField
+02日 01:20:06.11 [WebSettingsActivity]: setModel: 设置字段 AntSports.battleForFriends = false, 字段类型=BooleanModelField
+02日 01:20:06.11 [WebSettingsActivity]: setModel: 设置字段 AntSports.battleForFriendType = 1, 字段类型=ChoiceModelField
+02日 01:20:06.11 [WebSettingsActivity]: setModel: 设置字段 AntSports.originBossIdList = [ ], 字段类型=SelectModelField
+02日 01:20:06.11 [WebSettingsActivity]: setModel: 设置字段 AntSports.trainFriend = true, 字段类型=BooleanModelField
+02日 01:20:06.11 [WebSettingsActivity]: setModel: 设置字段 AntSports.zeroCoinLimit = 5, 字段类型=IntegerModelField
+02日 01:20:06.12 [WebSettingsActivity]: setModel: 设置字段 AntSports.bicubic = true, 字段类型=BooleanModelField
+02日 01:20:06.12 [WebSettingsActivity]: setModel: 设置字段 AntSports.minExchangeCount = 100000, 字段类型=IntegerModelField
+02日 01:20:06.12 [WebSettingsActivity]: setModel: 设置字段 AntSports.latestExchangeTime = 22, 字段类型=IntegerModelField
+02日 01:20:06.12 [WebSettingsActivity]: setModel: 设置字段 AntSports.syncStepCount = 100000, 字段类型=IntegerModelField
+02日 01:20:06.12 [WebSettingsActivity]: setModel: 设置字段 AntSports.coinExchangeDoubleCard = false, 字段类型=BooleanModelField
+02日 01:20:06.12 [WebSettingsActivity]: setModel: 设置字段 AntMember.enable = true, 字段类型=BooleanModelField
+02日 01:20:06.13 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberSign = true, 字段类型=BooleanModelField
+02日 01:20:06.13 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberTask = true, 字段类型=BooleanModelField
+02日 01:20:06.13 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberPointExchangeBenefit = false, 字段类型=BooleanModelField
+02日 01:20:06.13 [WebSettingsActivity]: setModel: 设置字段 AntMember.memberPointExchangeBenefitList = [ "202312190048249280" ], 字段类型=SelectModelField
+02日 01:20:06.13 [WebSettingsActivity]: setModel: 设置字段 AntMember.sesameTask = true, 字段类型=BooleanModelField
+02日 01:20:06.13 [WebSettingsActivity]: setModel: 设置字段 AntMember.collectSesame = true, 字段类型=BooleanModelField
+02日 01:20:06.13 [WebSettingsActivity]: setModel: 设置字段 AntMember.collectSesameWithOneClick = true, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.collectInsuredGold = false, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.enableGoldTicket = false, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.enableGameCenter = false, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.merchantSign = false, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.merchantKmdk = false, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.merchantMoreTask = false, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.beanSignIn = false, 字段类型=BooleanModelField
+02日 01:20:06.14 [WebSettingsActivity]: setModel: 设置字段 AntMember.beanExchangeBubbleBoost = false, 字段类型=BooleanModelField
+02日 01:20:06.15 [WebSettingsActivity]: setModel: 设置字段 AncientTree.enable = false, 字段类型=BooleanModelField
+02日 01:20:06.15 [WebSettingsActivity]: setModel: 设置字段 AncientTree.ancientTreeOnlyWeek = false, 字段类型=BooleanModelField
+02日 01:20:06.15 [WebSettingsActivity]: setModel: 设置字段 AncientTree.ancientTreeCityCodeList = [ ], 字段类型=SelectModelField
+02日 01:20:06.15 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.enable = true, 字段类型=BooleanModelField
+02日 01:20:06.16 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLsxd = true, 字段类型=BooleanModelField
+02日 01:20:06.16 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLscg = true, 字段类型=BooleanModelField
+02日 01:20:06.16 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLsbg = true, 字段类型=BooleanModelField
+02日 01:20:06.16 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceWdxd = true, 字段类型=BooleanModelField
+02日 01:20:06.16 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceLswl = true, 字段类型=BooleanModelField
+02日 01:20:06.16 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinancePointFriend = true, 字段类型=BooleanModelField
+02日 01:20:06.16 [WebSettingsActivity]: setModel: 设置字段 GreenFinance.greenFinanceDonation = true, 字段类型=BooleanModelField
+02日 01:20:06.17 [WebSettingsActivity]: setModel: 设置字段 Reserve.enable = false, 字段类型=BooleanModelField
+02日 01:20:06.17 [WebSettingsActivity]: setModel: 设置字段 Reserve.reserveList = { }, 字段类型=SelectAndCountModelField
+02日 01:20:06.17 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.enable = false, 字段类型=BooleanModelField
+02日 01:20:06.17 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.useGeminiAI = 0, 字段类型=ChoiceModelField
+02日 01:20:06.17 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getTongyiAIToken = https://help.aliyun.com/zh/dashscope/developer-reference/acquisition-and-configuration-of-api-key, 字段类型=UrlTextModelField
+02日 01:20:06.18 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getGeminiAIToken = https://aistudio.google.com/app/apikey, 字段类型=UrlTextModelField
+02日 01:20:06.18 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getDeepSeekToken = https://platform.deepseek.com/usage, 字段类型=UrlTextModelField
+02日 01:20:06.18 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.getCustomServiceToken = 下面这个不用动可以白嫖到3月10号让我们感谢讯飞大善人🙏, 字段类型=ReadOnlyTextModelField
+02日 01:20:06.18 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.CustomServiceToken = sk-pQF9jek0CTTh3boKDcA9DdD7340a4e929eD00a13F681Cd8e, 字段类型=StringModelField
+02日 01:20:06.18 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.CustomServiceBaseUrl = https://maas-api.cn-huabei-1.xf-yun.com/v1, 字段类型=StringModelField
+02日 01:20:06.18 [WebSettingsActivity]: setModel: 设置字段 AnswerAI.CustomServiceModel = xdeepseekr1, 字段类型=StringModelField
+02日 01:20:06.28 [WebSettingsActivity]: WebSettingsActivity.handleOnBackPressed: save
+02日 01:20:06.29 [Config]: 保存 [惠琴] 配置
+02日 01:20:06.29 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:20:06.29 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:20:06.29 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:20:06.30 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:20:06.30 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:20:06.30 [ApplicationHook]: Alipay got Broadcast com.eg.android.AlipayGphone.sesame.restart intent:Intent { act=com.eg.android.AlipayGphone.sesame.restart flg=0x10 (has extras) }
+02日 01:20:06.30 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:20:06.30 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:20:06.30 [Files]: friend.json permissions: r=true; w=true
+02日 01:20:06.30 [ApplicationHook]: initHandler: 已初始化，跳过
+02日 01:20:06.30 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:20:06.30 [ApplicationHook]: initHandler: 已初始化，跳过
+02日 01:20:06.30 [ApplicationHook]: initHandler: 已初始化，跳过
+02日 01:20:06.30 stack: java.lang.Exception: 获取当前堆栈ApplicationHook:
+	at fansirsqi.xposed.sesame.util.Log.printStack(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:16)
+	at fansirsqi.xposed.sesame.hook.ApplicationHookEntry$AlipayBroadcastReceiver.onReceive(r8-map-id-9abb34d0a5165f613e9a4e5c1dab3ba3ad0bfdb6065f4520023292593316435b:139)
+	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1564)
+	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:236)
+	at android.app.ActivityThread.main(ActivityThread.java:8060)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:656)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:967)
+
+02日 01:20:06.30 [ApplicationHook]: initHandler: 已初始化，跳过
+02日 01:20:06.31 [ApplicationHook]: initHandler: 已初始化，跳过
+02日 01:20:06.31 [Files]: cooperateMap.json permissions: r=true; w=true
+02日 01:20:06.34 [Files]: File permissions for /storage/emulated/0/Android/media/com.eg.android.AlipayGphone/sesame-TK/config/app_config.json: r=true; w=true
+02日 01:20:06.35 [UIConfig]: 重置UI配置
+02日 01:20:06.36 [Files]: self.json permissions: r=true; w=true
+02日 01:20:06.37 [Files]: self.json permissions: r=true; w=true
+02日 01:20:06.38 [Files]: self.json permissions: r=true; w=true
+02日 01:20:06.39 [Files]: self.json permissions: r=true; w=true
+02日 01:20:06.40 [Files]: self.json permissions: r=true; w=true
+02日 01:20:06.41 [MainActivity]: 加载用户配置: 共5个账号
+02日 01:20:06.41 [MainActivity]: isModuleActivated: true
