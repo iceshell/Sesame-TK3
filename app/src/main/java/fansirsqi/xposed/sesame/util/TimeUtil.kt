@@ -102,12 +102,8 @@ object TimeUtil {
     @JvmStatic
     fun isCompareTimeStr(timeMillis: Long, compareTimeStr: String): Int? {
         return try {
-            val timeCalendar = getCalendarByTimeMillis(timeMillis)
-            val compareCalendar = getTodayCalendarByTimeStr(compareTimeStr)
-            
-            if (timeCalendar == null || compareCalendar == null) {
-                return null
-            }
+            val timeCalendar = getCalendarByTimeMillis(timeMillis) ?: return null
+            val compareCalendar = getTodayCalendarByTimeStr(compareTimeStr) ?: return null
             
             // Compare only the time part (hours, minutes, seconds)
             val timeOfDay1 = timeCalendar.get(Calendar.HOUR_OF_DAY) * 3600 + 

@@ -1065,7 +1065,7 @@ class AntOcean : ModelTask() {
                                 }
                             }
                             if (idSet.isNotEmpty()) {
-                                val usePropResult = AntOceanRpcCall.usePropByType(order, idSet)
+                                val usePropResult = AntOceanRpcCall.usePropByType(order, idSet) ?: continue
                                 val usePropResultObj = JSONObject(usePropResult)
                                 if (ResChecker.checkRes(TAG, usePropResultObj)) {
                                     val userCount = idSet.size

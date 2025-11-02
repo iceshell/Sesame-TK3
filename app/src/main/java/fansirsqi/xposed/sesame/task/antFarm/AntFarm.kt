@@ -3355,12 +3355,7 @@ class AntFarm : ModelTask() {
                                 val awardName = gameCenterDrawAward.getString("awardName")
                                 awards.add("$awardName*$awardCount")
                             }
-                            Log.farm(
-                                "庄园小鸡🎁[开宝箱:获得" + StringUtil.collectionJoinString(
-                                    ",",
-                                    awards
-                                ) + "]"
-                            )
+                            Log.farm("庄园小鸡🎁[开宝箱:获得${awards.joinToString(",")}]")
                         } else {
                             Log.runtime(TAG, "drawGameCenterAward falsed result: $jo")
                         }

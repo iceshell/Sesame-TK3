@@ -33,7 +33,7 @@ class SelectOneModelField : ModelField<String>, SelectModelFieldFunc {
 
     override fun getType(): String = "SELECT_ONE"
 
-    override fun getExpandValue(): List<out MapperEntity>? {
+    override fun getExpandValue(): List<MapperEntity>? {
         return selectListFunc?.getList() ?: expandValueList
     }
 
@@ -80,6 +80,6 @@ class SelectOneModelField : ModelField<String>, SelectModelFieldFunc {
      * 选择列表函数接口
      */
     fun interface SelectListFunc {
-        fun getList(): List<out MapperEntity>
+        fun getList(): List<MapperEntity>
     }
 }

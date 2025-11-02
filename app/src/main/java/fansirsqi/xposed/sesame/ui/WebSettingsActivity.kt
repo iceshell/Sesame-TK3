@@ -241,6 +241,7 @@ class WebSettingsActivity : BaseActivity() {
                     Log.runtime(TAG, "WebView: 页面加载完成 - $url")
                 }
 
+                @Deprecated("Deprecated in Java")
                 override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
                     super.onReceivedError(view, errorCode, description, failingUrl)
                     Log.error(TAG, "WebView加载错误: code=$errorCode, desc=$description, url=$failingUrl")

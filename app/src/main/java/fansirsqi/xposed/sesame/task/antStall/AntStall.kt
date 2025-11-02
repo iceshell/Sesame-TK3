@@ -1016,9 +1016,8 @@ class AntStall : ModelTask() {
                 val userInfo = jsonResponse.optJSONObject("astUserInfoVO")
                 if (userInfo != null) {
                     // 获取当前余额的金额
-                    val currentCoinAmount =
-                        Objects.requireNonNull<JSONObject?>(userInfo.optJSONObject("currentCoin"))
-                            .optDouble("amount", 0.0)
+                    val currentCoinAmount = userInfo.optJSONObject("currentCoin")
+                        ?.optDouble("amount", 0.0) ?: 0.0
                     // 检查当前余额是否大于15000
                     if (currentCoinAmount < 15000) {
                         // 当 currentCoinAmount 小于 15000 时，直接返回，不执行后续操作

@@ -53,7 +53,7 @@ class SelectModelField : ModelField<MutableSet<String?>>, SelectModelFieldFunc {
     override fun getType(): String = "SELECT"
 
     @Throws(JSONException::class)
-    override fun getExpandValue(): List<out MapperEntity>? {
+    override fun getExpandValue(): List<MapperEntity>? {
         return selectListFunc?.getList() ?: expandValueList
     }
     
@@ -119,6 +119,6 @@ class SelectModelField : ModelField<MutableSet<String?>>, SelectModelFieldFunc {
 
     fun interface SelectListFunc {
         @Throws(JSONException::class)
-        fun getList(): List<out MapperEntity>
+        fun getList(): List<MapperEntity>
     }
 }

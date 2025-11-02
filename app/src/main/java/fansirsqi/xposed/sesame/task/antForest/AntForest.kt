@@ -2241,7 +2241,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             for (i in 0..<friendList.length()) {
                 val friendObj = friendList.getJSONObject(i)
                 val userId = friendObj.optString("userId", "")
-                val displayName = friendObj.optString("displayName", UserMap.getMaskName(userId))
+                val displayName = friendObj.optString("displayName").let { 
+                    if (it.isNotEmpty()) it else (UserMap.getMaskName(userId) ?: userId)
+                }
                 friendNames.add(displayName)
             }
 
@@ -2312,7 +2314,9 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             return  // 跳过处理
         }
 
-        var userName = obj.optString("displayName", UserMap.getMaskName(userId))
+        var userName = obj.optString("displayName").let { 
+            if (it.isNotEmpty()) it else (UserMap.getMaskName(userId) ?: userId)
+        }
         if (emptyForestCache.containsKey(userId)) { //本轮已知为空的树林
             return
         }

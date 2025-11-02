@@ -43,7 +43,7 @@ class DebugRpc {
 
     private fun getNewTreeItems() {
         try {
-            val s = ReserveRpcCall.queryTreeItemsForExchange()
+            val s = ReserveRpcCall.queryTreeItemsForExchange() ?: return
             val jo = JSONObject(s)
             if (ResChecker.checkRes(TAG, jo)) {
                 val ja = jo.getJSONArray("treeItems")
@@ -71,7 +71,7 @@ class DebugRpc {
      */
     private fun queryTreeForExchange(projectId: String) {
         try {
-            val response = ReserveRpcCall.queryTreeForExchange(projectId)
+            val response = ReserveRpcCall.queryTreeForExchange(projectId) ?: return
             val jo = JSONObject(response)
             if (ResChecker.checkRes(TAG, jo)) {
                 val exchangeableTree = jo.getJSONObject("exchangeableTree")
@@ -106,7 +106,7 @@ class DebugRpc {
      */
     private fun getTreeItems() {
         try {
-            val response = ReserveRpcCall.queryTreeItemsForExchange()
+            val response = ReserveRpcCall.queryTreeItemsForExchange() ?: return
             val jo = JSONObject(response)
             if (ResChecker.checkRes(TAG, jo)) {
                 val ja = jo.getJSONArray("treeItems")
@@ -139,7 +139,7 @@ class DebugRpc {
      */
     private fun getTreeCurrentBudget(projectId: String, treeName: String) {
         try {
-            val response = ReserveRpcCall.queryTreeForExchange(projectId)
+            val response = ReserveRpcCall.queryTreeForExchange(projectId) ?: return
             val jo = JSONObject(response)
             if (ResChecker.checkRes(TAG, jo)) {
                 val exchangeableTree = jo.getJSONObject("exchangeableTree")
@@ -163,7 +163,7 @@ class DebugRpc {
      */
     private fun walkGrid() {
         try {
-            val s = DebugRpcCall.walkGrid()
+            val s = DebugRpcCall.walkGrid() ?: return
             val jo = JSONObject(s)
             if (jo.getBoolean("success")) {
                 val data = jo.getJSONObject("data")
@@ -178,7 +178,8 @@ class DebugRpc {
                     val key = miniGameInfo.getString("key")
                     
                     GlobalThreadPools.sleepCompat(4000L)
-                    val gameResult = JSONObject(DebugRpcCall.miniGameFinish(gameId, key))
+                    val gameResultStr = DebugRpcCall.miniGameFinish(gameId, key) ?: return
+                    val gameResult = JSONObject(gameResultStr)
                     
                     if (gameResult.getBoolean("success")) {
                         val miniGamedata = gameResult.getJSONObject("data")
@@ -186,12 +187,12 @@ class DebugRpc {
                             val adVO = miniGamedata.getJSONObject("adVO")
                             if (adVO.has("adBizNo")) {
                                 val adBizNo = adVO.getString("adBizNo")
-                                val taskResult = JSONObject(DebugRpcCall.taskFinish(adBizNo))
+                                val taskResultStr = DebugRpcCall.taskFinish(adBizNo) ?: return
+                                val taskResult = JSONObject(taskResultStr)
                                 
                                 if (taskResult.getBoolean("success")) {
-                                    val queryResult = JSONObject(
-                                        DebugRpcCall.queryAdFinished(adBizNo, "NEVERLAND_DOUBLE_AWARD_AD")
-                                    )
+                                    val queryResultStr = DebugRpcCall.queryAdFinished(adBizNo, "NEVERLAND_DOUBLE_AWARD_AD") ?: return
+                                    val queryResult = JSONObject(queryResultStr)
                                     if (queryResult.getBoolean("success")) {
                                         Log.farm("完成双倍奖励🎁")
                                     }
@@ -220,7 +221,8 @@ class DebugRpc {
 
     private fun queryAreaTrees() {
         try {
-            val jo = JSONObject(ReserveRpcCall.queryAreaTrees())
+            val resultStr = ReserveRpcCall.queryAreaTrees() ?: return
+            val jo = JSONObject(resultStr)
             if (!ResChecker.checkRes(TAG, jo)) return
             
             val areaTrees = jo.getJSONObject("areaTrees")
@@ -243,7 +245,8 @@ class DebugRpc {
 
     private fun getUnlockTreeItems() {
         try {
-            val jo = JSONObject(ReserveRpcCall.queryTreeItemsForExchange("", "project"))
+            val resultStr = ReserveRpcCall.queryTreeItemsForExchange("", "project") ?: return
+            val jo = JSONObject(resultStr)
             if (!ResChecker.checkRes(TAG, jo)) return
             
             val ja = jo.getJSONArray("treeItems")

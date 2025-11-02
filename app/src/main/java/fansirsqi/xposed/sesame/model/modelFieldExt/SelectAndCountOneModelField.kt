@@ -31,7 +31,7 @@ class SelectAndCountOneModelField : ModelField<KVMap<String, Int>>, SelectModelF
 
     override fun getType(): String = "SELECT_AND_COUNT_ONE"
 
-    override fun getExpandValue(): List<out MapperEntity>? {
+    override fun getExpandValue(): List<MapperEntity>? {
         return selectListFunc?.getList() ?: expandValueList
     }
 
@@ -87,6 +87,6 @@ class SelectAndCountOneModelField : ModelField<KVMap<String, Int>>, SelectModelF
     }
 
     fun interface SelectListFunc {
-        fun getList(): List<out MapperEntity>
+        fun getList(): List<MapperEntity>
     }
 }
