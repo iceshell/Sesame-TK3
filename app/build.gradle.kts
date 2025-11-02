@@ -38,12 +38,16 @@ android {
         }
     }
     // 获取版本递增计数（兼容配置缓存）
+    // 临时固定版本号为159 - 优化阶段使用
+    val gitCommitCount: Int = 159
+    /*
     val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
         .orElse(providers.provider {
             // 如果git不可用，使用时间戳的后4位作为递增值
             val timestamp = System.currentTimeMillis() / 1000
             (timestamp % 10000).toInt()
         }).get()
+    */
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId = "fansirsqi.xposed.sesame"
