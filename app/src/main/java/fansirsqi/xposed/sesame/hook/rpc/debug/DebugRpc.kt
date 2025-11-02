@@ -50,13 +50,13 @@ class DebugRpc {
                 for (i in 0 until ja.length()) {
                     val item = ja.getJSONObject(i)
                     if (!item.has("projectType")) continue
-                    if (item.getString("projectType") != "TREE") continue
-                    if (item.getString("applyAction") != "COMING") continue
-                    val projectId = item.getString("itemId")
+                    if (item.optString("projectType") != "TREE") continue
+                    if (item.optString("applyAction") != "COMING") continue
+                    val projectId = item.optString("itemId")
                     queryTreeForExchange(projectId)
                 }
             } else {
-                Log.runtime(TAG, jo.getString("resultDesc"))
+                Log.runtime(TAG, jo.optString("resultDesc", "Unknown error"))
             }
         } catch (t: Throwable) {
             Log.runtime(TAG, "getTreeItems err:")
@@ -76,13 +76,13 @@ class DebugRpc {
             if (ResChecker.checkRes(TAG, jo)) {
                 val exchangeableTree = jo.getJSONObject("exchangeableTree")
                 val currentBudget = exchangeableTree.getInt("currentBudget")
-                val region = exchangeableTree.getString("region")
-                val treeName = exchangeableTree.getString("treeName")
+                val region = exchangeableTree.optString("region", "")
+                val treeName = exchangeableTree.optString("treeName", "")
                 
                 val tips = if (exchangeableTree.optBoolean("canCoexchange", false)) {
                     val coexchangeTypeIdList = exchangeableTree
                         .getJSONObject("extendInfo")
-                        .getString("cooperate_template_id_list")
+                        .optString("cooperate_template_id_list", "")
                     "可以合种-合种类型：$coexchangeTypeIdList"
                 } else {
                     "不可合种"
@@ -90,7 +90,7 @@ class DebugRpc {
                 
                 Log.debug(TAG, "新树上苗🌱[$region-$treeName]#${currentBudget}株-$tips")
             } else {
-                Log.record("${jo.getString("resultDesc")} projectId: $projectId")
+                Log.record("${jo.optString("resultDesc", "Error")} projectId: $projectId")
             }
         } catch (e: JSONException) {
             Log.runtime(TAG, "JSON解析错误:")
@@ -113,14 +113,14 @@ class DebugRpc {
                 for (i in 0 until ja.length()) {
                     val item = ja.getJSONObject(i)
                     if (!item.has("projectType")) continue
-                    if (item.getString("applyAction") != "AVAILABLE") continue
-                    val projectId = item.getString("itemId")
-                    val itemName = item.getString("itemName")
+                    if (item.optString("applyAction") != "AVAILABLE") continue
+                    val projectId = item.optString("itemId")
+                    val itemName = item.optString("itemName")
                     getTreeCurrentBudget(projectId, itemName)
                     GlobalThreadPools.sleepCompat(100)
                 }
             } else {
-                Log.runtime(TAG, jo.getString("resultDesc"))
+                Log.runtime(TAG, jo.optString("resultDesc", "Unknown error"))
             }
         } catch (e: JSONException) {
             Log.runtime(TAG, "JSON解析错误:")
@@ -144,10 +144,10 @@ class DebugRpc {
             if (ResChecker.checkRes(TAG, jo)) {
                 val exchangeableTree = jo.getJSONObject("exchangeableTree")
                 val currentBudget = exchangeableTree.getInt("currentBudget")
-                val region = exchangeableTree.getString("region")
+                val region = exchangeableTree.optString("region", "")
                 Log.debug(TAG, "树苗查询🌱[$region-$treeName]#剩余:$currentBudget")
             } else {
-                Log.record("${jo.getString("resultDesc")} projectId: $projectId")
+                Log.record("${jo.optString("resultDesc", "Error")} projectId: $projectId")
             }
         } catch (e: JSONException) {
             Log.runtime(TAG, "JSON解析错误:")
@@ -174,8 +174,8 @@ class DebugRpc {
                 
                 if (mapAward.has("miniGameInfo")) {
                     val miniGameInfo = mapAward.getJSONObject("miniGameInfo")
-                    val gameId = miniGameInfo.getString("gameId")
-                    val key = miniGameInfo.getString("key")
+                    val gameId = miniGameInfo.optString("gameId")
+                    val key = miniGameInfo.optString("key")
                     
                     GlobalThreadPools.sleepCompat(4000L)
                     val gameResultStr = DebugRpcCall.miniGameFinish(gameId, key) ?: return
@@ -186,7 +186,7 @@ class DebugRpc {
                         if (miniGamedata.has("adVO")) {
                             val adVO = miniGamedata.getJSONObject("adVO")
                             if (adVO.has("adBizNo")) {
-                                val adBizNo = adVO.getString("adBizNo")
+                                val adBizNo = adVO.optString("adBizNo")
                                 val taskResultStr = DebugRpcCall.taskFinish(adBizNo) ?: return
                                 val taskResult = JSONObject(taskResultStr)
                                 
@@ -208,7 +208,7 @@ class DebugRpc {
                     walkGrid() // 递归调用，继续行走
                 }
             } else {
-                Log.record("${jo.getString("errorMsg")}$s")
+                Log.record("${jo.optString("errorMsg", "Error")}$s")
             }
         } catch (e: JSONException) {
             Log.runtime(TAG, "JSON解析错误:")
@@ -269,6 +269,6 @@ class DebugRpc {
     }
 
     companion object {
-        private val TAG = DebugRpc::class.java.canonicalName
+        private const val TAG = "DebugRpc"
     }
 }

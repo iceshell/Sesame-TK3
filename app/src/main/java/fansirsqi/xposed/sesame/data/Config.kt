@@ -129,8 +129,8 @@ class Config private constructor() {
             }
 
             val json = Files.readFromFile(configV2File) ?: return true
-            val formatted = JsonUtil.formatJson(INSTANCE)
-            return formatted == null || formatted != json
+            val formatted = JsonUtil.formatJson(INSTANCE) ?: return true
+            return formatted != json
         }
 
         /**

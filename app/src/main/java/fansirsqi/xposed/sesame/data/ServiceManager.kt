@@ -30,7 +30,7 @@ object ServiceManager {
     private val listeners = CopyOnWriteArrayList<(ConnectionState) -> Unit>()
 
     /** 是否已初始化 */
-    private val isInitialized = AtomicReference(false)
+    private val isInitialized = java.util.concurrent.atomic.AtomicBoolean(false)
 
     /** 初始化 ServiceManager 并注册 XposedService 监听 */
     fun init() {

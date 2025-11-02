@@ -437,7 +437,7 @@ class Status {
                 Log.runtime(TAG, "状态文件格式有误，已重置")
                 resetAndSaveConfig()
             }
-            if (INSTANCE.saveTime == null || INSTANCE.saveTime == 0L) {
+            if (INSTANCE.saveTime == 0L) {
                 INSTANCE.saveTime = System.currentTimeMillis()
             }
             return INSTANCE
