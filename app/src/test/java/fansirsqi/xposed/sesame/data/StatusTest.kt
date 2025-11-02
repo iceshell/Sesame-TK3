@@ -11,10 +11,15 @@ import java.util.Calendar
  * Status状态管理测试
  * 测试状态加载、保存、日期更新等核心功能
  * 
- * 注意：这些测试需要Android环境支持（Files、Log类依赖Android API）
- * 暂时禁用，等待Robolectric配置完成后启用
+ * 注意：Status类依赖Files类，Files在静态初始化时会访问Android API
+ * 这导致在JVM单元测试中会出现SecurityException
+ * 
+ * 解决方案：
+ * 1. 这些测试需要在真实Android环境中运行（Instrumented Tests）
+ * 2. 或者重构Files类，延迟初始化Android相关的字段
+ * 3. 暂时保持忽略状态
  */
-@Ignore("需要Android环境支持 - 等待Robolectric配置")
+@Ignore("需要Android环境支持 - Files类静态初始化依赖Android API")
 class StatusTest : BaseTest() {
     
     private val status = Status.INSTANCE

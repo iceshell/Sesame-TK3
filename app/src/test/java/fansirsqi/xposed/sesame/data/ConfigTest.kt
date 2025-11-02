@@ -15,10 +15,15 @@ import java.io.File
  * Config配置管理测试 - 基础版本
  * 只测试Config的核心API，不依赖ModelField相关类
  * 
- * 注意：Config类依赖Files类的静态初始化，需要Android环境
- * 暂时禁用，等待Robolectric配置完成后启用
+ * 注意：Config类依赖Files类的静态初始化，Files在初始化时会访问Android API
+ * 这导致在JVM单元测试中会出现SecurityException
+ * 
+ * 解决方案：
+ * 1. 这些测试需要在真实Android环境中运行（Instrumented Tests）
+ * 2. 或者重构Files类，延迟初始化Android相关的字段
+ * 3. 暂时保持忽略状态
  */
-@Ignore("需要Android环境支持 - Config依赖Files静态初始化")
+@Ignore("需要Android环境支持 - Files类静态初始化依赖Android API")
 class ConfigTest : BaseTest() {
     
     private val config = Config.INSTANCE
