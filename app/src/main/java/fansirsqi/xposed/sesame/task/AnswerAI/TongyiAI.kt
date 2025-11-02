@@ -58,10 +58,8 @@ class TongyiAI(token: String?) : AnswerAIInterface {
                 .build()
             
             response = client.newCall(request).execute()
-            if (response.body == null) {
-                return result
-            }
-            val json = response.body!!.string()
+            val responseBody = response.body ?: return result
+            val json = responseBody.string()
             if (!response.isSuccessful) {
                 Log.other("Tongyi请求失败")
                 Log.record(TAG, "Tongyi接口异常：$json")

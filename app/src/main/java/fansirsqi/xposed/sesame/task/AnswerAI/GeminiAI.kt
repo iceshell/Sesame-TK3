@@ -69,10 +69,8 @@ class GeminiAI(token: String?) : AnswerAIInterface {
                 .build()
 
             client.newCall(request).execute().use { response ->
-                if (response.body == null) {
-                    return result
-                }
-                val json = response.body!!.string()
+                val responseBody = response.body ?: return result
+                val json = responseBody.string()
                 if (!response.isSuccessful) {
                     Log.other("Gemini请求失败")
                     Log.runtime(TAG, "Gemini接口异常：$json")

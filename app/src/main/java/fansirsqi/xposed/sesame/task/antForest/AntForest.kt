@@ -1402,7 +1402,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             )
 
                             val actualWaterCount: Int = waterCountKVNode.key ?: 0
-                            if (actualWaterCount > 0 && uid != null) {
+                            if (actualWaterCount > 0) {
                                 Status.waterFriendToday(uid, actualWaterCount)
                             }
                             if (java.lang.Boolean.FALSE == waterCountKVNode.value) {

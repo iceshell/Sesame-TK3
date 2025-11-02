@@ -411,7 +411,7 @@ class AntStall : ModelTask() {
                     }
                     if (friend.getBoolean("canInviteOpenShop")) {
                         s = AntStallRpcCall.oneKeyInviteOpenShop(friendUserId, seatId)
-                        if (s == null || s.isEmpty()) {
+                        if (s.isNullOrEmpty()) {
                             record(TAG, "邀请[" + getMaskName(friendUserId) + "]开店返回空，跳过")
                             continue
                         }
@@ -785,7 +785,7 @@ class AntStall : ModelTask() {
                         "ANTSTALL_XLIGHT_VARIABLE_AWARD" -> {
                             //【木兰市集】逛精选好物
                             s = AntStallRpcCall.xlightPlugin()
-                            if (s == null || s.isEmpty()) {
+                            if (s.isNullOrEmpty()) {
                                 runtime(TAG, "taskList.xlightPlugin 返回空响应，跳过")
                                 continue
                             }

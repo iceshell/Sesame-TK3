@@ -717,7 +717,7 @@ class AntSports : ModelTask() {
                 return
             }
             val joinedPathId = data.optString("joinedPathId")
-            if (joinedPathId == null || joinedPathId.isEmpty()) {
+            if (joinedPathId.isNullOrEmpty()) {
                 record(TAG, "行走路线🚶🏻‍♂️用户尚未加入任何路线")
                 return
             }
@@ -879,7 +879,7 @@ class AntSports : ModelTask() {
             val jo = JSONObject(AntSportsRpcCall.joinPath(pathId))
             if (jo.optBoolean("success")) {
                 val path = queryPath(pathId) // 调用本地方法
-                if (path != null && path.has("path")) {
+                if (path?.has("path") == true) {
                     record(
                         TAG,
                         "行走路线🚶🏻‍♂️路线[" + path.getJSONObject("path").getString("name") + "]已加入"

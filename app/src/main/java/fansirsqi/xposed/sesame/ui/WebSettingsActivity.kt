@@ -371,19 +371,11 @@ class WebSettingsActivity : BaseActivity() {
             val modelGroup = ModelGroup.getByCode(groupCode) ?: return "FAILED"
             val modelConfigSet = Model.getGroupModelConfig(modelGroup)
             for (modelDto in modelDtoList) {
-                val modelConfig = modelConfigSet[modelDto.modelCode]
-                if (modelConfig != null) {
-                    val modelFields = modelDto.modelFields
-                    if (modelFields != null) {
-                        for (newModelField in modelFields) {
-                            if (newModelField != null) {
-                                val modelField = modelConfig.getModelField(newModelField.code)
-                                if (modelField != null) {
-                                    modelField.setConfigValue(newModelField.configValue)
-                                }
-                            }
-                        }
-                    }
+                val modelConfig = modelConfigSet[modelDto.modelCode] ?: continue
+                val modelFields = modelDto.modelFields ?: continue
+                for (newModelField in modelFields) {
+                    val modelField = modelConfig.getModelField(newModelField.code) ?: continue
+                    modelField.setConfigValue(newModelField.configValue)
                 }
             }
             return "SUCCESS"
@@ -394,26 +386,25 @@ class WebSettingsActivity : BaseActivity() {
             return try {
                 Log.runtime(TAG, "getModel调用: modelCode=$modelCode")
                 val modelConfig = Model.getModelConfigMap()[modelCode]
-                if (modelConfig != null) {
-                    val modelFields = modelConfig.fields
-                    val list = ArrayList<ModelFieldShowDto>()
-                    for (modelField in modelFields.values) {
-                        try {
-                            list.add(ModelFieldShowDto.toShowDto(modelField))
-                        } catch (e: Exception) {
-                            Log.error(TAG, "getModel转换字段失败: field=${modelField.code}, error=${e.message}")
-                            Log.printStackTrace(TAG, e)
-                        }
-                    }
-                    val result = JsonUtil.formatJson(list, false)
-                    if (BuildConfig.DEBUG) {
-                        Log.runtime(TAG, "WebSettingsActivity.getModel: $result")
-                    }
-                    result
-                } else {
+                if (modelConfig == null) {
                     Log.error(TAG, "getModel: modelConfig为null, modelCode=$modelCode")
-                    "[]"
+                    return "[]"
                 }
+                val modelFields = modelConfig.fields
+                val list = ArrayList<ModelFieldShowDto>()
+                for (modelField in modelFields.values) {
+                    try {
+                        list.add(ModelFieldShowDto.toShowDto(modelField))
+                    } catch (e: Exception) {
+                        Log.error(TAG, "getModel转换字段失败: field=${modelField.code}, error=${e.message}")
+                        Log.printStackTrace(TAG, e)
+                    }
+                }
+                val result = JsonUtil.formatJson(list, false)
+                if (BuildConfig.DEBUG) {
+                    Log.runtime(TAG, "WebSettingsActivity.getModel: $result")
+                }
+                result
             } catch (e: Exception) {
                 Log.error(TAG, "getModel发生异常: modelCode=$modelCode, error=${e.message}")
                 Log.printStackTrace(TAG, e)
@@ -423,70 +414,53 @@ class WebSettingsActivity : BaseActivity() {
 
         @JavascriptInterface
         fun setModel(modelCode: String, fieldsValue: String): String {
-            val modelConfig = Model.getModelConfigMap()[modelCode]
-            if (modelConfig != null) {
-                try {
-                    val modelFields = modelConfig.fields
-                    val map = JsonUtil.parseObject(fieldsValue, object : TypeReference<Map<String, ModelFieldShowDto>>() {})
-                    if (map != null) {
-                        for ((key, newModelField) in map) {
-                            if (newModelField != null) {
-                                val modelField = modelFields[key]
-                                if (modelField != null) {
-                                    val configValue = newModelField.configValue
-                                    if (configValue == null || configValue.trim().isEmpty()) {
-                                        continue
-                                    }
-                                    try {
-                                        Log.runtime(TAG, "setModel: 设置字段 $modelCode.$key = $configValue, 字段类型=${modelField.javaClass.simpleName}")
-                                        modelField.setConfigValue(configValue)
-                                    } catch (e: ClassCastException) {
-                                        Log.error(TAG, "setModel: 字段类型转换失败 $modelCode.$key, 字段类=${modelField.javaClass.name}, valueType=${modelField.getType()}")
-                                        Log.printStackTrace(TAG, e)
-                                    }
-                                }
-                            }
-                        }
-                        return "SUCCESS"
+            val modelConfig = Model.getModelConfigMap()[modelCode] ?: return "FAILED"
+            try {
+                val modelFields = modelConfig.fields
+                val map = JsonUtil.parseObject(fieldsValue, object : TypeReference<Map<String, ModelFieldShowDto>>() {}) ?: return "FAILED"
+                for ((key, newModelField) in map) {
+                    val modelField = modelFields[key] ?: continue
+                    val configValue = newModelField.configValue
+                    if (configValue.isNullOrBlank()) {
+                        continue
                     }
-                } catch (e: Exception) {
-                    Log.printStackTrace("WebSettingsActivity", e)
+                    try {
+                        Log.runtime(TAG, "setModel: 设置字段 $modelCode.$key = $configValue, 字段类型=${modelField.javaClass.simpleName}")
+                        modelField.setConfigValue(configValue)
+                    } catch (e: ClassCastException) {
+                        Log.error(TAG, "setModel: 字段类型转换失败 $modelCode.$key, 字段类=${modelField.javaClass.name}, valueType=${modelField.getType()}")
+                        Log.printStackTrace(TAG, e)
+                    }
                 }
+                return "SUCCESS"
+            } catch (e: Exception) {
+                Log.printStackTrace("WebSettingsActivity", e)
             }
             return "FAILED"
         }
 
         @JavascriptInterface
         fun getField(modelCode: String, fieldCode: String): String? {
-            val modelConfig = Model.getModelConfigMap()[modelCode]
-            if (modelConfig != null) {
-                val modelField = modelConfig.getModelField(fieldCode)
-                if (modelField != null) {
-                    val result = JsonUtil.formatJson(ModelFieldInfoDto.toInfoDto(modelField), false)
-                    if (BuildConfig.DEBUG) {
-                        Log.runtime(TAG, "WebSettingsActivity.getField: $result")
-                    }
-                    return result
-                }
+            val modelConfig = Model.getModelConfigMap()[modelCode] ?: return null
+            val modelField = modelConfig.getModelField(fieldCode) ?: return null
+            val result = JsonUtil.formatJson(ModelFieldInfoDto.toInfoDto(modelField), false)
+            if (BuildConfig.DEBUG) {
+                Log.runtime(TAG, "WebSettingsActivity.getField: $result")
             }
-            return null
+            return result
         }
 
         @JavascriptInterface
         fun setField(modelCode: String, fieldCode: String, fieldValue: String): String {
-            val modelConfig = Model.getModelConfigMap()[modelCode]
-            if (modelConfig != null) {
-                try {
-                    val modelField = modelConfig.getModelField(fieldCode)
-                    if (modelField != null) {
-                        modelField.setConfigValue(fieldValue)
-                        return "SUCCESS"
-                    }
-                } catch (e: Exception) {
-                    Log.printStackTrace(e)
-                }
+            val modelConfig = Model.getModelConfigMap()[modelCode] ?: return "FAILED"
+            return try {
+                val modelField = modelConfig.getModelField(fieldCode) ?: return "FAILED"
+                modelField.setConfigValue(fieldValue)
+                "SUCCESS"
+            } catch (e: Exception) {
+                Log.printStackTrace(e)
+                "FAILED"
             }
-            return "FAILED"
         }
 
         @JavascriptInterface

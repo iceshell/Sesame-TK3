@@ -1774,9 +1774,7 @@ class AntFarm : ModelTask() {
             if (!cacheHit) {
                 Log.record(TAG, "缓存未命中，尝试使用AI答题：$title")
                 answer = AnswerAI.getAnswer(title, JsonUtil.jsonArrayToList(labels), "farm")
-                if (answer == null || answer.isEmpty()) {
-                    answer = labels.getString(0) // 默认选择第一个选项
-                }
+                    ?: labels.getString(0) // 默认选择第一个选项
             }
 
             // 提交答案

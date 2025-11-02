@@ -77,10 +77,8 @@ class DeepSeek(apiKey: String?) : AnswerAIInterface {
             .build()
 
         client.newCall(request).execute().use { response ->
-            if (response.body == null) {
-                return ""
-            }
-            val json = response.body!!.string()
+            val responseBody = response.body ?: return ""
+            val json = responseBody.string()
             if (!response.isSuccessful) {
                 Log.other("DeepSeek请求失败")
                 Log.runtime(TAG, "DeepSeek接口异常：$json")
