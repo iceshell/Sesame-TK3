@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.annotation.RequiresPermission
-import fansirsqi.xposed.sesame.hook.ApplicationHook
 
 object NetworkUtils {
 

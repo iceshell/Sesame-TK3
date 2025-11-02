@@ -9,7 +9,6 @@ import fansirsqi.xposed.sesame.data.Status.Companion.donateCharityCoin
 import fansirsqi.xposed.sesame.data.Status.Companion.hasFlagToday
 import fansirsqi.xposed.sesame.data.Status.Companion.setFlagToday
 import fansirsqi.xposed.sesame.entity.AlipayUser
-import fansirsqi.xposed.sesame.hook.ApplicationHook
 import fansirsqi.xposed.sesame.model.BaseModel.Companion.checkInterval
 import fansirsqi.xposed.sesame.model.BaseModel.Companion.energyTime
 import fansirsqi.xposed.sesame.model.BaseModel.Companion.modelSleepTime

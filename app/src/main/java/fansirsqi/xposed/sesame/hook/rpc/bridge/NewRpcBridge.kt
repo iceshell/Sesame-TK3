@@ -3,7 +3,6 @@ package fansirsqi.xposed.sesame.hook.rpc.bridge
 import de.robv.android.xposed.XposedHelpers
 import fansirsqi.xposed.sesame.data.General
 import fansirsqi.xposed.sesame.entity.RpcEntity
-import fansirsqi.xposed.sesame.hook.ApplicationHook
 import fansirsqi.xposed.sesame.hook.rpc.intervallimit.RpcIntervalLimit
 import fansirsqi.xposed.sesame.model.BaseModel
 import fansirsqi.xposed.sesame.util.CoroutineUtils
@@ -162,7 +161,7 @@ class NewRpcBridge : RpcBridge {
         var localLoader = loader
         var localBridgeCallbackClazzArray = bridgeCallbackClazzArray
 
-        if (ApplicationHook.isOffline()) {
+        if (fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
             return null
         }
 
@@ -305,9 +304,9 @@ class NewRpcBridge : RpcBridge {
 
                         if (errorMark.contains(errorCode) || errorStringMark.contains(errorMessage)) {
                             val currentErrorCount = maxErrorCount.incrementAndGet()
-                            if (!ApplicationHook.isOffline()) {
+                            if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
                                 if (currentErrorCount > setMaxErrorCount) {
-                                    ApplicationHook.setOffline(true)
+                                    fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline = true
                                     Notify.updateStatusText("网络连接异常，已进入离线模式")
                                     if (BaseModel.errNotify.value == true) {
                                         Notify.sendErrorNotification(
@@ -324,7 +323,7 @@ class NewRpcBridge : RpcBridge {
                                 }
                                 if (BaseModel.timeoutRestart.value == true) {
                                     Log.record(TAG, "尝试重新登录")
-                                    ApplicationHook.reLoginByBroadcast()
+                                    fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
                                 }
                             }
                             logNullResponse(rpcEntity, "网络错误: $errorCode/$errorMessage", count)

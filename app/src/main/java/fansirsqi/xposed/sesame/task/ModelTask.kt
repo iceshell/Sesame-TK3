@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import lombok.Setter
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -397,7 +396,6 @@ abstract class ModelTask : Model() {
         private val suspendRunnable: (suspend () -> Unit)? = null,
         val execTime: Long = 0L
     ) {
-        @Setter
         var modelTask: ModelTask? = null
         
         /** 协程任务Job */

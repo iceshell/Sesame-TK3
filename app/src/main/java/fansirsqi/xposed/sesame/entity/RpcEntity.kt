@@ -1,6 +1,5 @@
 package fansirsqi.xposed.sesame.entity
 
-import lombok.Getter
 import org.json.JSONException
 import org.json.JSONObject
 import kotlin.concurrent.Volatile
@@ -9,7 +8,6 @@ import kotlin.concurrent.Volatile
  * 表示一个 RPC（远程过程调用）实体，用于封装请求和响应数据。
  * 提供线程安全的响应和错误标识。
  */
-@Getter
 class RpcEntity @JvmOverloads constructor(
     val requestMethod: String? = null,
     val requestData: String? = null,

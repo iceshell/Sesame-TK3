@@ -362,7 +362,7 @@ class AlarmScheduler(private val context: Context) {
     private suspend fun executeBackupTaskSuspend() = withContext(Dispatchers.Main) {
         executionMutex.withLock {
             try {
-                val  aTask=  ApplicationHook.mainTask
+                val  aTask=  fansirsqi.xposed.sesame.hook.ApplicationHookConstants.mainTask
                 // 检查主任务是否已在运行
                 if (aTask is BaseTask) {
                     val taskThread = aTask.thread
@@ -372,7 +372,7 @@ class AlarmScheduler(private val context: Context) {
                     }
                 }
                 Log.record(TAG, "通过协程备份重启任务")
-                ApplicationHook.restartByBroadcast()
+                fansirsqi.xposed.sesame.hook.ApplicationHookUtils.restartByBroadcast()
                 Log.record(TAG, "协程备份任务触发完成")
             } catch (e: Exception) {
                 Log.error(TAG, "执行协程备份任务失败: " + e.message)

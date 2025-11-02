@@ -49,7 +49,6 @@ import fansirsqi.xposed.sesame.util.maps.ParadiseCoinBenefitIdMap
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
-import lombok.ToString
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -3671,7 +3670,6 @@ class AntFarm : ModelTask() {
     }
 
 
-    @ToString
     @JsonIgnoreProperties(ignoreUnknown = true)
     private class Animal {
         @JsonProperty("animalId")

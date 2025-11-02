@@ -5,7 +5,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import fansirsqi.xposed.sesame.entity.AlipayVersion
 import fansirsqi.xposed.sesame.entity.RpcEntity
-import fansirsqi.xposed.sesame.hook.ApplicationHook
 import fansirsqi.xposed.sesame.hook.RequestManager
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.RandomUtil
@@ -19,7 +18,7 @@ object AntForestRpcCall {
 
     @JvmStatic
     fun init() {
-        val alipayVersion = ApplicationHook.getAlipayVersion()
+        val alipayVersion = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.alipayVersion
         Log.record("AntForestRpcCall", "当前支付宝版本: $alipayVersion")
         try {
             VERSION = when (alipayVersion.versionString) {

@@ -39,7 +39,7 @@ android {
     }
     // 获取版本递增计数（兼容配置缓存）
     // 临时固定版本号为161 - 细粒度错误处理改进
-    val gitCommitCount: Int = 162    /*
+    val gitCommitCount: Int = 163    /*
     val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
         .orElse(providers.provider {
             // 如果git不可用，使用时间戳的后4位作为递增值
@@ -229,10 +229,6 @@ dependencies {
 //    compileOnly(files("libs/helper-100.aar"))        // https://github.com/libxposed/helper
 
     // 代码生成和工具库
-    compileOnly(libs.lombok)                       // Lombok 注解处理器（编译时）
-    annotationProcessor(libs.lombok)               // Lombok 注解处理
-    testCompileOnly(libs.lombok)                   // 测试代码也需要Lombok
-    testAnnotationProcessor(libs.lombok)           // 测试代码注解处理
     implementation(libs.okhttp)                    // OkHttp 网络请求库
     implementation(libs.dexkit)                    // DEX 文件分析工具
     implementation(libs.jackson.kotlin)            // Jackson Kotlin 支持

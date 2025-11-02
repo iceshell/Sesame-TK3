@@ -1,6 +1,5 @@
 package fansirsqi.xposed.sesame.task.antMember
 
-import fansirsqi.xposed.sesame.hook.ApplicationHook
 import fansirsqi.xposed.sesame.hook.RequestManager
 import fansirsqi.xposed.sesame.util.RandomUtil
 import fansirsqi.xposed.sesame.util.TimeUtil
@@ -529,7 +528,7 @@ object AntMemberRpcCall {
     @JvmStatic
     fun exchangeBenefit(benefitId: String, itemId: String): String {
         val requestId = "requestId${System.currentTimeMillis()}"
-        val alipayClientVersion = ApplicationHook.getAlipayVersion()?.versionString ?: ""
+        val alipayClientVersion = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.alipayVersion.versionString
         val data = """[{"benefitId":"$benefitId","cityCode":"","exchangeType":"POINT_PAY","itemId":"$itemId","miniAppId":"","orderSource":"","requestId":"$requestId","requestSourceInfo":"","sourcePassMap":{"alipayClientVersion":"$alipayClientVersion","innerSource":"","mobileOsType":"Android","source":"","unid":""},"userOutAccount":""}]"""
         return RequestManager.requestString("com.alipay.alipaymember.biz.rpc.exchange.h5.exchangeBenefit", data)
     }

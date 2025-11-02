@@ -3,7 +3,6 @@ package fansirsqi.xposed.sesame.hook.rpc.bridge
 import fansirsqi.xposed.sesame.data.General
 import fansirsqi.xposed.sesame.data.RuntimeInfo
 import fansirsqi.xposed.sesame.entity.RpcEntity
-import fansirsqi.xposed.sesame.hook.ApplicationHook
 import fansirsqi.xposed.sesame.hook.rpc.intervallimit.RpcIntervalLimit
 import fansirsqi.xposed.sesame.model.BaseModel
 import fansirsqi.xposed.sesame.util.Log
@@ -106,7 +105,7 @@ class OldRpcBridge : RpcBridge {
     }
 
     override fun requestObject(rpcEntity: RpcEntity, tryCount: Int, retryInterval: Int): RpcEntity? {
-        if (ApplicationHook.isOffline()) {
+        if (fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
             return null
         }
 
@@ -179,7 +178,7 @@ class OldRpcBridge : RpcBridge {
 
         // 检查响应中的"memo"字段是否包含"系统繁忙"
         if (resultObject.optString("memo", "").contains("系统繁忙")) {
-            ApplicationHook.setOffline(true)
+            fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline = true
             Notify.updateStatusText("系统繁忙，可能需要滑动验证")
             Log.record(TAG, "系统繁忙，可能需要滑动验证")
             return null
@@ -251,12 +250,12 @@ class OldRpcBridge : RpcBridge {
      * 处理登录超时的情况
      */
     private fun handleLoginTimeout() {
-        if (!ApplicationHook.isOffline()) {
-            ApplicationHook.setOffline(true)
+        if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
+            fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline = true
             Notify.updateStatusText("登录超时")
             if (BaseModel.timeoutRestart.value == true) {
                 Log.record(TAG, "尝试重新登录")
-                ApplicationHook.reLoginByBroadcast()
+                fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
             }
         }
     }
