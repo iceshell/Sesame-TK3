@@ -122,9 +122,7 @@ abstract class BaseTask {
         }
         
         for (childTask in childTaskMap.values) {
-            if (childTask != null) {
-                shutdownAndWait(childTask.thread, -1, TimeUnit.SECONDS)
-            }
+            shutdownAndWait(childTask.thread, -1, TimeUnit.SECONDS)
         }
         
         if (taskStartTime > 0 && taskEndTime == 0L) {

@@ -32,7 +32,7 @@ class EmptyModelField : ModelField<Any?> {
 
     override fun getType(): String = "EMPTY"
 
-    override fun setObjectValue(value: Any?) {
+    override fun setObjectValue(objectValue: Any?) {
         // 空实现，不存储值
     }
     

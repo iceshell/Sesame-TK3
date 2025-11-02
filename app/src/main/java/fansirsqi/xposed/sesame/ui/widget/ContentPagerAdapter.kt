@@ -96,9 +96,7 @@ class ContentPagerAdapter(
             val container = holder.itemView as ViewGroup
             container.removeAllViews()
             val fieldView = modelFields[position].getView(container.context)
-            if (fieldView != null) {
-                container.addView(fieldView)
-            }
+            container.addView(fieldView)
         }
 
         override fun getItemCount(): Int = modelFields.size

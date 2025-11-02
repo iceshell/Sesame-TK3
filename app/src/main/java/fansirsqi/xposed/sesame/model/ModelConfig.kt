@@ -42,9 +42,7 @@ data class ModelConfig(
         // 获取模型的其他字段，并将其加入到字段列表中
         val modelFields: ModelFields? = model.getFields()
         modelFields?.forEach { (_, modelField) ->
-            if (modelField != null) {
-                fields[modelField.code] = modelField
-            }
+            fields[modelField.code] = modelField
         }
     }
 

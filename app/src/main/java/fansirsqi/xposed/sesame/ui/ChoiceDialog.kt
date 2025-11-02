@@ -25,10 +25,13 @@ object ChoiceDialog {
     @JvmStatic
     fun show(context: Context, title: CharSequence, choiceModelField: ChoiceModelField) {
         // 使用 Material3 对话框构造器
+        @Suppress("UNCHECKED_CAST")
+        val items = choiceModelField.getExpandKey() as? Array<CharSequence>
+        
         val dialog = MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setSingleChoiceItems(
-                choiceModelField.getExpandKey() as? Array<CharSequence>,
+                items,
                 choiceModelField.value ?: 0
             ) { _, which: Int ->
                 choiceModelField.setObjectValue(which)
