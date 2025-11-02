@@ -34,6 +34,7 @@ object TimeUtil {
             if (timeRangeArray.size == 2) {
                 val min = timeRangeArray[0]
                 val max = timeRangeArray[1]
+                // Include both start and end boundaries
                 isAfterOrCompareTimeStr(timeMillis, min) && isBeforeOrCompareTimeStr(timeMillis, max)
             } else {
                 false
@@ -81,23 +82,43 @@ object TimeUtil {
     @JvmStatic
     fun isBeforeOrCompareTimeStr(timeMillis: Long, beforeTimeStr: String): Boolean {
         val compared = isCompareTimeStr(timeMillis, beforeTimeStr)
-        return compared != null && compared <= 0
+        // Handle the case when times are equal (should return true for <= comparison)
+        return when (compared) {
+            null -> false
+            else -> compared <= 0
+        }
     }
 
     @JvmStatic
     fun isAfterOrCompareTimeStr(timeMillis: Long, afterTimeStr: String): Boolean {
         val compared = isCompareTimeStr(timeMillis, afterTimeStr)
-        return compared != null && compared >= 0
+        // Handle the case when times are equal (should return true for >= comparison)
+        return when (compared) {
+            null -> false
+            else -> compared >= 0
+        }
     }
 
     @JvmStatic
     fun isCompareTimeStr(timeMillis: Long, compareTimeStr: String): Int? {
         return try {
-            val timeCalendar = Calendar.getInstance().apply {
-                this.timeInMillis = timeMillis
-            }
+            val timeCalendar = getCalendarByTimeMillis(timeMillis)
             val compareCalendar = getTodayCalendarByTimeStr(compareTimeStr)
-            compareCalendar?.let { timeCalendar.compareTo(it) }
+            
+            if (timeCalendar == null || compareCalendar == null) {
+                return null
+            }
+            
+            // Compare only the time part (hours, minutes, seconds)
+            val timeOfDay1 = timeCalendar.get(Calendar.HOUR_OF_DAY) * 3600 + 
+                           timeCalendar.get(Calendar.MINUTE) * 60 + 
+                           timeCalendar.get(Calendar.SECOND)
+                           
+            val timeOfDay2 = compareCalendar.get(Calendar.HOUR_OF_DAY) * 3600 + 
+                           compareCalendar.get(Calendar.MINUTE) * 60 + 
+                           compareCalendar.get(Calendar.SECOND)
+                           
+            timeOfDay1.compareTo(timeOfDay2)
         } catch (e: Exception) {
             Log.printStackTrace(e)
             null
@@ -128,26 +149,33 @@ object TimeUtil {
     fun getCalendarByTimeStr(timeCalendar: Calendar, timeStr: String?): Calendar? {
         return try {
             if (timeStr == null) return null
+            
+            // Create a new calendar to avoid modifying the input calendar
+            val result = timeCalendar.clone() as Calendar
+            
             when (timeStr.length) {
                 6 -> {
-                    timeCalendar.set(Calendar.SECOND, timeStr.substring(4).toInt())
-                    timeCalendar.set(Calendar.MINUTE, timeStr.substring(2, 4).toInt())
-                    timeCalendar.set(Calendar.HOUR_OF_DAY, timeStr.substring(0, 2).toInt())
+                    // Format: HHmmss
+                    result.set(Calendar.HOUR_OF_DAY, timeStr.substring(0, 2).toInt())
+                    result.set(Calendar.MINUTE, timeStr.substring(2, 4).toInt())
+                    result.set(Calendar.SECOND, timeStr.substring(4).toInt())
                 }
                 4 -> {
-                    timeCalendar.set(Calendar.SECOND, 0)
-                    timeCalendar.set(Calendar.MINUTE, timeStr.substring(2, 4).toInt())
-                    timeCalendar.set(Calendar.HOUR_OF_DAY, timeStr.substring(0, 2).toInt())
+                    // Format: HHmm
+                    result.set(Calendar.HOUR_OF_DAY, timeStr.substring(0, 2).toInt())
+                    result.set(Calendar.MINUTE, timeStr.substring(2, 4).toInt())
+                    result.set(Calendar.SECOND, 0)
                 }
                 2 -> {
-                    timeCalendar.set(Calendar.SECOND, 0)
-                    timeCalendar.set(Calendar.MINUTE, 0)
-                    timeCalendar.set(Calendar.HOUR_OF_DAY, timeStr.substring(0, 2).toInt())
+                    // Format: HH
+                    result.set(Calendar.HOUR_OF_DAY, timeStr.substring(0, 2).toInt())
+                    result.set(Calendar.MINUTE, 0)
+                    result.set(Calendar.SECOND, 0)
                 }
                 else -> return null
             }
-            timeCalendar.set(Calendar.MILLISECOND, 0)
-            timeCalendar
+            result.set(Calendar.MILLISECOND, 0)
+            result
         } catch (e: Exception) {
             Log.printStackTrace(e)
             null

@@ -92,7 +92,11 @@ android {
 
         testOptions {
             unitTests.all {
-                it.enabled = false
+                it.enabled = true
+                it.testLogging {
+                    events("passed", "skipped", "failed")
+                    showStandardStreams = true
+                }
             }
         }
     }

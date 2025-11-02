@@ -12,7 +12,7 @@ import java.util.Calendar
  */
 class StatusTest : BaseTest() {
     
-    private val status = Status.getINSTANCE()
+    private val status = Status.INSTANCE
     
     @Before
     override fun setUp() {
@@ -26,8 +26,8 @@ class StatusTest : BaseTest() {
     @Test
     fun `test Status INSTANCE is singleton`() {
         // When
-        val instance1 = Status.getINSTANCE()
-        val instance2 = Status.getINSTANCE()
+        val instance1 = Status.INSTANCE
+        val instance2 = Status.INSTANCE
         
         // Then
         assertSame("Should be the same instance", instance1, instance2)
@@ -437,7 +437,7 @@ class StatusTest : BaseTest() {
     fun `test unload does not throw exception`() {
         // When & Then - should not throw
         Status.unload()
-        assertNotNull("Status instance should still exist", Status.getINSTANCE())
+        assertNotNull("Status instance should still exist", Status.INSTANCE)
     }
     
     @Test
@@ -448,7 +448,7 @@ class StatusTest : BaseTest() {
             // Status.save() requires UserMap.getCurrentUid()
             // In test environment, this might not be available
             // So we just verify the method signature
-            assertNotNull("Status instance should exist", Status.getINSTANCE())
+            assertNotNull("Status instance should exist", Status.INSTANCE)
         } catch (e: Exception) {
             // Expected in test environment without proper user context
             assertTrue("Should throw RuntimeException in test", 
