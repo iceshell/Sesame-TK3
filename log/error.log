@@ -1,0 +1,70 @@
+02日 11:33:04.55 [AntForest]: Check failed: [来源: task.antForest.ForestChouChouLe.processChouChouLeScene:44 <- task.antForest.ForestChouChouLe.processKnownScenes:91 <- task.antForest.ForestChouChouLe.chouChouLe:35 <- task.antForest.AntForest.runSuspend:250] {"ariverRpcTraceId":"218bf31717620543842481391e28a2","code":"400000040","desc":"不支持rpc完成的任务","success":false}
+02日 11:33:04.55 [AntForest]: 森林抽抽乐活动版 任务完成失败: 【限时】玩游戏得新机会
+02日 11:36:09.62 [NewRpcBridge]: new rpc response1 | id: 150736462 | method: alipay.antdodo.rpc.h5.consumeProp
+ args: [{"propId":"14xmnrl1lzkq4o10e3eqp090rr723310","propType":"UNIVERSAL_CARD_7_DAYS"}] |
+ data: {"error":1009,"errorMessage":"为保障您的正常访问，请进行验证后继续。","errorNo":3,"errorTip":"1009"}
+02日 11:36:09.62 [ApplicationHook]: Throwable error: java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.Context.sendBroadcast(android.content.Intent)' on a null object reference
+	at fansirsqi.xposed.sesame.hook.ApplicationHook.reLoginByBroadcast(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:10)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestObject(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:76)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:7)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:5)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:3)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:2)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:2)
+	at fansirsqi.xposed.sesame.hook.RequestManager.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:12)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodoRpcCall.consumeProp(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:21)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.propList(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:109)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.runJava(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:34)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:94)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:148)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:258)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:12)
+	at b5.l0.run(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:133)
+	at g5.b.run(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:118)
+
+02日 11:36:09.62 [NewRpcBridge]: RPC返回null | 方法: alipay.antdodo.rpc.h5.consumeProp | 原因: 网络错误: 1009/为保障您的正常访问，请进行验证后继续。 | 重试: 1
+02日 11:39:23.43 [NewRpcBridge]: new rpc response1 | id: 180291481 | method: com.alipay.wealthgoldtwa.goldbill.v2.index.collect
+ args: [{"campId":"CP1417744","directModeDisableCollect":true,"from":"antfarm","trigger":"Y"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+02日 11:39:23.94 [NewRpcBridge]: new rpc response1 | id: 223343085 | method: com.alipay.wealthgoldtwa.goldbill.v2.index.collect
+ args: [{"trigger":"Y"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+02日 11:43:13.06 [AntForest]: Check failed: [来源: task.antForest.ForestChouChouLe.processChouChouLeScene:44 <- task.antForest.ForestChouChouLe.processKnownScenes:91 <- task.antForest.ForestChouChouLe.chouChouLe:35 <- task.antForest.AntForest.runSuspend:250] {"ariverRpcTraceId":"218bf31717620549927541236e28a2","code":"400000040","desc":"不支持rpc完成的任务","success":false}
+02日 11:43:13.06 [AntForest]: 森林抽抽乐活动版 任务完成失败: 【限时】玩游戏得新机会
+02日 11:44:06.89 [NewRpcBridge]: new rpc response1 | id: 117480456 | method: alipay.antdodo.rpc.h5.consumeProp
+ args: [{"propId":"14xmnrl1lzkq4o10e3eqp090rr723310","propType":"UNIVERSAL_CARD_7_DAYS"}] |
+ data: {"error":1009,"errorMessage":"为保障您的正常访问，请进行验证后继续。","errorNo":3,"errorTip":"1009"}
+02日 11:44:06.89 [ApplicationHook]: Throwable error: java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.Context.sendBroadcast(android.content.Intent)' on a null object reference
+	at fansirsqi.xposed.sesame.hook.ApplicationHook.reLoginByBroadcast(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:10)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestObject(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:76)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:7)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:5)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:3)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:2)
+	at fansirsqi.xposed.sesame.hook.rpc.bridge.NewRpcBridge.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:2)
+	at fansirsqi.xposed.sesame.hook.RequestManager.requestString(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:12)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodoRpcCall.consumeProp(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:21)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.propList(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:109)
+	at fansirsqi.xposed.sesame.task.antDodo.AntDodo.runJava(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:34)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend$suspendImpl(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.runSuspend(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.run(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeSequential(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:94)
+	at fansirsqi.xposed.sesame.task.ModelTask.executeMultiRoundTask(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:148)
+	at fansirsqi.xposed.sesame.task.ModelTask.access$executeMultiRoundTask(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:1)
+	at fansirsqi.xposed.sesame.task.ModelTask$startTask$1.invokeSuspend(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:258)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:12)
+	at b5.l0.run(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:133)
+	at g5.b.run(r8-map-id-9e48c59342d35972e346cbbf160671d4ab7bf48c87302a0323b2562e246a78d6:118)
+
+02日 11:44:06.89 [NewRpcBridge]: RPC返回null | 方法: alipay.antdodo.rpc.h5.consumeProp | 原因: 网络错误: 1009/为保障您的正常访问，请进行验证后继续。 | 重试: 1
+02日 11:48:08.96 [NewRpcBridge]: new rpc response1 | id: 44001184 | method: com.alipay.wealthgoldtwa.goldbill.v2.index.collect
+ args: [{"campId":"CP1417744","directModeDisableCollect":true,"from":"antfarm","trigger":"Y"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}
+02日 11:48:09.46 [NewRpcBridge]: new rpc response1 | id: 259922628 | method: com.alipay.wealthgoldtwa.goldbill.v2.index.collect
+ args: [{"trigger":"Y"}] |
+ data: {"error":3000,"errorMessage":"系统出错，正在排查","errorNo":3,"errorTip":"3000"}

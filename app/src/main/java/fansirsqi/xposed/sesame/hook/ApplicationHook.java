@@ -937,7 +937,11 @@ public class ApplicationHook {
 
     public static void reLoginByBroadcast() {
         try {
-            appContext.sendBroadcast(new Intent("com.eg.android.AlipayGphone.sesame.reLogin"));
+            if (appContext != null) {
+                appContext.sendBroadcast(new Intent("com.eg.android.AlipayGphone.sesame.reLogin"));
+            } else {
+                Log.runtime(TAG, "appContext is null, cannot send reLogin broadcast");
+            }
         } catch (Throwable th) {
             Log.runtime(TAG, "sesame sendBroadcast reLogin err:");
             Log.printStackTrace(TAG, th);
@@ -949,7 +953,11 @@ public class ApplicationHook {
      */
     public static void restartByBroadcast() {
         try {
-            appContext.sendBroadcast(new Intent("com.eg.android.AlipayGphone.sesame.restart"));
+            if (appContext != null) {
+                appContext.sendBroadcast(new Intent("com.eg.android.AlipayGphone.sesame.restart"));
+            } else {
+                Log.runtime(TAG, "appContext is null, cannot send restart broadcast");
+            }
         } catch (Throwable th) {
             Log.runtime(TAG, "发送重启广播时出错:");
             Log.printStackTrace(TAG, th);
@@ -961,7 +969,11 @@ public class ApplicationHook {
      */
     public static void executeByBroadcast() {
         try {
-            appContext.sendBroadcast(new Intent("com.eg.android.AlipayGphone.sesame.execute"));
+            if (appContext != null) {
+                appContext.sendBroadcast(new Intent("com.eg.android.AlipayGphone.sesame.execute"));
+            } else {
+                Log.runtime(TAG, "appContext is null, cannot send execute broadcast");
+            }
         } catch (Throwable th) {
             Log.runtime(TAG, "发送执行广播时出错:");
             Log.printStackTrace(TAG, th);
