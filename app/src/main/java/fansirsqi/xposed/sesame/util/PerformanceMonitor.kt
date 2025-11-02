@@ -13,10 +13,10 @@ import java.util.concurrent.atomic.AtomicLong
  */
 object PerformanceMonitor {
     
-    private const val TAG = "PerformanceMonitor"
+    const val TAG = "PerformanceMonitor"
     
     // 方法执行统计
-    private data class MethodStats(
+    data class MethodStats(
         var callCount: AtomicLong = AtomicLong(0),
         var totalTime: AtomicLong = AtomicLong(0),
         var minTime: AtomicLong = AtomicLong(Long.MAX_VALUE),

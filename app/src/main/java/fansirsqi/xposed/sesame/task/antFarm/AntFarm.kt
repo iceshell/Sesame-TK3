@@ -591,7 +591,7 @@ class AntFarm : ModelTask() {
                 Log.record(TAG, "执行开始-蚂蚁${getName()}")
 
             if (enterFarm() == null) {
-                return
+                return@monitorSuspend
             }
             listFarmTool() //装载道具信息
             tc.countDebug("装载道具信息")
@@ -720,8 +720,8 @@ class AntFarm : ModelTask() {
             }
             //家庭
             if (family?.value == true) {
-                val famOptions = familyOptions ?: return
-                val notInvList = notInviteList ?: return
+                val famOptions = familyOptions ?: return@monitorSuspend
+                val notInvList = notInviteList ?: return@monitorSuspend
                 AntFarmFamily.run(famOptions, notInvList)
                 tc.countDebug("家庭任务")
             }
