@@ -1,10 +1,19 @@
 package fansirsqi.xposed.sesame.util
 
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.read
+import kotlin.concurrent.write
 
 /**
- * RPC 请求缓存
+ * RPC 请求缓存 - LRU策略
  * 用于缓存短期内的重复请求，减少网络开销
+ * 
+ * 特性：
+ * - LRU淘汰策略（最近最少使用）
+ * - 线程安全
+ * - 自动过期清理
+ * - 容量限制
  * 
  * @author Cascade AI
  * @date 2024-11-02
@@ -17,21 +26,24 @@ object RpcCache {
     private data class CacheEntry(
         val value: String,
         val timestamp: Long,
-        val ttl: Long = DEFAULT_TTL
+        val ttl: Long = DEFAULT_TTL,
+        var lastAccess: Long = System.currentTimeMillis() // LRU访问时间
     ) {
         fun isExpired(): Boolean {
             return System.currentTimeMillis() - timestamp > ttl
         }
     }
     
-    // 使用线程安全的 ConcurrentHashMap
+    // 使用LinkedHashMap实现LRU + ConcurrentHashMap保证线程安全
     private val cache = ConcurrentHashMap<String, CacheEntry>()
+    private val accessOrder = LinkedHashMap<String, Long>(16, 0.75f, true)
+    private val lock = ReentrantReadWriteLock()
     
     // 默认缓存时间：5秒
     private const val DEFAULT_TTL = 5000L
     
-    // 最大缓存数量，避免内存溢出
-    private const val MAX_CACHE_SIZE = 100
+    // 最大缓存数量，避免内存溢出（提升到1000）
+    private const val MAX_CACHE_SIZE = 1000
     
     /**
      * 生成缓存键
@@ -41,7 +53,7 @@ object RpcCache {
     }
     
     /**
-     * 获取缓存值
+     * 获取缓存值（LRU访问）
      * @param method RPC方法名
      * @param data 请求数据
      * @return 缓存的响应，如果不存在或已过期则返回null
@@ -50,20 +62,31 @@ object RpcCache {
         if (method == null) return null
         
         val key = generateKey(method, data)
-        val entry = cache[key] ?: return null
         
-        return if (!entry.isExpired()) {
-            Log.runtime("RpcCache", "缓存命中: $method")
-            entry.value
-        } else {
-            // 清除过期缓存
-            cache.remove(key)
-            null
+        return lock.read {
+            val entry = cache[key] ?: return null
+            
+            if (!entry.isExpired()) {
+                // 更新LRU访问记录
+                lock.write {
+                    entry.lastAccess = System.currentTimeMillis()
+                    accessOrder[key] = entry.lastAccess
+                }
+                Log.runtime("RpcCache", "缓存命中: $method")
+                entry.value
+            } else {
+                // 清除过期缓存
+                lock.write {
+                    cache.remove(key)
+                    accessOrder.remove(key)
+                }
+                null
+            }
         }
     }
     
     /**
-     * 存入缓存
+     * 存入缓存（LRU淘汰）
      * @param method RPC方法名
      * @param data 请求数据
      * @param value 响应值
@@ -72,23 +95,29 @@ object RpcCache {
     fun put(method: String?, data: String?, value: String, ttl: Long = DEFAULT_TTL) {
         if (method == null || value.isEmpty()) return
         
-        // 检查缓存大小，防止内存溢出
-        if (cache.size >= MAX_CACHE_SIZE) {
-            cleanExpiredEntries()
-            
-            // 如果清理后还是太大，清除最旧的一半
-            if (cache.size >= MAX_CACHE_SIZE) {
-                val toRemove = cache.entries
-                    .sortedBy { it.value.timestamp }
-                    .take(MAX_CACHE_SIZE / 2)
-                    .map { it.key }
-                toRemove.forEach { cache.remove(it) }
-            }
-        }
-        
         val key = generateKey(method, data)
-        cache[key] = CacheEntry(value, System.currentTimeMillis(), ttl)
-        Log.runtime("RpcCache", "缓存存入: $method, TTL: ${ttl}ms")
+        
+        lock.write {
+            // 检查缓存大小，使用LRU淘汰策略
+            if (cache.size >= MAX_CACHE_SIZE) {
+                cleanExpiredEntries()
+                
+                // 如果清理后还是太大，使用LRU淘汰最少使用的
+                if (cache.size >= MAX_CACHE_SIZE) {
+                    val lruKey = accessOrder.entries.firstOrNull()?.key
+                    if (lruKey != null) {
+                        cache.remove(lruKey)
+                        accessOrder.remove(lruKey)
+                        Log.runtime("RpcCache", "LRU淘汰: $lruKey")
+                    }
+                }
+            }
+            
+            val now = System.currentTimeMillis()
+            cache[key] = CacheEntry(value, now, ttl, now)
+            accessOrder[key] = now
+            Log.runtime("RpcCache", "缓存存入: $method, TTL: ${ttl}ms")
+        }
     }
     
     /**
@@ -97,27 +126,39 @@ object RpcCache {
     fun invalidate(method: String?) {
         if (method == null) return
         
-        cache.keys.removeIf { it.startsWith(method) }
-        Log.runtime("RpcCache", "缓存清除: $method")
+        lock.write {
+            val keysToRemove = cache.keys.filter { it.startsWith(method) }
+            keysToRemove.forEach { 
+                cache.remove(it)
+                accessOrder.remove(it)
+            }
+            Log.runtime("RpcCache", "缓存清除: $method (${keysToRemove.size}个)")
+        }
     }
     
     /**
      * 清除所有缓存
      */
     fun clear() {
-        cache.clear()
-        Log.runtime("RpcCache", "缓存全部清除")
+        lock.write {
+            cache.clear()
+            accessOrder.clear()
+            Log.runtime("RpcCache", "缓存全部清除")
+        }
     }
     
     /**
-     * 清除过期的缓存项
+     * 清除过期的缓存项（在写锁内调用）
      */
     private fun cleanExpiredEntries() {
         val expiredKeys = cache.entries
             .filter { it.value.isExpired() }
             .map { it.key }
         
-        expiredKeys.forEach { cache.remove(it) }
+        expiredKeys.forEach { 
+            cache.remove(it)
+            accessOrder.remove(it)
+        }
         
         if (expiredKeys.isNotEmpty()) {
             Log.runtime("RpcCache", "清除过期缓存: ${expiredKeys.size}个")
@@ -128,7 +169,11 @@ object RpcCache {
      * 获取缓存统计信息
      */
     fun getStats(): String {
-        cleanExpiredEntries()
-        return "缓存项数: ${cache.size}, 最大容量: $MAX_CACHE_SIZE"
+        lock.write {
+            cleanExpiredEntries()
+        }
+        return lock.read {
+            "缓存项数: ${cache.size}/${MAX_CACHE_SIZE}, 命中率优化: LRU"
+        }
     }
 }

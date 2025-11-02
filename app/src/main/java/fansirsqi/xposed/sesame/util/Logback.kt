@@ -4,6 +4,7 @@ import ch.qos.logback.classic.LoggerContext
 import ch.qos.logback.classic.android.LogcatAppender
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
+import ch.qos.logback.classic.AsyncAppender
 import ch.qos.logback.core.rolling.RollingFileAppender
 import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy
 import ch.qos.logback.core.util.FileSize
@@ -64,19 +65,21 @@ object Logback {
     }
     
     /**
-     * 设置日志Appender
+     * 设置日志Appender（异步）
      *
      * @param loggerContext Logger上下文
      * @param logName 日志名称
      */
     @JvmStatic
     fun setupAppender(loggerContext: LoggerContext, logName: String) {
+        // 1. 创建RollingFileAppender
         val rfa = RollingFileAppender<ILoggingEvent>().apply {
             context = loggerContext
-            name = logName
+            name = "${logName}File"
             file = LOG_DIR + logName + ".log"
         }
         
+        // 2. 配置滚动策略
         val satbrp = SizeAndTimeBasedRollingPolicy<ILoggingEvent>().apply {
             context = loggerContext
             fileNamePattern = LOG_DIR + "bak/" + logName + "-%d{yyyy-MM-dd}.%i.log"
@@ -90,6 +93,7 @@ object Logback {
         
         rfa.rollingPolicy = satbrp
         
+        // 3. 配置编码器
         val ple = PatternLayoutEncoder().apply {
             context = loggerContext
             pattern = "%d{dd日 HH:mm:ss.SS} %msg%n"
@@ -99,7 +103,18 @@ object Logback {
         rfa.encoder = ple
         rfa.start()
         
+        // 4. 使用AsyncAppender包装（异步写入）
+        val asyncAppender = AsyncAppender().apply {
+            context = loggerContext
+            name = logName
+            queueSize = 512  // 队列大小
+            discardingThreshold = 0  // 不丢弃日志
+            addAppender(rfa)
+            start()
+        }
+        
+        // 5. 将AsyncAppender添加到Logger
         val logger = LoggerFactory.getLogger(logName) as ch.qos.logback.classic.Logger
-        logger.addAppender(rfa)
+        logger.addAppender(asyncAppender)
     }
 }

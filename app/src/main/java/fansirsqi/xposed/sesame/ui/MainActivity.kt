@@ -113,6 +113,9 @@ class MainActivity : BaseActivity() {
             } catch (e: Exception) {
                 Log.printStackTrace(e)
             }
+            
+            // 检查并引导闹钟权限（Android 12+）
+            checkAndGuideAlarmPermission()
             try {
                 val userNameList: MutableList<String> = ArrayList()
                 val userEntityList: MutableList<UserEntity?> = ArrayList()
@@ -487,6 +490,53 @@ class MainActivity : BaseActivity() {
         }
     }
 
+
+    /**
+     * 检查并引导用户授予闹钟权限（Android 12+）
+     * 使用SharedPreferences记录是否已经提示过，避免每次都弹窗
+     */
+    private fun checkAndGuideAlarmPermission() {
+        // Android 12以下无需此权限
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
+            return
+        }
+        
+        // 检查是否已有权限
+        if (PermissionUtil.checkAlarmPermissions()) {
+            return
+        }
+        
+        // 检查是否已经提示过（避免重复弹窗）
+        val prefs = getSharedPreferences("sesame_permissions", MODE_PRIVATE)
+        val hasShownGuide = prefs.getBoolean("alarm_permission_guided", false)
+        
+        if (!hasShownGuide) {
+            // 显示引导对话框
+            AlertDialog.Builder(this)
+                .setTitle("⏰ 闹钟权限")
+                .setMessage(
+                    "为了让芝麻粒-TK能够定时自动执行任务，需要授予「精确闹钟」权限。\n\n" +
+                    "授予此权限后，应用可以在设定的时间点自动启动任务，无需手动触发。\n\n" +
+                    "您的设备系统为 Android ${android.os.Build.VERSION.SDK_INT}，需要手动授予此权限。"
+                )
+                .setPositiveButton("立即授予") { _, _ ->
+                    PermissionUtil.checkOrRequestAlarmPermissions(this)
+                    // 记录已经显示过引导
+                    prefs.edit().putBoolean("alarm_permission_guided", true).apply()
+                }
+                .setNegativeButton("稍后设置") { _, _ ->
+                    // 记录已经显示过引导
+                    prefs.edit().putBoolean("alarm_permission_guided", true).apply()
+                    Toast.makeText(
+                        this,
+                        "您可以随时在系统设置中授予闹钟权限",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                .setCancelable(false)
+                .show()
+        }
+    }
 
     fun updateSubTitle(runType: String) {
         baseTitle = ViewAppInfo.appTitle + "[" + runType + "]"

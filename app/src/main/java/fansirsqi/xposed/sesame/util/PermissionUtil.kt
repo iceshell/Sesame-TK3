@@ -191,18 +191,15 @@ object PermissionUtil {
 
     private val contextSafely: Context?
         /**
-         * 安全地获取应用上下文，如果未挂钩则返回null。
+         * 安全地获取应用上下文。
          *
          * @return 如果存在上下文则返回，否则返回null。
          */
         get() {
-            try {
-                if (!ApplicationHook.isHooked()) {
-                    return null
-                }
-                return fansirsqi.xposed.sesame.hook.ApplicationHookConstants.appContext
+            return try {
+                fansirsqi.xposed.sesame.hook.ApplicationHookConstants.appContext
             } catch (_: Exception) {
-                return null
+                null
             }
         }
 }
