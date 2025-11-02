@@ -28,7 +28,7 @@ object PerformanceMonitor {
         } else 0
     }
     
-    private val methodStats = ConcurrentHashMap<String, MethodStats>()
+    val methodStats = ConcurrentHashMap<String, MethodStats>()
     
     // 启用/禁用监控
     @Volatile
@@ -102,7 +102,7 @@ object PerformanceMonitor {
     /**
      * 记录方法调用统计
      */
-    private fun recordMethodCall(methodName: String, duration: Long, hasError: Boolean) {
+    fun recordMethodCall(methodName: String, duration: Long, hasError: Boolean) {
         val stats = methodStats.getOrPut(methodName) { MethodStats() }
         
         stats.callCount.incrementAndGet()
