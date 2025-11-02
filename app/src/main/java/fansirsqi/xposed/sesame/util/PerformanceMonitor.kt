@@ -222,7 +222,7 @@ object PerformanceMonitor {
     /**
      * 监控代码块并自动记录到日志
      */
-    inline fun <T> monitorAndLog(methodName: String, block: () -> T): T {
+    fun <T> monitorAndLog(methodName: String, block: () -> T): T {
         return monitor(methodName) {
             try {
                 block()
