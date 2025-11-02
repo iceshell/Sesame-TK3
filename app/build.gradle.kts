@@ -38,8 +38,8 @@ android {
         }
     }
     // 获取版本递增计数（兼容配置缓存）
-    // 临时固定版本号为159 - 优化阶段使用
-    val gitCommitCount: Int = 159
+    // 临时固定版本号为160 - 修复StackOverflowError
+    val gitCommitCount: Int = 160
     /*
     val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
         .orElse(providers.provider {

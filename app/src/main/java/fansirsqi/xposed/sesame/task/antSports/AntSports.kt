@@ -1468,7 +1468,8 @@ class AntSports : ModelTask() {
                 val completed = "COMPLETED" == jo.getString("userPathRecordStatus")
                 if (completed) {
                     other(TAG, "完成线路🚶🏻‍♂️[" + title + "]")
-                    pathFeatureQuery()
+                    // 🔴 修复无限递归Bug：移除递归调用，让下一轮任务执行时处理新路径
+                    // pathFeatureQuery() // 这会导致StackOverflowError
                 }
             } else {
                 runtime(TAG, s)
