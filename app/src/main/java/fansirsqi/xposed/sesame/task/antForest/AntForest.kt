@@ -894,11 +894,13 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     }
 
     override suspend fun runSuspend() {
-        val runStartTime = System.currentTimeMillis()
-        Log.record(TAG, "🌲🌲🌲 森林主任务开始执行 🌲🌲🌲")
-        try {
-            // 每次运行时检查并更新计数器
-            checkAndUpdateCounters()
+        // 性能监控：监控整个森林任务执行
+        return PerformanceMonitor.monitorSuspend("AntForest.runSuspend") {
+            val runStartTime = System.currentTimeMillis()
+            Log.record(TAG, "🌲🌲🌲 森林主任务开始执行 🌲🌲🌲")
+            try {
+                // 每次运行时检查并更新计数器
+                checkAndUpdateCounters()
             
             // 优化：移除午夜任务，避免重复执行和耗时
             // 正常流程会自动处理所有收取任务，无需特殊处理
@@ -1110,6 +1112,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 "本次总 收:" + totalCollected + "g 帮:" + TOTAL_HELP_COLLECTED + "g 浇:" + TOTAL_WATERED + "g"
             updateLastExecText(strTotalCollected)
         }
+        } // PerformanceMonitor.monitorSuspend 闭合
     }
 
     /**
@@ -3144,31 +3147,32 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      * @param skipPropCheck 是否跳过道具检查（快速收取通道）
      */
     private fun usePropBeforeCollectEnergy(userId: String?, skipPropCheck: Boolean = false) {
-        try {
-            // 🚀 快速收取通道：跳过道具检查，直接返回
-            if (skipPropCheck) {
-                Log.record(TAG, "⚡ 快速收取通道：跳过道具检查，加速蹲点收取")
-                return
-            }
-            
-            /*
-             * 在收集能量之前决定是否使用增益类道具卡。
-             *
-             * 主要逻辑:
-             * 1. 定义时间常量，用于判断道具剩余有效期。
-             * 2. 获取当前时间及各类道具的到期时间，计算剩余时间。
-             * 3. 根据以下条件判断是否需要使用特定道具:
-             *    - needDouble: 双击卡开关已打开，且当前没有生效的双击卡。
-             *    - needrobExpand: 1.1倍能量卡开关已打开，且当前没有生效的卡。
-             *    - needStealth: 隐身卡开关已打开，且当前没有生效的隐身卡。
-             *    - needShield: 保护罩开关已打开，炸弹卡开关已关闭，且保护罩剩余时间不足一天。
-             *    - needEnergyBombCard: 炸弹卡开关已打开，保护罩开关已关闭，且炸弹卡剩余时间不足三天。
-             *    - needBubbleBoostCard: 加速卡开关已打开。
-             * 4. 如果有任何一个道具需要使用，则同步查询背包信息，并调用相应的使用道具方法。
-             */
+        // 🚀 快速收取通道：跳过道具检查，直接返回
+        if (skipPropCheck) {
+            Log.record(TAG, "⚡ 快速收取通道：跳过道具检查，加速蹲点收取")
+            return
+        }
+        
+        /*
+         * 在收集能量之前决定是否使用增益类道具卡。
+         *
+         * 主要逻辑:
+         * 1. 定义时间常量，用于判断道具剩余有效期。
+         * 2. 获取当前时间及各类道具的到期时间，计算剩余时间。
+         * 3. 根据以下条件判断是否需要使用特定道具:
+         *    - needDouble: 双击卡开关已打开，且当前没有生效的双击卡。
+         *    - needrobExpand: 1.1倍能量卡开关已打开，且当前没有生效的卡。
+         *    - needStealth: 隐身卡开关已打开，且当前没有生效的隐身卡。
+         *    - needShield: 保护罩开关已打开，炸弹卡开关已关闭，且保护罩剩余时间不足一天。
+         *    - needEnergyBombCard: 炸弹卡开关已打开，保护罩开关已关闭，且炸弹卡剩余时间不足三天。
+         *    - needBubbleBoostCard: 加速卡开关已打开。
+         * 4. 如果有任何一个道具需要使用，则同步查询背包信息，并调用相应的使用道具方法。
+         */
 
+        try {
             val now = System.currentTimeMillis()
-            // 双击卡判断
+            
+            // 步骤1: 判断各类道具是否需要使用
             val needDouble =
                 (doubleCard?.value ?: ApplyPropType.CLOSE) != ApplyPropType.CLOSE && shouldRenewDoubleCard(
                     doubleEndTime,
@@ -3192,37 +3196,80 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             val needBubbleBoostCard = (bubbleBoostCard?.value ?: ApplyPropType.CLOSE) != ApplyPropType.CLOSE
 
             Log.runtime(
-                TAG, "道具使用检查: needDouble=" + needDouble + ", needrobExpand=" + needrobExpand +
-                        ", needStealth=" + needStealth + ", needShield=" + needShield +
-                        ", needEnergyBombCard=" + needEnergyBombCard + ", needBubbleBoostCard=" + needBubbleBoostCard
+                TAG, "道具使用检查: needDouble=$needDouble, needrobExpand=$needrobExpand, " +
+                        "needStealth=$needStealth, needShield=$needShield, " +
+                        "needEnergyBombCard=$needEnergyBombCard, needBubbleBoostCard=$needBubbleBoostCard"
             )
+            
+            // 步骤2: 如果有任何道具需要使用，则查询背包并使用
             if (needDouble || needStealth || needShield || needEnergyBombCard || needrobExpand || needBubbleBoostCard) {
                 synchronized(doubleCardLockObj) {
-                    val bagObject = queryPropList()
-                    // Log.runtime(TAG, "bagObject=" + (bagObject == null ? "null" : bagObject.toString()));
-                    if (needDouble && bagObject != null) useDoubleCard(bagObject) // 使用双击卡
+                    // 查询背包道具列表（可能失败，使用细粒度错误处理）
+                    val bagObject = ErrorHandler.safelyRpcCall(
+                        tag = TAG,
+                        operation = "查询道具背包",
+                        fallback = null,
+                        onBusinessError = { e ->
+                            Log.runtime(TAG, "道具背包查询业务错误: ${e.desc}")
+                        }
+                    ) {
+                        queryPropList()
+                    }
+                    
+                    // 步骤3: 按需使用各类道具（每个道具独立错误处理）
+                    if (needDouble && bagObject != null) {
+                        ErrorHandler.safelyRun(TAG, "使用双击卡失败") {
+                            useDoubleCard(bagObject)
+                        }
+                    }
 
-                    if (needrobExpand) userobExpandCard() // 使用1.1倍能量卡
+                    if (needrobExpand) {
+                        ErrorHandler.safelyRun(TAG, "使用1.1倍能量卡失败") {
+                            userobExpandCard()
+                        }
+                    }
 
-                    if (needStealth) useStealthCard(bagObject) // 使用隐身卡
+                    if (needStealth) {
+                        ErrorHandler.safelyRun(TAG, "使用隐身卡失败") {
+                            useStealthCard(bagObject)
+                        }
+                    }
 
-                    if (needBubbleBoostCard) useCardBoot(
-                        bubbleBoostTime?.value?.toMutableList() ?: mutableListOf(),
-                        "加速卡"
-                    ) { this.useBubbleBoostCard() } // 使用加速卡
+                    if (needBubbleBoostCard) {
+                        ErrorHandler.safelyRun(TAG, "使用加速卡失败") {
+                            useCardBoot(
+                                bubbleBoostTime?.value?.toMutableList() ?: mutableListOf(),
+                                "加速卡"
+                            ) { this.useBubbleBoostCard() }
+                        }
+                    }
+                    
                     if (needShield) {
-                        Log.runtime(TAG, "尝试使用保护罩罩")
-                        useShieldCard(bagObject)
+                        Log.runtime(TAG, "尝试使用保护罩")
+                        ErrorHandler.safelyRun(TAG, "使用保护罩失败") {
+                            useShieldCard(bagObject)
+                        }
                     } else if (needEnergyBombCard) {
                         Log.runtime(TAG, "准备使用能量炸弹卡")
-                        useEnergyBombCard(bagObject)
+                        ErrorHandler.safelyRun(TAG, "使用能量炸弹卡失败") {
+                            useEnergyBombCard(bagObject)
+                        }
                     }
                 }
             } else {
                 Log.runtime(TAG, "没有需要使用的道具")
             }
+        } catch (e: IllegalStateException) {
+            // 状态异常（配置错误等）
+            Log.error(TAG, "道具使用状态异常: ${e.message}")
+        } catch (e: NullPointerException) {
+            // 空指针异常（数据缺失）
+            Log.error(TAG, "道具使用数据缺失: ${e.message}")
+            Log.printStackTrace(TAG, e)
         } catch (e: Exception) {
-            Log.printStackTrace(e)
+            // 其他未预料的异常
+            Log.error(TAG, "道具使用未知错误: ${e.message}")
+            Log.printStackTrace(TAG, e)
         }
     }
 

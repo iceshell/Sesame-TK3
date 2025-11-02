@@ -1,5 +1,11 @@
 package fansirsqi.xposed.sesame.util
 
+import org.json.JSONException
+import java.io.IOException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import kotlinx.coroutines.CancellationException
+
 /**
  * 统一错误处理工具类
  * 
@@ -7,8 +13,30 @@ package fansirsqi.xposed.sesame.util
  * 
  * @author AI Code Quality Assistant
  * @since 2025-10-27
+ * @updated 2025-11-02 - 添加细粒度异常类型处理
  */
 object ErrorHandler {
+    
+    // ==================== 自定义异常类型 ====================
+    
+    /**
+     * RPC调用异常
+     */
+    class RpcException(message: String, cause: Throwable? = null) : Exception(message, cause)
+    
+    /**
+     * RPC业务错误（服务端返回的业务级错误）
+     */
+    class RpcBusinessException(
+        val code: String,
+        val desc: String,
+        message: String = "RPC业务错误: [$code] $desc"
+    ) : Exception(message)
+    
+    /**
+     * 数据解析异常
+     */
+    class DataParseException(message: String, cause: Throwable? = null) : Exception(message, cause)
     
     /**
      * 安全执行代码块，捕获异常并返回结果或fallback值
@@ -179,6 +207,165 @@ object ErrorHandler {
     inline fun check(condition: Boolean, lazyMessage: () -> String) {
         if (!condition) {
             throw IllegalStateException(lazyMessage())
+        }
+    }
+    
+    // ==================== 细粒度错误处理 ====================
+    
+    /**
+     * 安全执行RPC调用，针对不同类型的RPC错误进行细粒度处理
+     * 
+     * @param T 返回值类型
+     * @param tag 日志标签
+     * @param operation 操作描述
+     * @param fallback fallback值
+     * @param onBusinessError 业务错误回调
+     * @param onNetworkError 网络错误回调
+     * @param block RPC调用代码块
+     * @return 执行结果或fallback值
+     */
+    inline fun <T> safelyRpcCall(
+        tag: String,
+        operation: String,
+        fallback: T? = null,
+        crossinline onBusinessError: (RpcBusinessException) -> Unit = {},
+        crossinline onNetworkError: (IOException) -> Unit = {},
+        block: () -> T
+    ): T? {
+        return try {
+            block()
+        } catch (e: CancellationException) {
+            // 协程取消必须重新抛出
+            throw e
+        } catch (e: RpcBusinessException) {
+            // RPC业务错误（服务端返回的错误码）
+            Log.runtime(tag, "$operation - RPC业务错误: [${e.code}] ${e.desc}")
+            onBusinessError(e)
+            fallback
+        } catch (e: SocketTimeoutException) {
+            // 网络超时
+            Log.error(tag, "$operation - 网络超时: ${e.message}")
+            onNetworkError(e)
+            fallback
+        } catch (e: UnknownHostException) {
+            // 网络不可达
+            Log.error(tag, "$operation - 网络不可达: ${e.message}")
+            onNetworkError(e)
+            fallback
+        } catch (e: IOException) {
+            // 其他IO异常
+            Log.error(tag, "$operation - 网络异常: ${e.message}")
+            onNetworkError(e)
+            fallback
+        } catch (e: JSONException) {
+            // JSON解析异常
+            Log.error(tag, "$operation - 数据解析失败: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
+        } catch (e: Exception) {
+            // 其他未知异常
+            Log.error(tag, "$operation - 未知错误: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
+        }
+    }
+    
+    /**
+     * 安全执行JSON解析操作
+     * 
+     * @param T 返回值类型
+     * @param tag 日志标签
+     * @param jsonSource 数据源描述
+     * @param fallback fallback值
+     * @param block 解析代码块
+     * @return 解析结果或fallback值
+     */
+    inline fun <T> safelyParseJson(
+        tag: String,
+        jsonSource: String,
+        fallback: T? = null,
+        block: () -> T
+    ): T? {
+        return try {
+            block()
+        } catch (e: JSONException) {
+            Log.error(tag, "解析JSON失败 [$jsonSource]: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
+        } catch (e: NullPointerException) {
+            Log.error(tag, "JSON数据为空或缺少必要字段 [$jsonSource]: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
+        } catch (e: Exception) {
+            Log.error(tag, "处理JSON时发生错误 [$jsonSource]: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
+        }
+    }
+    
+    /**
+     * 安全执行协程代码，正确处理CancellationException
+     * 
+     * @param T 返回值类型
+     * @param tag 日志标签
+     * @param operation 操作描述
+     * @param fallback fallback值
+     * @param block 协程代码块
+     * @return 执行结果或fallback值
+     */
+    inline fun <T> safelyCoroutine(
+        tag: String,
+        operation: String,
+        fallback: T? = null,
+        block: () -> T
+    ): T? {
+        return try {
+            block()
+        } catch (e: CancellationException) {
+            // 协程取消是正常流程，必须重新抛出
+            Log.debug(tag, "$operation - 协程被取消")
+            throw e
+        } catch (e: Exception) {
+            Log.error(tag, "$operation - 异常: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
+        }
+    }
+    
+    /**
+     * 安全执行文件IO操作
+     * 
+     * @param T 返回值类型
+     * @param tag 日志标签
+     * @param filePath 文件路径
+     * @param operation 操作类型（读取/写入）
+     * @param fallback fallback值
+     * @param block IO操作代码块
+     * @return 执行结果或fallback值
+     */
+    inline fun <T> safelyFileIo(
+        tag: String,
+        filePath: String,
+        operation: String = "文件操作",
+        fallback: T? = null,
+        block: () -> T
+    ): T? {
+        return try {
+            block()
+        } catch (e: java.io.FileNotFoundException) {
+            Log.error(tag, "$operation - 文件不存在: $filePath")
+            fallback
+        } catch (e: java.io.IOException) {
+            Log.error(tag, "$operation - IO错误 [$filePath]: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
+        } catch (e: SecurityException) {
+            Log.error(tag, "$operation - 权限不足 [$filePath]: ${e.message}")
+            fallback
+        } catch (e: Exception) {
+            Log.error(tag, "$operation - 未知错误 [$filePath]: ${e.message}")
+            Log.printStackTrace(tag, e)
+            fallback
         }
     }
 }

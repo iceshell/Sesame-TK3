@@ -581,10 +581,12 @@ class AntFarm : ModelTask() {
 
 
     override suspend fun runSuspend() {
-        try {
-            val tc = TimeCounter(TAG)
-            val userId = UserMap.currentUid
-            Log.record(TAG, "执行开始-蚂蚁${getName()}")
+        // 性能监控：监控整个庄园任务执行
+        return PerformanceMonitor.monitorSuspend("AntFarm.runSuspend") {
+            try {
+                val tc = TimeCounter(TAG)
+                val userId = UserMap.currentUid
+                Log.record(TAG, "执行开始-蚂蚁${getName()}")
 
             if (enterFarm() == null) {
                 return
@@ -745,6 +747,7 @@ class AntFarm : ModelTask() {
         } finally {
             Log.record(TAG, "执行结束-蚂蚁${getName()}")
         }
+        } // PerformanceMonitor.monitorSuspend 闭合
     }
 
 
@@ -1015,26 +1018,62 @@ class AntFarm : ModelTask() {
      *
      * @return 庄园信息
      */
-    private  fun enterFarm(): JSONObject? {
-        try {
+    private fun enterFarm(): JSONObject? {
+        return ErrorHandler.safelyRpcCall(
+            tag = TAG,
+            operation = "进入庄园",
+            fallback = null,
+            onBusinessError = { e ->
+                Log.runtime(TAG, "进入庄园业务错误: ${e.desc}")
+            },
+            onNetworkError = { e ->
+                Log.error(TAG, "进入庄园网络错误: ${e.message}")
+            }
+        ) {
             val userId = UserMap.currentUid
-            val jo = JSONObject(AntFarmRpcCall.enterFarm(userId, userId))
-            if (ResChecker.checkRes(TAG, jo)) {
+            val response = AntFarmRpcCall.enterFarm(userId, userId)
+            
+            // 解析JSON响应
+            val jo = ErrorHandler.safelyParseJson(
+                tag = TAG,
+                jsonSource = "enterFarm响应",
+                fallback = null
+            ) {
+                JSONObject(response)
+            } ?: return@safelyRpcCall null
+            
+            // 检查响应是否成功
+            if (!ResChecker.checkRes(TAG, jo)) {
+                return@safelyRpcCall null
+            }
+            
+            // 提取庄园信息（细粒度错误处理）
+            ErrorHandler.safelyParseJson(TAG, "庄园配置") {
                 rewardProductNum =
                     jo.getJSONObject("dynamicGlobalConfig").getString("rewardProductNum")
-                val joFarmVO = jo.getJSONObject("farmVO")
-                val familyInfoVO = jo.getJSONObject("familyInfoVO")
-                foodStock = joFarmVO.getInt("foodStock")
-                foodStockLimit = joFarmVO.getInt("foodStockLimit")
-                harvestBenevolenceScore = joFarmVO.getDouble("harvestBenevolenceScore")
-
-                parseSyncAnimalStatusResponse(joFarmVO)
-
-                joFarmVO.getJSONObject("masterUserInfoVO").getString("userId")
+            }
+            
+            val joFarmVO = jo.optJSONObject("farmVO")
+            val familyInfoVO = jo.optJSONObject("familyInfoVO")
+            
+            if (joFarmVO != null) {
+                ErrorHandler.safelyParseJson(TAG, "庄园状态") {
+                    foodStock = joFarmVO.getInt("foodStock")
+                    foodStockLimit = joFarmVO.getInt("foodStockLimit")
+                    harvestBenevolenceScore = joFarmVO.getDouble("harvestBenevolenceScore")
+                    parseSyncAnimalStatusResponse(joFarmVO)
+                    joFarmVO.getJSONObject("masterUserInfoVO").getString("userId")
+                }
+            }
+            
+            if (familyInfoVO != null) {
                 familyGroupId = familyInfoVO.optString("groupId", "")
-                // 领取活动食物
-                val activityData = jo.optJSONObject("activityData")
-                if (activityData != null) {
+            }
+            
+            // 领取活动食物
+            val activityData = jo.optJSONObject("activityData")
+            if (activityData != null) {
+                ErrorHandler.safelyRun(TAG, "领取活动食物失败") {
                     val it = activityData.keys()
                     while (it.hasNext()) {
                         val key = it.next()
@@ -1042,33 +1081,45 @@ class AntFarm : ModelTask() {
                             val gifts = activityData.optJSONArray(key) ?: continue
                             for (i in 0..<gifts.length()) {
                                 val gift = gifts.optJSONObject(i)
-                                clickForGiftV2(gift)
+                                ErrorHandler.safelyRun(TAG, "点击礼物失败") {
+                                    clickForGiftV2(gift)
+                                }
                             }
                         }
                     }
                 }
-                if (useSpecialFood?.value == true) { //使用特殊食品
-                    val cuisineList = jo.getJSONArray("cuisineList")
-                    if (AnimalFeedStatus.SLEEPY.name != ownerAnimal.animalFeedStatus) useSpecialFood(
-                        cuisineList
-                    )
-                }
-
-                if (jo.has("lotteryPlusInfo")) { //彩票附加信息
-                    drawLotteryPlus(jo.getJSONObject("lotteryPlusInfo"))
-                }
-
-                if (acceptGift?.value == true && joFarmVO.getJSONObject("subFarmVO").has("giftRecord")
-                    && foodStockLimit - foodStock >= 10
-                ) {
-                    acceptGift()
-                }
-                return jo
             }
-        } catch (e: Exception) {
-            Log.printStackTrace(e)
+            
+            // 使用特殊食品
+            if (useSpecialFood?.value == true) {
+                ErrorHandler.safelyRun(TAG, "使用特殊食品失败") {
+                    val cuisineList = jo.optJSONArray("cuisineList")
+                    if (cuisineList != null && AnimalFeedStatus.SLEEPY.name != ownerAnimal.animalFeedStatus) {
+                        useSpecialFood(cuisineList)
+                    }
+                }
+            }
+
+            // 彩票附加信息
+            if (jo.has("lotteryPlusInfo")) {
+                ErrorHandler.safelyRun(TAG, "抽取彩票失败") {
+                    val lotteryInfo = jo.getJSONObject("lotteryPlusInfo")
+                    drawLotteryPlus(lotteryInfo)
+                }
+            }
+
+            // 领取礼物
+            if (acceptGift?.value == true && joFarmVO != null) {
+                ErrorHandler.safelyRun(TAG, "领取礼物失败") {
+                    val subFarmVO = joFarmVO.optJSONObject("subFarmVO")
+                    if (subFarmVO != null && subFarmVO.has("giftRecord") && foodStockLimit - foodStock >= 10) {
+                        acceptGift()
+                    }
+                }
+            }
+            
+            jo
         }
-        return null
     }
 
     /**
@@ -1151,11 +1202,17 @@ class AntFarm : ModelTask() {
 
         // 5. 计算并安排下一次自动喂食任务（仅当小鸡不在睡觉时）
         if (AnimalFeedStatus.SLEEPY.name != ownerAnimal.animalFeedStatus) {
-            try {
-                val startEatTime = ownerAnimal.startEatTime ?: return
+            ErrorHandler.safelyRun(TAG, "计算蹲点投喂任务失败") {
+                val startEatTime = ownerAnimal.startEatTime ?: run {
+                    Log.record(TAG, "⚠️ 小鸡开始吃饭时间未设置，跳过蹲点计算")
+                    return@safelyRun
+                }
+                
+                // 计算已吃饲料总量和消耗速度
                 var totalFoodHaveEatten = 0.0
                 var totalConsumeSpeed = 0.0
                 val nowSec = System.currentTimeMillis() / 1000
+                
                 animals?.forEach { animal ->
                     val foodEatten = animal.foodHaveEatten ?: 0.0
                     val speed = animal.consumeSpeed ?: 0.0
@@ -1164,83 +1221,108 @@ class AntFarm : ModelTask() {
                     totalFoodHaveEatten += speed * (nowSec - animalStartTime.toDouble() / 1000)
                     totalConsumeSpeed += speed
                 }
+                
                 if (totalConsumeSpeed > 0) {
                     val remainingSec = ((foodInTroughLimitCurrent - totalFoodHaveEatten) / totalConsumeSpeed)
                         .coerceAtLeast(0.0)
                     val nextFeedTime = System.currentTimeMillis() + (remainingSec * 1000).toLong()
-                    // 调试日志：打印时间计算详情（动态上限 + 实时增量）
+                    
+                    // 调试日志：打印时间计算详情
                     Log.record(
-                        TAG, "蹲点时间计算🕐[开始时间=" + TimeUtil.getCommonDate(startEatTime) +
-                                ", 已吃(含增量)=" + totalFoodHaveEatten + ", 速度总计=" + totalConsumeSpeed +
-                                ", 食槽上限=" + foodInTroughLimitCurrent + ", 计算时间=" + TimeUtil.getCommonDate(nextFeedTime) + "]"
+                        TAG, "蹲点时间计算🕐[开始时间=${TimeUtil.getCommonDate(startEatTime)}" +
+                                ", 已吃(含增量)=$totalFoodHaveEatten, 速度总计=$totalConsumeSpeed" +
+                                ", 食槽上限=$foodInTroughLimitCurrent, 计算时间=${TimeUtil.getCommonDate(nextFeedTime)}]"
                     )
 
                     val taskId = "FA|$ownerFarmId"
                     if (!hasChildTask(taskId)) {
+                        // 创建新的蹲点投喂任务
                         addChildTask(ChildModelTask(taskId, "FA", Runnable {
-                            try {
+                            ErrorHandler.safelyCoroutine(TAG, "蹲点投喂任务执行") {
                                 Log.record(TAG, "🔔 蹲点投喂任务触发")
                                 
                                 // 1️⃣ 同步最新状态
-                                syncAnimalStatus(ownerFarmId)
-                                
-                                // 2️⃣ 检查小鸡状态（可能在睡觉或已经被喂过了）
-                                if (AnimalFeedStatus.HUNGRY.name == ownerAnimal.animalFeedStatus) {
-                                    Log.record(TAG, "🍚 检测到小鸡饥饿，开始投喂")
-                                    
-                                    // 3️⃣ 执行喂食
-                                    if (feedAnimal(ownerFarmId)) {
-                                        Log.record(TAG, "✅ 投喂成功，刷新庄园状态")
-                                        
-                                        // 4️⃣ 重新进入庄园，获取最新状态
-                                        enterFarm()
-                                        
-                                        // 5️⃣ 关键：重新执行喂养逻辑，计算并创建下一次蹲点
-                                        kotlinx.coroutines.runBlocking {
-                                            handleAutoFeedAnimal()
-                                        }
-                                        
-                                        Log.record(TAG, "🔄 下一次蹲点任务已创建")
-                                    } else {
-                                        Log.record(TAG, "⚠️ 投喂失败，可能饲料不足")
-                                    }
-                                } else if (AnimalFeedStatus.SLEEPY.name == ownerAnimal.animalFeedStatus) {
-                                    Log.record(TAG, "💤 小鸡正在睡觉，跳过本次投喂")
-                                } else if (AnimalFeedStatus.EATING.name == ownerAnimal.animalFeedStatus) {
-                                    Log.record(TAG, "😋 小鸡正在吃饭，可能已被其他逻辑喂食")
+                                ErrorHandler.safelyRpcCall(TAG, "同步小鸡状态") {
+                                    syncAnimalStatus(ownerFarmId)
                                 }
-                            } catch (e: Exception) {
-                                Log.error(TAG, "蹲点投喂任务执行失败: ${e.message}")
-                                Log.printStackTrace(TAG, e)
+                                
+                                // 2️⃣ 检查小鸡状态
+                                when (ownerAnimal.animalFeedStatus) {
+                                    AnimalFeedStatus.HUNGRY.name -> {
+                                        Log.record(TAG, "🍚 检测到小鸡饥饿，开始投喂")
+                                        
+                                        // 3️⃣ 执行喂食
+                                        val feedSuccess = ErrorHandler.safelyRpcCall(
+                                            TAG, "执行喂食", fallback = false
+                                        ) {
+                                            feedAnimal(ownerFarmId)
+                                        } ?: false
+                                        
+                                        if (feedSuccess) {
+                                            Log.record(TAG, "✅ 投喂成功，刷新庄园状态")
+                                            
+                                            // 4️⃣ 重新进入庄园，获取最新状态
+                                            ErrorHandler.safelyRpcCall(TAG, "重新进入庄园") {
+                                                enterFarm()
+                                            }
+                                            
+                                            // 5️⃣ 关键：重新执行喂养逻辑，计算并创建下一次蹲点
+                                            kotlinx.coroutines.runBlocking {
+                                                handleAutoFeedAnimal()
+                                            }
+                                            
+                                            Log.record(TAG, "🔄 下一次蹲点任务已创建")
+                                        } else {
+                                            Log.record(TAG, "⚠️ 投喂失败，可能饲料不足")
+                                        }
+                                    }
+                                    AnimalFeedStatus.SLEEPY.name -> {
+                                        Log.record(TAG, "💤 小鸡正在睡觉，跳过本次投喂")
+                                    }
+                                    AnimalFeedStatus.EATING.name -> {
+                                        Log.record(TAG, "😋 小鸡正在吃饭，可能已被其他逻辑喂食")
+                                    }
+                                    else -> {
+                                        Log.record(TAG, "❓ 小鸡状态未知: ${ownerAnimal.animalFeedStatus}")
+                                    }
+                                }
                             }
                         }, nextFeedTime))
+                        
                         Log.record(
                             TAG,
-                            "添加蹲点投喂🥣[" + UserMap.getCurrentMaskName() + "]在[" + TimeUtil.getCommonDate(
-                                nextFeedTime
-                            ) + "]执行"
+                            "添加蹲点投喂🥣[${UserMap.getCurrentMaskName()}]在[${TimeUtil.getCommonDate(nextFeedTime)}]执行"
                         )
                     } else {
                         // 更新已存在的任务
                         addChildTask(ChildModelTask(taskId, "FA", Runnable {
-                            try {
-                                syncAnimalStatus(ownerFarmId)
+                            ErrorHandler.safelyCoroutine(TAG, "蹲点投喂任务更新执行") {
+                                ErrorHandler.safelyRpcCall(TAG, "同步小鸡状态") {
+                                    syncAnimalStatus(ownerFarmId)
+                                }
+                                
                                 if (AnimalFeedStatus.HUNGRY.name == ownerAnimal.animalFeedStatus) {
-                                    if (feedAnimal(ownerFarmId)) {
-                                        enterFarm()
+                                    val feedSuccess = ErrorHandler.safelyRpcCall(
+                                        TAG, "执行喂食", fallback = false
+                                    ) {
+                                        feedAnimal(ownerFarmId)
+                                    } ?: false
+                                    
+                                    if (feedSuccess) {
+                                        ErrorHandler.safelyRpcCall(TAG, "重新进入庄园") {
+                                            enterFarm()
+                                        }
                                         kotlinx.coroutines.runBlocking {
                                             handleAutoFeedAnimal()
                                         }
                                     }
                                 }
-                            } catch (e: Exception) {
-                                Log.printStackTrace(TAG, e)
                             }
                         }, nextFeedTime))
                     }
+                } else {
+                    Log.record(TAG, "⚠️ 消耗速度为0，无法计算蹲点时间")
                 }
-            } catch (e: Exception) {
-                Log.printStackTrace(e)
             }
         } else {
             // 小鸡在睡觉，跳过创建蹲点投喂任务
