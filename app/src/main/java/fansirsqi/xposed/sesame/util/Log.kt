@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * - 使用Kotlin的对象单例特性
  * - 优化字符串处理
  */
+@Suppress("TooGenericExceptionCaught")
 object Log {
 
     private const val TAG = ""
@@ -34,7 +35,6 @@ object Log {
     private val errorCountMap = ConcurrentHashMap<String, AtomicInteger>()
     private const val MAX_DUPLICATE_ERRORS = 3 // 最多打印3次相同错误
 
-    @Suppress("TooGenericExceptionCaught")
     init {
         try {
             Logback.configureLogbackDirectly()

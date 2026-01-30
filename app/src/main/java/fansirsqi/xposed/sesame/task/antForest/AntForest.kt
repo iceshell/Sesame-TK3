@@ -42,6 +42,7 @@ import fansirsqi.xposed.sesame.ui.ObjReference
 import fansirsqi.xposed.sesame.util.Average
 import fansirsqi.xposed.sesame.util.ErrorHandler
 import fansirsqi.xposed.sesame.util.GlobalThreadPools
+import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.ListUtil
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.Notify.updateLastExecText
@@ -243,6 +244,20 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      * Key: 用户ID，Value: 跳过原因（如"baohuzhao"表示有保护罩）
      */
     private val skipUsersCache: ConcurrentHashMap<String, String> = ConcurrentHashMap<String, String>()
+
+    private val lastFriendHomeEmptyLogAtMs = ConcurrentHashMap<String, Long>()
+
+    private fun shouldLogFriendHomeEmpty(userId: String?): Boolean {
+        val key = userId ?: "unknown"
+        val now = System.currentTimeMillis()
+        val last = lastFriendHomeEmptyLogAtMs[key]
+        return if (last == null || now - last >= FRIEND_HOME_EMPTY_LOG_MIN_INTERVAL_MS) {
+            lastFriendHomeEmptyLogAtMs[key] = now
+            true
+        } else {
+            false
+        }
+    }
 
     private var forestChouChouLe: BooleanModelField? = null //森林抽抽乐
 
@@ -1267,7 +1282,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      */
     private fun processCollectResult(response: String, successMessage: String?) {
         try {
-            val joEnergy = JSONObject(response)
+            val joEnergy = JsonUtil.parseJSONObjectOrNull(response) ?: run {
+                Log.runtime(TAG, "收取结果返回空/非法响应，跳过")
+                return
+            }
             if (ResChecker.checkRes(TAG + "收集能量失败:", joEnergy)) {
                 val bubbles = joEnergy.getJSONArray("bubbles")
                 if (bubbles.length() > 0) {
@@ -1408,24 +1426,18 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 if (uid != null && Status.canWaterFriendToday(uid, waterCount)) {
                     try {
                         val response = AntForestRpcCall.queryFriendHomePage(uid ?: "", null)
-                        val jo = JSONObject(response)
+                        val jo = JsonUtil.parseJSONObjectOrNull(response) ?: continue
                         if (ResChecker.checkRes(TAG, jo)) {
                             val bizNo = jo.getString("bizNo")
-
-                            // ✅ 关键改动：传入通知开关
-                            val waterCountKVNode = returnFriendWater(
-                                uid, bizNo, waterCount, waterFriendCount?.value ?: 0, notify
-                            )
-
-                            val actualWaterCount: Int = waterCountKVNode.key ?: 0
-                            if (actualWaterCount > 0) {
-                                Status.waterFriendToday(uid, actualWaterCount)
+                            val wateringCount = jo.getInt("wateringCount")
+                            if (wateringCount > 0) {
+                                val waterEnergy = waterFriendCount?.value ?: 66
+                                val result = returnFriendWater(uid, bizNo, waterCount, waterEnergy, notify)
+                                val wateredTimes = result.key ?: 0
+                                if (wateredTimes > 0) {
+                                    Status.waterFriendToday(uid, wateredTimes)
+                                }
                             }
-                            if (java.lang.Boolean.FALSE == waterCountKVNode.value) {
-                                break
-                            }
-                        } else {
-                            Log.record(jo.getString("resultDesc"))
                         }
                     } catch (e: JSONException) {
                         Log.runtime(TAG, "waterFriends JSON解析错误: " + e.message)
@@ -1495,7 +1507,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 return null
             }
 
-            userHomeObj = JSONObject(response)
+            userHomeObj = JsonUtil.parseJSONObjectOrNull(response) ?: run {
+                Log.error(TAG, "获取自己主页信息失败：响应非法")
+                return null
+            }
 
             // 检查响应是否成功
             if (!ResChecker.checkRes(TAG + "查询自己主页失败:", userHomeObj)) {
@@ -1531,14 +1546,21 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             val start = System.currentTimeMillis()
             val response = AntForestRpcCall.queryFriendHomePage(userId ?: "", fromAct)
             if (response.trim { it <= ' ' }.isEmpty()) {
-                Log.error(
-                    TAG,
-                    "查询好友主页返回空: " + UserMap.getMaskName(userId)
-                )
+                if (shouldLogFriendHomeEmpty(userId)) {
+                    Log.error(
+                        TAG,
+                        "查询好友主页返回空: " + UserMap.getMaskName(userId)
+                    )
+                }
                 return null
             }
 
-            friendHomeObj = JSONObject(response)
+            friendHomeObj = JsonUtil.parseJSONObjectOrNull(response) ?: run {
+                if (shouldLogFriendHomeEmpty(userId)) {
+                    Log.error(TAG, "查询好友主页返回空/非法: " + UserMap.getMaskName(userId))
+                }
+                return null
+            }
             // 检查响应是否成功
             if (!ResChecker.checkRes(TAG + "查询好友主页失败:", friendHomeObj)) {
                 // 检测并记录"手速太快"错误，避免日志刷屏
@@ -2756,7 +2778,15 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 }
 
                 val responseString: String = entity.responseString ?: ""
-                val jo = JSONObject(responseString)
+                val jo = JsonUtil.parseJSONObjectOrNull(responseString) ?: run {
+                    if (tryCount < (tryCountInt ?: 1)) {
+                        collectEnergyEntity.setNeedRetry()
+                        collectEnergy(collectEnergyEntity)
+                    } else {
+                        Log.runtime(TAG, "collectEnergy 返回空/非法响应，跳过")
+                    }
+                    return@Runnable
+                }
                 val resultCode = jo.getString("resultCode")
                 if (!"SUCCESS".equals(resultCode, ignoreCase = true)) {
                     if ("PARAM_ILLEGAL2" == resultCode) {
@@ -4910,6 +4940,8 @@ class AntForest : ModelTask(), EnergyCollectCallback {
 
 
         private val offsetTimeMath = Average(5)
+
+        private const val FRIEND_HOME_EMPTY_LOG_MIN_INTERVAL_MS = 5_000L
 
         // 保持向后兼容
         /** 保护罩续写阈值（HHmm），例如 2355 表示 23小时55分  */

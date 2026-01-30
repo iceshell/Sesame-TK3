@@ -121,3 +121,9 @@ serve-debug/webhook.db
 !README.md
 !CONTRIBUTING.md
 !LICENSE
+
+.windsurf/
+detekt-baseline.xml
+detekt*.yml
+log/*.log
+/*.log

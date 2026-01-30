@@ -2709,13 +2709,22 @@ class AntFarm : ModelTask() {
     private suspend fun cook() {
         try {
             val userId = UserMap.currentUid
-            var jo = JSONObject(AntFarmRpcCall.enterKitchen(userId))
+            val enterKitchenRes = AntFarmRpcCall.enterKitchen(userId)
+            var jo = JsonUtil.parseJSONObjectOrNull(enterKitchenRes) ?: run {
+                Log.runtime(TAG, "enterKitchen 返回空/非法响应，跳过")
+                return
+            }
             Log.runtime(TAG, "cook userid :$userId")
             if (ResChecker.checkRes(TAG, jo)) {
                 val cookTimesAllowed = jo.getInt("cookTimesAllowed")
                 if (cookTimesAllowed > 0) {
                     for (i in 0..<cookTimesAllowed) {
-                        jo = JSONObject(AntFarmRpcCall.cook(userId, "VILLA"))
+                        val cookRes = AntFarmRpcCall.cook(userId, "VILLA")
+                        jo = JsonUtil.parseJSONObjectOrNull(cookRes) ?: run {
+                            Log.runtime(TAG, "cook 返回空/非法响应，跳过")
+                            delay(RandomUtil.delay().toLong())
+                            continue
+                        }
                         if (ResChecker.checkRes(TAG, jo)) {
                             val cuisineVO = jo.getJSONObject("cuisineVO")
                             Log.farm("小鸡厨房👨🏻‍🍳[" + cuisineVO.getString("name") + "]制作成功")

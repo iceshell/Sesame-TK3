@@ -81,6 +81,9 @@ object UserMap {
      */
     @JvmStatic
     fun getMaskName(userId: String?): String? {
+        if (userId.isNullOrBlank()) {
+            return null
+        }
         val userEntity = userMap[userId]
         return userEntity?.maskName
     }
@@ -93,6 +96,9 @@ object UserMap {
      */
     @JvmStatic
     operator fun get(userId: String?): UserEntity? {
+        if (userId.isNullOrBlank()) {
+            return null
+        }
         return userMap[userId]
     }
     

@@ -169,7 +169,7 @@ android {
     }
     // 获取版本递增计数（兼容配置缓存）
     // 临时固定版本号为161 - 细粒度错误处理改进
-    val gitCommitCount: Int = 302    /*
+    val gitCommitCount: Int = 303    /*
     val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
         .orElse(providers.provider {
             // 如果git不可用，使用时间戳的后4位作为递增值
