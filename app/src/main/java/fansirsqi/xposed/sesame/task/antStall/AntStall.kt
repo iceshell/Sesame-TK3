@@ -403,7 +403,10 @@ class AntStall : ModelTask() {
                 runtime(TAG, "rankInviteOpen 返回空响应，跳过")
                 return
             }
-            var jo = parseJSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: run {
+                runtime(TAG, "rankInviteOpen 返回空/非法响应，跳过")
+                return
+            }
             if (checkRes(TAG, jo)) {
                 val friendRankList = jo.getJSONArray("friendRankList")
                 for (i in 0..<friendRankList.length()) {
@@ -425,7 +428,10 @@ class AntStall : ModelTask() {
                             record(TAG, "邀请[" + getMaskName(friendUserId) + "]开店返回空，跳过")
                             continue
                         }
-                        jo = parseJSONObject(s)
+                        jo = JsonUtil.parseJSONObjectOrNull(s) ?: run {
+                            record(TAG, "邀请[" + getMaskName(friendUserId) + "]开店返回空/非法，跳过")
+                            continue
+                        }
                         if (checkRes(TAG, jo)) {
                             farm("蚂蚁新村⛪邀请[" + getMaskName(friendUserId) + "]开店成功")
                             sentUserId.add(friendUserId)
