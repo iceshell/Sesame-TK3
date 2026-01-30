@@ -1,4 +1,5 @@
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
@@ -82,6 +83,31 @@ abstract class GitCommitCountValueSource : ValueSource<Int, ValueSourceParameter
         } catch (e: Exception) {
             null
         }
+    }
+}
+
+abstract class BuildVersionCodeValueSource : ValueSource<Int, ValueSourceParameters.None> {
+    override fun obtain(): Int {
+        val tz = TimeZone.getTimeZone("GMT+8")
+        val nowMs = System.currentTimeMillis()
+
+        val baseCal = Calendar.getInstance(tz).apply {
+            set(2020, Calendar.JANUARY, 1, 0, 0, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+        val baseDay = baseCal.timeInMillis / 86_400_000L
+
+        val nowCal = Calendar.getInstance(tz).apply {
+            timeInMillis = nowMs
+        }
+        val nowDay = nowCal.timeInMillis / 86_400_000L
+        val dayIndex = (nowDay - baseDay).toInt().coerceAtLeast(0)
+
+        val secondsOfDay = nowCal.get(Calendar.HOUR_OF_DAY) * 3600 +
+            nowCal.get(Calendar.MINUTE) * 60 +
+            nowCal.get(Calendar.SECOND)
+
+        return dayIndex * 100_000 + secondsOfDay
     }
 }
 
@@ -169,7 +195,7 @@ android {
     }
     // 获取版本递增计数（兼容配置缓存）
     // 临时固定版本号为161 - 细粒度错误处理改进
-    val gitCommitCount: Int = 303    /*
+    val gitCommitCount: Int = providers.of(BuildVersionCodeValueSource::class.java) {}.get()    /*
     val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
         .orElse(providers.provider {
             // 如果git不可用，使用时间戳的后4位作为递增值

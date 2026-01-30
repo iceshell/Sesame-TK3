@@ -589,7 +589,7 @@ class AntMember : ModelTask() {
                 beanExchangeBubbleBoost()
             }
             if (merchantSign?.value == true || merchantKmdk?.value == true || merchantMoreTask?.value == true) {
-                val jo = JSONObject(AntMemberRpcCall.transcodeCheck())
+                val jo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.transcodeCheck()) ?: return
                 if (!jo.optBoolean("success")) {
                     return
                 }
@@ -627,12 +627,14 @@ class AntMember : ModelTask() {
     private suspend fun memberPointExchangeBenefit() {
         try {
             val userId = UserMap.currentUid ?: return
-            val memberInfo = JSONObject(AntMemberRpcCall.queryMemberInfo())
+            val memberInfo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.queryMemberInfo()) ?: return
             if (!ResChecker.checkRes(TAG, memberInfo)) {
                 return
             }
             val pointBalance = memberInfo.getString("pointBalance")
-            val jo = JSONObject(AntMemberRpcCall.queryShandieEntityList(userId, pointBalance))
+            val jo = JsonUtil.parseJSONObjectOrNull(
+                AntMemberRpcCall.queryShandieEntityList(userId, pointBalance)
+            ) ?: return
             if (!ResChecker.checkRes(TAG, jo)) {
                 return
             }
@@ -672,7 +674,7 @@ class AntMember : ModelTask() {
 
     private suspend fun exchangeBenefit(benefitId: String, itemId: String): Boolean {
         return try {
-            val jo = JSONObject(AntMemberRpcCall.exchangeBenefit(benefitId, itemId))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.exchangeBenefit(benefitId, itemId)) ?: return false
             if (ResChecker.checkRes(TAG + "会员权益兑换失败:", jo)) {
                 Status.memberPointExchangeBenefitToday(benefitId)
                 true
@@ -814,9 +816,10 @@ class AntMember : ModelTask() {
      * 芝麻粒收取
      * @param withOneClick 启用一键收取
      */
+    @Suppress("ReturnCount")
     private suspend fun collectSesame(withOneClick: Boolean) {
         try {
-            var jo = JSONObject(AntMemberRpcCall.queryCreditFeedback())
+            var jo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.queryCreditFeedback()) ?: return
             delay(500)
             if (!jo.optBoolean("success")) {
                 Log.other(TAG, "芝麻信用💳[查询未领取芝麻粒响应失败]#" + jo.getString("resultView"))
@@ -826,7 +829,7 @@ class AntMember : ModelTask() {
             val availableCollectList = jo.getJSONArray("creditFeedbackVOS")
             if (withOneClick) {
                 delay(2000)
-                jo = JSONObject(AntMemberRpcCall.collectAllCreditFeedback())
+                jo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.collectAllCreditFeedback()) ?: return
                 delay(2000)
                 if (!jo.optBoolean("success")) {
                     Log.other(TAG, "芝麻信用💳[一键收取芝麻粒响应失败]#$jo")
@@ -846,7 +849,9 @@ class AntMember : ModelTask() {
                 val creditFeedbackId = item.getString("creditFeedbackId")
                 val potentialSize = item.getString("potentialSize")
                 if (!withOneClick) {
-                    jo = JSONObject(AntMemberRpcCall.collectCreditFeedback(creditFeedbackId))
+                    jo = JsonUtil.parseJSONObjectOrNull(
+                        AntMemberRpcCall.collectCreditFeedback(creditFeedbackId)
+                    ) ?: continue
                     delay(2000)
                     if (!jo.optBoolean("success")) {
                         Log.other(TAG, "芝麻信用💳[查询未领取芝麻粒响应失败]#" + jo.getString("resultView"))
@@ -1123,7 +1128,7 @@ class AntMember : ModelTask() {
             try {
                 val accountInfo = AntMemberRpcCall.queryUserAccountInfo("INS_BLUE_BEAN")
 
-                var jo = JSONObject(accountInfo)
+                var jo = JsonUtil.parseJSONObjectOrNull(accountInfo) ?: return
                 if (!jo.optBoolean("success")) {
                     Log.runtime(jo.toString())
                     return
@@ -1134,7 +1139,7 @@ class AntMember : ModelTask() {
                 // 检查beanExchangeDetail调用
                 var exchangeDetailStr = AntMemberRpcCall.beanExchangeDetail("IT20230214000700069722")
 
-                jo = JSONObject(exchangeDetailStr)
+                jo = JsonUtil.parseJSONObjectOrNull(exchangeDetailStr) ?: return
                 if (!jo.optBoolean("success")) {
                     Log.runtime(jo.toString())
                     return
@@ -1153,7 +1158,7 @@ class AntMember : ModelTask() {
 
                 val exchangeResult = AntMemberRpcCall.beanExchange(itemId, realConsumePointAmount)
 
-                jo = JSONObject(exchangeResult)
+                jo = JsonUtil.parseJSONObjectOrNull(exchangeResult) ?: return
                 if (jo.optBoolean("success")) {
                     Log.record(TAG, "安心豆🫘[兑换:$itemName]")
                 } else {

@@ -1682,7 +1682,7 @@ class AntSports : ModelTask() {
                                     queryClubMember(dataObj.getString("memberId"), originBossId)
                                 sleepCompat(500)
                                 // 解析 queryClubMember 返回的 JSON 数据
-                                val clubMemberJson = JSONObject(clubMemberResult)
+                                val clubMemberJson = JsonUtil.parseJSONObjectOrNull(clubMemberResult) ?: continue
                                 if (clubMemberJson.has("member")) {
                                     val memberObj = clubMemberJson.getJSONObject("member")
                                     // 获取当前成员的信息
@@ -1699,7 +1699,7 @@ class AntSports : ModelTask() {
                                     )
                                     sleepCompat(500)
                                     // 处理 buyMember 的返回结果
-                                    val buyMemberResponse = JSONObject(buyMemberResult)
+                                    val buyMemberResponse = JsonUtil.parseJSONObjectOrNull(buyMemberResult) ?: continue
                                     if (checkRes(TAG, buyMemberResponse)) {
                                         val userName = getMaskName(originBossId)
                                         other(TAG, "抢购好友🥋[成功:将 " + userName + " 抢回来]")
