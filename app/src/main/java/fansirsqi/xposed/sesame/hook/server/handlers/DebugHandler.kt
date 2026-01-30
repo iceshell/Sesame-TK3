@@ -9,7 +9,7 @@ import fi.iki.elonen.NanoHTTPD.Response
 class DebugHandler(secretToken: String) : BaseHandler(secretToken) {
 
     override fun onGet(session: IHTTPSession): Response {
-        return ok(mapOf("status" to "success", "method" to "GET", "message" to "Not implemented"))
+        return methodNotAllowed()
     }
 
     override fun onPost(session: IHTTPSession, body: String?): Response {

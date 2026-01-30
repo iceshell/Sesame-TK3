@@ -11,6 +11,7 @@ import java.io.File
 import java.nio.file.StandardWatchEventKinds
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantReadWriteLock
+import java.util.concurrent.locks.LockSupport
 import kotlin.concurrent.read
 import kotlin.concurrent.thread
 import kotlin.concurrent.write
@@ -144,7 +145,8 @@ object DataStore {
         Thread {
             var last = storageFile.lastModified()
             while (true) {
-                Thread.sleep(1000)
+                LockSupport.parkNanos(1_000_000_000L)
+                if (Thread.interrupted()) return@Thread
                 val current = storageFile.lastModified()
                 if (current > last) {
                     last = current

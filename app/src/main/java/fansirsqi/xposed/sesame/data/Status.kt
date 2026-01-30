@@ -420,7 +420,7 @@ class Status {
                     if (json.trim().isNotEmpty()) {
                         JsonUtil.copyMapper().readerForUpdating(INSTANCE).readValue<Status>(json)
                         val formatted = JsonUtil.formatJson(INSTANCE)
-                        if (formatted != null && formatted != json) {
+                        if (formatted != json) {
                             Log.runtime(TAG, "重新格式化 status.json")
                             Files.write2File(formatted, statusFile)
                         }

@@ -59,8 +59,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -89,6 +90,9 @@ import kotlin.math.min
 class AntForest : ModelTask(), EnergyCollectCallback {
     private val taskCount = AtomicInteger(0)
     private val isEnergyLoopRunning = AtomicBoolean(false)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val energyDispatcher = Dispatchers.Default.limitedParallelism(1)
     private var selfId: String? = null
     private var tryCountInt: Int? = null
     private var retryIntervalInt: Int? = null
@@ -763,7 +767,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         val isEnergyTime = TaskCommon.IS_ENERGY_TIME || hour == 7 && minute < 30
         if (isEnergyTime) {
             // 关键改动：将循环放入后台线程，避免阻塞TaskRunner
-            GlobalThreadPools.execute({ this.startEnergyCollectionLoop() })
+            startEnergyCollectionLoop()
             return false // 只收能量期间不执行正常任务，check()立刻返回
         }
         return true
@@ -773,60 +777,68 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      * 只收能量时间的循环任务（协程版本）
      */
     private fun startEnergyCollectionLoop() {
+        prepare()
         if (!isEnergyLoopRunning.compareAndSet(false, true)) {
             Log.record(TAG, "只收能量循环任务已在运行中，跳过重复启动。")
             return
         }
-        try {
-            val energyTimeStr = BaseModel.energyTime.value.toString()
-            Log.record(
-                TAG,
-                "⏸ 当前为只收能量时间【$energyTimeStr】，开始循环收取自己、好友和PK好友的能量"
-            )
-            runBlocking {
-                try {
-                    while (true) {
-                        // 每次循环更新状态
-                        TaskCommon.update()
-                        // 如果不在能量时间段，退出循环
-                        val now = Calendar.getInstance()
-                        val hour = now.get(Calendar.HOUR_OF_DAY)
-                        val minute = now.get(Calendar.MINUTE)
-                        if (!(TaskCommon.IS_ENERGY_TIME || hour == 7 && minute < 30)) {
-                            Log.record(TAG, "当前不在只收能量时间段，退出循环")
-                            break
-                        }
 
-                        // 收取自己能量（协程中执行）
-                        Log.record(TAG, "🌳 开始收取自己的能量...")
-                        val selfHomeObj = querySelfHome()
-                        if (selfHomeObj != null) {
-                            collectEnergy(UserMap.currentUid, selfHomeObj, "self")
-                            Log.record(TAG, "✅ 收取自己的能量完成")
-                        } else {
-                            Log.error(TAG, "❌ 获取自己主页信息失败，跳过能量收取")
-                        }
+        val energyTimeStr = BaseModel.energyTime.value.toString()
+        Log.record(
+            TAG,
+            "⏸ 当前为只收能量时间【$energyTimeStr】，开始循环收取自己、好友和PK好友的能量"
+        )
 
-                        // 只收能量时间段，启用循环查找能量功能
-                        Log.record(TAG, "👥 开始执行查找能量...")
-                        try {
+        val added = addChildTask(
+            ChildModelTask(
+                id = "AF|ENERGY_LOOP",
+                group = "AF",
+                suspendRunnable = {
+                    try {
+                        while (kotlinx.coroutines.currentCoroutineContext().isActive) {
+                            // 每次循环更新状态
+                            TaskCommon.update()
+
+                            // 如果不在能量时间段，退出循环
+                            val now = Calendar.getInstance()
+                            val hour = now.get(Calendar.HOUR_OF_DAY)
+                            val minute = now.get(Calendar.MINUTE)
+                            if (!(TaskCommon.IS_ENERGY_TIME || hour == 7 && minute < 30)) {
+                                Log.record(TAG, "当前不在只收能量时间段，退出循环")
+                                break
+                            }
+
+                            // 收取自己能量
+                            Log.record(TAG, "🌳 开始收取自己的能量...")
+                            val selfHomeObj = querySelfHome()
+                            if (selfHomeObj != null) {
+                                collectEnergy(UserMap.currentUid, selfHomeObj, "self")
+                                Log.record(TAG, "✅ 收取自己的能量完成")
+                            } else {
+                                Log.error(TAG, "❌ 获取自己主页信息失败，跳过能量收取")
+                            }
+
+                            // 只收能量时间段，启用循环查找能量功能
+                            Log.record(TAG, "👥 开始执行查找能量...")
                             collectEnergyByTakeLook() // 查找能量（协程）
-                        } catch (e: CancellationException) {
-                            Log.runtime(TAG, "查找能量被取消，退出循环")
-                            break
-                        }
 
-                        // 循环间隔（使用协程延迟）
-                        val sleepMillis = (cycleinterval?.value ?: 60000).toLong()
-                        Log.record(TAG, "✨ 只收能量时间一轮完成，等待 $sleepMillis 毫秒后开始下一轮")
-                        GlobalThreadPools.sleepCompat(sleepMillis)
+                            // 循环间隔（使用协程延迟）
+                            val sleepMillis = (cycleinterval?.value ?: 60000).toLong()
+                            Log.record(TAG, "✨ 只收能量时间一轮完成，等待 $sleepMillis 毫秒后开始下一轮")
+                            kotlinx.coroutines.delay(sleepMillis)
+                        }
+                    } catch (e: CancellationException) {
+                        Log.runtime(TAG, "只收能量循环被取消")
+                        throw e
+                    } finally {
+                        Log.record(TAG, "🏁 只收能量时间循环结束")
+                        isEnergyLoopRunning.set(false)
                     }
-                } catch (e: CancellationException) {
-                    Log.runtime(TAG, "只收能量循环被取消")
                 }
-            }
-        } finally {
-            Log.record(TAG, "🏁 只收能量时间循环结束")
+            )
+        )
+
+        if (!added) {
             isEnergyLoopRunning.set(false)
         }
     }
@@ -1147,10 +1159,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      * 定义一个 处理器接口
      */
     private fun interface JsonArrayHandler {
-        fun handle(array: JSONArray?)
+        suspend fun handle(array: JSONArray?)
     }
 
-    private fun processJsonArray(
+    private suspend fun processJsonArray(
         initialObj: JSONObject?,
         arrayKey: String?,
         handler: JsonArrayHandler
@@ -1167,23 +1179,23 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 hasMore = false
             }
             if (hasMore) {
-                GlobalThreadPools.sleepCompat(2000L) // 防止请求过快被限制
+                delay(2000L) // 防止请求过快被限制
                 currentObj = querySelfHome() // 获取下一页数据
             }
         } while (hasMore)
     }
 
-    private fun wateringBubbles(selfHomeObj: JSONObject?) {
+    private suspend fun wateringBubbles(selfHomeObj: JSONObject?) {
         processJsonArray(selfHomeObj,
             "wateringBubbles"
         ) { wateringBubbles: JSONArray? ->
-            wateringBubbles?.let { this.collectWateringBubbles(it) }
+            wateringBubbles?.let { collectWateringBubbles(it) }
         }
     }
 
-    private fun givenProps(selfHomeObj: JSONObject?) {
+    private suspend fun givenProps(selfHomeObj: JSONObject?) {
         processJsonArray(selfHomeObj, "givenProps") { givenProps: JSONArray? ->
-            givenProps?.let { this.collectGivenProps(it) }
+            givenProps?.let { collectGivenProps(it) }
         }
     }
 
@@ -1192,7 +1204,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      *
      * @param wateringBubbles 包含不同类型金球的对象数组
      */
-    private fun collectWateringBubbles(wateringBubbles: JSONArray) {
+    private suspend fun collectWateringBubbles(wateringBubbles: JSONArray) {
         for (i in 0..<wateringBubbles.length()) {
             try {
                 val wateringBubble = wateringBubbles.getJSONObject(i)
@@ -1205,7 +1217,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                         continue
                     }
                 }
-                GlobalThreadPools.sleepCompat(1000L)
+                delay(1000L)
             } catch (e: JSONException) {
                 Log.record(TAG, "浇水金球JSON解析错误: " + e.message)
             } catch (e: RuntimeException) {
@@ -1286,36 +1298,40 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      *
      * @param givenProps 给的道具
      */
-    private fun collectGivenProps(givenProps: JSONArray) {
+    private suspend fun collectGivenProps(givenProps: JSONArray) {
         try {
             for (i in 0..<givenProps.length()) {
                 val jo = givenProps.getJSONObject(i)
-                val giveConfigId = jo.getString("giveConfigId")
-                val giveId = jo.getString("giveId")
-                val propConfig = jo.getJSONObject("propConfig")
-                val propName = propConfig.getString("propName")
-                try {
-                    val response = AntForestRpcCall.collectProp(giveConfigId, giveId)
-                    val responseObj = JSONObject(response)
-                    if (ResChecker.checkRes(TAG + "领取道具失败:", responseObj)) {
-                        val str = "领取道具🎭[$propName]"
-                        Log.forest(str)
-                        Toast.show(str)
-                    } else {
-                        Log.record(
-                            TAG,
-                            "领取道具🎭[" + propName + "]失败:" + responseObj.getString("resultDesc")
-                        )
-                        Log.runtime(response)
-                    }
-                } catch (e: Exception) {
-                    Log.record(TAG, "领取道具时发生错误: " + e.message)
-                    Log.printStackTrace(e)
-                }
-                GlobalThreadPools.sleepCompat(1000L)
+                collectGivenPropItem(jo)
+                delay(1000L)
             }
         } catch (e: JSONException) {
             Log.record(TAG, "givenProps JSON解析错误: " + e.message)
+            Log.printStackTrace(e)
+        }
+    }
+
+    private fun collectGivenPropItem(jo: JSONObject) {
+        val giveConfigId = jo.getString("giveConfigId")
+        val giveId = jo.getString("giveId")
+        val propConfig = jo.getJSONObject("propConfig")
+        val propName = propConfig.getString("propName")
+        try {
+            val response = AntForestRpcCall.collectProp(giveConfigId, giveId)
+            val responseObj = JSONObject(response)
+            if (ResChecker.checkRes(TAG + "领取道具失败:", responseObj)) {
+                val str = "领取道具🎭[$propName]"
+                Log.forest(str)
+                Toast.show(str)
+            } else {
+                Log.record(
+                    TAG,
+                    "领取道具🎭[" + propName + "]失败:" + responseObj.getString("resultDesc")
+                )
+                Log.runtime(response)
+            }
+        } catch (e: Exception) {
+            Log.record(TAG, "领取道具时发生错误: " + e.message)
             Log.printStackTrace(e)
         }
     }
@@ -1424,7 +1440,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
         }
     }
 
-    private fun handleVitalityExchange() {
+    private suspend fun handleVitalityExchange() {
         try {
 //            JSONObject bag = getBag();
 
@@ -1438,17 +1454,21 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     Log.record(TAG, "无效的count值: skuId=$skuId, count=$count")
                     continue
                 }
-                // 处理活力值兑换
-                while (skuId != null && Status.canVitalityExchangeToday(skuId, count)) {
-                    if (!Vitality.handleVitalityExchange(skuId)) {
-                        Log.record(TAG, "活力值兑换失败: " + getNameById(skuId))
-                        break
-                    }
-                    GlobalThreadPools.sleepCompat(5000L)
-                }
+                handleVitalityExchangeForSku(skuId, count)
             }
         } catch (t: Throwable) {
             handleException("handleVitalityExchange", t)
+        }
+    }
+
+    private suspend fun handleVitalityExchangeForSku(skuId: String?, count: Int) {
+        if (skuId == null) return
+        while (Status.canVitalityExchangeToday(skuId, count)) {
+            if (!Vitality.handleVitalityExchange(skuId)) {
+                Log.record(TAG, "活力值兑换失败: " + getNameById(skuId))
+                return
+            }
+            delay(5000L)
         }
     }
 
@@ -1888,7 +1908,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 }
                 if (i < 2) {
                     Log.record(TAG, "获取" + rankingName + "失败，" + (5 * (i + 1)) + "秒后重试")
-                    GlobalThreadPools.sleepCompat(5000L * (i + 1))
+                    kotlinx.coroutines.delay(5000L * (i + 1))
                 }
             }
 
@@ -2033,128 +2053,249 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      * 使用找能量功能收取好友能量（协程版本）
      * 这是一个更高效的收取方式，可以直接找到有能量的好友
      */
-    private fun collectEnergyByTakeLook() {
+    private suspend fun collectEnergyByTakeLook() {
         try {
-            // 检查是否还在冷却期
-            val currentTime = System.currentTimeMillis()
-            if (currentTime < nextTakeLookTime) {
-                val remainingMinutes = (nextTakeLookTime - currentTime) / 60000
-                val remainingSeconds = ((nextTakeLookTime - currentTime) % 60000) / 1000
-                Log.record(TAG, "找能量功能冷却中，还需等待 ${remainingMinutes}分${remainingSeconds}秒")
+            if (!canRunTakeLookNow()) {
                 return
             }
 
             val tc = TimeCounter(TAG)
-            var foundCount = 0
-            val maxAttempts = 10 // 减少到10次，避免过度循环
-            var consecutiveEmpty = 0 // 连续空结果计数
-            var shouldCooldown = false // 标记是否需要冷却
-            Log.record(TAG, "开始使用找能量功能收取好友能量")
-            for (attempt in 1..maxAttempts) {
-                // 构建跳过用户列表（有保护罩的用户）
-                val skipUsers = JSONObject()
-                // 调用找能量接口
-                val takeLookResponse: String?
-                try {
-                    takeLookResponse = AntForestRpcCall.takeLook(skipUsers)
-                } catch (e: NullPointerException) {
-                    shouldCooldown = true
-                    nextTakeLookTime = System.currentTimeMillis() + TAKE_LOOK_COOLDOWN_MS
-                    Log.error(TAG, "找能量接口调用异常，休息15分钟")
-                    Log.printStackTrace(TAG, e)
-                    break
-                }
-                if (takeLookResponse.isEmpty()) {
-                    consecutiveEmpty++
-                    if (consecutiveEmpty >= 3) {
-                        shouldCooldown = true
-                        nextTakeLookTime = System.currentTimeMillis() + TAKE_LOOK_COOLDOWN_MS
-                        Log.record(TAG, "连续" + consecutiveEmpty + "次接口返回空结果，提前结束找能量，休息15分钟")
-                        break
-                    }
-                    continue
-                }
-                val takeLookResult: JSONObject?
-                try {
-                    takeLookResult = JSONObject(takeLookResponse)
-                } catch (e: JSONException) {
-                    Log.error(TAG, "找能量返回的不是有效的JSON，response: $takeLookResponse")
-                    Log.printStackTrace(TAG, e)
-                    continue
-                }
-                if (!ResChecker.checkRes(TAG + "找能量失败:", takeLookResult)) {
-                    Log.error(TAG, "找能量失败: " + takeLookResult.optString("resultDesc"))
-                    break
-                }
-                // 获取找到的好友ID
-                val friendId = takeLookResult.optString("friendId")
-                if (friendId.isEmpty() || friendId == selfId) {
-                    consecutiveEmpty++
-                    if (attempt % 3 == 0) {
-                        Log.record(
-                            TAG,
-                            "第" + attempt + "次找能量没有发现新好友，继续尝试:" + skipUsers
-                        )
-                    }
-                    // 连续3次没有发现新好友就提前结束，避免浪费时间
-                    if (consecutiveEmpty >= 3) {
-                        shouldCooldown = true
-                        nextTakeLookTime = System.currentTimeMillis() + TAKE_LOOK_COOLDOWN_MS
-                        Log.record(TAG, "连续" + consecutiveEmpty + "次未发现新好友，提前结束找能量，休息15分钟")
-                        break
-                    }
-                    continue
-                }
-                if (skipUsersCache.containsKey(friendId)) {
-                    continue
-                }
-                // 查询好友主页并收取能量
-                val friendHomeObj = queryFriendHomePage(friendId, "TAKE_LOOK")
-                if (friendHomeObj != null) {
-                    foundCount++
-                    var friendName = UserMap.getMaskName(friendId)
-                    if (friendName == null || friendName.isEmpty() || friendName == friendId) {
-                        // 如果UserMap没有返回有效的用户名，使用通用的获取用户名方法
-                        friendName = getAndCacheUserName(friendId, friendHomeObj, null)
-                    }
-                    val currentTime = System.currentTimeMillis()
-                    // 检查是否有保护，如果有则添加到跳过列表
-                    val hasShieldProtection = hasShield(friendHomeObj, currentTime)
-                    val hasBombProtection = hasBombCard(friendHomeObj, currentTime)
-                    if (hasShieldProtection || hasBombProtection) {
-                        val protectionType = if (hasShieldProtection) "保护罩" else "炸弹卡"
-                        addToSkipUsers(friendId)
-                        Log.record(
-                            TAG,
-                            "找能量第" + attempt + "次发现好友[" + friendName + friendId + "]有" + protectionType + "，跳过收取"
-                        )
-                    } else {
-                        // 没有保护才进行收取处理
-                        collectEnergy(friendId, friendHomeObj, "takeLook")
-                    }
-                    // 优化间隔：找到好友时减少等待时间，提高效率
-                    GlobalThreadPools.sleepCompat(1200L)
-                    consecutiveEmpty = 0 // 重置连续空结果计数
-                } else {
-                    consecutiveEmpty++
-                    // 检查friendId是否为null或空，给出更详细的信息
-                    Log.record(TAG, "找能量第" + attempt + "次：发现好友但是自己，跳过")
-                    // 连续2次空结果就提前结束，避免浪费时间
-                    if (consecutiveEmpty >= 2) {
-                        Log.record(TAG, "连续" + consecutiveEmpty + "次无结果，提前结束找能量")
-                        break
-                    }
-                }
-            }
+            val loopResult = runTakeLookLoop(maxAttempts = 10)
             tc.countDebug("找能量收取完成")
-            Log.record(TAG, "找能量功能完成，共发现 $foundCount 个好友")
-            // 如果没有触发冷却，清零冷却时间，允许下次正常执行
-            if (!shouldCooldown) {
+            Log.record(TAG, "找能量功能完成，共发现 ${loopResult.foundCount} 个好友")
+            if (!loopResult.shouldCooldown) {
                 nextTakeLookTime = 0
             }
+        } catch (e: CancellationException) {
+            Log.runtime(TAG, "找能量协程被取消")
+            throw e
         } catch (e: Exception) {
             Log.error(TAG, "找能量过程中发生异常")
             Log.printStackTrace(TAG, "collectEnergyByTakeLook 异常", e)
+        }
+    }
+
+    private data class TakeLookLoopResult(
+        val foundCount: Int,
+        val shouldCooldown: Boolean
+    )
+
+    private fun canRunTakeLookNow(): Boolean {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime < nextTakeLookTime) {
+            val remainingMinutes = (nextTakeLookTime - currentTime) / 60000
+            val remainingSeconds = ((nextTakeLookTime - currentTime) % 60000) / 1000
+            Log.record(TAG, "找能量功能冷却中，还需等待 ${remainingMinutes}分${remainingSeconds}秒")
+            return false
+        }
+        return true
+    }
+
+    private fun startTakeLookCooldown() {
+        nextTakeLookTime = System.currentTimeMillis() + TAKE_LOOK_COOLDOWN_MS
+    }
+
+    private suspend fun runTakeLookLoop(maxAttempts: Int): TakeLookLoopResult {
+        var foundCount = 0
+        var consecutiveEmpty = 0
+        var shouldCooldown = false
+        Log.record(TAG, "开始使用找能量功能收取好友能量")
+
+        for (attempt in 1..maxAttempts) {
+            val attemptResult = runTakeLookAttempt(attempt, consecutiveEmpty)
+            consecutiveEmpty = attemptResult.consecutiveEmpty
+            foundCount += attemptResult.foundCountDelta
+            if (attemptResult.shouldCooldown) {
+                shouldCooldown = true
+            }
+            if (attemptResult.shouldBreak) {
+                break
+            }
+        }
+
+        return TakeLookLoopResult(foundCount = foundCount, shouldCooldown = shouldCooldown)
+    }
+
+    private data class TakeLookAttemptResult(
+        val consecutiveEmpty: Int,
+        val foundCountDelta: Int,
+        val shouldCooldown: Boolean,
+        val shouldBreak: Boolean
+    )
+
+    private suspend fun runTakeLookAttempt(
+        attempt: Int,
+        consecutiveEmpty: Int
+    ): TakeLookAttemptResult {
+        var nextEmpty = consecutiveEmpty
+        var foundDelta = 0
+        var shouldCooldown = false
+        var shouldBreak = false
+
+        val skipUsers = JSONObject()
+        val response: String? = try {
+            AntForestRpcCall.takeLook(skipUsers)
+        } catch (e: NullPointerException) {
+            startTakeLookCooldown()
+            Log.error(TAG, "找能量接口调用异常，休息15分钟")
+            Log.printStackTrace(TAG, e)
+            shouldCooldown = true
+            shouldBreak = true
+            null
+        }
+
+        if (response != null) {
+            val responseResult = handleTakeLookResponse(
+                attempt = attempt,
+                skipUsers = skipUsers,
+                response = response,
+                consecutiveEmpty = nextEmpty
+            )
+            nextEmpty = responseResult.consecutiveEmpty
+            foundDelta = responseResult.foundCountDelta
+            if (responseResult.shouldCooldown) {
+                shouldCooldown = true
+            }
+            if (responseResult.shouldBreak) {
+                shouldBreak = true
+            }
+        }
+
+        return TakeLookAttemptResult(
+            consecutiveEmpty = nextEmpty,
+            foundCountDelta = foundDelta,
+            shouldCooldown = shouldCooldown,
+            shouldBreak = shouldBreak
+        )
+    }
+
+    private suspend fun handleTakeLookResponse(
+        attempt: Int,
+        skipUsers: JSONObject,
+        response: String,
+        consecutiveEmpty: Int
+    ): TakeLookAttemptResult {
+        var result = TakeLookAttemptResult(
+            consecutiveEmpty = consecutiveEmpty,
+            foundCountDelta = 0,
+            shouldCooldown = false,
+            shouldBreak = false
+        )
+
+        if (response.isEmpty()) {
+            result = handleTakeLookEmptyResponse(consecutiveEmpty)
+        } else {
+            val takeLookResult = parseTakeLookJsonOrNull(response)
+            if (takeLookResult != null) {
+                if (!ResChecker.checkRes(TAG + "找能量失败:", takeLookResult)) {
+                    Log.error(TAG, "找能量失败: " + takeLookResult.optString("resultDesc"))
+                    result = TakeLookAttemptResult(consecutiveEmpty, 0, false, true)
+                } else {
+                    val friendId = takeLookResult.optString("friendId")
+                    result = handleTakeLookFriendId(
+                        attempt = attempt,
+                        skipUsers = skipUsers,
+                        friendId = friendId,
+                        consecutiveEmpty = consecutiveEmpty
+                    )
+                }
+            }
+        }
+
+        return result
+    }
+
+    private fun handleTakeLookEmptyResponse(consecutiveEmpty: Int): TakeLookAttemptResult {
+        val newEmpty = consecutiveEmpty + 1
+        if (newEmpty >= 3) {
+            startTakeLookCooldown()
+            Log.record(TAG, "连续" + newEmpty + "次接口返回空结果，提前结束找能量，休息15分钟")
+            return TakeLookAttemptResult(newEmpty, 0, true, true)
+        }
+        return TakeLookAttemptResult(newEmpty, 0, false, false)
+    }
+
+    private fun parseTakeLookJsonOrNull(response: String): JSONObject? {
+        return try {
+            JSONObject(response)
+        } catch (e: JSONException) {
+            Log.error(TAG, "找能量返回的不是有效的JSON，response: $response")
+            Log.printStackTrace(TAG, e)
+            null
+        }
+    }
+
+    private suspend fun handleTakeLookFriendId(
+        attempt: Int,
+        skipUsers: JSONObject,
+        friendId: String,
+        consecutiveEmpty: Int
+    ): TakeLookAttemptResult {
+        var result = TakeLookAttemptResult(consecutiveEmpty, 0, false, false)
+
+        if (friendId.isEmpty() || friendId == selfId) {
+            result = handleTakeLookInvalidFriendId(attempt, skipUsers, consecutiveEmpty)
+        } else if (!skipUsersCache.containsKey(friendId)) {
+            val friendHomeObj = queryFriendHomePage(friendId, "TAKE_LOOK")
+            if (friendHomeObj == null) {
+                val newEmpty = consecutiveEmpty + 1
+                Log.record(TAG, "找能量第" + attempt + "次：发现好友但是自己，跳过")
+                result = TakeLookAttemptResult(
+                    consecutiveEmpty = newEmpty,
+                    foundCountDelta = 0,
+                    shouldCooldown = false,
+                    shouldBreak = newEmpty >= 2
+                )
+            } else {
+                processTakeLookFriend(friendId, friendHomeObj, attempt)
+                result = TakeLookAttemptResult(0, 1, false, false)
+            }
+        }
+
+        return result
+    }
+
+    private fun handleTakeLookInvalidFriendId(
+        attempt: Int,
+        skipUsers: JSONObject,
+        consecutiveEmpty: Int
+    ): TakeLookAttemptResult {
+        val newEmpty = consecutiveEmpty + 1
+        if (attempt % 3 == 0) {
+            Log.record(TAG, "第" + attempt + "次找能量没有发现新好友，继续尝试:" + skipUsers)
+        }
+        if (newEmpty >= 3) {
+            startTakeLookCooldown()
+            Log.record(TAG, "连续" + newEmpty + "次未发现新好友，提前结束找能量，休息15分钟")
+            return TakeLookAttemptResult(newEmpty, 0, true, true)
+        }
+        return TakeLookAttemptResult(newEmpty, 0, false, false)
+    }
+
+    private suspend fun processTakeLookFriend(friendId: String, friendHomeObj: JSONObject, attempt: Int) {
+        val currentTime = System.currentTimeMillis()
+        val friendName = resolveFriendName(friendId, friendHomeObj)
+        val hasShieldProtection = hasShield(friendHomeObj, currentTime)
+        val hasBombProtection = hasBombCard(friendHomeObj, currentTime)
+        if (hasShieldProtection || hasBombProtection) {
+            val protectionType = if (hasShieldProtection) "保护罩" else "炸弹卡"
+            addToSkipUsers(friendId)
+            Log.record(
+                TAG,
+                "找能量第" + attempt + "次发现好友[" + friendName + friendId + "]有" + protectionType + "，跳过收取"
+            )
+        } else {
+            collectEnergy(friendId, friendHomeObj, "takeLook")
+        }
+        kotlinx.coroutines.delay(1200L)
+    }
+
+    private fun resolveFriendName(friendId: String, friendHomeObj: JSONObject): String {
+        val cachedName = UserMap.getMaskName(friendId)
+        return if (cachedName.isNullOrEmpty() || cachedName == friendId) {
+            getAndCacheUserName(friendId, friendHomeObj, null) ?: friendId
+        } else {
+            cachedName ?: friendId
         }
     }
 
@@ -2304,77 +2445,116 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      * @param flag 标记是普通好友还是PK好友
      */
     @Throws(Exception::class)
-    private fun processEnergyInternal(obj: JSONObject, flag: String?) {
+    private suspend fun processEnergyInternal(obj: JSONObject, flag: String?) {
         if (errorWait) return
+
         val userId = obj.getString("userId")
-        if (userId == selfId) return  // 跳过自己
+        if (shouldSkipEnergyUser(userId)) return
 
-        // 检查是否在"手速太快"冷却期
-        if (ForestUtil.isUserInFrequencyCooldown(userId)) {
-            return  // 跳过处理
+        val isPk = flag == "pk"
+        val userName = buildEnergyUserName(obj, userId, isPk)
+        if (isPk) {
+            processPkEnergy(userId, userName)
+        } else {
+            processFriendEnergy(obj, userId, userName)
         }
+    }
 
-        var userName = obj.optString("displayName").let { 
+    private fun shouldSkipEnergyUser(userId: String): Boolean {
+        return userId == selfId ||
+                ForestUtil.isUserInFrequencyCooldown(userId) ||
+                emptyForestCache.containsKey(userId)
+    }
+
+    private fun buildEnergyUserName(obj: JSONObject, userId: String, isPk: Boolean): String {
+        val baseName = obj.optString("displayName").let {
             if (it.isNotEmpty()) it else (UserMap.getMaskName(userId) ?: userId)
         }
-        if (emptyForestCache.containsKey(userId)) { //本轮已知为空的树林
+        return if (isPk) "PK榜好友|$baseName" else baseName
+    }
+
+    private fun processPkEnergy(userId: String, userName: String) {
+        val needCollectEnergy = (collectEnergy?.value == true) && (pkEnergy?.value == true)
+        if (!needCollectEnergy) {
+            Log.record(TAG, "    PK好友: [$userName$userId], 不满足收取条件，跳过")
+            return
+        }
+        Log.debug(TAG, "  正在查询PK好友 [$userName$userId] 的主页...")
+        collectEnergy(userId, queryFriendHomePage(userId, "PKContest"), "pk")
+    }
+
+    private suspend fun processFriendEnergy(obj: JSONObject, userId: String, userName: String) {
+        val needs = resolveFriendNeeds(obj, userId)
+        if (!needs.needCollectEnergy && !needs.needHelpProtect && !needs.needCollectGiftBox) {
             return
         }
 
-        val isPk = "pk" == flag
-        if (isPk) {
-            userName = "PK榜好友|$userName"
+        var userHomeObj: JSONObject? = null
+        userHomeObj = maybeCollectFriendEnergy(needs.needCollectEnergy, userId, userName, userHomeObj)
+        userHomeObj = maybeProtectFriendBubble(needs.needHelpProtect, userId, userHomeObj)
+        maybeCollectFriendGiftBox(needs.needCollectGiftBox, userId, userHomeObj)
+    }
+
+    private data class FriendNeeds(
+        val needCollectEnergy: Boolean,
+        val needHelpProtect: Boolean,
+        val needCollectGiftBox: Boolean
+    )
+
+    private fun resolveFriendNeeds(obj: JSONObject, userId: String): FriendNeeds {
+        val needCollectEnergy = (collectEnergy?.value == true) && !jsonCollectMap.contains(userId)
+        val needHelpProtect =
+            (helpFriendCollectType?.value ?: HelpFriendCollectType.NONE) != HelpFriendCollectType.NONE &&
+                    obj.optBoolean("canProtectBubble") &&
+                    selfId?.let { Status.canProtectBubbleToday(it) } == true
+        val needCollectGiftBox = (collectGiftBox?.value == true) && obj.optBoolean("canCollectGiftBox")
+        return FriendNeeds(
+            needCollectEnergy = needCollectEnergy,
+            needHelpProtect = needHelpProtect,
+            needCollectGiftBox = needCollectGiftBox
+        )
+    }
+
+    private fun maybeCollectFriendEnergy(
+        needCollectEnergy: Boolean,
+        userId: String,
+        userName: String,
+        currentHomeObj: JSONObject?
+    ): JSONObject? {
+        if (!needCollectEnergy) return currentHomeObj
+        Log.debug(TAG, "  正在查询好友 [$userName$userId] 的主页...")
+        return collectEnergy(userId, queryFriendHomePage(userId, null), "friend")
+    }
+
+    private suspend fun maybeProtectFriendBubble(
+        needHelpProtect: Boolean,
+        userId: String,
+        currentHomeObj: JSONObject?
+    ): JSONObject? {
+        var homeObj = currentHomeObj
+        if (needHelpProtect) {
+            val isProtected = isIsProtected(userId)
+            if (isProtected) {
+                if (homeObj == null) {
+                    homeObj = queryFriendHomePage(userId, null)
+                }
+                if (homeObj != null) {
+                    protectFriendEnergy(homeObj)
+                }
+            }
         }
-        //  Log.record(TAG, "  processEnergy 开始处理用户: [" + userName + "], 类型: " + (isPk ? "PK" : "普通"));
-        if (isPk) {
-            val needCollectEnergy = (collectEnergy?.value == true) && (pkEnergy?.value == true)
-            if (!needCollectEnergy) {
-                Log.record(TAG, "    PK好友: [$userName$userId], 不满足收取条件，跳过")
-                return
-            }
-            Log.debug(TAG, "  正在查询PK好友 [$userName$userId] 的主页...")
-            collectEnergy(userId, queryFriendHomePage(userId, "PKContest"), "pk")
-        } else { // 普通好友
-            val needCollectEnergy =
-                (collectEnergy?.value == true) && !jsonCollectMap.contains(userId)
-            val needHelpProtect =
-                (helpFriendCollectType?.value ?: HelpFriendCollectType.NONE) != HelpFriendCollectType.NONE && obj.optBoolean(
-                    "canProtectBubble"
-                ) && selfId?.let { Status.canProtectBubbleToday(it) } == true
-            val needCollectGiftBox =
-                (collectGiftBox?.value == true) && obj.optBoolean("canCollectGiftBox")
-            if (!needCollectEnergy && !needHelpProtect && !needCollectGiftBox) {
-                //   Log.record(TAG, "    普通好友: [$userName$userId], 所有条件不满足，跳过")
-                return
-            }
-            var userHomeObj: JSONObject? = null
-            // 只要开启了收能量，就进去看看，以便添加蹲点
-            if (needCollectEnergy) {
-                // 即使排行榜信息显示没有可收能量，也进去检查，以便添加蹲点任务
-                Log.debug(TAG, "  正在查询好友 [$userName$userId] 的主页...")
-                userHomeObj = collectEnergy(userId, queryFriendHomePage(userId, null), "friend")
-            }
-            if (needHelpProtect) {
-                val isProtected = isIsProtected(userId)
-                /** lzw add end */
-                if (isProtected) {
-                    if (userHomeObj == null) {
-                        userHomeObj = queryFriendHomePage(userId, null)
-                    }
-                    if (userHomeObj != null) {
-                        protectFriendEnergy(userHomeObj)
-                    }
-                }
-            }
-            // 尝试领取礼物盒
-            if (needCollectGiftBox) {
-                if (userHomeObj == null) {
-                    userHomeObj = queryFriendHomePage(userId, null)
-                }
-                if (userHomeObj != null) {
-                    collectGiftBox(userHomeObj)
-                }
-            }
+        return homeObj
+    }
+
+    private suspend fun maybeCollectFriendGiftBox(
+        needCollectGiftBox: Boolean,
+        userId: String,
+        currentHomeObj: JSONObject?
+    ) {
+        if (!needCollectGiftBox) return
+        val homeObj = currentHomeObj ?: queryFriendHomePage(userId, null)
+        if (homeObj != null) {
+            collectGiftBox(homeObj)
         }
     }
 
@@ -2396,85 +2576,116 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     /**
      * 协程版本：收取排名靠前好友能量
      */
-    private fun collectGiftBox(userHomeObj: JSONObject) {
+    private suspend fun collectGiftBox(userHomeObj: JSONObject) {
         try {
             val giftBoxInfo = userHomeObj.optJSONObject("giftBoxInfo")
             val userEnergy = userHomeObj.optJSONObject("userEnergy")
             val userId =
                 if (userEnergy == null) UserMap.currentUid else userEnergy.optString("userId")
-            if (giftBoxInfo != null) {
-                val giftBoxList = giftBoxInfo.optJSONArray("giftBoxList")
-                if (giftBoxList != null && giftBoxList.length() > 0) {
-                    for (ii in 0..<giftBoxList.length()) {
-                        try {
-                            val giftBox = giftBoxList.getJSONObject(ii)
-                            val giftBoxId = giftBox.getString("giftBoxId")
-                            val title = giftBox.getString("title")
-                            val giftBoxResult =
-                                JSONObject(AntForestRpcCall.collectFriendGiftBox(giftBoxId, userId ?: ""))
-                            if (!ResChecker.checkRes(TAG + "领取好友礼盒失败:", giftBoxResult)) {
-                                Log.record(giftBoxResult.getString("resultDesc"))
-                                Log.runtime(giftBoxResult.toString())
-                                continue
-                            }
-                            val energy = giftBoxResult.optInt("energy", 0)
-                            Log.forest("礼盒能量🎁[" + UserMap.getMaskName(userId) + "-" + title + "]#" + energy + "g")
-                        } catch (t: Throwable) {
-                            Log.printStackTrace(t)
-                            break
-                        } finally {
-                            GlobalThreadPools.sleepCompat(500L)
-                        }
-                    }
-                }
+            val giftBoxList = giftBoxInfo?.optJSONArray("giftBoxList")
+            if (giftBoxList != null && giftBoxList.length() > 0) {
+                collectGiftBoxList(giftBoxList, userId)
             }
         } catch (e: Exception) {
             Log.printStackTrace(e)
         }
     }
 
-    private fun protectFriendEnergy(userHomeObj: JSONObject) {
+    private suspend fun collectGiftBoxList(giftBoxList: JSONArray, userId: String?) {
+        for (ii in 0..<giftBoxList.length()) {
+            try {
+                val giftBox = giftBoxList.getJSONObject(ii)
+                val giftBoxId = giftBox.getString("giftBoxId")
+                val title = giftBox.getString("title")
+                val giftBoxResult =
+                    JSONObject(AntForestRpcCall.collectFriendGiftBox(giftBoxId, userId ?: ""))
+                if (!ResChecker.checkRes(TAG + "领取好友礼盒失败:", giftBoxResult)) {
+                    Log.record(giftBoxResult.getString("resultDesc"))
+                    Log.runtime(giftBoxResult.toString())
+                } else {
+                    val energy = giftBoxResult.optInt("energy", 0)
+                    Log.forest(
+                        "礼盒能量🎁[" + UserMap.getMaskName(userId) + "-" + title + "]#" + energy + "g"
+                    )
+                }
+            } catch (t: Throwable) {
+                Log.printStackTrace(t)
+                break
+            } finally {
+                kotlinx.coroutines.delay(500L)
+            }
+        }
+    }
+
+    private suspend fun protectFriendEnergy(userHomeObj: JSONObject) {
         try {
             val wateringBubbles = userHomeObj.optJSONArray("wateringBubbles")
             val userEnergy = userHomeObj.optJSONObject("userEnergy")
             val userId =
                 if (userEnergy == null) UserMap.currentUid else userEnergy.optString("userId")
             if (wateringBubbles != null && wateringBubbles.length() > 0) {
-                for (j in 0..<wateringBubbles.length()) {
-                    try {
-                        val wateringBubble = wateringBubbles.getJSONObject(j)
-                        if ("fuhuo" != wateringBubble.getString("bizType")) {
-                            continue
-                        }
-                        if (wateringBubble.getJSONObject("extInfo").optInt("restTimes", 0) == 0) {
-                            selfId?.let { Status.protectBubbleToday(it) }
-                        }
-                        if (!wateringBubble.getBoolean("canProtect")) {
-                            continue
-                        }
-                        val joProtect = JSONObject(AntForestRpcCall.protectBubble(userId ?: ""))
-                        if (!ResChecker.checkRes(TAG + "复活能量失败:", joProtect)) {
-                            Log.record(joProtect.getString("resultDesc"))
-                            Log.runtime(joProtect.toString())
-                            continue
-                        }
-                        val vitalityAmount = joProtect.optInt("vitalityAmount", 0)
-                        val fullEnergy = wateringBubble.optInt("fullEnergy", 0)
-                        val str =
-                            "复活能量🚑[" + UserMap.getMaskName(userId) + "-" + fullEnergy + "g]" + (if (vitalityAmount > 0) "#活力值+$vitalityAmount" else "")
-                        Log.forest(str)
-                        break
-                    } catch (t: Throwable) {
-                        Log.printStackTrace(t)
-                        break
-                    } finally {
-                        GlobalThreadPools.sleepCompat(500)
-                    }
-                }
+                protectFromWateringBubbles(wateringBubbles, userId)
             }
         } catch (e: Exception) {
             Log.printStackTrace(e)
         }
+    }
+
+    private suspend fun protectFromWateringBubbles(wateringBubbles: JSONArray, userId: String?) {
+        for (j in 0..<wateringBubbles.length()) {
+            try {
+                val wateringBubble = wateringBubbles.getJSONObject(j)
+                val handled = handleWateringBubble(wateringBubble, userId)
+                if (handled) break
+            } catch (t: Throwable) {
+                Log.printStackTrace(t)
+                break
+            } finally {
+                kotlinx.coroutines.delay(500)
+            }
+        }
+    }
+
+    private fun handleWateringBubble(wateringBubble: JSONObject, userId: String?): Boolean {
+        var handled = false
+        if (wateringBubble.isFuhuoBubble()) {
+            if (wateringBubble.getJSONObject("extInfo").optInt("restTimes", 0) == 0) {
+                selfId?.let { Status.protectBubbleToday(it) }
+            }
+
+            val canProtect = wateringBubble.getBoolean("canProtect")
+            val protected = if (canProtect) protectSingleBubble(userId) else null
+            if (protected != null) {
+                val vitalityAmount = protected.vitalityAmount
+                val fullEnergy = wateringBubble.optInt("fullEnergy", 0)
+                val str =
+                    "复活能量🚑[" + UserMap.getMaskName(userId) + "-" + fullEnergy + "g]" + (if (vitalityAmount > 0) "#活力值+$vitalityAmount" else "")
+                Log.forest(str)
+                handled = true
+            }
+        }
+
+        return handled
+    }
+
+    private fun JSONObject.isFuhuoBubble(): Boolean {
+        return try {
+            getString("bizType") == "fuhuo"
+        } catch (_: Throwable) {
+            false
+        }
+    }
+
+    private data class ProtectBubbleResult(val vitalityAmount: Int)
+
+    private fun protectSingleBubble(userId: String?): ProtectBubbleResult? {
+        val joProtect = JSONObject(AntForestRpcCall.protectBubble(userId ?: ""))
+        if (!ResChecker.checkRes(TAG + "复活能量失败:", joProtect)) {
+            Log.record(joProtect.getString("resultDesc"))
+            Log.runtime(joProtect.toString())
+            return null
+        }
+        return ProtectBubbleResult(vitalityAmount = joProtect.optInt("vitalityAmount", 0))
     }
 
     private fun collectEnergy(collectEnergyEntity: CollectEnergyEntity) {
@@ -2482,6 +2693,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
             Log.record(TAG, "异常⌛等待中...不收取能量")
             return
         }
+
         val runnable = Runnable {
             try {
                 val userId = collectEnergyEntity.userId
@@ -2493,28 +2705,14 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 val needRetry = collectEnergyEntity.needRetry
                 val tryCount = collectEnergyEntity.addTryCount()
                 var collected = 0
-                val startTime: Long
 
+                val startTime = System.currentTimeMillis()
                 synchronized(collectEnergyLockLimit) {
-                    val sleep: Long
                     if (needDouble) {
                         collectEnergyEntity.unsetNeedDouble()
-                        val interval = doubleCollectIntervalEntity?.interval
-                        sleep =
-                            (interval ?: 1000) - System.currentTimeMillis() + (collectEnergyLockLimit.get() ?: 0L)
                     } else if (needRetry) {
                         collectEnergyEntity.unsetNeedRetry()
-                        sleep =
-                            (retryIntervalInt ?: 0) - System.currentTimeMillis() + (collectEnergyLockLimit.get() ?: 0L)
-                    } else {
-                        val interval = collectIntervalEntity?.interval
-                        sleep =
-                            (interval ?: 1000) - System.currentTimeMillis() + (collectEnergyLockLimit.get() ?: 0L)
                     }
-                    if (sleep > 0) {
-                        GlobalThreadPools.sleepCompat(sleep)
-                    }
-                    startTime = System.currentTimeMillis()
                     collectEnergyLockLimit.setForce(startTime)
                 }
 
@@ -2543,7 +2741,12 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                             errorWait = true
                             return@Runnable
                         }
-                        GlobalThreadPools.sleepCompat((600 + RandomUtil.delay()).toLong())
+
+                        val backoffMillis = (600 + RandomUtil.delay()).toLong()
+                        GlobalThreadPools.schedule(backoffMillis, context = energyDispatcher) {
+                            collectEnergy(collectEnergyEntity)
+                        }
+                        return@Runnable
                     }
                     if (tryCount < (tryCountInt ?: 1)) {
                         collectEnergyEntity.setNeedRetry()
@@ -2679,8 +2882,39 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 notifyMain()
             }
         }
+
         taskCount.incrementAndGet()
-        runnable.run()
+        val delayMillis = reserveCollectEnergyDelayMillis(collectEnergyEntity)
+        if (delayMillis > 0) {
+            GlobalThreadPools.schedule(delayMillis, context = energyDispatcher) {
+                runnable.run()
+            }
+        } else {
+            GlobalThreadPools.execute(runnable, context = energyDispatcher)
+        }
+    }
+
+    private fun reserveCollectEnergyDelayMillis(collectEnergyEntity: CollectEnergyEntity): Long {
+        return synchronized(collectEnergyLockLimit) {
+            val now = System.currentTimeMillis()
+            val lastStart = collectEnergyLockLimit.get() ?: 0L
+
+            val interval = when {
+                collectEnergyEntity.needDouble -> {
+                    doubleCollectIntervalEntity?.interval ?: 1000
+                }
+                collectEnergyEntity.needRetry -> {
+                    retryIntervalInt ?: 0
+                }
+                else -> {
+                    collectIntervalEntity?.interval ?: 1000
+                }
+            }.toLong()
+
+            val scheduledStart = kotlin.math.max(now, lastStart + interval)
+            collectEnergyLockLimit.setForce(scheduledStart)
+            (scheduledStart - now).coerceAtLeast(0L)
+        }
     }
 
     private fun getReturnCount(collected: Int): Int {
@@ -2841,7 +3075,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     break
                 } else if ("3000" == errorCode) { // 系统错误
                     Log.record(TAG, "好友浇水🚿系统错误，稍后重试: " + UserMap.getMaskName(userId))
-                    Thread.sleep(500)
+                    GlobalThreadPools.sleepCompat(500L)
                     waterCount-- // 重试当前次数
                     waterCount++
                     continue

@@ -29,6 +29,7 @@ object UserMap {
      * 当前用户ID
      */
     @JvmStatic
+    @Volatile
     var currentUid: String? = null
         private set
     
@@ -58,7 +59,6 @@ object UserMap {
      * @param userId 用户ID
      */
     @JvmStatic
-    @Synchronized
     fun setCurrentUserId(userId: String?) {
         currentUid = if (userId.isNullOrEmpty()) null else userId
     }
@@ -102,7 +102,6 @@ object UserMap {
      * @param userEntity 用户实体
      */
     @JvmStatic
-    @Synchronized
     fun add(userEntity: UserEntity) {
         if (!userEntity.userId.isNullOrEmpty()) {
             userMap[userEntity.userId] = userEntity

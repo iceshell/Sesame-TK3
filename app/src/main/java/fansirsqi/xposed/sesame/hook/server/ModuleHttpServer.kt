@@ -9,7 +9,7 @@ import fi.iki.elonen.NanoHTTPD
 class ModuleHttpServer(
     port: Int = 8080,
     secretToken: String = ""
-) : NanoHTTPD("0.0.0.0", port) {
+) : NanoHTTPD("127.0.0.1", port) {
     private val tag = "ModuleHttpServer"
 
     companion object {

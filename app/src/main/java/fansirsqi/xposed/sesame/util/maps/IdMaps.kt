@@ -16,19 +16,15 @@ abstract class IdMaps private constructor() {
         private const val TAG = "IdMaps"
         private val instances = ConcurrentHashMap<Class<out IdMaps>, IdMaps>()
 
-        @Synchronized
         fun <T : IdMaps> getInstance(clazz: Class<T>): T {
-            var instance = clazz.cast(instances[clazz])
-            if (instance == null) {
+            @Suppress("UNCHECKED_CAST")
+            return instances.computeIfAbsent(clazz) {
                 try {
-                    instance = clazz.getDeclaredConstructor().newInstance()
-                    // ✅ 将 instance 向上转型为 IdMaps，再存入 map
-                    instances[clazz] = instance as IdMaps
+                    clazz.getDeclaredConstructor().newInstance() as IdMaps
                 } catch (e: Exception) {
                     throw RuntimeException("Failed to create instance for ${clazz.name}", e)
                 }
-            }
-            return instance
+            } as T
         }
     }
 
@@ -47,17 +43,14 @@ abstract class IdMaps private constructor() {
         }
     }
 
-    @Synchronized
     fun put(key: Any, value: Any) {
         idMap[key] = value
     }
 
-    @Synchronized
     fun remove(key: Any) {
         idMap.remove(key)
     }
 
-    @Synchronized
     fun clear() {
         idMap.clear()
     }

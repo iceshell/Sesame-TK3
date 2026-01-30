@@ -12,6 +12,7 @@ import fansirsqi.xposed.sesame.model.modelFieldExt.IntegerModelField
 import fansirsqi.xposed.sesame.task.ModelTask
 import fansirsqi.xposed.sesame.task.TaskCommon
 import fansirsqi.xposed.sesame.util.GlobalThreadPools
+import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.TimeUtil
 
@@ -99,7 +100,7 @@ class ConsumeGold : ModelTask() {
         try {
             var s = ConsumeGoldRpcCall.signinCalendar()
             GlobalThreadPools.sleepCompat(200)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldSign.signinCalendar", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldSign.signinCalendar", "消费金🪙[响应失败]#$s")
@@ -110,7 +111,7 @@ class ConsumeGold : ModelTask() {
             }
             s = ConsumeGoldRpcCall.taskV2Index("CG_SIGNIN_AD_FEEDS")
             GlobalThreadPools.sleepCompat(200)
-            jo = JSONObject(s)
+            jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldSign.taskV2Index", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldSign.taskV2Index", "消费金🪙[响应失败]#$s")
@@ -124,7 +125,7 @@ class ConsumeGold : ModelTask() {
             val taskId = jo.getJSONObject("extInfo").getString("actionBizId")
             s = ConsumeGoldRpcCall.taskV2Trigger(taskId, "CG_SIGNIN_AD_FEEDS", "SIGN_UP")
             GlobalThreadPools.sleepCompat(200)
-            jo = JSONObject(s)
+            jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldSign.taskV2Trigger", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldSign.taskV2Trigger", "消费金🪙[响应失败]#$s")
@@ -132,7 +133,7 @@ class ConsumeGold : ModelTask() {
             }
             s = ConsumeGoldRpcCall.taskOpenBoxAward()
             GlobalThreadPools.sleepCompat(500)
-            jo = JSONObject(s)
+            jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldSign.taskOpenBoxAward", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldSign.taskOpenBoxAward", "消费金🪙[响应失败]#$s")
@@ -149,7 +150,7 @@ class ConsumeGold : ModelTask() {
         try {
             var s = ConsumeGoldRpcCall.promoIndex()
             GlobalThreadPools.sleepCompat(500)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldAward.promoIndex", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldAward.promoIndex", "消费金🪙[响应失败]#$s")
@@ -173,7 +174,7 @@ class ConsumeGold : ModelTask() {
             for (j in (tokenTotalAmount - tokenLeftAmount) until tokenTotalAmount) {
                 s = ConsumeGoldRpcCall.promoTrigger()
                 GlobalThreadPools.sleepCompat(1000)
-                jo = JSONObject(s)
+                jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                 if (!jo.optBoolean("success")) {
                     Log.other("$TAG.consumeGoldAward.promoTrigger", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                     Log.error("$TAG.consumeGoldAward.promoTrigger", "消费金🪙[响应失败]#$s")
@@ -188,11 +189,12 @@ class ConsumeGold : ModelTask() {
         }
     }
 
+    @Suppress("ReturnCount")
     private fun consumeGoldGainRepair() {
         try {
             var s = ConsumeGoldRpcCall.signinCalendar()
             GlobalThreadPools.sleepCompat(200)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldGainRepair.signinCalendar", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldGainRepair.signinCalendar", "消费金🪙[响应失败]#$s")
@@ -202,7 +204,7 @@ class ConsumeGold : ModelTask() {
                 execTask(jo.getJSONArray("taskList"), "REPAIR_SIGN_TOKEN", "领取补签卡", true, true, true)
             }
             s = ConsumeGoldRpcCall.taskV2Index("REPAIR_SIGN_XLIGHT")
-            jo = JSONObject(s)
+            jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldGainRepair.taskV2Index", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldGainRepair.taskV2Index", "消费金🪙[响应失败]#$s")
@@ -226,7 +228,7 @@ class ConsumeGold : ModelTask() {
             var consumeGoldRepairUseLimit = RuntimeInfo.getInstance().getLong("consumeGoldRepairSignUsed", 0)
             var s = ConsumeGoldRpcCall.signinCalendar()
             GlobalThreadPools.sleepCompat(200)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldRepairSign.signinCalendar", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldRepairSign.signinCalendar", "消费金🪙[响应失败]#$s")
@@ -268,7 +270,7 @@ class ConsumeGold : ModelTask() {
             for (repairDate in repairDateList) {
                 s = ConsumeGoldRpcCall.signinTrigger("check", repairDate)
                 GlobalThreadPools.sleepCompat(500)
-                jo = JSONObject(s)
+                jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                 if (!jo.optBoolean("success")) {
                     Log.other("$TAG.consumeGoldRepairSign.signinTrigger.check", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                     Log.error("$TAG.consumeGoldRepairSign.signinTrigger.check", "消费金🪙[响应失败]#$s")
@@ -276,7 +278,7 @@ class ConsumeGold : ModelTask() {
                 }
                 s = ConsumeGoldRpcCall.signinTrigger("repair", repairDate)
                 GlobalThreadPools.sleepCompat(500)
-                jo = JSONObject(s)
+                jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                 if (!jo.optBoolean("success")) {
                     Log.other("$TAG.consumeGoldRepairSign.signinTrigger.repair", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                     Log.error("$TAG.consumeGoldRepairSign.signinTrigger.repair", "消费金🪙[响应失败]#$s")
@@ -294,7 +296,7 @@ class ConsumeGold : ModelTask() {
         try {
             val s = ConsumeGoldRpcCall.taskV2Index("ALL_DAILY_TASK_LIST")
             GlobalThreadPools.sleepCompat(200)
-            val jo = JSONObject(s)
+            val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.consumeGoldGainTask.taskV2Index", "消费金🪙[响应失败]#${jo.getString("errorMsg")}")
                 Log.error("$TAG.consumeGoldGainTask.taskV2Index", "消费金🪙[响应失败]#$s")
@@ -332,7 +334,7 @@ class ConsumeGold : ModelTask() {
                     if (needSignUp) {
                         GlobalThreadPools.sleepCompat(200)
                         s = ConsumeGoldRpcCall.taskV2Trigger(taskId, taskSceneCode, "SIGN_UP")
-                        jo = JSONObject(s)
+                        jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                         if (!jo.optBoolean("success")) {
                             Log.other("$TAG.execTask.taskV2Trigger.SIGN_UP", "消费金🪙[响应失败]#$s")
                             continue
@@ -343,7 +345,7 @@ class ConsumeGold : ModelTask() {
                     if (needSend) {
                         GlobalThreadPools.sleepCompat((watchAdDelay?.value ?: 16000).toLong())
                         s = ConsumeGoldRpcCall.taskV2Trigger(taskId, taskSceneCode, "SEND")
-                        jo = JSONObject(s)
+                        jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                         if (!jo.optBoolean("success")) {
                             Log.other("$TAG.execTask.taskV2Trigger.SEND", "消费金🪙[响应失败]#$s")
                             continue
@@ -354,7 +356,7 @@ class ConsumeGold : ModelTask() {
                     if (needReceive) {
                         GlobalThreadPools.sleepCompat(200)
                         s = ConsumeGoldRpcCall.taskV2Trigger(taskId, taskSceneCode, "RECEIVE")
-                        jo = JSONObject(s)
+                        jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                         if (!jo.optBoolean("success")) {
                             Log.other("$TAG.execTask.taskV2Trigger.RECEIVE", "消费金🪙[响应失败]#$s")
                         }

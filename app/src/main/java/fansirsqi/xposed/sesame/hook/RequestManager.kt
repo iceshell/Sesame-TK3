@@ -6,22 +6,44 @@ import fansirsqi.xposed.sesame.entity.RpcEntity
 import fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.NetworkUtils
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @author Byseven
  * @date 2025/1/6
  * @apiNote
  */
+@Suppress("TooManyFunctions")
 object RequestManager {
+    private val lastEmptyResponseLogAtMs = ConcurrentHashMap<String, Long>()
+
+    private const val EMPTY_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
+
+    private fun shouldLogEmptyResponse(method: String?): Boolean {
+        val key = method ?: "unknown"
+        val now = System.currentTimeMillis()
+        val last = lastEmptyResponseLogAtMs[key]
+        return if (last == null || now - last >= EMPTY_RESPONSE_LOG_INTERVAL_MS) {
+            lastEmptyResponseLogAtMs[key] = now
+            true
+        } else {
+            false
+        }
+    }
+
     private fun checkResult(result: String?, method: String?): String {
         // 处理 null 返回值，避免 NullPointerException
         if (result == null) {
-            Log.runtime("RequestManager", "RPC 返回 null: $method")
+            if (shouldLogEmptyResponse(method)) {
+                Log.runtime("RequestManager", "RPC 返回 null: $method")
+            }
             return ""
         }
         // 检查是否为空字符串
         if (result.trim { it <= ' ' }.isEmpty()) {
-            Log.runtime("RequestManager", "RPC 返回空字符串: $method")
+            if (shouldLogEmptyResponse(method)) {
+                Log.runtime("RequestManager", "RPC 返回空字符串: $method")
+            }
             return ""
         }
         return result

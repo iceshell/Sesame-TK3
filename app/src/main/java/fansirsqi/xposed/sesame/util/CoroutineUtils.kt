@@ -1,6 +1,10 @@
 package fansirsqi.xposed.sesame.util
 
 import kotlinx.coroutines.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.locks.LockSupport
 
 /**
  * 协程工具类
@@ -22,8 +26,6 @@ object CoroutineUtils {
             kotlinx.coroutines.delay(millis)
         } catch (e: Exception) {
             Log.printStackTrace("协程延迟异常", e)
-            // 如果协程延迟失败，降级到线程休眠
-            Thread.sleep(millis)
         }
     }
     
@@ -37,17 +39,12 @@ object CoroutineUtils {
     @JvmStatic
     fun sleepCompat(millis: Long) {
         try {
-            runBlocking {
-                delay(millis)
+            LockSupport.parkNanos(millis * 1_000_000L)
+            if (Thread.interrupted()) {
+                Log.runtime("CoroutineUtils", "延迟被中断")
             }
-        } catch (e: Exception) {
-            // 降级到传统的 Thread.sleep()
-            try {
-                Thread.sleep(millis)
-            } catch (ie: InterruptedException) {
-                Thread.currentThread().interrupt()
-                Log.runtime("CoroutineUtils", "延迟被中断: ${ie.message}")
-            }
+        } catch (t: Throwable) {
+            Log.printStackTrace("CoroutineUtils", t)
         }
     }
     
@@ -94,16 +91,43 @@ object CoroutineUtils {
         timeout: Long = 30000, // 30秒默认超时
         block: suspend CoroutineScope.() -> T
     ): T? {
-        return try {
-            runBlocking {
+        val resultRef = AtomicReference<T?>(null)
+        val errorRef = AtomicReference<Throwable?>(null)
+        val latch = CountDownLatch(1)
+
+        val job = GlobalThreadPools.execute {
+            val result = runCatching {
                 withTimeout(timeout) {
                     block()
                 }
             }
-        } catch (e: TimeoutCancellationException) {
-            Log.error("CoroutineUtils", "协程执行超时: ${timeout}ms")
-            null
-        } catch (e: Exception) {
+            resultRef.set(result.getOrNull())
+            errorRef.set(result.exceptionOrNull())
+            latch.countDown()
+        }
+
+        return try {
+            val finished = latch.await(timeout, TimeUnit.MILLISECONDS)
+            if (!finished) {
+                job.cancel()
+                Log.error("CoroutineUtils", "协程执行超时: ${timeout}ms")
+                return null
+            }
+
+            val error = errorRef.get()
+            when (error) {
+                is TimeoutCancellationException -> {
+                    Log.error("CoroutineUtils", "协程执行超时: ${timeout}ms")
+                    null
+                }
+                null -> resultRef.get()
+                else -> {
+                    Log.printStackTrace("协程同步执行异常", error)
+                    null
+                }
+            }
+        } catch (e: InterruptedException) {
+            job.cancel()
             Log.printStackTrace("协程同步执行异常", e)
             null
         }

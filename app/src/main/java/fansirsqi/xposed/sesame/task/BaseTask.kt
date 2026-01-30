@@ -35,12 +35,10 @@ abstract class BaseTask {
     
     abstract fun run()
     
-    @Synchronized
     fun hasChildTask(childId: String): Boolean {
         return childTaskMap.containsKey(childId)
     }
     
-    @Synchronized
     fun getChildTask(childId: String): BaseTask? {
         return childTaskMap[childId]
     }
@@ -80,7 +78,6 @@ abstract class BaseTask {
         }
     }
     
-    @Synchronized
     fun countChildTask(): Int {
         return childTaskMap.size
     }

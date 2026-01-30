@@ -173,7 +173,7 @@ class ApplicationHookEntry {
                                 Log.runtime(TAG, "${ApplicationHookConstants.alipayVersion.versionString} Not support fuck")
                             }
 
-                            if (BuildConfig.DEBUG) {
+                            if (BuildConfig.DEBUG && BaseModel.debugMode.value == true) {
                                 try {
                                     Log.runtime(TAG, "start service for debug rpc")
                                     ModuleHttpServerManager.startIfNeeded(
@@ -486,7 +486,9 @@ class ApplicationHookEntry {
                 
                 when (action) {
                     "com.eg.android.AlipayGphone.sesame.restart" -> {
-                        Log.printStack(TAG)
+                        if (BaseModel.debugMode.value == true) {
+                            Log.printStack(TAG)
+                        }
                         val configReload = intent.getBooleanExtra("configReload", false)
                         Thread {
                             ApplicationHookCore.initHandler(!configReload)
@@ -494,7 +496,9 @@ class ApplicationHookEntry {
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.execute" -> {
-                        Log.printStack(TAG)
+                        if (BaseModel.debugMode.value == true) {
+                            Log.printStack(TAG)
+                        }
                         if (intent.getBooleanExtra("alarm_triggered", false)) {
                             ApplicationHookConstants.setAlarmTriggeredFlag(true)
                         }
@@ -504,12 +508,16 @@ class ApplicationHookEntry {
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.reLogin" -> {
-                        Log.printStack(TAG)
+                        if (BaseModel.debugMode.value == true) {
+                            Log.printStack(TAG)
+                        }
                         Thread { ApplicationHookCore.reLogin() }.start()
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.status" -> {
-                        Log.printStack(TAG)
+                        if (BaseModel.debugMode.value == true) {
+                            Log.printStack(TAG)
+                        }
                         if (ViewAppInfo.getRunType() == RunType.DISABLE) {
                             val replyIntent = Intent("fansirsqi.xposed.sesame.status").apply {
                                 putExtra("EXTRA_RUN_TYPE", RunType.ACTIVE.nickName)
@@ -529,6 +537,10 @@ class ApplicationHookEntry {
                                 Log.runtime(TAG, "收到RPC测试请求 - Method: $method, Type: $type")
                                 
                                 if (method != null && data != null && type != null) {
+                                    if (type == "Rpc" && !BuildConfig.DEBUG && BaseModel.debugMode.value != true) {
+                                        Log.runtime(TAG, "已拦截 Rpc 调试请求：非 Debug 构建且未开启 debugMode")
+                                        return@Thread
+                                    }
                                     val rpcInstance = DebugRpc()
                                     rpcInstance.start(method, data, type)
                                 } else {

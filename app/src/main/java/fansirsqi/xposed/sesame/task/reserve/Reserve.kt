@@ -16,6 +16,7 @@ import fansirsqi.xposed.sesame.util.maps.ReserveaMap
 import fansirsqi.xposed.sesame.util.RandomUtil
 import fansirsqi.xposed.sesame.util.ResChecker
 import fansirsqi.xposed.sesame.data.Status
+import kotlinx.coroutines.delay
 
 class Reserve : ModelTask() {
     
@@ -48,6 +49,12 @@ class Reserve : ModelTask() {
     }
 
     override fun runJava() {
+        GlobalThreadPools.execute {
+            runSuspend()
+        }
+    }
+
+    override suspend fun runSuspend() {
         try {
             Log.record(TAG, "开始保护地任务")
             initReserve()
@@ -60,12 +67,12 @@ class Reserve : ModelTask() {
         }
     }
 
-    private fun animalReserve() {
+    private suspend fun animalReserve() {
         try {
             Log.record(TAG, "开始执行-${getName()}")
             var s: String? = ReserveRpcCall.queryTreeItemsForExchange()
             if (s == null) {
-                GlobalThreadPools.sleepCompat(RandomUtil.delay().toLong())
+                delay(RandomUtil.delay().toLong())
                 s = ReserveRpcCall.queryTreeItemsForExchange()
             }
             val jo = JSONObject(s)
@@ -85,13 +92,9 @@ class Reserve : ModelTask() {
                     val projectId = item.getString("itemId")
                     val itemName = item.getString("itemName")
                     val map = reserveList?.value ?: continue
-                    for ((key, value) in map) {
-                        if (key == projectId) {
-                            if (value != null && value > 0 && Status.canReserveToday(projectId, value)) {
-                                exchangeTree(projectId, itemName, value)
-                            }
-                            break
-                        }
+                    val value = map[projectId]
+                    if (value != null && value > 0 && Status.canReserveToday(projectId, value)) {
+                        exchangeTree(projectId, itemName, value)
                     }
                 }
             } else {
@@ -135,7 +138,7 @@ class Reserve : ModelTask() {
         return false
     }
 
-    private fun exchangeTree(projectId: String, itemName: String, count: Int) {
+    private suspend fun exchangeTree(projectId: String, itemName: String, count: Int) {
         try {
             var canApply = queryTreeForExchange(projectId)
             if (!canApply)
@@ -156,12 +159,12 @@ class Reserve : ModelTask() {
                     Log.forest("领保护地🏕️[$itemName]#发生未知错误，停止申请")
                     break
                 }
-                GlobalThreadPools.sleepCompat(300)
+                delay(300)
                 canApply = queryTreeForExchange(projectId)
                 if (!canApply) {
                     break
                 } else {
-                    GlobalThreadPools.sleepCompat(300)
+                    delay(300)
                 }
                 if (!Status.canReserveToday(projectId, count))
                     break

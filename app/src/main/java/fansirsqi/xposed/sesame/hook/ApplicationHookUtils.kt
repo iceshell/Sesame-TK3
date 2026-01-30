@@ -20,6 +20,14 @@ import java.lang.reflect.InvocationTargetException
 object ApplicationHookUtils {
     private const val TAG = "ApplicationHook"
 
+    @Volatile
+    private var lastReLoginBroadcastAt: Long = 0L
+
+    @Volatile
+    private var lastReLoginBroadcastSkipLogAt: Long = 0L
+
+    private const val RELOGIN_BROADCAST_MIN_INTERVAL_MS = 10_000L
+
     /**
      * 对类中的特定方法进行反优化处理
      * 用于确保Xposed hook能够正确工作
@@ -155,6 +163,25 @@ object ApplicationHookUtils {
     @JvmStatic
     fun reLoginByBroadcast() {
         try {
+            val now = System.currentTimeMillis()
+            val shouldSend = synchronized(this) {
+                if (now - lastReLoginBroadcastAt < RELOGIN_BROADCAST_MIN_INTERVAL_MS) {
+                    false
+                } else {
+                    lastReLoginBroadcastAt = now
+                    true
+                }
+            }
+
+            if (!shouldSend) {
+                val nowSkip = System.currentTimeMillis()
+                if (nowSkip - lastReLoginBroadcastSkipLogAt >= RELOGIN_BROADCAST_MIN_INTERVAL_MS) {
+                    lastReLoginBroadcastSkipLogAt = nowSkip
+                    Log.runtime(TAG, "reLogin广播发送过于频繁，已跳过")
+                }
+                return
+            }
+
             ApplicationHookConstants.appContext?.sendBroadcast(
                 Intent("com.eg.android.AlipayGphone.sesame.reLogin")
             )

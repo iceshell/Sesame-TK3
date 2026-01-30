@@ -27,6 +27,7 @@ import kotlin.math.min
  */
 object GlobalThreadPools {
     private const val TAG = "GlobalThreadPools"
+    private const val NANOS_PER_MILLISECOND = 1_000_000L
 
     /**
      * CPU核心数
@@ -236,7 +237,8 @@ object GlobalThreadPools {
      */
     @JvmStatic
     fun sleepCompat(millis: Long) {
-        CoroutineUtils.sleepCompat(millis)
+        if (millis <= 0) return
+        java.util.concurrent.locks.LockSupport.parkNanos(millis * NANOS_PER_MILLISECOND)
     }
     
     /**

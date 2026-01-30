@@ -3,6 +3,7 @@ package fansirsqi.xposed.sesame.task.antForest
 import fansirsqi.xposed.sesame.hook.Toast
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.ResChecker
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import kotlinx.coroutines.delay
 import org.json.JSONArray
@@ -188,7 +189,7 @@ object EnergyRainCoroutine {
      */
     @JvmStatic
     fun execEnergyRainCompat() {
-        kotlinx.coroutines.runBlocking {
+        GlobalThreadPools.execute {
             execEnergyRain()
         }
     }

@@ -13,6 +13,7 @@ import fansirsqi.xposed.sesame.util.RandomUtil
 import fansirsqi.xposed.sesame.util.TimeUtil
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -37,6 +38,9 @@ class NewRpcBridge : RpcBridge {
         "alipay.antforest.forest.h5.takeLook"  // 找能量
     )
 
+    private val lastNullResponseLogAtMs = ConcurrentHashMap<String, Long>()
+    private val nullResponseLogIntervalMs = NULL_RESPONSE_LOG_INTERVAL_MS
+
     /**
      * 检查指定的RPC方法是否应该显示错误日志
      *
@@ -57,7 +61,12 @@ class NewRpcBridge : RpcBridge {
     private fun logNullResponse(rpcEntity: RpcEntity?, reason: String, count: Int) {
         val methodName = rpcEntity?.requestMethod ?: "unknown"
         if (shouldShowErrorLog(methodName)) {
-            Log.error(TAG, "RPC返回null | 方法: $methodName | 原因: $reason | 重试: $count")
+            val now = System.currentTimeMillis()
+            val last = lastNullResponseLogAtMs[methodName]
+            if (last == null || now - last >= nullResponseLogIntervalMs) {
+                lastNullResponseLogAtMs[methodName] = now
+                Log.error(TAG, "RPC返回null | 方法: $methodName | 原因: $reason | 重试: $count")
+            }
         }
     }
 
@@ -368,5 +377,7 @@ class NewRpcBridge : RpcBridge {
 
     companion object {
         private val TAG = NewRpcBridge::class.java.simpleName
+
+        private const val NULL_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
     }
 }

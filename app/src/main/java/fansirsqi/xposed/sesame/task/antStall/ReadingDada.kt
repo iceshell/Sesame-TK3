@@ -26,6 +26,7 @@ class ReadingDada {
          * @return 是否成功回答
          */
         @JvmStatic
+        @Suppress("ReturnCount")
         fun answerQuestion(bizInfo: JSONObject): Boolean {
             try {
                 // 获取活动ID
@@ -45,7 +46,7 @@ class ReadingDada {
 
                 // 获取问题
                 var response = ReadingDadaRpcCall.getQuestion(activityId)
-                var json = JSONObject(response)
+                var json = JsonUtil.parseJSONObjectOrNull(response) ?: return false
 
                 if (json.getString("resultCode") == "200") {
                     val options = json.getJSONArray("options")
@@ -70,7 +71,7 @@ class ReadingDada {
                         json.getString("questionId"),
                         answer
                     )
-                    json = JSONObject(response)
+                    json = JsonUtil.parseJSONObjectOrNull(response) ?: return false
 
                     return if (json.getString("resultCode") == "200") {
                         Log.record(TAG, "答题完成")

@@ -2,7 +2,9 @@ package fansirsqi.xposed.sesame.util
 
 import android.annotation.SuppressLint
 import android.os.Environment
+import android.util.Log as AndroidLog
 import fansirsqi.xposed.sesame.data.General
+import kotlinx.coroutines.delay
 import java.io.*
 import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
@@ -19,6 +21,7 @@ import java.util.*
 object Files {
 
     private const val TAG = "Files"
+    private const val NANOS_PER_MILLISECOND = 1_000_000L
 
     /**
      * 配置文件夹名称
@@ -28,20 +31,26 @@ object Files {
     /**
      * 应用配置文件夹主路径
      */
-    @JvmField
-    val MAIN_DIR: File = getMainDir()
+    private val mainDirLazy: File by lazy { resolveMainDir() }
+
+    val MAIN_DIR: File
+        get() = mainDirLazy
 
     /**
      * 配置文件夹路径
      */
-    @JvmField
-    val CONFIG_DIR: File = getConfigDir()
+    private val configDirLazy: File by lazy { resolveConfigDir() }
+
+    val CONFIG_DIR: File
+        get() = configDirLazy
 
     /**
      * 日志文件夹路径
      */
-    @JvmField
-    val LOG_DIR: File? = getLogDir()
+    private val logDirLazy: File? by lazy { resolveLogDir() }
+
+    val LOG_DIR: File?
+        get() = logDirLazy
 
     // ==================== 目录管理 ====================
 
@@ -52,41 +61,45 @@ object Files {
     fun ensureDir(directory: File?) {
         try {
             if (directory == null) {
-                Log.error(TAG, "Directory cannot be null")
+                AndroidLog.e(TAG, "Directory cannot be null")
                 return
             }
             when {
                 !directory.exists() -> {
                     if (!directory.mkdirs()) {
-                        Log.error(TAG, "Failed to create directory: ${directory.absolutePath}")
+                        AndroidLog.e(TAG, "Failed to create directory: ${directory.absolutePath}")
                     }
                 }
                 directory.isFile -> {
                     if (!directory.delete() || !directory.mkdirs()) {
-                        Log.error(TAG, "Failed to replace file with directory: ${directory.absolutePath}")
+                        AndroidLog.e(TAG, "Failed to replace file with directory: ${directory.absolutePath}")
                     }
                 }
             }
         } catch (e: Exception) {
-            Log.printStackTrace("$TAG ensureDir error", e)
+            AndroidLog.e(TAG, "ensureDir error: ${e.message}", e)
         }
     }
 
-    private fun getMainDir(): File {
-        val storageDirStr = "${Environment.getExternalStorageDirectory()}${File.separator}Android${File.separator}media${File.separator}${General.PACKAGE_NAME}"
-        val storageDir = File(storageDirStr)
-        val mainDir = File(storageDir, CONFIG_DIR_NAME)
+    private fun resolveMainDir(): File {
+        val mainDir = try {
+            val storageDirStr = "${Environment.getExternalStorageDirectory()}${File.separator}Android${File.separator}media${File.separator}${General.PACKAGE_NAME}"
+            val storageDir = File(storageDirStr)
+            File(storageDir, CONFIG_DIR_NAME)
+        } catch (_: Throwable) {
+            File(System.getProperty("java.io.tmpdir"), "${General.PACKAGE_NAME}${File.separator}$CONFIG_DIR_NAME")
+        }
         ensureDir(mainDir)
         return mainDir
     }
 
-    private fun getLogDir(): File? {
+    private fun resolveLogDir(): File? {
         val logDir = File(MAIN_DIR, "log")
         ensureDir(logDir)
         return if (logDir.exists()) logDir else null
     }
 
-    private fun getConfigDir(): File {
+    private fun resolveConfigDir(): File {
         val configDir = File(MAIN_DIR, "config")
         ensureDir(configDir)
         return configDir
@@ -548,6 +561,30 @@ object Files {
         return allSuccess && deleteFileWithRetry(file)
     }
 
+    suspend fun delFileSuspend(file: File): Boolean {
+        var result = false
+        if (!file.exists()) {
+            ToastUtil.showToast("${file.absoluteFile}不存在！别勾把删了")
+            Log.record(TAG, "delFile: ${file.absoluteFile}不存在！,无须删除")
+        } else if (file.isFile) {
+            result = deleteFileWithRetrySuspend(file)
+        } else {
+            val files = file.listFiles()
+            if (files == null) {
+                result = deleteFileWithRetrySuspend(file)
+            } else {
+                var allSuccess = true
+                for (innerFile in files) {
+                    if (!delFileSuspend(innerFile)) {
+                        allSuccess = false
+                    }
+                }
+                result = allSuccess && deleteFileWithRetrySuspend(file)
+            }
+        }
+        return result
+    }
+
     private fun deleteFileWithRetry(file: File): Boolean {
         var retryCount = 3
         while (retryCount > 0) {
@@ -556,9 +593,28 @@ object Files {
             }
             retryCount--
             Log.runtime(TAG, "删除失败，重试中: ${file.absolutePath}")
-            CoroutineUtils.sleepCompat(500)
+            sleepBlocking(500)
         }
         Log.error(TAG, "删除失败: ${file.absolutePath}")
         return false
+    }
+
+    private suspend fun deleteFileWithRetrySuspend(file: File): Boolean {
+        var retryCount = 3
+        while (retryCount > 0) {
+            if (file.delete()) {
+                return true
+            }
+            retryCount--
+            Log.runtime(TAG, "删除失败，重试中: ${file.absolutePath}")
+            delay(500)
+        }
+        Log.error(TAG, "删除失败: ${file.absolutePath}")
+        return false
+    }
+
+    private fun sleepBlocking(millis: Long) {
+        if (millis <= 0) return
+        java.util.concurrent.locks.LockSupport.parkNanos(millis * NANOS_PER_MILLISECOND)
     }
 }

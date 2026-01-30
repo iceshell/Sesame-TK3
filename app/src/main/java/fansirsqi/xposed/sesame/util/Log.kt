@@ -34,8 +34,15 @@ object Log {
     private val errorCountMap = ConcurrentHashMap<String, AtomicInteger>()
     private const val MAX_DUPLICATE_ERRORS = 3 // 最多打印3次相同错误
 
+    @Suppress("TooGenericExceptionCaught")
     init {
-        Logback.configureLogbackDirectly()
+        try {
+            Logback.configureLogbackDirectly()
+        } catch (e: Exception) {
+            AndroidLog.e("Log", "configureLogbackDirectly failed: ${e.message}", e)
+        } catch (e: LinkageError) {
+            AndroidLog.e("Log", "configureLogbackDirectly failed: ${e.message}", e)
+        }
         RUNTIME_LOGGER = LoggerFactory.getLogger("runtime")
         SYSTEM_LOGGER = LoggerFactory.getLogger("system")
         RECORD_LOGGER = LoggerFactory.getLogger("record")

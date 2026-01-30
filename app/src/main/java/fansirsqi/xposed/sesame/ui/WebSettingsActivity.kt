@@ -15,6 +15,7 @@ import android.view.View
 import android.webkit.ConsoleMessage
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -241,10 +242,16 @@ class WebSettingsActivity : BaseActivity() {
                     Log.runtime(TAG, "WebView: 页面加载完成 - $url")
                 }
 
-                @Deprecated("Deprecated in Java")
-                override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
-                    super.onReceivedError(view, errorCode, description, failingUrl)
-                    Log.error(TAG, "WebView加载错误: code=$errorCode, desc=$description, url=$failingUrl")
+                override fun onReceivedError(
+                    view: WebView,
+                    request: WebResourceRequest,
+                    error: WebResourceError
+                ) {
+                    super.onReceivedError(view, request, error)
+                    Log.error(
+                        TAG,
+                        "WebView加载错误: code=${error.errorCode}, desc=${error.description}, url=${request.url}"
+                    )
                 }
 
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {

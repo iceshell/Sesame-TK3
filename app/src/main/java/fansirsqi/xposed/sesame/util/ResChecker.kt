@@ -11,6 +11,16 @@ import java.util.regex.Pattern
 object ResChecker {
     
     private val TAG = ResChecker::class.java.simpleName
+    private val silentFailureCodes = setOf(
+        "400000012",
+        "2600000014",
+        "400000040"
+    )
+    private val silentFailureKeywords = listOf(
+        "权益获取次数超过上限",
+        "抽奖活动已结束",
+        "不支持rpc调用"
+    )
     
     /**
      * 核心检查逻辑
@@ -40,6 +50,18 @@ object ResChecker {
             val resultDesc = jo.optString("resultDesc", "")
             val memo = jo.optString("memo", "")
             val resultCode = jo.optString("resultCode", "")
+            val code = jo.optString("code").ifBlank {
+                jo.optString("errorCode").ifBlank { resultCode }
+            }
+            val desc = jo.optString("desc").ifBlank {
+                jo.optString("errorMsg").ifBlank { resultDesc }
+            }
+
+            if (silentFailureCodes.contains(code) || silentFailureKeywords.any { keyword ->
+                    desc.contains(keyword)
+                }) {
+                return false
+            }
             
             if (resultDesc.contains("当前参与人数过多") || resultDesc.contains("请稍后再试") ||
                 resultDesc.contains("手速太快") || resultDesc.contains("频繁") ||

@@ -57,7 +57,6 @@ abstract class IdMapManager {
      * @param key   键
      * @param value 值
      */
-    @Synchronized
     fun add(key: String, value: String) {
         idMap[key] = value
     }
@@ -67,7 +66,6 @@ abstract class IdMapManager {
      *
      * @param key 键
      */
-    @Synchronized
     fun remove(key: String) {
         idMap.remove(key)
     }

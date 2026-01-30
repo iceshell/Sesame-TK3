@@ -18,6 +18,7 @@ import fansirsqi.xposed.sesame.util.maps.IdMapManager
 import fansirsqi.xposed.sesame.util.maps.MemberBenefitsMap
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -66,8 +67,8 @@ class AntMember : ModelTask() {
         private suspend fun queryPointCert(page: Int, pageSize: Int) {
             try {
                 var s = AntMemberRpcCall.queryPointCert(page, pageSize)
-                GlobalThreadPools.sleepCompat(500)
-                var jo = JSONObject(s)
+                delay(500)
+                var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (ResChecker.checkRes("$TAG 查询会员积分证书失败:", jo)) {
                     val hasNextPage = jo.getBoolean("hasNextPage")
                     val jaCertList = jo.getJSONArray("certList")
@@ -77,7 +78,7 @@ class AntMember : ModelTask() {
                         val id = cert.getString("id")
                         val pointAmount = cert.getInt("pointAmount")
                         s = AntMemberRpcCall.receivePointByUser(id)
-                        jo = JSONObject(s)
+                        jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                         if (ResChecker.checkRes("$TAG 会员积分领取失败:", jo)) {
                             Log.other("会员积分🎖️[领取$bizTitle]#${pointAmount}积分")
                         } else {
@@ -105,7 +106,7 @@ class AntMember : ModelTask() {
         private suspend fun checkSesameCanRun(): Boolean {
             return try {
                 val s = AntMemberRpcCall.queryHome()
-                val jo = JSONObject(s)
+                val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return false
                 if (!jo.optBoolean("success")) {
                     Log.other(TAG, "芝麻信用💳[首页响应失败]#${jo.optString("errorMsg")}")
                     Log.error("$TAG.checkSesameCanRun.queryHome", "芝麻信用💳[首页响应失败]#$s")
@@ -180,8 +181,8 @@ class AntMember : ModelTask() {
                 if (!task.has("todayFinish")) {
                     // 领取任务
                     var s = AntMemberRpcCall.joinSesameTask(taskTemplateId)
-                    GlobalThreadPools.sleepCompat(200)
-                    val responseObj = JSONObject(s)
+                    delay(200)
+                    val responseObj = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                     if (!responseObj.optBoolean("success")) {
                         Log.other(TAG, "芝麻信用💳[领取任务" + taskTitle + "失败]#" + s)
                         skippedCount++
@@ -200,8 +201,8 @@ class AntMember : ModelTask() {
                 // 完成任务
                 for (j in completedNum until needCompleteNum) {
                     val s = AntMemberRpcCall.finishSesameTask(recordId)
-                    GlobalThreadPools.sleepCompat(200)
-                    val responseObj = JSONObject(s)
+                    delay(200)
+                    val responseObj = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                     if (responseObj.optBoolean("success")) {
                         Log.record(TAG, "芝麻信用💳[完成任务" + taskTitle + "]#(" + (j + 1) + "/" + needCompleteNum + "天)")
                         taskCompleted = true
@@ -227,11 +228,11 @@ class AntMember : ModelTask() {
         private suspend fun kmdkSignIn() {
             try {
                 val s = AntMemberRpcCall.queryActivity()
-                val jo = JSONObject(s)
+                val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (jo.optBoolean("success")) {
                     if ("SIGN_IN_ENABLE" == jo.getString("signInStatus")) {
                         val activityNo = jo.getString("activityNo")
-                        val joSignIn = JSONObject(AntMemberRpcCall.signIn(activityNo))
+                        val joSignIn = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.signIn(activityNo)) ?: return
                         if (joSignIn.optBoolean("success")) {
                             Log.other("商家服务🏬[开门打卡签到成功]")
                         } else {
@@ -254,7 +255,7 @@ class AntMember : ModelTask() {
         private suspend fun kmdkSignUp() {
             try {
                 for (i in 0 until 5) {
-                    val jo = JSONObject(AntMemberRpcCall.queryActivity())
+                    val jo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.queryActivity()) ?: break
                     if (jo.optBoolean("success")) {
                         val activityNo = jo.getString("activityNo")
                         if (!TimeUtil.getFormatDate().replace("-", "").equals(activityNo.split("_")[2])) {
@@ -265,7 +266,9 @@ class AntMember : ModelTask() {
                         }
                         if ("UN_SIGN_UP" == jo.getString("signUpStatus")) {
                             val activityPeriodName = jo.getString("activityPeriodName")
-                            val joSignUp = JSONObject(AntMemberRpcCall.signUp(activityNo))
+                            val joSignUp = JsonUtil.parseJSONObjectOrNull(
+                                AntMemberRpcCall.signUp(activityNo)
+                            ) ?: continue
                             if (joSignUp.optBoolean("success")) {
                                 Log.other("商家服务🏬[" + activityPeriodName + "开门打卡报名]")
                                 return
@@ -278,7 +281,7 @@ class AntMember : ModelTask() {
                         Log.record(TAG, "queryActivity")
                         Log.runtime(jo.toString())
                     }
-                    GlobalThreadPools.sleepCompat(500)
+                    delay(500)
                 }
             } catch (t: Throwable) {
                 Log.runtime(TAG, "kmdkSignUp err:")
@@ -292,7 +295,7 @@ class AntMember : ModelTask() {
         private suspend fun doMerchantSign() {
             try {
                 var s = AntMemberRpcCall.merchantSign()
-                var jo = JSONObject(s)
+                var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (!jo.optBoolean("success")) {
                     Log.runtime(TAG, "doMerchantSign err:$s")
                     return
@@ -319,7 +322,7 @@ class AntMember : ModelTask() {
             val s = AntMemberRpcCall.taskListQuery()
             try {
                 var doubleCheck = false
-                val jo = JSONObject(s)
+                val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (jo.optBoolean("success")) {
                     val taskList = jo.getJSONObject("data").getJSONArray("taskList")
                     for (i in 0 until taskList.length()) {
@@ -332,7 +335,9 @@ class AntMember : ModelTask() {
                         val taskStatus = task.getString("status")
                         if ("NEED_RECEIVE" == taskStatus) {
                             if (task.has("pointBallId")) {
-                                val receiveJo = JSONObject(AntMemberRpcCall.ballReceive(task.getString("pointBallId")))
+                                val receiveJo = JsonUtil.parseJSONObjectOrNull(
+                                    AntMemberRpcCall.ballReceive(task.getString("pointBallId"))
+                                ) ?: continue
                                 if (receiveJo.optBoolean("success")) {
                                     Log.other("商家服务🏬[$title]#领取积分$reward")
                                 }
@@ -340,7 +345,9 @@ class AntMember : ModelTask() {
                         } else if ("PROCESSING" == taskStatus || "UNRECEIVED" == taskStatus) {
                             if (task.has("extendLog")) {
                                 val bizExtMap = task.getJSONObject("extendLog").getJSONObject("bizExtMap")
-                                val finishJo = JSONObject(AntMemberRpcCall.taskFinish(bizExtMap.getString("bizId")))
+                                val finishJo = JsonUtil.parseJSONObjectOrNull(
+                                    AntMemberRpcCall.taskFinish(bizExtMap.getString("bizId"))
+                                ) ?: continue
                                 if (finishJo.optBoolean("success")) {
                                     Log.other("商家服务🏬[$title]#领取积分$reward")
                                 }
@@ -403,7 +410,7 @@ class AntMember : ModelTask() {
                 Log.printStackTrace(TAG, t)
             } finally {
                 try {
-                    GlobalThreadPools.sleepCompat(1000)
+                    delay(1000)
                 } catch (e: Exception) {
                     Log.printStackTrace(e)
                 }
@@ -419,13 +426,13 @@ class AntMember : ModelTask() {
         private suspend fun taskReceive(taskCode: String, actionCode: String, title: String) {
             try {
                 var s = AntMemberRpcCall.taskReceive(taskCode)
-                var jo = JSONObject(s)
+                var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (jo.optBoolean("success")) {
-                    GlobalThreadPools.sleepCompat(500)
-                    jo = JSONObject(AntMemberRpcCall.actioncode(actionCode))
+                    delay(500)
+                    jo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.actioncode(actionCode)) ?: return
                     if (jo.optBoolean("success")) {
-                        GlobalThreadPools.sleepCompat(16000)
-                        jo = JSONObject(AntMemberRpcCall.produce(actionCode))
+                        delay(16000)
+                        jo = JsonUtil.parseJSONObjectOrNull(AntMemberRpcCall.produce(actionCode)) ?: return
                         if (jo.optBoolean("success")) {
                             Log.other("商家服务🏬[完成任务$title]")
                         }
@@ -687,8 +694,8 @@ class AntMember : ModelTask() {
             val currentUid = UserMap.currentUid
             if (currentUid != null && Status.canMemberSignInToday(currentUid)) {
                 var s = AntMemberRpcCall.queryMemberSigninCalendar()
-                GlobalThreadPools.sleepCompat(500)
-                val jo = JSONObject(s)
+                delay(500)
+                val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (ResChecker.checkRes(TAG + "会员签到失败:", jo)) {
                     Log.other(
                         "会员签到📅[" + jo.getString("signinPoint") + "积分]#已签到" + jo.getString("signinSumDay") + "天"
@@ -712,8 +719,8 @@ class AntMember : ModelTask() {
     private suspend fun doAllMemberAvailableTask() {
         try {
             var str = AntMemberRpcCall.queryAllStatusTaskList()
-            GlobalThreadPools.sleepCompat(500)
-            val jsonObject = JSONObject(str)
+            delay(500)
+            val jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return
             if (!ResChecker.checkRes(TAG, jsonObject)) {
                 Log.error(TAG + ".doAllMemberAvailableTask", "会员任务响应失败: " + jsonObject.getString("resultDesc"))
                 return
@@ -738,8 +745,8 @@ class AntMember : ModelTask() {
     private suspend fun doAllAvailableSesameTask() {
         try {
             var s = AntMemberRpcCall.queryAvailableSesameTask()
-            GlobalThreadPools.sleepCompat(500)
-            var jo = JSONObject(s)
+            delay(500)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.has("resData")) {
                 jo = jo.getJSONObject("resData")
             }
@@ -810,7 +817,7 @@ class AntMember : ModelTask() {
     private suspend fun collectSesame(withOneClick: Boolean) {
         try {
             var jo = JSONObject(AntMemberRpcCall.queryCreditFeedback())
-            GlobalThreadPools.sleepCompat(500)
+            delay(500)
             if (!jo.optBoolean("success")) {
                 Log.other(TAG, "芝麻信用💳[查询未领取芝麻粒响应失败]#" + jo.getString("resultView"))
                 Log.error("$TAG.collectSesame.queryCreditFeedback", "芝麻信用💳[查询未领取芝麻粒响应失败]#$jo")
@@ -818,9 +825,9 @@ class AntMember : ModelTask() {
             }
             val availableCollectList = jo.getJSONArray("creditFeedbackVOS")
             if (withOneClick) {
-                GlobalThreadPools.sleepCompat(2000)
+                delay(2000)
                 jo = JSONObject(AntMemberRpcCall.collectAllCreditFeedback())
-                GlobalThreadPools.sleepCompat(2000)
+                delay(2000)
                 if (!jo.optBoolean("success")) {
                     Log.other(TAG, "芝麻信用💳[一键收取芝麻粒响应失败]#$jo")
                     Log.error(
@@ -840,7 +847,7 @@ class AntMember : ModelTask() {
                 val potentialSize = item.getString("potentialSize")
                 if (!withOneClick) {
                     jo = JSONObject(AntMemberRpcCall.collectCreditFeedback(creditFeedbackId))
-                    GlobalThreadPools.sleepCompat(2000)
+                    delay(2000)
                     if (!jo.optBoolean("success")) {
                         Log.other(TAG, "芝麻信用💳[查询未领取芝麻粒响应失败]#" + jo.getString("resultView"))
                         Log.error("$TAG.collectSesame.collectCreditFeedback", "芝麻信用💳[收取芝麻粒响应失败]#$jo")
@@ -860,10 +867,11 @@ class AntMember : ModelTask() {
     private suspend fun collectInsuredGold() {
         try {
             var s = AntMemberRpcCall.queryAvailableCollectInsuredGold()
-            GlobalThreadPools.sleepCompat(200)
-            var jo = JSONObject(s)
+            delay(200)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (!jo.optBoolean("success")) {
                 Log.other("$TAG.collectInsuredGold.queryInsuredHome", "保障金🏥[响应失败]#$s")
+                Log.error("$TAG.collectInsuredGold.queryInsuredHome", "保障金🏥[响应失败]#$s")
                 return
             }
             jo = jo.getJSONObject("data")
@@ -871,10 +879,11 @@ class AntMember : ModelTask() {
             val otherBallList = jo.getJSONArray("eventToWaitDTOList")
             if (1 == signInBall.getInt("sendFlowStatus") && 1 == signInBall.getInt("sendType")) {
                 s = AntMemberRpcCall.collectInsuredGold(signInBall)
-                GlobalThreadPools.sleepCompat(2000)
-                jo = JSONObject(s)
+                delay(2000)
+                jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (!jo.optBoolean("success")) {
                     Log.other("$TAG.collectInsuredGold.collectInsuredGold", "保障金🏥[响应失败]#$s")
+                    Log.error("$TAG.collectInsuredGold.collectInsuredGold", "保障金🏥[响应失败]#$s")
                     return
                 }
                 val gainGold = jo.getJSONObject("data").getString("gainSumInsuredYuan")
@@ -883,10 +892,11 @@ class AntMember : ModelTask() {
             for (i in 0 until otherBallList.length()) {
                 val anotherBall = otherBallList.getJSONObject(i)
                 s = AntMemberRpcCall.collectInsuredGold(anotherBall)
-                GlobalThreadPools.sleepCompat(2000)
-                jo = JSONObject(s)
+                delay(2000)
+                jo = JsonUtil.parseJSONObjectOrNull(s) ?: continue
                 if (!jo.optBoolean("success")) {
                     Log.other("$TAG.collectInsuredGold.collectInsuredGold", "保障金🏥[响应失败]#$s")
+                    Log.error("$TAG.collectInsuredGold.collectInsuredGold", "保障金🏥[响应失败]#$s")
                     return
                 }
                 val gainGold = jo.getJSONObject("data").getJSONObject("gainSumInsuredDTO")
@@ -917,11 +927,11 @@ class AntMember : ModelTask() {
             val bizType = targetBusinessArray[0]
             val bizSubType = targetBusinessArray[1]
             val bizParam = targetBusinessArray[2]
-            GlobalThreadPools.sleepCompat(16000)
+            delay(16000)
             val str = AntMemberRpcCall.executeTask(bizParam, bizSubType, bizType, id)
-            val jo = JSONObject(str)
+            val jo = JsonUtil.parseJSONObjectOrNull(str) ?: return
             if (!ResChecker.checkRes(TAG + "执行会员任务失败:", jo)) {
-                Log.runtime(TAG, "执行任务失败:" + jo.optString("resultDesc"))
+                Log.record(jo.getString("resultDesc"))
                 return
             }
             if (checkMemberTaskFinished(id)) {
@@ -939,10 +949,11 @@ class AntMember : ModelTask() {
     private suspend fun checkMemberTaskFinished(taskId: Long): Boolean {
         return try {
             val str = AntMemberRpcCall.queryAllStatusTaskList()
-            GlobalThreadPools.sleepCompat(500)
-            val jsonObject = JSONObject(str)
+            delay(500)
+            val jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return false
             if (!ResChecker.checkRes(TAG + "查询会员任务状态失败:", jsonObject)) {
                 Log.error(TAG + ".checkMemberTaskFinished", "会员任务响应失败: " + jsonObject.getString("resultDesc"))
+                return false
             }
             if (!jsonObject.has("availableTaskList")) {
                 return true
@@ -967,7 +978,7 @@ class AntMember : ModelTask() {
                 return
             }
             val s = AntMemberRpcCall.rpcCall_signIn()
-            val jo = JSONObject(s)
+            val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success", false)) {
                 val data = jo.getJSONObject("data")
                 Log.other("口碑签到📅[第${data.getString("dayNo")}天]#获得${data.getString("value")}积分")
@@ -998,7 +1009,7 @@ class AntMember : ModelTask() {
     private suspend fun goldBillCollect(signInfo: String) {
         try {
             val str = AntMemberRpcCall.goldBillCollect(signInfo)
-            val jsonObject = JSONObject(str)
+            val jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return
             if (!jsonObject.optBoolean("success")) {
                 Log.runtime("$TAG.goldBillCollect.goldBillCollect", jsonObject.optString("resultDesc"))
                 return
@@ -1023,20 +1034,21 @@ class AntMember : ModelTask() {
         try {
             try {
                 var str = AntMemberRpcCall.querySignInBall()
-                var jsonObject = JSONObject(str)
+                var jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return
                 if (!jsonObject.optBoolean("success")) {
                     Log.runtime("$TAG.signIn.querySignInBall", jsonObject.optString("resultDesc"))
                     return
                 }
                 str = JsonUtil.getValueByPath(jsonObject, "data.signInBallModule.signInStatus")
-                if (true.toString() == str) {
+                if (Status.hasFlagToday("AntMember::signIn")) {
                     return
                 }
                 str = AntMemberRpcCall.continueSignIn()
-                GlobalThreadPools.sleepCompat(300)
-                jsonObject = JSONObject(str)
+                delay(300)
+                jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return
                 if (!jsonObject.optBoolean("success")) {
                     Log.runtime("$TAG.signIn.continueSignIn", jsonObject.optString("resultDesc"))
+                    Log.runtime(str)
                     return
                 }
                 Log.other("游戏中心🎮签到成功")
@@ -1046,7 +1058,7 @@ class AntMember : ModelTask() {
             }
             try {
                 var str = AntMemberRpcCall.queryPointBallList()
-                var jsonObject = JSONObject(str)
+                var jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return
                 if (!jsonObject.optBoolean("success")) {
                     Log.runtime("$TAG.batchReceive.queryPointBallList", jsonObject.optString("resultDesc"))
                     return
@@ -1057,7 +1069,7 @@ class AntMember : ModelTask() {
                 }
                 str = AntMemberRpcCall.batchReceivePointBall()
                 GlobalThreadPools.sleepCompat(300)
-                jsonObject = JSONObject(str)
+                jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return
                 if (jsonObject.optBoolean("success")) {
                     Log.other("游戏中心🎮全部领取成功[${JsonUtil.getValueByPath(jsonObject, "data.totalAmount")}]乐豆")
                 } else {
@@ -1077,7 +1089,7 @@ class AntMember : ModelTask() {
             try {
                 val signInProcessStr = AntMemberRpcCall.querySignInProcess("AP16242232", "INS_BLUE_BEAN_SIGN")
 
-                var jo = JSONObject(signInProcessStr)
+                var jo = JsonUtil.parseJSONObjectOrNull(signInProcessStr) ?: return
                 if (!jo.optBoolean("success")) {
                     Log.runtime(jo.toString())
                     return
@@ -1086,7 +1098,7 @@ class AntMember : ModelTask() {
                 if (jo.getJSONObject("result").getBoolean("canPush")) {
                     val signInTriggerStr = AntMemberRpcCall.signInTrigger("AP16242232", "INS_BLUE_BEAN_SIGN")
 
-                    jo = JSONObject(signInTriggerStr)
+                    jo = JsonUtil.parseJSONObjectOrNull(signInTriggerStr) ?: return
                     if (jo.optBoolean("success")) {
                         val prizeName = jo.getJSONObject("result").getJSONArray("prizeSendOrderDTOList")
                             .getJSONObject(0).getString("prizeName")

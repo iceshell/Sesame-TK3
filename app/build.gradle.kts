@@ -2,16 +2,72 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import javax.inject.Inject
+import org.gradle.api.GradleException
 import org.gradle.api.provider.ValueSource
 import org.gradle.api.provider.ValueSourceParameters
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.FileSystemOperations
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.detekt) apply false
     alias(libs.plugins.rikka.tools.refine)
 }
+
+tasks.register("checkAll") {
+    dependsOn(
+        "detekt",
+        "test",
+        "assembleRelease"
+    )
+}
 var isCIBuild: Boolean = System.getenv("CI").toBoolean()
+
+val enableDetekt = gradle.startParameter.taskNames.any { it.contains("detekt", ignoreCase = true) }
+if (enableDetekt) {
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+}
+
+plugins.withId("io.gitlab.arturbosch.detekt") {
+    extensions.configure<DetektExtension> {
+        baseline = rootProject.file("detekt-baseline.xml")
+        config.setFrom(rootProject.files("detekt.yml"))
+    }
+
+    tasks.register<Detekt>("detektStrict") {
+        config.setFrom(rootProject.files("detekt-strict.yml"))
+        setSource(files("src/main/java", "src/main/kotlin"))
+        include("**/*.kt", "**/*.kts")
+        exclude("**/build/**")
+
+        jvmTarget = "17"
+        classpath.setFrom(
+            configurations.findByName("releaseCompileClasspath")
+                ?: configurations.findByName("debugCompileClasspath")
+                ?: files()
+        )
+    }
+}
+
+configurations.matching { it.name == "composeMappingProducerClasspath" }.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin" && requested.name == "compose-group-mapping") {
+            val kotlinVersion = libs.versions.kotlin.plugin.get()
+            useVersion(kotlinVersion)
+            because("Align compose-group-mapping with Kotlin/Compose plugin ${kotlinVersion}")
+        }
+    }
+}
 
 //isCIBuild = true // 没有c++源码时开启CI构建, push前关闭
 
@@ -29,6 +85,80 @@ abstract class GitCommitCountValueSource : ValueSource<Int, ValueSourceParameter
     }
 }
 
+abstract class BuildTimestampValueSource : ValueSource<String, ValueSourceParameters.None> {
+    override fun obtain(): String {
+        return SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA).apply {
+            timeZone = TimeZone.getTimeZone("GMT+8")
+        }.format(Date())
+    }
+}
+
+abstract class CopyApkWithTimestampTask : DefaultTask() {
+    @get:InputDirectory
+    abstract val inputDir: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @get:Input
+    abstract val variant: Property<String>
+
+    @get:Input
+    abstract val versionName: Property<String>
+
+    @get:Input
+    abstract val timestamp: Property<String>
+
+    @get:Inject
+    abstract val fileSystemOperations: FileSystemOperations
+
+    @TaskAction
+    fun copy() {
+        val ts = timestamp.get()
+        val vn = versionName.get()
+        val variantName = variant.get()
+        val baseVersion = vn.substringBefore("-").ifBlank { vn }
+
+        val inputFolder = inputDir.get().asFile
+        val primaryApkName = "app-${variantName}.apk"
+        val hasPrimaryApk = inputFolder.resolve(primaryApkName).isFile
+        if (!hasPrimaryApk) {
+            val apkCount = inputFolder.listFiles { file ->
+                file.isFile && file.extension.equals("apk", ignoreCase = true)
+            }?.size ?: 0
+            if (apkCount != 1) {
+                throw GradleException(
+                    "Expected exactly one APK in ${inputFolder.absolutePath} when primary apk is missing; found $apkCount"
+                )
+            }
+        }
+
+        fileSystemOperations.copy {
+            from(inputDir)
+            if (hasPrimaryApk) {
+                include(primaryApkName)
+            } else {
+                include("*.apk")
+            }
+            into(outputDir)
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+            rename { fileName ->
+                // 仅保留唯一命名格式：sesame-tk-v0.5.0-<yyyyMMdd-HHmmss>.apk
+                // 旧的多分支命名逻辑已按要求注释掉：
+                /*
+                val base = fileName.removeSuffix(".apk")
+                if (hasPrimaryApk) {
+                    "sesame-tk-v${vn}-${ts}.apk"
+                } else {
+                    "sesame-tk-v${vn}-${ts}-${variantName}-${base}.apk"
+                }
+                */
+                "sesame-tk-v${baseVersion}-${ts}.apk"
+            }
+        }
+    }
+}
+
 android {
     namespace = "fansirsqi.xposed.sesame"
     compileSdk = 36
@@ -39,7 +169,7 @@ android {
     }
     // 获取版本递增计数（兼容配置缓存）
     // 临时固定版本号为161 - 细粒度错误处理改进
-    val gitCommitCount: Int = 163    /*
+    val gitCommitCount: Int = 302    /*
     val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
         .orElse(providers.provider {
             // 如果git不可用，使用时间戳的后4位作为递增值
@@ -77,7 +207,7 @@ android {
         versionCode = gitCommitCount
         val buildTag = "release"
         // 版本号规范：遵循语义化版本+构建号
-        versionName = "0.3.0-rc$versionCode"
+        versionName = "0.5.0-rc$versionCode"
 
         buildConfigField("String", "BUILD_DATE", "\"$buildDate\"")
         buildConfigField("String", "BUILD_TIME", "\"$buildTime\"")
@@ -149,7 +279,9 @@ android {
 
     sourceSets {
         getByName("main") {
-            jniLibs.srcDirs("src/main/jniLibs")
+            jniLibs {
+                directories.add("src/main/jniLibs")
+            }
         }
     }
     val cmakeFile = file("src/main/cpp/CMakeLists.txt")
@@ -162,17 +294,37 @@ android {
             }
         }
     }
-
-    applicationVariants.all {
-        val variant = this
-        variant.outputs.all {
-            val buildType = variant.buildType.name.lowercase()
-            // APK命名规范：sesame-tk-版本号-构建类型.apk
-            val fileName = "sesame-tk-v${variant.versionName}-$buildType.apk"
-            (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = fileName
-        }
-    }
 }
+
+val buildTimestampProvider = providers.of(BuildTimestampValueSource::class.java) {}
+val versionNameForApkNaming = android.defaultConfig.versionName ?: "unknown"
+
+tasks.register<CopyApkWithTimestampTask>("copyReleaseApkWithTimestamp") {
+    dependsOn("assembleRelease")
+    inputDir.set(layout.buildDirectory.dir("outputs/apk/release"))
+    outputDir.set(layout.buildDirectory.dir("outputs/apk-timestamped/release"))
+    variant.set("release")
+    versionName.set(versionNameForApkNaming)
+    timestamp.set(buildTimestampProvider)
+}
+
+tasks.register<CopyApkWithTimestampTask>("copyDebugApkWithTimestamp") {
+    dependsOn("assembleDebug")
+    inputDir.set(layout.buildDirectory.dir("outputs/apk/debug"))
+    outputDir.set(layout.buildDirectory.dir("outputs/apk-timestamped/debug"))
+    variant.set("debug")
+    versionName.set(versionNameForApkNaming)
+    timestamp.set(buildTimestampProvider)
+}
+
+tasks.matching { it.name == "assembleRelease" }.configureEach {
+    finalizedBy("copyReleaseApkWithTimestamp")
+}
+
+tasks.matching { it.name == "assembleDebug" }.configureEach {
+    finalizedBy("copyDebugApkWithTimestamp")
+}
+
 dependencies {
 
     // Shizuku 相关依赖 - 用于获取系统级权限
@@ -224,7 +376,7 @@ dependencies {
     // 仅编译时依赖 - Xposed 相关
     compileOnly(files("libs/api-82.jar"))          // Xposed API 82
     compileOnly(files("libs/api-100.aar"))         // Xposed API 100 https://github.com/libxposed/api
-    implementation (files("libs/interface-100.aar")) // Xposed 模块接口 https://github.com/libxposed/api
+    compileOnly(files("libs/interface-100.aar")) // Xposed 模块接口 https://github.com/libxposed/api
     implementation(files("libs/service-100-1.0.0.aar"))  // https://github.com/libxposed/service
 //    compileOnly(files("libs/helper-100.aar"))        // https://github.com/libxposed/helper
 
@@ -250,8 +402,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     
     // Kotlin 测试
-    testImplementation("org.jetbrains.kotlin:kotlin-test:2.2.20")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.2.20")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:2.3.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.3.0")
     
     // 协程测试
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")

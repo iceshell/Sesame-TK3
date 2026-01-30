@@ -58,6 +58,7 @@ import fansirsqi.xposed.sesame.task.antSports.AntSportsRpcCall.userTaskRightsRec
 import fansirsqi.xposed.sesame.task.antSports.AntSportsRpcCall.walkDonateSignInfo
 import fansirsqi.xposed.sesame.task.antSports.AntSportsRpcCall.walkGo
 import fansirsqi.xposed.sesame.util.GlobalThreadPools.sleepCompat
+import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.Log.error
 import fansirsqi.xposed.sesame.util.Log.other
@@ -416,7 +417,7 @@ class AntSports : ModelTask() {
 
     private fun coinExchangeItem(itemId: String) {
         try {
-            var jo = JSONObject(queryItemDetail(itemId))
+            var jo = JsonUtil.parseJSONObjectOrNull(queryItemDetail(itemId)) ?: return
             if (!checkRes(TAG, jo)) {
                 return
             }
@@ -427,7 +428,7 @@ class AntSports : ModelTask() {
             jo = jo.getJSONObject("itemBaseInfo")
             val itemTitle = jo.getString("itemTitle")
             val valueCoinCount = jo.getInt("valueCoinCount")
-            jo = JSONObject(exchangeItem(itemId, valueCoinCount))
+            jo = JsonUtil.parseJSONObjectOrNull(exchangeItem(itemId, valueCoinCount)) ?: return
             if (!checkRes(TAG, jo)) {
                 return
             }
@@ -465,7 +466,7 @@ class AntSports : ModelTask() {
                 record(TAG, "运动任务查询失败: RPC返回为空")
                 return
             }
-            var jo = JSONObject(taskResult)
+            var jo = JsonUtil.parseJSONObjectOrNull(taskResult) ?: return
             //  Log.record(TAG,"运动任务响应："+jo);
             if (jo.optBoolean("success")) {
                 val data = jo.getJSONObject("data")
@@ -537,7 +538,10 @@ class AntSports : ModelTask() {
                             val assetId = taskDetail.getString("assetId")
                             val result = pickBubbleTaskEnergy(assetId)
                             try {
-                                val resultData = JSONObject(result)
+                                val resultData = JsonUtil.parseJSONObjectOrNull(result) ?: run {
+                                    record(TAG, "做任务得能量🎈[响应为空或解析失败：" + taskName + "]")
+                                    continue
+                                }
                                 if (resultData.optBoolean("success", false)) {
                                     val changeAmount = resultData.optString("changeAmount", "0")
                                     record(
@@ -601,7 +605,7 @@ class AntSports : ModelTask() {
                             "做任务得能量🎈[开始执行任务：" + taskName + "，需完成" + limitConfigNum + "次]"
                         )
                         for (i1 in 0..<limitConfigNum) {
-                            jo = JSONObject(completeExerciseTasks(taskId))
+                            jo = JsonUtil.parseJSONObjectOrNull(completeExerciseTasks(taskId)) ?: break
                             if (jo.optBoolean("success")) {
                                 record(
                                     TAG,
@@ -647,7 +651,7 @@ class AntSports : ModelTask() {
                 record(TAG, "运动签到失败: RPC返回为空")
                 return
             }
-            val jo = JSONObject(result)
+            val jo = JsonUtil.parseJSONObjectOrNull(result) ?: return
             if (jo.optBoolean("success")) {
                 val data = jo.getJSONObject("data")
                 if (!data.getBoolean("signed")) {
@@ -676,7 +680,7 @@ class AntSports : ModelTask() {
     private fun receiveCoinAsset() {
         try {
             val s = queryCoinBubbleModule()
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success")) {
                 val data = jo.getJSONObject("data")
                 if (!data.has("receiveCoinBubbleList")) return
@@ -685,7 +689,7 @@ class AntSports : ModelTask() {
                     jo = ja.getJSONObject(i)
                     val assetId = jo.getString("assetId")
                     val coinAmount = jo.getInt("coinAmount")
-                    jo = JSONObject(receiveCoinAsset(assetId, coinAmount))
+                    jo = JsonUtil.parseJSONObjectOrNull(receiveCoinAsset(assetId, coinAmount)) ?: continue
                     if (jo.optBoolean("success")) {
                         other(TAG, "收集金币💰[" + coinAmount + "个]")
                     } else {
@@ -706,7 +710,7 @@ class AntSports : ModelTask() {
      */
     private fun walk() {
         try {
-            val user = JSONObject(queryUser())
+            val user = JsonUtil.parseJSONObjectOrNull(queryUser()) ?: return
             if (!user.optBoolean("success")) {
                 return
             }
@@ -721,7 +725,7 @@ class AntSports : ModelTask() {
                 return
             }
             val path = queryPath(joinedPathId) // 调用本地方法
-            if (path == null || !path.has("userPathStep")) {
+            if (!path.has("userPathStep")) {
                 record(TAG, "行走路线🚶🏻‍♂️查询路径失败")
                 return
             }
@@ -755,7 +759,9 @@ class AntSports : ModelTask() {
         try {
             val date = Date()
             @SuppressLint("SimpleDateFormat") val sdf = SimpleDateFormat("yyyy-MM-dd")
-            val jo = JSONObject(AntSportsRpcCall.walkGo("202312191135", sdf.format(date), pathId, useStepCount))
+            val jo = JsonUtil.parseJSONObjectOrNull(
+                AntSportsRpcCall.walkGo("202312191135", sdf.format(date), pathId, useStepCount)
+            ) ?: return
             if (jo.optBoolean("success")) {
                 record(TAG, "行走路线🚶🏻‍♂️路线[" + pathName + "]#前进了" + useStepCount + "步")
                 queryPath(pathId) // 调用本地方法
@@ -769,7 +775,7 @@ class AntSports : ModelTask() {
     private fun queryWorldMap(themeId: String): JSONObject? {
         var theme: JSONObject? = null
         try {
-            val jo = JSONObject(AntSportsRpcCall.queryWorldMap(themeId))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.queryWorldMap(themeId)) ?: return null
             if (jo.optBoolean("success")) {
                 theme = jo.getJSONObject("data")
             }
@@ -783,7 +789,7 @@ class AntSports : ModelTask() {
     private fun queryCityPath(cityId: String): JSONObject? {
         var city: JSONObject? = null
         try {
-            val jo = JSONObject(AntSportsRpcCall.queryCityPath(cityId))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.queryCityPath(cityId)) ?: return null
             if (jo.optBoolean("success")) {
                 city = jo.getJSONObject("data")
             }
@@ -799,7 +805,9 @@ class AntSports : ModelTask() {
         try {
             val date = Date()
             @SuppressLint("SimpleDateFormat") val sdf = SimpleDateFormat("yyyy-MM-dd")
-            val jo = JSONObject(AntSportsRpcCall.queryPath("202312191135", sdf.format(date), pathId))
+            val jo = JsonUtil.parseJSONObjectOrNull(
+                AntSportsRpcCall.queryPath("202312191135", sdf.format(date), pathId)
+            ) ?: return JSONObject()
             if (jo.optBoolean("success")) {
                 path = jo.getJSONObject("data")
                 val ja = jo.getJSONObject("data").getJSONArray("treasureBoxList")
@@ -817,7 +825,7 @@ class AntSports : ModelTask() {
 
     private fun receiveEvent(eventBillNo: String) {
         try {
-            var jo = JSONObject(AntSportsRpcCall.receiveEvent(eventBillNo))
+            var jo = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.receiveEvent(eventBillNo)) ?: return
             if (!jo.optBoolean("success")) {
                 return
             }
@@ -875,10 +883,10 @@ class AntSports : ModelTask() {
             pathId = "p0002023122214520001"
         }
         try {
-            val jo = JSONObject(AntSportsRpcCall.joinPath(pathId))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.joinPath(pathId)) ?: return
             if (jo.optBoolean("success")) {
                 val path = queryPath(pathId) // 调用本地方法
-                if (path?.has("path") == true) {
+                if (path.has("path")) {
                     record(
                         TAG,
                         "行走路线🚶🏻‍♂️路线[" + path.getJSONObject("path").getString("name") + "]已加入"
@@ -919,13 +927,13 @@ class AntSports : ModelTask() {
     private fun queryMyHomePage(loader: ClassLoader?) {
         try {
             var s = queryMyHomePage()
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (checkRes(TAG, jo)) {
                 s = jo.getString("pathJoinStatus")
                 if ("GOING" == s) {
                     if (jo.has("pathCompleteStatus")) {
                         if ("COMPLETED" == jo.getString("pathCompleteStatus")) {
-                            jo = JSONObject(AntSportsRpcCall.queryBaseList())
+                            jo = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.queryBaseList()) ?: return
                             if (checkRes(TAG, jo)) {
                                 val allPathBaseInfoList = jo.getJSONArray("allPathBaseInfoList")
                                 val otherAllPathBaseInfoList =
@@ -1010,7 +1018,7 @@ class AntSports : ModelTask() {
                 } else {
                     s = AntSportsRpcCall.join(pathId!!)
                 }
-                jo = JSONObject(s)
+                jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                 if (checkRes(TAG, jo)) {
                     other(TAG, "加入线路🚶🏻‍♂️[" + title + "]")
                     queryMyHomePage(loader)
@@ -1035,7 +1043,7 @@ class AntSports : ModelTask() {
     ) {
         try {
             val s = AntSportsRpcCall.go(day, rankCacheKey, stepCount)
-            val jo = JSONObject(s)
+            val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (checkRes(TAG, jo)) {
                 other(TAG, "行走线路🚶🏻‍♂️[" + title + "]#前进了" + jo.getInt("goStepCount") + "步")
                 val completed = "COMPLETED" == jo.getString("completeStatus")
@@ -1099,7 +1107,7 @@ class AntSports : ModelTask() {
     private fun openTreasureBox(loader: ClassLoader?, boxNo: String, userId: String): Int {
         try {
             val s = AntSportsRpcCall.openTreasureBox(boxNo, userId)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return 0
             if (checkRes(TAG, jo)) {
                 val ja = jo.getJSONArray("treasureBoxAwards")
                 var num = 0
@@ -1124,7 +1132,7 @@ class AntSports : ModelTask() {
 
     private fun queryProjectList(loader: ClassLoader?) {
         try {
-            var jo = JSONObject(AntSportsRpcCall.queryProjectList(0))
+            var jo = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.queryProjectList(0)) ?: return
             if (checkRes(TAG, jo)) {
                 var charityCoinCount = jo.getInt("charityCoinCount")
                 if (charityCoinCount < donateCharityCoinAmount!!.value!!) {
@@ -1168,7 +1176,7 @@ class AntSports : ModelTask() {
     ) {
         try {
             val s = AntSportsRpcCall.donate(donateCharityCoin, projectId)
-            val jo = JSONObject(s)
+            val jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (checkRes(TAG, jo)) {
                 other(TAG, "捐赠活动❤️[" + title + "][" + donateCharityCoin + "能量🎈]")
             } else {
@@ -1180,10 +1188,11 @@ class AntSports : ModelTask() {
         }
     }
 
+    @Suppress("ReturnCount")
     private fun queryWalkStep(loader: ClassLoader?) {
         try {
             var s = AntSportsRpcCall.queryWalkStep()
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (checkRes(TAG, jo)) {
                 jo = jo.getJSONObject("dailyStepModel")
                 val produceQuantity = jo.getInt("produceQuantity")
@@ -1193,7 +1202,7 @@ class AntSports : ModelTask() {
                 if (produceQuantity >= minExchangeCount!!.value!! || hour >= latestExchangeTime!!.value!!) {
                     walkDonateSignInfo(produceQuantity)
                     s = donateWalkHome(produceQuantity)
-                    jo = JSONObject(s)
+                    jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                     if (!jo.getBoolean("isSuccess")) return
                     val walkDonateHomeModel = jo.getJSONObject("walkDonateHomeModel")
                     val walkUserInfoModel = walkDonateHomeModel.getJSONObject("walkUserInfoModel")
@@ -1206,7 +1215,7 @@ class AntSports : ModelTask() {
                         walkDonateHomeModel.getJSONObject("walkCharityActivityModel")
                     val activityId = walkCharityActivityModel.getString("activityId")
                     s = exchange(activityId, produceQuantity, donateToken)
-                    jo = JSONObject(s)
+                    jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
                     if (jo.getBoolean("isSuccess")) {
                         val donateExchangeResultModel =
                             jo.getJSONObject("donateExchangeResultModel")
@@ -1234,7 +1243,7 @@ class AntSports : ModelTask() {
     private fun userTaskGroupQuery(groupId: String) {
         try {
             val s = AntSportsRpcCall.userTaskGroupQuery(groupId)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success")) {
                 jo = jo.getJSONObject("group")
                 val userTaskList = jo.getJSONArray("userTaskList")
@@ -1244,7 +1253,7 @@ class AntSports : ModelTask() {
                     val taskInfo = jo.getJSONObject("taskInfo")
                     val bizType = taskInfo.getString("bizType")
                     val taskId = taskInfo.getString("taskId")
-                    jo = JSONObject(userTaskComplete(bizType, taskId))
+                    jo = JsonUtil.parseJSONObjectOrNull(userTaskComplete(bizType, taskId)) ?: continue
                     if (jo.optBoolean("success")) {
                         val taskName = taskInfo.optString("taskName", taskId)
                         other(TAG, "完成任务🧾[" + taskName + "]")
@@ -1264,11 +1273,11 @@ class AntSports : ModelTask() {
     private fun participate() {
         try {
             val s = queryAccount()
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success")) {
                 val balance = jo.getDouble("balance")
                 if (balance < 100) return
-                jo = JSONObject(queryRoundList())
+                jo = JsonUtil.parseJSONObjectOrNull(queryRoundList()) ?: return
                 if (jo.optBoolean("success")) {
                     val dataList = jo.getJSONArray("dataList")
                     for (i in 0..<dataList.length()) {
@@ -1287,14 +1296,13 @@ class AntSports : ModelTask() {
                             InstanceId = jo.getString("id")
                             ResultId = jo.getString("instanceResultId")
                         }
-                        jo = JSONObject(
-                            AntSportsRpcCall.participate(
-                                pointOptions,
-                                InstanceId!!,
-                                ResultId!!,
-                                roundId
-                            )
+                        val participateResponse = AntSportsRpcCall.participate(
+                            pointOptions,
+                            InstanceId!!,
+                            ResultId!!,
+                            roundId
                         )
+                        jo = JsonUtil.parseJSONObjectOrNull(participateResponse) ?: continue
                         if (jo.optBoolean("success")) {
                             jo = jo.getJSONObject("data")
                             val roundDescription = jo.getString("roundDescription")
@@ -1317,7 +1325,7 @@ class AntSports : ModelTask() {
     private fun userTaskRightsReceive() {
         try {
             val s = AntSportsRpcCall.userTaskGroupQuery("SPORTS_DAILY_GROUP")
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success")) {
                 jo = jo.getJSONObject("group")
                 val userTaskList = jo.getJSONArray("userTaskList")
@@ -1327,7 +1335,7 @@ class AntSports : ModelTask() {
                     val userTaskId = jo.getString("userTaskId")
                     val taskInfo = jo.getJSONObject("taskInfo")
                     val taskId = taskInfo.getString("taskId")
-                    jo = JSONObject(userTaskRightsReceive(taskId, userTaskId))
+                    jo = JsonUtil.parseJSONObjectOrNull(userTaskRightsReceive(taskId, userTaskId)) ?: continue
                     if (jo.optBoolean("success")) {
                         val taskName = taskInfo.optString("taskName", taskId)
                         val rightsRuleList = taskInfo.getJSONArray("rightsRuleList")
@@ -1356,7 +1364,7 @@ class AntSports : ModelTask() {
     private fun pathFeatureQuery() {
         try {
             val s = AntSportsRpcCall.pathFeatureQuery()
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success")) {
                 val path = jo.getJSONObject("path")
                 val pathId = path.getString("pathId")
@@ -1371,7 +1379,7 @@ class AntSports : ModelTask() {
                     } else if ("GOING" == userPathRecordStatus) {
                         pathMapHomepage(pathId)
                         val countDate = getFormatDate()
-                        jo = JSONObject(stepQuery(countDate, pathId))
+                        jo = JsonUtil.parseJSONObjectOrNull(stepQuery(countDate, pathId)) ?: return
                         if (jo.optBoolean("success")) {
                             val canGoStepCount = jo.getInt("canGoStepCount")
                             if (canGoStepCount >= minGoStepCount) {
@@ -1401,7 +1409,7 @@ class AntSports : ModelTask() {
     private fun pathMapHomepage(pathId: String) {
         try {
             val s = AntSportsRpcCall.pathMapHomepage(pathId)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success")) {
                 if (!jo.has("userPathGoRewardList")) return
                 val userPathGoRewardList = jo.getJSONArray("userPathGoRewardList")
@@ -1409,7 +1417,7 @@ class AntSports : ModelTask() {
                     jo = userPathGoRewardList.getJSONObject(i)
                     if ("UNRECEIVED" != jo.getString("status")) continue
                     val userPathRewardId = jo.getString("userPathRewardId")
-                    jo = JSONObject(rewardReceive(pathId, userPathRewardId))
+                    jo = JsonUtil.parseJSONObjectOrNull(rewardReceive(pathId, userPathRewardId)) ?: continue
                     if (jo.optBoolean("success")) {
                         jo = jo.getJSONObject("userPathRewardDetail")
                         val rightsRuleList = jo.getJSONArray("userPathRewardRightsList")
@@ -1437,7 +1445,7 @@ class AntSports : ModelTask() {
 
     private fun pathMapJoin(title: String?, pathId: String) {
         try {
-            val jo = JSONObject(AntSportsRpcCall.pathMapJoin(pathId))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.pathMapJoin(pathId)) ?: return
             if (jo.optBoolean("success")) {
                 other(TAG, "加入线路🚶🏻‍♂️[" + title + "]")
                 pathFeatureQuery()
@@ -1456,7 +1464,7 @@ class AntSports : ModelTask() {
     ) {
         try {
             val s = AntSportsRpcCall.tiyubizGo(countDate, goStepCount, pathId, userPathRecordId)
-            var jo = JSONObject(s)
+            var jo = JsonUtil.parseJSONObjectOrNull(s) ?: return
             if (jo.optBoolean("success")) {
                 jo = jo.getJSONObject("userPath")
                 other(
@@ -1491,7 +1499,7 @@ class AntSports : ModelTask() {
                 return
             }
             // 发送 RPC 请求获取 club home 数据
-            val clubHomeData = JSONObject(AntSportsRpcCall.queryClubHome())
+            val clubHomeData = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.queryClubHome()) ?: return
             // 处理 mainRoom 中的 bubbleList
             processBubbleList(clubHomeData.optJSONObject("mainRoom"))
             // 处理 roomList 中的每个房间的 bubbleList
@@ -1559,7 +1567,7 @@ class AntSports : ModelTask() {
     private fun queryTrainItem() {
         try {
             // 发送 RPC 请求获取 club home 数据
-            val clubHomeData = JSONObject(AntSportsRpcCall.queryClubHome())
+            val clubHomeData = JsonUtil.parseJSONObjectOrNull(AntSportsRpcCall.queryClubHome()) ?: return
             // 检查是否存在 roomList
             if (clubHomeData.has("roomList")) {
                 val roomList = clubHomeData.getJSONArray("roomList")
@@ -1579,7 +1587,7 @@ class AntSports : ModelTask() {
                         // 发送 RPC 请求获取 train item 数据
                         val responseData = AntSportsRpcCall.queryTrainItem()
                         // 解析 JSON 数据
-                        val responseJson = JSONObject(responseData)
+                        val responseJson = JsonUtil.parseJSONObjectOrNull(responseData) ?: return
                         // 检查请求是否成功
                         val success = responseJson.optBoolean("success")
                         if (!success) {
@@ -1598,7 +1606,8 @@ class AntSports : ModelTask() {
                                 val trainMemberResponse =
                                     trainMember(itemType, memberId, originBossId)
                                 // 解析 trainMember 响应数据
-                                val trainMemberResponseJson = JSONObject(trainMemberResponse)
+                                val trainMemberResponseJson = JsonUtil.parseJSONObjectOrNull(trainMemberResponse)
+                                    ?: continue
                                 // 检查 trainMember 响应是否成功
                                 val trainMemberSuccess =
                                     trainMemberResponseJson.optBoolean("success")
@@ -1629,7 +1638,7 @@ class AntSports : ModelTask() {
             // 发送 RPC 请求获取 club home 数据
             val clubHomeResponse = AntSportsRpcCall.queryClubHome()
             sleepCompat(500)
-            val clubHomeJson = JSONObject(clubHomeResponse)
+            val clubHomeJson = JsonUtil.parseJSONObjectOrNull(clubHomeResponse) ?: return
             // 判断 clubAuth 字段是否为 "ENABLE"
             if (clubHomeJson.optString("clubAuth") != "ENABLE") {
                 // 如果 clubAuth 不是 "ENABLE"，停止执行
@@ -1651,7 +1660,7 @@ class AntSports : ModelTask() {
                     // 调用 queryMemberPriceRanking 方法并传递 coinBalance 的值
                     val memberPriceResult = queryMemberPriceRanking(coinBalance.toString())
                     sleepCompat(500)
-                    val memberPriceJson = JSONObject(memberPriceResult)
+                    val memberPriceJson = JsonUtil.parseJSONObjectOrNull(memberPriceResult) ?: continue
                     // 检查是否存在 rank 字段
                     if (memberPriceJson.has("rank") && memberPriceJson.getJSONObject("rank")
                             .has("data")

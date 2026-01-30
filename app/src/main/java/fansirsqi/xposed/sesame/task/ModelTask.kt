@@ -18,7 +18,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
@@ -310,23 +309,21 @@ abstract class ModelTask : Model() {
      * 停止任务（协程版本）
      */
     fun stopTask() {
-        runBlocking {
-            // 取消所有子任务
-            childTaskMap.values.forEach { childTask ->
-                try {
-                    childTask.cancel()
-                } catch (e: Exception) {
-                    Log.printStackTrace("取消子任务异常", e)
-                }
+        // 取消所有子任务
+        childTaskMap.values.forEach { childTask ->
+            try {
+                childTask.cancel()
+            } catch (e: Exception) {
+                Log.printStackTrace("取消子任务异常", e)
             }
-            childTaskMap.clear()
-            
-            // 取消协程作用域
-            taskScope?.cancel()
-            taskScope = null
-            
-            isRunning = false
         }
+        childTaskMap.clear()
+
+        // 取消协程作用域
+        taskScope?.cancel()
+        taskScope = null
+
+        isRunning = false
     }
 
 

@@ -8,6 +8,7 @@ import ch.qos.logback.classic.AsyncAppender
 import ch.qos.logback.core.rolling.RollingFileAppender
 import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy
 import ch.qos.logback.core.util.FileSize
+import android.util.Log as AndroidLog
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -33,7 +34,7 @@ object Logback {
         // 延迟初始化 LOG_DIR
         if (LOG_DIR == null) {
             val logDir = Files.LOG_DIR ?: run {
-                Log.error("Logback", "LOG_DIR未初始化")
+                AndroidLog.e("Logback", "LOG_DIR未初始化")
                 return
             }
             LOG_DIR = logDir.path + File.separator

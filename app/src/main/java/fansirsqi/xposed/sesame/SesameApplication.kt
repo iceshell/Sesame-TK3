@@ -2,7 +2,7 @@ package fansirsqi.xposed.sesame
 
 import android.app.Application
 import android.os.Process
-import fansirsqi.xposed.sesame.util.Log
+import android.util.Log as AndroidLog
 
 /**
  * 芝麻粒应用主类
@@ -19,7 +19,7 @@ class SesameApplication : Application() {
         super.onCreate()
         
         val processName = getCurrentProcessName()
-        Log.runtime(TAG, "🚀 应用启动 | 进程: $processName | PID: ${Process.myPid()}")
+        AndroidLog.i(TAG, "🚀 应用启动 | 进程: $processName | PID: ${Process.myPid()}")
     }
 
     /**

@@ -15,6 +15,8 @@ import java.util.*
  */
 object TimeUtil {
 
+    private const val NANOS_PER_MILLISECOND = 1_000_000L
+
     // ==================== 时间范围检查 ====================
 
     @JvmStatic
@@ -425,6 +427,7 @@ object TimeUtil {
      */
     @JvmStatic
     fun sleepCompat(millis: Long) {
-        CoroutineUtils.sleepCompat(millis)
+        if (millis <= 0) return
+        java.util.concurrent.locks.LockSupport.parkNanos(millis * NANOS_PER_MILLISECOND)
     }
 }

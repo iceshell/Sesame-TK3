@@ -5,6 +5,14 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
+
+private const val NANOS_PER_MILLISECOND = 1_000_000L
+
+private fun sleepBlocking(millis: Long) {
+    if (millis <= 0) return
+    java.util.concurrent.locks.LockSupport.parkNanos(millis * NANOS_PER_MILLISECOND)
+}
 
 /**
  * 统一错误处理工具类
@@ -15,6 +23,7 @@ import kotlinx.coroutines.CancellationException
  * @since 2025-10-27
  * @updated 2025-11-02 - 添加细粒度异常类型处理
  */
+@Suppress("TooManyFunctions")
 object ErrorHandler {
     
     // ==================== 自定义异常类型 ====================
@@ -153,7 +162,7 @@ object ErrorHandler {
      * }
      * ```
      */
-    inline fun <T> safelyWithRetry(
+    fun <T> safelyWithRetry(
         tag: String,
         maxRetries: Int = 3,
         retryDelay: Long = 1000,
@@ -169,7 +178,33 @@ object ErrorHandler {
                 lastException = e
                 if (attempt < maxRetries - 1) {
                     Log.runtime(tag, "$errorMsg，第${attempt + 1}次重试...")
-                    Thread.sleep(retryDelay)
+                    sleepBlocking(retryDelay)
+                }
+            }
+        }
+        Log.error(tag, "$errorMsg，已重试${maxRetries}次: ${lastException?.message}")
+        lastException?.let { Log.printStackTrace(tag, it) }
+        return fallback
+    }
+
+    @Suppress("LongParameterList")
+    suspend fun <T> safelyWithRetrySuspend(
+        tag: String,
+        maxRetries: Int = 3,
+        retryDelay: Long = 1000,
+        errorMsg: String = "操作失败",
+        fallback: T? = null,
+        block: suspend () -> T
+    ): T? {
+        var lastException: Exception? = null
+        repeat(maxRetries) { attempt ->
+            try {
+                return block()
+            } catch (e: Exception) {
+                lastException = e
+                if (attempt < maxRetries - 1) {
+                    Log.runtime(tag, "$errorMsg，第${attempt + 1}次重试...")
+                    delay(retryDelay)
                 }
             }
         }

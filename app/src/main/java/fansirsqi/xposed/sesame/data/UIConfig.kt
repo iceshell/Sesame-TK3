@@ -71,7 +71,7 @@ class UIConfig private constructor() {
                     if (json.trim().isNotEmpty()) {
                         JsonUtil.copyMapper().readerForUpdating(INSTANCE).readValue<Any>(json)
                         val formatted = JsonUtil.formatJson(INSTANCE)
-                        if (formatted != null && formatted != json) {
+                        if (formatted != json) {
                             Log.runtime(TAG, "格式化${TAG}配置")
                             Files.write2File(formatted, targetFile)
                         }

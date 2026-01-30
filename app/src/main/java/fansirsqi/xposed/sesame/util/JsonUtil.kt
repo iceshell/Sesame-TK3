@@ -273,6 +273,19 @@ object JsonUtil {
     }
 
     @JvmStatic
+    fun parseJSONObjectOrNull(jsonStr: String?): JSONObject? {
+        return try {
+            if (jsonStr.isNullOrBlank()) {
+                null
+            } else {
+                JSONObject(jsonStr)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    @JvmStatic
     fun parseJSONArray(jsonStr: String?): JSONArray {
         return try {
             if (jsonStr.isNullOrBlank()) {
@@ -284,6 +297,19 @@ object JsonUtil {
         } catch (e: Exception) {
             Log.runtime(TAG, "JSON数组解析失败: ${e.message}")
             JSONArray()
+        }
+    }
+
+    @JvmStatic
+    fun parseJSONArrayOrNull(jsonStr: String?): JSONArray? {
+        return try {
+            if (jsonStr.isNullOrBlank()) {
+                null
+            } else {
+                JSONArray(jsonStr)
+            }
+        } catch (_: Exception) {
+            null
         }
     }
 

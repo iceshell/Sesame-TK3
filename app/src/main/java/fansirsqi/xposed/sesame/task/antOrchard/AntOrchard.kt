@@ -71,8 +71,12 @@ class AntOrchard : ModelTask() {
                     treeLevel = taobaoData.getJSONObject("gameInfo")
                         .getJSONObject("plantInfo").getJSONObject("seedStage").getInt("stageLevel").toString()
                     val joo = JSONObject(AntOrchardRpcCall.mowGrassInfo())
-                    if ("100" == jo.getString("resultCode")) {
-                        userId = joo.getString("userId")
+                    if ("100" == joo.optString("resultCode")) {
+                        userId = joo.optString("userId").ifBlank { null }
+                        if (userId.isNullOrBlank()) {
+                            Log.runtime(TAG, "mowGrassInfo userId 为空，跳过本轮农场任务")
+                            return
+                        }
                         if (jo.has("lotteryPlusInfo")) drawLotteryPlus(jo.getJSONObject("lotteryPlusInfo"))
                         extraInfoGet()
                         if (receiveOrchardTaskAward?.value == true) {
@@ -89,8 +93,8 @@ class AntOrchard : ModelTask() {
                         }
                         orchardassistFriend()
                     } else {
-                        Log.record(jo.getString("resultDesc"))
-                        Log.runtime(jo.toString())
+                        Log.record(joo.optString("resultDesc"))
+                        Log.runtime(joo.toString())
                     }
                 } else {
                     enableField?.value = false
