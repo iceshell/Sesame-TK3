@@ -303,14 +303,6 @@ tasks.matching { it.name == "assembleRelease" }.configureEach {
     finalizedBy("copyReleaseApkWithRc")
 }
 
-tasks.register<Delete>("cleanLegacyReleaseOutputs") {
-    delete(layout.buildDirectory.dir("outputs/release"))
-}
-
-tasks.matching { it.name == "copyReleaseApkWithRc" }.configureEach {
-    finalizedBy("cleanLegacyReleaseOutputs")
-}
-
 dependencies {
 
     implementation(libs.rikka.shizuku.api)        // Shizuku API
