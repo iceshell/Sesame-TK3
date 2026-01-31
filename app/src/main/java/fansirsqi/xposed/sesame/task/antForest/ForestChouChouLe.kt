@@ -5,6 +5,7 @@ import org.json.JSONObject
 import java.util.concurrent.atomic.AtomicInteger
 import fansirsqi.xposed.sesame.task.TaskStatus
 import fansirsqi.xposed.sesame.util.GlobalThreadPools
+import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.RandomUtil
 import fansirsqi.xposed.sesame.util.ResChecker
@@ -72,6 +73,12 @@ class ForestChouChouLe {
         }
     }
 
+    @Suppress(
+        "ReturnCount",
+        "LongMethod",
+        "CyclomaticComplexMethod",
+        "NestedBlockDepth"
+    )
     private fun processChouChouLeScene(
         activityId: String, 
         sceneCode: String, 
@@ -83,15 +90,25 @@ class ForestChouChouLe {
             var doublecheck: Boolean
             val listSceneCode = "${sceneCode}_TASK"
 
-            var jo = JSONObject(AntForestRpcCall.enterDrawActivityopengreen(activityId, sceneCode, source))
-            if (!ResChecker.checkRes(TAG, jo)) {
+            var jo = JsonUtil.parseJSONObjectOrNull(
+                AntForestRpcCall.enterDrawActivityopengreen(activityId, sceneCode, source)
+            )
+            if (jo == null || !ResChecker.checkRes(TAG, jo)) {
                 Log.error(TAG, "$sceneName - enterDrawActivity 调用失败")
                 return
             }
 
-            val drawActivity = jo.getJSONObject("drawActivity")
-            val startTime = drawActivity.getLong("startTime")
-            val endTime = drawActivity.getLong("endTime")
+            val drawActivity = jo.optJSONObject("drawActivity")
+            if (drawActivity == null) {
+                Log.error(TAG, "$sceneName - drawActivity is null")
+                return
+            }
+            val startTime = drawActivity.optLong("startTime", 0L)
+            val endTime = drawActivity.optLong("endTime", 0L)
+            if (startTime <= 0L || endTime <= 0L) {
+                Log.error(TAG, "$sceneName - startTime/endTime is invalid")
+                return
+            }
             
             val currentTime = System.currentTimeMillis()
             if (currentTime < startTime || currentTime > endTime) {
@@ -108,23 +125,25 @@ class ForestChouChouLe {
                 doublecheck = false
                 Log.record("$sceneName 第 ${loopCount + 1} 轮任务处理开始")
                 
-                val listTaskopengreen = JSONObject(AntForestRpcCall.listTaskopengreen(listSceneCode, source))
-                if (ResChecker.checkRes(TAG, listTaskopengreen)) {
-                    val taskList = listTaskopengreen.getJSONArray("taskInfoList")
+                val listTaskopengreen = JsonUtil.parseJSONObjectOrNull(
+                    AntForestRpcCall.listTaskopengreen(listSceneCode, source)
+                )
+                if (listTaskopengreen != null && ResChecker.checkRes(TAG, listTaskopengreen)) {
+                    val taskList = listTaskopengreen.optJSONArray("taskInfoList") ?: JSONArray()
                     Log.record(TAG, "$sceneName 📋 发现 ${taskList.length()} 个任务")
 
                     for (i in 0 until taskList.length()) {
-                        val taskInfo = taskList.getJSONObject(i)
-                        val taskBaseInfo = taskInfo.getJSONObject("taskBaseInfo")
-                        val bizInfo = JSONObject(taskBaseInfo.getString("bizInfo"))
-                        val taskName = bizInfo.getString("title")
-                        val taskSceneCode = taskBaseInfo.getString("sceneCode")
-                        val taskStatus = taskBaseInfo.getString("taskStatus")
-                        val taskType = taskBaseInfo.getString("taskType")
+                        val taskInfo = taskList.optJSONObject(i) ?: continue
+                        val taskBaseInfo = taskInfo.optJSONObject("taskBaseInfo") ?: continue
+                        val bizInfo = JsonUtil.parseJSONObjectOrNull(taskBaseInfo.optString("bizInfo")) ?: JSONObject()
+                        val taskName = bizInfo.optString("title")
+                        val taskSceneCode = taskBaseInfo.optString("sceneCode")
+                        val taskStatus = taskBaseInfo.optString("taskStatus")
+                        val taskType = taskBaseInfo.optString("taskType")
 
-                        val taskRights = taskInfo.getJSONObject("taskRights")
-                        val rightsTimes = taskRights.getInt("rightsTimes")
-                        val rightsTimesLimit = taskRights.getInt("rightsTimesLimit")
+                        val taskRights = taskInfo.optJSONObject("taskRights") ?: JSONObject()
+                        val rightsTimes = taskRights.optInt("rightsTimes", 0)
+                        val rightsTimesLimit = taskRights.optInt("rightsTimesLimit", 0)
 
                         Log.record("$sceneName 任务: $taskName [$taskType] 状态: $taskStatus 进度: $rightsTimes/$rightsTimesLimit")
 
@@ -206,9 +225,16 @@ class ForestChouChouLe {
             }
 
             Log.record(TAG, "$sceneName 🎲 开始处理抽奖")
-            jo = JSONObject(AntForestRpcCall.enterDrawActivityopengreen(activityId, sceneCode, source))
-            if (ResChecker.checkRes(TAG, jo)) {
-                var drawAsset = jo.getJSONObject("drawAsset")
+            jo = JsonUtil.parseJSONObjectOrNull(
+                AntForestRpcCall.enterDrawActivityopengreen(activityId, sceneCode, source)
+            )
+            if (jo != null && ResChecker.checkRes(TAG, jo)) {
+                val enterDrawJo = jo
+                var drawAsset = enterDrawJo.optJSONObject("drawAsset")
+                if (drawAsset == null) {
+                    Log.error(TAG, "$sceneName - drawAsset is null")
+                    return
+                }
                 var blance = drawAsset.optInt("blance", 0)
                 val totalTimes = drawAsset.optInt("totalTimes", 0)
 
@@ -219,13 +245,16 @@ class ForestChouChouLe {
                     drawCount++
                     Log.record("$sceneName 第 $drawCount 次抽奖")
                     
-                    jo = JSONObject(AntForestRpcCall.drawopengreen(activityId, sceneCode, source, UserMap.currentUid ?: ""))
-                    if (ResChecker.checkRes(TAG, jo)) {
-                        drawAsset = jo.getJSONObject("drawAsset")
-                        val newBlance = drawAsset.getInt("blance")
-                        val prizeVO = jo.getJSONObject("prizeVO")
-                        val prizeName = prizeVO.getString("prizeName")
-                        val prizeNum = prizeVO.getInt("prizeNum")
+                    jo = JsonUtil.parseJSONObjectOrNull(
+                        AntForestRpcCall.drawopengreen(activityId, sceneCode, source, UserMap.currentUid ?: "")
+                    )
+                    if (jo != null && ResChecker.checkRes(TAG, jo)) {
+                        val drawJo = jo
+                        drawAsset = drawJo.optJSONObject("drawAsset")
+                        val newBlance = drawAsset?.optInt("blance", 0) ?: 0
+                        val prizeVO = drawJo.optJSONObject("prizeVO")
+                        val prizeName = prizeVO?.optString("prizeName") ?: ""
+                        val prizeNum = prizeVO?.optInt("prizeNum", 0) ?: 0
                         Log.record(TAG, "$sceneName 🎁 抽奖获得: $prizeName×$prizeNum | 剩余次数: $newBlance")
                         
                         blance = newBlance
