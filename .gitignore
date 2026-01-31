@@ -74,6 +74,7 @@ plugin/
 demo/*
 /.vscode/settings.json
 *.REST
+*.bak
 *.txt
 # 允许根目录的txt文件（用于重构文档）
 !/*.txt
