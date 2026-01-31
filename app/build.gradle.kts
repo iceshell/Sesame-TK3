@@ -17,7 +17,6 @@ import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskAction
 
 plugins {
@@ -391,11 +390,7 @@ dependencies {
     
     // MockK - Kotlin Mock框架
     testImplementation("io.mockk:mockk:1.13.8")
-    testImplementation("io.mockk:mockk-android:1.13.8")
     
     // Truth - Google断言库
     testImplementation("com.google.truth:truth:1.1.5")
-    
-    // Robolectric - Android单元测试框架
-    testImplementation("org.robolectric:robolectric:4.11.1")
 }
