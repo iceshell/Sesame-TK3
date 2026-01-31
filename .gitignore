@@ -127,5 +127,4 @@ serve-debug/webhook.db
 .windsurf/
 detekt-baseline.xml
 detekt*.yml
-log/*.log
-/*.log
+

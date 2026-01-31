@@ -244,7 +244,7 @@ object HookUtil {
     }.getOrNull()
 
     fun getUserId(classLoader: ClassLoader): String? = runCatching {
-        val userObject = getUserObject(classLoader)
+        val userObject = getUserObject(classLoader) ?: return@runCatching null
         XposedHelpers.getObjectField(userObject, "userId") as? String
     }.onFailure {
         Log.printStackTrace(TAG, it)

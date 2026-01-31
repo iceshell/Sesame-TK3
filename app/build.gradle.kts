@@ -2,6 +2,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.Properties
 import java.util.TimeZone
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
@@ -10,12 +11,14 @@ import org.gradle.api.GradleException
 import org.gradle.api.provider.ValueSource
 import org.gradle.api.provider.ValueSourceParameters
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.TaskAction
 
 plugins {
@@ -23,6 +26,35 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.rikka.tools.refine)
+}
+
+abstract class CopyReleaseApkWithRcTask : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val sourceApkFile: RegularFileProperty
+
+    @get:Input
+    abstract val versionNameBase: Property<String>
+
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val rcFile: RegularFileProperty
+
+    @TaskAction
+    fun copy() {
+        val version = versionNameBase.get()
+        val rc = rcFile.get().asFile.readText().trim().ifBlank {
+            throw GradleException("rcFile is blank: ${rcFile.get().asFile.absolutePath}")
+        }
+
+        val sourceApk = sourceApkFile.get().asFile
+        if (!sourceApk.isFile) {
+            throw GradleException("Missing app-release.apk: ${sourceApk.absolutePath}")
+        }
+
+        val targetApk = sourceApk.parentFile.resolve("Sesame-TK-v${version}-rc${rc}.apk")
+        sourceApk.copyTo(targetApk, overwrite = true)
+    }
 }
 
 tasks.register("checkAll") {
@@ -35,6 +67,43 @@ tasks.register("checkAll") {
 var isCIBuild: Boolean = System.getenv("CI").toBoolean()
 
 val enableDetekt = gradle.startParameter.taskNames.any { it.contains("detekt", ignoreCase = true) }
+
+abstract class GenerateReleaseRcTask : DefaultTask() {
+    @get:Input
+    abstract val versionNameBase: Property<String>
+
+    @get:OutputFile
+    abstract val counterFile: RegularFileProperty
+
+    @get:OutputFile
+    abstract val rcOutputFile: RegularFileProperty
+
+    @TaskAction
+    fun generate() {
+        val version = versionNameBase.get()
+        val counter = counterFile.get().asFile
+        counter.parentFile?.mkdirs()
+
+        val props = Properties()
+        if (counter.isFile) {
+            counter.inputStream().use { props.load(it) }
+        }
+
+        val storedVersion = props.getProperty("versionNameBase", "")
+        val lastRc = props.getProperty("lastRc", "0").toIntOrNull() ?: 0
+        val nextRc = if (storedVersion == version) lastRc + 1 else 1
+
+        props.setProperty("versionNameBase", version)
+        props.setProperty("lastRc", nextRc.toString())
+        counter.outputStream().use { props.store(it, null) }
+
+        val rcText = nextRc.toString().padStart(2, '0')
+        val rcFile = rcOutputFile.get().asFile
+        rcFile.parentFile?.mkdirs()
+        rcFile.writeText(rcText)
+    }
+}
+
 if (enableDetekt) {
     apply(plugin = "io.gitlab.arturbosch.detekt")
 }
@@ -72,20 +141,6 @@ configurations.matching { it.name == "composeMappingProducerClasspath" }.configu
 
 //isCIBuild = true // 没有c++源码时开启CI构建, push前关闭
 
-// 定义 ValueSource 以兼容配置缓存
-abstract class GitCommitCountValueSource : ValueSource<Int, ValueSourceParameters.None> {
-    override fun obtain(): Int? {
-        return try {
-            val process = ProcessBuilder("git", "rev-list", "--count", "HEAD")
-                .redirectErrorStream(true)
-                .start()
-            process.inputStream.bufferedReader().use { it.readText().trim() }.toIntOrNull()
-        } catch (e: Exception) {
-            null
-        }
-    }
-}
-
 abstract class BuildVersionCodeValueSource : ValueSource<Int, ValueSourceParameters.None> {
     override fun obtain(): Int {
         val tz = TimeZone.getTimeZone("GMT+8")
@@ -111,80 +166,6 @@ abstract class BuildVersionCodeValueSource : ValueSource<Int, ValueSourceParamet
     }
 }
 
-abstract class BuildTimestampValueSource : ValueSource<String, ValueSourceParameters.None> {
-    override fun obtain(): String {
-        return SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA).apply {
-            timeZone = TimeZone.getTimeZone("GMT+8")
-        }.format(Date())
-    }
-}
-
-abstract class CopyApkWithTimestampTask : DefaultTask() {
-    @get:InputDirectory
-    abstract val inputDir: DirectoryProperty
-
-    @get:OutputDirectory
-    abstract val outputDir: DirectoryProperty
-
-    @get:Input
-    abstract val variant: Property<String>
-
-    @get:Input
-    abstract val versionName: Property<String>
-
-    @get:Input
-    abstract val timestamp: Property<String>
-
-    @get:Inject
-    abstract val fileSystemOperations: FileSystemOperations
-
-    @TaskAction
-    fun copy() {
-        val ts = timestamp.get()
-        val vn = versionName.get()
-        val variantName = variant.get()
-        val baseVersion = vn.substringBefore("-").ifBlank { vn }
-
-        val inputFolder = inputDir.get().asFile
-        val primaryApkName = "app-${variantName}.apk"
-        val hasPrimaryApk = inputFolder.resolve(primaryApkName).isFile
-        if (!hasPrimaryApk) {
-            val apkCount = inputFolder.listFiles { file ->
-                file.isFile && file.extension.equals("apk", ignoreCase = true)
-            }?.size ?: 0
-            if (apkCount != 1) {
-                throw GradleException(
-                    "Expected exactly one APK in ${inputFolder.absolutePath} when primary apk is missing; found $apkCount"
-                )
-            }
-        }
-
-        fileSystemOperations.copy {
-            from(inputDir)
-            if (hasPrimaryApk) {
-                include(primaryApkName)
-            } else {
-                include("*.apk")
-            }
-            into(outputDir)
-            duplicatesStrategy = DuplicatesStrategy.INCLUDE
-            rename { fileName ->
-                // 仅保留唯一命名格式：sesame-tk-v0.5.0-<yyyyMMdd-HHmmss>.apk
-                // 旧的多分支命名逻辑已按要求注释掉：
-                /*
-                val base = fileName.removeSuffix(".apk")
-                if (hasPrimaryApk) {
-                    "sesame-tk-v${vn}-${ts}.apk"
-                } else {
-                    "sesame-tk-v${vn}-${ts}-${variantName}-${base}.apk"
-                }
-                */
-                "sesame-tk-v${baseVersion}-${ts}.apk"
-            }
-        }
-    }
-}
-
 android {
     namespace = "fansirsqi.xposed.sesame"
     compileSdk = 36
@@ -193,16 +174,7 @@ android {
             useLegacyPackaging = true
         }
     }
-    // 获取版本递增计数（兼容配置缓存）
-    // 临时固定版本号为161 - 细粒度错误处理改进
-    val gitCommitCount: Int = providers.of(BuildVersionCodeValueSource::class.java) {}.get()    /*
-    val gitCommitCount: Int = providers.of(GitCommitCountValueSource::class.java) {}
-        .orElse(providers.provider {
-            // 如果git不可用，使用时间戳的后4位作为递增值
-            val timestamp = System.currentTimeMillis() / 1000
-            (timestamp % 10000).toInt()
-        }).get()
-    */
+    val autoVersionCode: Int = providers.of(BuildVersionCodeValueSource::class.java) {}.get()
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId = "fansirsqi.xposed.sesame"
@@ -214,7 +186,6 @@ android {
                 abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a"))
             }
         }
-
 
         val buildDate = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).apply {
             timeZone = TimeZone.getTimeZone("GMT+8")
@@ -230,10 +201,9 @@ android {
             "0000"
         }
 
-        versionCode = gitCommitCount
+        versionCode = autoVersionCode
         val buildTag = "release"
-        // 版本号规范：遵循语义化版本+构建号
-        versionName = "0.5.0-rc$versionCode"
+        versionName = providers.gradleProperty("versionNameBase").orElse("0.6.0").get()
 
         buildConfigField("String", "BUILD_DATE", "\"$buildDate\"")
         buildConfigField("String", "BUILD_TIME", "\"$buildTime\"")
@@ -261,12 +231,7 @@ android {
         compose = true
     }
 
-
-    // ✅ 已移除 productFlavors，统一使用单一变体配置
-    // flavorDimensions += "default"
-    // productFlavors { ... } - 已移除Compatible变体
     compileOptions {
-        // 全局默认设置
         isCoreLibraryDesugaringEnabled = true // 启用脱糖
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -277,8 +242,6 @@ android {
         }
     }
 
-    // ✅ 已移除 productFlavors.all 配置，所有项目统一使用 Java 17
-
     signingConfigs {
         getByName("debug") {
         }
@@ -287,8 +250,6 @@ android {
     buildTypes {
         getByName("debug") {
             isDebuggable = true
-            // applicationIdSuffix = ".debug"  // ✅ 已移除后缀，Debug和Release使用相同包名，可覆盖安装
-            // versionNameSuffix = ".debug"  // ✅ 移除versionNameSuffix，统一在APK文件名中体现
             isShrinkResources = false
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -322,38 +283,37 @@ android {
     }
 }
 
-val buildTimestampProvider = providers.of(BuildTimestampValueSource::class.java) {}
-val versionNameForApkNaming = android.defaultConfig.versionName ?: "unknown"
+val rcCounterFile = layout.buildDirectory.file("rc/rc-counter.properties")
+val releaseRcTextFile = layout.buildDirectory.file("rc/release-rc.txt")
 
-tasks.register<CopyApkWithTimestampTask>("copyReleaseApkWithTimestamp") {
-    dependsOn("assembleRelease")
-    inputDir.set(layout.buildDirectory.dir("outputs/apk/release"))
-    outputDir.set(layout.buildDirectory.dir("outputs/apk-timestamped/release"))
-    variant.set("release")
-    versionName.set(versionNameForApkNaming)
-    timestamp.set(buildTimestampProvider)
+tasks.register<GenerateReleaseRcTask>("generateReleaseRc") {
+    versionNameBase.set(providers.gradleProperty("versionNameBase").orElse("0.6.0"))
+    counterFile.set(rcCounterFile)
+    rcOutputFile.set(releaseRcTextFile)
 }
 
-tasks.register<CopyApkWithTimestampTask>("copyDebugApkWithTimestamp") {
-    dependsOn("assembleDebug")
-    inputDir.set(layout.buildDirectory.dir("outputs/apk/debug"))
-    outputDir.set(layout.buildDirectory.dir("outputs/apk-timestamped/debug"))
-    variant.set("debug")
-    versionName.set(versionNameForApkNaming)
-    timestamp.set(buildTimestampProvider)
+tasks.register<CopyReleaseApkWithRcTask>("copyReleaseApkWithRc") {
+    dependsOn("assembleRelease")
+    dependsOn("generateReleaseRc")
+    sourceApkFile.set(layout.buildDirectory.file("outputs/apk/release/app-release.apk"))
+    versionNameBase.set(providers.gradleProperty("versionNameBase").orElse("0.6.0"))
+    rcFile.set(releaseRcTextFile)
 }
 
 tasks.matching { it.name == "assembleRelease" }.configureEach {
-    finalizedBy("copyReleaseApkWithTimestamp")
+    finalizedBy("copyReleaseApkWithRc")
 }
 
-tasks.matching { it.name == "assembleDebug" }.configureEach {
-    finalizedBy("copyDebugApkWithTimestamp")
+tasks.register<Delete>("cleanLegacyReleaseOutputs") {
+    delete(layout.buildDirectory.dir("outputs/release"))
+}
+
+tasks.matching { it.name == "copyReleaseApkWithRc" }.configureEach {
+    finalizedBy("cleanLegacyReleaseOutputs")
 }
 
 dependencies {
 
-    // Shizuku 相关依赖 - 用于获取系统级权限
     implementation(libs.rikka.shizuku.api)        // Shizuku API
     implementation(libs.rikka.shizuku.provider)   // Shizuku 提供者
     implementation(libs.rikka.refine)             // Rikka 反射工具
