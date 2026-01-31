@@ -16,6 +16,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.util.regex.Pattern
 
+@Suppress("MemberNameEqualsClassName")
 object EcoLife {
     val TAG: String = EcoLife::class.java.getSimpleName()
 
@@ -30,6 +31,7 @@ object EcoLife {
      * 7. 如果光盘打卡设置为启用，执行 `photoGuangPan` 方法上传光盘照片。
      * 8. 异常发生时，记录错误信息并打印堆栈。
      */
+    @Suppress("CyclomaticComplexMethod", "ReturnCount")
     fun ecoLife() {
         try {
             // 查询首页信息
@@ -38,12 +40,18 @@ object EcoLife {
                 Log.error(TAG, "绿色行动查询返回空响应")
                 return
             }
-            var jsonObject = JSONObject(response)
+            var jsonObject = JsonUtil.parseJSONObjectOrNull(response) ?: run {
+                Log.error(TAG, "绿色行动查询返回空/非法 JSON")
+                return
+            }
             if (!jsonObject.optBoolean("success")) {
                 Log.runtime("$TAG.ecoLife.queryHomePage", jsonObject.optString("resultDesc"))
                 return
             }
-            var data = jsonObject.getJSONObject("data")
+            var data = jsonObject.optJSONObject("data") ?: run {
+                Log.runtime("$TAG.ecoLife.queryHomePage", jsonObject.optString("resultDesc"))
+                return
+            }
 
 
             // 获取当天的积分和任务列表
@@ -59,17 +67,27 @@ object EcoLife {
                 photoGuangPan(dayPoint)
             }
 
-            val actionListVO = data.getJSONArray("actionListVO")
+            val actionListVO = data.optJSONArray("actionListVO") ?: JSONArray()
             // 绿色打卡
             if (ecoOptions.contains("tick")) {
-                if (!data.getBoolean("openStatus")) {
+                if (!data.optBoolean("openStatus")) {
                     val ecoOpen = AntForest.Companion.ecoLifeOpen?.value ?: false
                     if (!openEcoLife() || !ecoOpen) {
                         return
                     }
-                    jsonObject = JSONObject(AntForestRpcCall.ecolifeQueryHomePage())
-                    data = jsonObject.getJSONObject("data")
-                    dayPoint = data.getString("dayPoint")
+                    jsonObject = JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.ecolifeQueryHomePage()) ?: run {
+                        Log.error(TAG, "绿色行动二次查询返回空/非法 JSON")
+                        return
+                    }
+                    data = jsonObject.optJSONObject("data") ?: run {
+                        Log.error(TAG, "绿色行动二次查询缺少 data")
+                        return
+                    }
+                    dayPoint = data.optString("dayPoint")
+                    if (dayPoint == "0") {
+                        Log.error(TAG, "不知道什么B原因自己去绿色行动找")
+                        return
+                    }
                 }
                 ecoLifeTick(actionListVO, dayPoint)
             }
@@ -87,7 +105,10 @@ object EcoLife {
     @Throws(JSONException::class)
     fun openEcoLife(): Boolean {
         GlobalThreadPools.sleepCompat(300)
-        val jsonObject = JSONObject(AntForestRpcCall.ecolifeOpenEcolife())
+        val jsonObject = JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.ecolifeOpenEcolife()) ?: run {
+            Log.runtime(TAG + ".ecoLife.openEcolife", "返回空/非法 JSON")
+            return false
+        }
         if (!jsonObject.optBoolean("success")) {
             Log.runtime(TAG + ".ecoLife.openEcolife", jsonObject.optString("resultDesc"))
             return false
@@ -117,23 +138,25 @@ object EcoLife {
         try {
             val source = "source"
             for (i in 0..<actionListVO.length()) {
-                val actionVO = actionListVO.getJSONObject(i)
-                val actionItemList = actionVO.getJSONArray("actionItemList")
+                val actionVO = actionListVO.optJSONObject(i) ?: continue
+                val actionItemList = actionVO.optJSONArray("actionItemList") ?: continue
                 for (j in 0..<actionItemList.length()) {
-                    val actionItem = actionItemList.getJSONObject(j)
-                    if (!actionItem.has("actionId")) continue
-                    if (actionItem.getBoolean("actionStatus")) continue
-                    val actionId = actionItem.getString("actionId")
-                    val actionName = actionItem.getString("actionName")
+                    val actionItem = actionItemList.optJSONObject(j) ?: continue
+                    val actionId = actionItem.optString("actionId")
+                    if (actionId.isEmpty()) continue
+                    if (actionItem.optBoolean("actionStatus")) continue
+                    val actionName = actionItem.optString("actionName")
                     if ("photoguangpan" == actionId) continue
                     GlobalThreadPools.sleepCompat(300)
-                    val jo = JSONObject(AntForestRpcCall.ecolifeTick(actionId ?: "", dayPoint ?: "", source ?: ""))
-                    if (ResChecker.checkRes(TAG, jo)) {
+                    val jo = JsonUtil.parseJSONObjectOrNull(
+                        AntForestRpcCall.ecolifeTick(actionId, dayPoint ?: "", source)
+                    )
+                    if (jo != null && ResChecker.checkRes(TAG, jo)) {
                         Log.forest("绿色打卡🍀[" + actionName + "]") // 成功打卡日志
                     } else {
                         // 记录失败原因
-                        Log.error(TAG + jo.getString("resultDesc"))
-                        Log.error(TAG + jo)
+                        Log.error(TAG + (jo?.optString("resultDesc") ?: ""))
+                        Log.error(TAG + (jo?.toString() ?: ""))
                     }
                     GlobalThreadPools.sleepCompat(300)
                 }
@@ -167,7 +190,12 @@ object EcoLife {
                 DataStore.getOrCreate("plate", typeRef)
             Log.runtime("$TAG [DEBUG] guangPanPhoto 数据内容: $allPhotos")
             // 查询今日任务状态
-            var jo = JSONObject(AntForestRpcCall.ecolifeQueryDish(source ?: "", dayPoint ?: ""))
+            var jo = JsonUtil.parseJSONObjectOrNull(
+                AntForestRpcCall.ecolifeQueryDish(source, dayPoint ?: "")
+            ) ?: run {
+                Log.runtime("$TAG.photoGuangPan.ecolifeQueryDish", "返回空/非法 JSON")
+                return
+            }
             var str: String
             // 如果请求失败，则记录错误信息并返回
             if (!ResChecker.checkRes(TAG, jo)) {
@@ -234,7 +262,7 @@ object EcoLife {
                 0.7597949,
                 dayPoint ?: ""
             )
-            jo = JSONObject(str)
+            jo = JsonUtil.parseJSONObjectOrNull(str) ?: return
             if (!ResChecker.checkRes(TAG, jo)) {
                 return
             }
@@ -247,19 +275,20 @@ object EcoLife {
                 0.0006858421,
                 dayPoint ?: ""
             )
-            jo = JSONObject(str)
+            jo = JsonUtil.parseJSONObjectOrNull(str) ?: return
             if (!ResChecker.checkRes(TAG, jo)) {
                 return
             }
             // 提交任务
             str = AntForestRpcCall.ecolifeTick("photoguangpan", dayPoint ?: "", source ?: "")
-            jo = JSONObject(str)
+            jo = JsonUtil.parseJSONObjectOrNull(str) ?: return
             // 如果提交失败，记录错误信息并返回
             if (!ResChecker.checkRes(TAG, jo)) {
                 return
             }
             // 任务完成，输出完成日志
-            val toastMsg = "光盘行动🍛任务完成#" + jo.getJSONObject("data").getString("toastMsg")
+            val toastMsg = "光盘行动🍛任务完成#" +
+                (jo.optJSONObject("data")?.optString("toastMsg") ?: "")
             Status.setFlagToday("EcoLife::photoGuangPan")
             Log.forest(toastMsg)
             Toast.show(toastMsg)
