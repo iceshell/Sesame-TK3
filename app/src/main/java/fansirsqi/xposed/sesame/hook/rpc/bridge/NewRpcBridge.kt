@@ -15,6 +15,7 @@ import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 
 /**
  * 新版RPC接口，支持最低支付宝版本v10.3.96.8100
@@ -40,6 +41,15 @@ class NewRpcBridge : RpcBridge {
 
     private val lastNullResponseLogAtMs = ConcurrentHashMap<String, Long>()
     private val nullResponseLogIntervalMs = NULL_RESPONSE_LOG_INTERVAL_MS
+
+    private val lastErrorSummaryLogAtMs = ConcurrentHashMap<String, Long>()
+    private val errorSummaryLogIntervalMs = ERROR_SUMMARY_LOG_INTERVAL_MS
+
+    private val lastErrorNotifyAtMs = AtomicLong(0)
+    private val errorNotifyIntervalMs = ERROR_NOTIFY_INTERVAL_MS
+
+    private val lastReloginAtMs = AtomicLong(0)
+    private val reloginIntervalMs = RELOGIN_INTERVAL_MS
 
     /**
      * 检查指定的RPC方法是否应该显示错误日志
@@ -68,6 +78,25 @@ class NewRpcBridge : RpcBridge {
                 Log.error(TAG, "RPC返回null | 方法: $methodName | 原因: $reason | 重试: $count")
             }
         }
+    }
+
+    private fun logErrorSummary(methodName: String, errorCode: String, errorMessage: String) {
+        if (!shouldShowErrorLog(methodName)) return
+
+        val key = "$methodName|$errorCode"
+        val now = System.currentTimeMillis()
+        val last = lastErrorSummaryLogAtMs[key]
+        if (last == null || now - last >= errorSummaryLogIntervalMs) {
+            lastErrorSummaryLogAtMs[key] = now
+            Log.error(TAG, "RPC错误 | 方法: $methodName | 错误: $errorCode/$errorMessage")
+        }
+    }
+
+    private fun shouldNotifyNow(lastMs: AtomicLong, intervalMs: Long): Boolean {
+        val now = System.currentTimeMillis()
+        val last = lastMs.get()
+        if (now - last < intervalMs) return false
+        return lastMs.compareAndSet(last, now)
     }
 
     override fun getVersion(): RpcVersion = RpcVersion.NEW
@@ -264,11 +293,28 @@ class NewRpcBridge : RpcBridge {
                                                 !(XposedHelpers.callMethod(obj, "containsKey", "isSuccess") as Boolean)
                                             ) {
                                                 rpcEntity.setError()
-                                                if (shouldShowErrorLog(rpcEntity.requestMethod)) {
+                                                val methodName = rpcEntity.requestMethod ?: "unknown"
+                                                val errorCode = runCatching {
+                                                    XposedHelpers.callMethod(obj, "getString", "error") as? String
+                                                }.getOrNull().orEmpty()
+                                                val errorMessage = runCatching {
+                                                    XposedHelpers.callMethod(
+                                                        obj,
+                                                        "getString",
+                                                        "errorMessage"
+                                                    ) as? String
+                                                }.getOrNull().orEmpty()
+
+                                                val isMarkedNetworkError =
+                                                    errorMark.contains(errorCode) ||
+                                                        errorStringMark.contains(errorMessage)
+                                                if (isMarkedNetworkError) {
+                                                    logErrorSummary(methodName, errorCode, errorMessage)
+                                                } else if (shouldShowErrorLog(methodName)) {
                                                     Log.error(
                                                         TAG,
                                                         "new rpc response1 | id: ${rpcEntity.hashCode()} | method: ${rpcEntity.requestMethod}\n " +
-                                                                "args: ${rpcEntity.requestData} |\n data: ${rpcEntity.responseString}"
+                                                            "args: ${rpcEntity.requestData} |\n data: ${rpcEntity.responseString}"
                                                     )
                                                 }
                                             }
@@ -324,13 +370,17 @@ class NewRpcBridge : RpcBridge {
                                         )
                                     }
                                 }
-                                if (BaseModel.errNotify.value == true) {
+                                if (BaseModel.errNotify.value == true &&
+                                    shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
+                                ) {
                                     Notify.sendErrorNotification(
                                         "${TimeUtil.getTimeStr()} | 网络异常: $methodName",
                                         response
                                     )
                                 }
-                                if (BaseModel.timeoutRestart.value == true) {
+                                if (BaseModel.timeoutRestart.value == true &&
+                                    shouldNotifyNow(lastReloginAtMs, reloginIntervalMs)
+                                ) {
                                     Log.record(TAG, "尝试重新登录")
                                     fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
                                 }
@@ -379,5 +429,8 @@ class NewRpcBridge : RpcBridge {
         private val TAG = NewRpcBridge::class.java.simpleName
 
         private const val NULL_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
+        private const val ERROR_SUMMARY_LOG_INTERVAL_MS: Long = 30_000L
+        private const val ERROR_NOTIFY_INTERVAL_MS: Long = 60_000L
+        private const val RELOGIN_INTERVAL_MS: Long = 120_000L
     }
 }
