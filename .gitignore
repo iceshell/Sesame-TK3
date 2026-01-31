@@ -124,10 +124,10 @@ serve-debug/webhook.db
 !README.md
 !CONTRIBUTING.md
 !LICENSE
-
+ 
 .kotlin/
-
+ 
 .windsurf/
-detekt-baseline.xml
-detekt*.yml
-
+!detekt-baseline.xml
+!detekt.yml
+!detekt-strict.yml

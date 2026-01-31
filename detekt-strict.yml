@@ -1,0 +1,25 @@
+build:
+  maxIssues: 999999
+
+config:
+  validation: true
+
+style:
+  active: true
+  ForbiddenMethodCall:
+    active: true
+    methods:
+      - reason: 'runBlocking 会阻塞线程，建议改为 suspend/withContext/async 等协程方式'
+        value: 'kotlinx.coroutines.runBlocking'
+      - reason: 'runBlocking 会阻塞线程，建议改为 suspend/withContext/async 等协程方式'
+        value: 'runBlocking'
+      - reason: 'Thread.sleep 会阻塞线程，建议改为 delay 或调度器'
+        value: 'java.lang.Thread.sleep'
+      - reason: 'Thread.sleep 会阻塞线程，建议改为 delay 或调度器'
+        value: 'Thread.sleep'
+      - reason: 'sleepCompat 会阻塞线程（LockSupport.parkNanos），建议在协程中改用 delay 或用调度器分段执行'
+        value: 'fansirsqi.xposed.sesame.util.GlobalThreadPools.sleepCompat'
+      - reason: 'sleepCompat 会阻塞线程（LockSupport.parkNanos），建议在协程中改用 delay 或用调度器分段执行'
+        value: 'fansirsqi.xposed.sesame.util.CoroutineUtils.sleepCompat'
+      - reason: 'sleepCompat 会阻塞线程（LockSupport.parkNanos），建议在协程中改用 delay 或用调度器分段执行'
+        value: 'fansirsqi.xposed.sesame.util.TimeUtil.sleepCompat'
