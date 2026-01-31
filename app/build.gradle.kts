@@ -22,7 +22,7 @@ import org.gradle.api.tasks.TaskAction
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.detekt)
     alias(libs.plugins.rikka.tools.refine)
 }
 
@@ -64,10 +64,6 @@ tasks.register("checkAll") {
 }
 var isCIBuild: Boolean = System.getenv("CI").toBoolean()
 
-val enableDetekt = gradle.startParameter.taskNames.any {
-    it.contains("detekt", ignoreCase = true) || it.equals("checkAll", ignoreCase = true)
-}
-
 abstract class GenerateReleaseRcTask : DefaultTask() {
     @get:Input
     abstract val versionNameBase: Property<String>
@@ -102,10 +98,6 @@ abstract class GenerateReleaseRcTask : DefaultTask() {
         rcFile.parentFile?.mkdirs()
         rcFile.writeText(rcText)
     }
-}
-
-if (enableDetekt) {
-    apply(plugin = "io.gitlab.arturbosch.detekt")
 }
 
 plugins.withId("io.gitlab.arturbosch.detekt") {
