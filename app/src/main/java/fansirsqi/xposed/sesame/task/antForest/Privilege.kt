@@ -2,6 +2,7 @@ package fansirsqi.xposed.sesame.task.antForest
 
 import fansirsqi.xposed.sesame.data.Status
 import fansirsqi.xposed.sesame.util.Log
+import fansirsqi.xposed.sesame.util.JsonUtil
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -52,12 +53,11 @@ object Privilege {
 
     private fun getForestTasks(queryParam: String): JSONArray? {
         val response = AntForestRpcCall.queryTaskListV2(queryParam)
-        return try {
-            JSONObject(response).getJSONArray("forestTasksNew")
-        } catch (e: JSONException) {
-            Log.error(TAG, "获取任务列表失败$e")
-            null
+        val json = JsonUtil.parseJSONObjectOrNull(response) ?: run {
+            Log.error(TAG, "获取任务列表失败: 返回空/非法 JSON")
+            return null
         }
+        return json.optJSONArray("forestTasksNew")
     }
 
     private fun handleForestTasks(forestTasks: JSONArray?, taskType: String, taskName: String): List<String> {
@@ -67,11 +67,11 @@ object Privilege {
             if (forestTasks != null && forestTasks.length() > 0) {
                 for (i in 0 until forestTasks.length()) {
                     val taskGroup = forestTasks.optJSONObject(i) ?: continue
-                    val taskInfoList = taskGroup.getJSONArray("taskInfoList") ?: continue
+                    val taskInfoList = taskGroup.optJSONArray("taskInfoList") ?: continue
 
                     for (j in 0 until taskInfoList.length()) {
                         val task = taskInfoList.optJSONObject(j) ?: continue
-                        val baseInfo = task.getJSONObject("taskBaseInfo") ?: continue
+                        val baseInfo = task.optJSONObject("taskBaseInfo") ?: continue
 
                         if (baseInfo.optString("taskType") != taskType) continue
 
@@ -98,7 +98,11 @@ object Privilege {
 
     private fun handleYouthTaskAward(taskType: String, taskName: String, results: MutableList<String>) {
         try {
-            val response = JSONObject(AntForestRpcCall.receiveTaskAwardV2(taskType))
+            val response = JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.receiveTaskAwardV2(taskType)) ?: run {
+                Log.error(TAG, "奖励领取结果解析失败: 返回空/非法 JSON")
+                results.add("处理异常")
+                return
+            }
             val resultDesc = response.optString("desc")
             results.add(resultDesc)
 
@@ -135,10 +139,8 @@ object Privilege {
 
     private fun processStudentSignIn() {
         val response = AntForestRpcCall.studentQqueryCheckInModel()
-        val result = try {
-            JSONObject(response)
-        } catch (e: JSONException) {
-            Log.error(TAG, "学生签到模型解析失败$e")
+        val result = JsonUtil.parseJSONObjectOrNull(response) ?: run {
+            Log.error(TAG, "学生签到模型解析失败: 返回空/非法 JSON")
             return
         }
 
@@ -160,7 +162,10 @@ object Privilege {
         try {
             val tag = if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < SIGN_END_HOUR) "double" else "single"
             val response = AntForestRpcCall.studentCheckin()
-            val result = JSONObject(response)
+            val result = JsonUtil.parseJSONObjectOrNull(response) ?: run {
+                Log.error(TAG, "学生签到失败：返回空/非法 JSON")
+                return
+            }
             handleSignInResult(result, tag)
         } catch (e: JSONException) {
             Log.error(TAG, "学生签到失败：${e.message}")

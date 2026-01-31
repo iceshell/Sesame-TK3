@@ -289,6 +289,7 @@ tasks.register<GenerateReleaseRcTask>("generateReleaseRc") {
     versionNameBase.set(providers.gradleProperty("versionNameBase").orElse("0.6.0"))
     counterFile.set(rcCounterFile)
     rcOutputFile.set(releaseRcTextFile)
+    outputs.upToDateWhen { false }
 }
 
 tasks.register<CopyReleaseApkWithRcTask>("copyReleaseApkWithRc") {
