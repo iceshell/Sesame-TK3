@@ -1,8 +1,10 @@
 package fansirsqi.xposed.sesame.task.antForest
 
 import fansirsqi.xposed.sesame.util.GlobalThreadPools
+import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.ResChecker
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -19,48 +21,51 @@ object WhackMole {
      * 6秒拼手速 - 打地鼠
      */
     @JvmStatic
+    @Suppress("LoopWithTooManyJumpStatements")
     fun startWhackMole() {
         try {
             val startTime = System.currentTimeMillis()
             
-            var response = JSONObject(AntForestRpcCall.startWhackMole("senlinguangchangdadishu"))
+            var response = JsonUtil.parseJSONObjectOrNull(
+                AntForestRpcCall.startWhackMole("senlinguangchangdadishu")
+            ) ?: return
             
             if (response.optBoolean("success")) {
-                val moleInfoArray = response.optJSONArray("moleInfo")
-                
-                if (moleInfoArray != null) {
-                    val moleIdList = mutableListOf<String>()
+                val moleInfoArray = response.optJSONArray("moleInfo") ?: JSONArray()
+                val moleIdList = mutableListOf<String>()
+
+                // 收集每个地鼠的 ID
+                for (i in 0 until moleInfoArray.length()) {
+                    val mole = moleInfoArray.optJSONObject(i) ?: continue
+                    val moleId = mole.optLong("id")
+                    if (moleId <= 0) continue
+                    moleIdList.add(moleId.toString())
+                }
+
+                if (moleIdList.isNotEmpty()) {
+                    val token = response.optString("token")
+                    if (token.isEmpty()) return
+
+                    val elapsedTime = System.currentTimeMillis() - startTime // 计算已耗时间
                     
-                    // 收集每个地鼠的 ID
-                    for (i in 0 until moleInfoArray.length()) {
-                        val mole = moleInfoArray.getJSONObject(i)
-                        val moleId = mole.getLong("id")
-                        moleIdList.add(moleId.toString())
-                    }
+                    // 睡眠至6秒
+                    GlobalThreadPools.sleepCompat((6000 - elapsedTime).coerceAtLeast(0))
                     
-                    if (moleIdList.isNotEmpty()) {
-                        val token = response.getString("token") // 获取令牌
-                        val elapsedTime = System.currentTimeMillis() - startTime // 计算已耗时间
-                        
-                        // 睡眠至6秒
-                        GlobalThreadPools.sleepCompat((6000 - elapsedTime).coerceAtLeast(0))
-                        
-                        response = JSONObject(
-                            AntForestRpcCall.settlementWhackMole(
-                                token,
-                                moleIdList,
-                                "senlinguangchangdadishu"
-                            )
+                    response = JsonUtil.parseJSONObjectOrNull(
+                        AntForestRpcCall.settlementWhackMole(
+                            token,
+                            moleIdList,
+                            "senlinguangchangdadishu"
                         )
-                        
-                        if (ResChecker.checkRes(TAG, response)) {
-                            val totalEnergy = response.getInt("totalEnergy")
-                            Log.forest("森林能量⚡️[获得:6秒拼手速能量 ${totalEnergy}g]")
-                        }
+                    ) ?: return
+                    
+                    if (ResChecker.checkRes(TAG, response)) {
+                        val totalEnergy = response.optInt("totalEnergy")
+                        Log.forest("森林能量⚡️[获得:6秒拼手速能量 ${totalEnergy}g]")
                     }
                 }
             } else {
-                Log.runtime(TAG, response.getJSONObject("data").toString())
+                Log.runtime(TAG, response.optJSONObject("data")?.toString() ?: "")
             }
         } catch (t: Throwable) {
             Log.runtime(TAG, "whackMole err")
@@ -76,12 +81,14 @@ object WhackMole {
     @JvmStatic
     fun closeWhackMole(): Boolean {
         try {
-            val response = JSONObject(AntForestRpcCall.closeWhackMole("senlinguangchangdadishu"))
+            val response =
+                JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.closeWhackMole("senlinguangchangdadishu"))
+                    ?: return false
             
             if (response.optBoolean("success")) {
                 return true
             } else {
-                Log.runtime(TAG, response.getString("resultDesc"))
+                Log.runtime(TAG, response.optString("resultDesc"))
             }
         } catch (t: Throwable) {
             Log.printStackTrace(t)
