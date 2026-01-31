@@ -2966,7 +2966,10 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     private fun updateSelfHomePage() {
         val s = AntForestRpcCall.queryHomePage()
         GlobalThreadPools.sleepCompat(100)
-        val joHomePage = JSONObject(s)
+        val joHomePage = JsonUtil.parseJSONObjectOrNull(s) ?: run {
+            Log.runtime(TAG, "queryHomePage 返回空/非法 JSON")
+            return
+        }
         updateSelfHomePage(joHomePage)
     }
 
@@ -2977,16 +2980,18 @@ class AntForest : ModelTask(), EnergyCollectCallback {
      */
     private fun updateSelfHomePage(joHomePage: JSONObject) {
         try {
-            var usingUserPropsNew = joHomePage.getJSONArray("loginUserUsingPropNew")
+            var usingUserPropsNew = joHomePage.optJSONArray("loginUserUsingPropNew")
+                ?: JSONArray()
             if (usingUserPropsNew.length() == 0) {
-                usingUserPropsNew = joHomePage.getJSONArray("usingUserPropsNew")
+                usingUserPropsNew = joHomePage.optJSONArray("usingUserPropsNew")
+                    ?: JSONArray()
             }
             for (i in 0..<usingUserPropsNew.length()) {
-                val userUsingProp = usingUserPropsNew.getJSONObject(i)
-                val propGroup = userUsingProp.getString("propGroup")
+                val userUsingProp = usingUserPropsNew.optJSONObject(i) ?: continue
+                val propGroup = userUsingProp.optString("propGroup")
                 when (propGroup) {
                     "doubleClick" -> {
-                        doubleEndTime = userUsingProp.getLong("endTime")
+                        doubleEndTime = userUsingProp.optLong("endTime")
                         Log.runtime(
                             TAG,
                             "双击卡剩余时间⏰：" + formatTimeDifference(doubleEndTime - System.currentTimeMillis())
@@ -2994,7 +2999,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     }
 
                     "stealthCard" -> {
-                        stealthEndTime = userUsingProp.getLong("endTime")
+                        stealthEndTime = userUsingProp.optLong("endTime")
                         Log.runtime(
                             TAG,
                             "隐身卡剩余时间⏰️：" + formatTimeDifference(stealthEndTime - System.currentTimeMillis())
@@ -3002,7 +3007,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     }
 
                     "shield" -> {
-                        shieldEndTime = userUsingProp.getLong("endTime")
+                        shieldEndTime = userUsingProp.optLong("endTime")
                         Log.runtime(
                             TAG,
                             "保护罩剩余时间⏰：" + formatTimeDifference(shieldEndTime - System.currentTimeMillis())
@@ -3010,7 +3015,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     }
 
                     "energyBombCard" -> {
-                        energyBombCardEndTime = userUsingProp.getLong("endTime")
+                        energyBombCardEndTime = userUsingProp.optLong("endTime")
                         Log.runtime(
                             TAG,
                             "能量炸弹卡剩余时间⏰：" + formatTimeDifference(energyBombCardEndTime - System.currentTimeMillis())
@@ -3019,28 +3024,28 @@ class AntForest : ModelTask(), EnergyCollectCallback {
 
                     "robExpandCard" -> {
                         val extInfo = userUsingProp.optString("extInfo")
-                        robExpandCardEndTime = userUsingProp.getLong("endTime")
+                        robExpandCardEndTime = userUsingProp.optLong("endTime")
                         Log.runtime(
                             TAG,
                             "1.1倍能量卡剩余时间⏰：" + formatTimeDifference(robExpandCardEndTime - System.currentTimeMillis())
                         )
                         if (!extInfo.isEmpty()) {
-                            val extInfoObj = JSONObject(extInfo)
+                            val extInfoObj = JsonUtil.parseJSONObjectOrNull(extInfo) ?: continue
                             val leftEnergy = extInfoObj.optString("leftEnergy", "0").toDouble()
                             if (leftEnergy > 3000 || ("true" == extInfoObj.optString(
                                     "overLimitToday",
                                     "false"
                                 ) && leftEnergy >= 1)
                             ) {
-                                val propId = userUsingProp.getString("propId")
-                                val propType = userUsingProp.getString("propType")
-                                val jo = JSONObject(
+                                val propId = userUsingProp.optString("propId")
+                                val propType = userUsingProp.optString("propType")
+                                val jo = JsonUtil.parseJSONObjectOrNull(
                                     AntForestRpcCall.collectRobExpandEnergy(
                                         propId,
                                         propType
                                     )
                                 )
-                                if (ResChecker.checkRes(TAG, jo)) {
+                                if (jo != null && ResChecker.checkRes(TAG, jo)) {
                                     val collectEnergy = jo.optInt("collectEnergy")
                                     Log.forest("额外能量🌳[" + collectEnergy + "g][1.1倍能量卡]")
                                 }
