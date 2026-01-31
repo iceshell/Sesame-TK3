@@ -62,7 +62,7 @@ $meaningfulLines = $porcelainLines | Where-Object {
     ($_ -notmatch "^[ MADRCU\?]{2}\s+[^/\\\\]+\.log$")
 }
 
-if ($meaningfulLines.Count -eq 0) {
+if (@($meaningfulLines).Count -eq 0) {
     Write-Host "No changes to commit."
     exit 0
 }
