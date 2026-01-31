@@ -65,7 +65,9 @@ tasks.register("checkAll") {
 }
 var isCIBuild: Boolean = System.getenv("CI").toBoolean()
 
-val enableDetekt = gradle.startParameter.taskNames.any { it.contains("detekt", ignoreCase = true) }
+val enableDetekt = gradle.startParameter.taskNames.any {
+    it.contains("detekt", ignoreCase = true) || it.equals("checkAll", ignoreCase = true)
+}
 
 abstract class GenerateReleaseRcTask : DefaultTask() {
     @get:Input
@@ -378,6 +380,7 @@ dependencies {
     
     // JUnit - 基础测试框架
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.json:json:20231013")
     
     // Kotlin 测试
     testImplementation("org.jetbrains.kotlin:kotlin-test:2.3.0")
