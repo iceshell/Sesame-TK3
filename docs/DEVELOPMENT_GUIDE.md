@@ -418,7 +418,7 @@ defaultConfig {
 ### 4. 发布步骤
 
 1. 更新版本号
-2. 更新 RELEASE_NOTES.md
+2. 更新 GitHub Release 说明
 3. 构建并测试
 4. Git 提交和打标签
 5. 发布到 GitHub Releases
