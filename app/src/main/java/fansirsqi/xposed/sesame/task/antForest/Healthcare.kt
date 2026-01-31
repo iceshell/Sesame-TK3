@@ -1,5 +1,6 @@
 package fansirsqi.xposed.sesame.task.antForest
 
+import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.ResChecker
 import fansirsqi.xposed.sesame.util.TimeUtil
@@ -22,16 +23,17 @@ object Healthcare {
      * @param scene 场景类型（FEEDS=绿色医疗，其他=电子小票）
      */
     @JvmStatic
+    @Suppress("ReturnCount")
     fun queryForestEnergy(scene: String) {
         try {
-            var response = JSONObject(AntForestRpcCall.queryForestEnergy(scene))
+            var response = JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.queryForestEnergy(scene)) ?: return
             
             if (!ResChecker.checkRes(TAG, response)) {
                 return
             }
             
-            response = response.getJSONObject("data").getJSONObject("response")
-            var energyList = response.getJSONArray("energyGeneratedList")
+            response = response.optJSONObject("data")?.optJSONObject("response") ?: return
+            var energyList = response.optJSONArray("energyGeneratedList") ?: JSONArray()
             
             // 收取已有的能量球
             if (energyList.length() > 0) {
@@ -62,15 +64,17 @@ object Healthcare {
     private fun produceForestEnergy(scene: String): JSONArray {
         var energyGeneratedList = JSONArray()
         try {
-            val response = JSONObject(AntForestRpcCall.produceForestEnergy(scene))
+            val response =
+                JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.produceForestEnergy(scene))
+                    ?: return energyGeneratedList
             
             if (ResChecker.checkRes(TAG, response)) {
-                val data = response.getJSONObject("data").getJSONObject("response")
-                energyGeneratedList = data.getJSONArray("energyGeneratedList")
+                val data = response.optJSONObject("data")?.optJSONObject("response") ?: return energyGeneratedList
+                energyGeneratedList = data.optJSONArray("energyGeneratedList") ?: JSONArray()
                 
                 if (energyGeneratedList.length() > 0) {
                     val title = if (scene == "FEEDS") "绿色医疗" else "电子小票"
-                    val cumulativeEnergy = data.getInt("cumulativeEnergy")
+                    val cumulativeEnergy = data.optInt("cumulativeEnergy")
                     Log.forest("医疗健康🚑完成[$title]#产生[${cumulativeEnergy}g能量]")
                 }
             }
@@ -90,14 +94,16 @@ object Healthcare {
      */
     private fun harvestForestEnergy(scene: String, bubbles: JSONArray): Boolean {
         try {
-            val response = JSONObject(AntForestRpcCall.harvestForestEnergy(scene, bubbles))
+            val response =
+                JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.harvestForestEnergy(scene, bubbles))
+                    ?: return false
             
             if (!ResChecker.checkRes(TAG, response)) {
                 return false
             }
             
-            val data = response.getJSONObject("data").getJSONObject("response")
-            val collectedEnergy = data.getInt("collectedEnergy")
+            val data = response.optJSONObject("data")?.optJSONObject("response") ?: return false
+            val collectedEnergy = data.optInt("collectedEnergy")
             
             if (collectedEnergy > 0) {
                 val title = if (scene == "FEEDS") "绿色医疗" else "电子小票"
