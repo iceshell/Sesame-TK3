@@ -4,6 +4,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import fansirsqi.xposed.sesame.entity.VitalityStore.ExchangeStatus
 import fansirsqi.xposed.sesame.util.Log
+import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.maps.IdMapManager
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import fansirsqi.xposed.sesame.util.maps.VitalityRewardsMap
@@ -23,7 +24,7 @@ object Vitality {
     fun ItemListByType(labelType: String): JSONArray? {
         var itemInfoVOList: JSONArray? = null
         try {
-            val jo = JSONObject(AntForestRpcCall.itemList(labelType))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.itemList(labelType)) ?: return null
             if (ResChecker.checkRes("${TAG}查询森林活力值商品列表失败:", jo)) {
                 itemInfoVOList = jo.optJSONArray("itemInfoVOList")
             }
@@ -37,10 +38,10 @@ object Vitality {
     @JvmStatic
     fun ItemDetailBySpuId(spuId: String) {
         try {
-            val jo = JSONObject(AntForestRpcCall.itemDetail(spuId))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.itemDetail(spuId)) ?: return
             if (ResChecker.checkRes("${TAG}查询森林活力值商品详情失败:", jo)) {
-                val ItemDetail = jo.getJSONObject("spuItemInfoVO")
-                handleItemDetail(ItemDetail)
+                val itemDetail = jo.optJSONObject("spuItemInfoVO") ?: return
+                handleItemDetail(itemDetail)
             }
         } catch (th: Throwable) {
             Log.runtime(TAG, "ItemDetailBySpuId err")
@@ -54,7 +55,7 @@ object Vitality {
             val itemInfoVOList = ItemListByType(labelType)
             if (itemInfoVOList != null) {
                 for (i in 0 until itemInfoVOList.length()) {
-                    val itemInfoVO = itemInfoVOList.getJSONObject(i)
+                    val itemInfoVO = itemInfoVOList.optJSONObject(i) ?: continue
                     handleVitalityItem(itemInfoVO)
                 }
             } else {
@@ -66,15 +67,18 @@ object Vitality {
         }
     }
 
+    @Suppress("LoopWithTooManyJumpStatements")
     private fun handleVitalityItem(vitalityItem: JSONObject) {
         try {
             val spuId = vitalityItem.optString("spuId")
-            val skuModelList = vitalityItem.getJSONArray("skuModelList")
+            val skuModelList = vitalityItem.optJSONArray("skuModelList") ?: return
             for (i in 0 until skuModelList.length()) {
-                val skuModel = skuModelList.getJSONObject(i)
-                val skuId = skuModel.getString("skuId")
-                val skuName = skuModel.getString("skuName")
-                val price = skuModel.getJSONObject("price").getInt("amount")
+                val skuModel = skuModelList.optJSONObject(i) ?: continue
+                val skuId = skuModel.optString("skuId")
+                if (skuId.isEmpty()) continue
+
+                val skuName = skuModel.optString("skuName")
+                val price = skuModel.optJSONObject("price")?.optInt("amount") ?: 0
                 var oderInfo = "$skuName\n价格${price}🍃活力值"
                 
                 if (skuName.contains("能量雨") || skuName.contains("敦煌") || skuName.contains("保护罩") || 
@@ -97,14 +101,17 @@ object Vitality {
         }
     }
 
+    @Suppress("LoopWithTooManyJumpStatements")
     private fun handleItemDetail(ItemDetail: JSONObject) {
         try {
-            val spuId = ItemDetail.getString("spuId")
-            val skuModelList = ItemDetail.getJSONArray("skuModelList")
+            val spuId = ItemDetail.optString("spuId")
+            val skuModelList = ItemDetail.optJSONArray("skuModelList") ?: return
             for (i in 0 until skuModelList.length()) {
-                val skuModel = skuModelList.getJSONObject(i)
-                val skuId = skuModel.getString("skuId")
-                val skuName = skuModel.getString("skuName")
+                val skuModel = skuModelList.optJSONObject(i) ?: continue
+                val skuId = skuModel.optString("skuId")
+                if (skuId.isEmpty()) continue
+
+                val skuName = skuModel.optString("skuName")
                 if (!skuModel.has("spuId")) {
                     skuModel.put("spuId", spuId)
                 }
@@ -136,11 +143,11 @@ object Vitality {
         }
         
         try {
-            val skuName = sku.getString("skuName")
-            val itemStatusList = sku.getJSONArray("itemStatusList")
+            val skuName = sku.optString("skuName")
+            val itemStatusList = sku.optJSONArray("itemStatusList") ?: JSONArray()
             for (i in 0 until itemStatusList.length()) {
-                val itemStatus = itemStatusList.getString(i)
-                val status = ExchangeStatus.valueOf(itemStatus)
+                val itemStatus = itemStatusList.optString(i)
+                val status = runCatching { ExchangeStatus.valueOf(itemStatus) }.getOrNull() ?: continue
                 if (status.name == itemStatus) {
                     Log.record(TAG, "活力兑换🍃[$skuName]停止:${status.nickName}")
                     if (ExchangeStatus.REACH_LIMIT.name == itemStatus) {
@@ -151,7 +158,8 @@ object Vitality {
                 }
             }
             
-            val spuId = sku.getString("spuId")
+            val spuId = sku.optString("spuId")
+            if (spuId.isEmpty()) return false
             if (VitalityExchange(spuId, skuId, skuName)) {
                 if (skuName.contains("限时")) {
                     Status.setFlagToday("forest::VitalityExchangeLimit::$skuId")
@@ -184,7 +192,7 @@ object Vitality {
 
     private fun VitalityExchange(spuId: String, skuId: String): Boolean {
         try {
-            val jo = JSONObject(AntForestRpcCall.exchangeBenefit(spuId, skuId))
+            val jo = JsonUtil.parseJSONObjectOrNull(AntForestRpcCall.exchangeBenefit(spuId, skuId)) ?: return false
             if (!jo.optBoolean("success")) {
                 val resultCode = jo.optString("resultCode", "")
                 if ("QUOTA_USER_NOT_ENOUGH" == resultCode) {
@@ -208,7 +216,7 @@ object Vitality {
                 initVitality("SC_ASSETS")
             }
             for ((_, sku) in skuInfo) {
-                if (sku.getString("skuName").contains(spuName)) {
+                if (sku.optString("skuName").contains(spuName)) {
                     return sku
                 }
             }
