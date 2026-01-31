@@ -13,7 +13,7 @@ function Get-RepoRoot {
     return (Resolve-Path (Join-Path $scriptDir "..") ).Path
 }
 
-function Infer-CommitMessage {
+function Get-CommitMessage {
     param(
         [string[]]$ChangedFiles
     )
@@ -54,16 +54,30 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "[2/3] Checking git working tree..."
 $porcelain = & git status --porcelain
-if ([string]::IsNullOrWhiteSpace($porcelain)) {
+$porcelainLines = $porcelain -split "`n" | ForEach-Object { $_.TrimEnd() } | Where-Object { $_ -ne "" }
+$meaningfulLines = $porcelainLines | Where-Object {
+    ($_ -notmatch "^\?\?\s+log/.*\.log$") -and
+    ($_ -notmatch "^[ MADRCU\?]{2}\s+log/.*\.log$") -and
+    ($_ -notmatch "^\?\?\s+[^/\\\\]+\.log$") -and
+    ($_ -notmatch "^[ MADRCU\?]{2}\s+[^/\\\\]+\.log$")
+}
+
+if ($meaningfulLines.Count -eq 0) {
     Write-Host "No changes to commit."
     exit 0
 }
 
-& git add -A
+& git add -A -- . ':(exclude)log/*.log' ':(exclude)*.log'
+
+& git diff --cached --quiet
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "No staged changes to commit (logs are excluded)."
+    exit 0
+}
 
 if ([string]::IsNullOrWhiteSpace($Message)) {
     $changed = (& git diff --cached --name-only) -split "`n" | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" }
-    $Message = Infer-CommitMessage -ChangedFiles $changed
+    $Message = Get-CommitMessage -ChangedFiles $changed
 }
 
 Write-Host "[3/3] Committing with message: $Message"

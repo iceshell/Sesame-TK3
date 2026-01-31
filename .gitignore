@@ -30,9 +30,9 @@ proguard/
 # Log Files
 *.log
 # 允许根目录的日志文件（用于重构跟踪）
-!/*.log
+# !/*.log
 # 允许log目录的日志文件（用于调试和监控）
-!/log/*.log
+# !/log/*.log
 
 # Android Studio Navigation editor temp files
 .navigation/
