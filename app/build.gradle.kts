@@ -7,8 +7,6 @@ import java.util.TimeZone
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.GradleException
-import org.gradle.api.provider.ValueSource
-import org.gradle.api.provider.ValueSourceParameters
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -121,6 +119,14 @@ plugins.withId("io.gitlab.arturbosch.detekt") {
     }
 }
 
+fun computeVersionCode(versionNameBase: String): Int {
+    val parts = versionNameBase.split('.')
+    val major = parts.getOrNull(0)?.toIntOrNull() ?: 0
+    val minor = parts.getOrNull(1)?.toIntOrNull() ?: 0
+    val patch = parts.getOrNull(2)?.toIntOrNull() ?: 0
+    return major * 1_000_000 + minor * 1_000 + patch
+}
+
 configurations.matching { it.name == "composeMappingProducerClasspath" }.configureEach {
     resolutionStrategy.eachDependency {
         if (requested.group == "org.jetbrains.kotlin" && requested.name == "compose-group-mapping") {
@@ -133,31 +139,6 @@ configurations.matching { it.name == "composeMappingProducerClasspath" }.configu
 
 //isCIBuild = true // 没有c++源码时开启CI构建, push前关闭
 
-abstract class BuildVersionCodeValueSource : ValueSource<Int, ValueSourceParameters.None> {
-    override fun obtain(): Int {
-        val tz = TimeZone.getTimeZone("GMT+8")
-        val nowMs = System.currentTimeMillis()
-
-        val baseCal = Calendar.getInstance(tz).apply {
-            set(2020, Calendar.JANUARY, 1, 0, 0, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-        val baseDay = baseCal.timeInMillis / 86_400_000L
-
-        val nowCal = Calendar.getInstance(tz).apply {
-            timeInMillis = nowMs
-        }
-        val nowDay = nowCal.timeInMillis / 86_400_000L
-        val dayIndex = (nowDay - baseDay).toInt().coerceAtLeast(0)
-
-        val secondsOfDay = nowCal.get(Calendar.HOUR_OF_DAY) * 3600 +
-            nowCal.get(Calendar.MINUTE) * 60 +
-            nowCal.get(Calendar.SECOND)
-
-        return dayIndex * 100_000 + secondsOfDay
-    }
-}
-
 android {
     namespace = "fansirsqi.xposed.sesame"
     compileSdk = 36
@@ -166,7 +147,6 @@ android {
             useLegacyPackaging = true
         }
     }
-    val autoVersionCode: Int = providers.of(BuildVersionCodeValueSource::class.java) {}.get()
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId = "fansirsqi.xposed.sesame"
@@ -193,9 +173,10 @@ android {
             "0000"
         }
 
-        versionCode = autoVersionCode
         val buildTag = "release"
-        versionName = providers.gradleProperty("versionNameBase").orElse("0.6.0").get()
+        val versionNameBase = providers.gradleProperty("versionNameBase").orElse("0.6.0").get()
+        versionName = versionNameBase
+        versionCode = computeVersionCode(versionNameBase)
 
         buildConfigField("String", "BUILD_DATE", "\"$buildDate\"")
         buildConfigField("String", "BUILD_TIME", "\"$buildTime\"")
