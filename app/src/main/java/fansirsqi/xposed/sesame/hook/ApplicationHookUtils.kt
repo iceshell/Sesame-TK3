@@ -28,6 +28,14 @@ object ApplicationHookUtils {
 
     private const val RELOGIN_BROADCAST_MIN_INTERVAL_MS = 10_000L
 
+    @Volatile
+    private var lastRestartBroadcastAt: Long = 0L
+
+    @Volatile
+    private var lastRestartBroadcastSkipLogAt: Long = 0L
+
+    private const val RESTART_BROADCAST_MIN_INTERVAL_MS = 10_000L
+
     /**
      * 对类中的特定方法进行反优化处理
      * 用于确保Xposed hook能够正确工作
@@ -197,6 +205,24 @@ object ApplicationHookUtils {
     @JvmStatic
     fun restartByBroadcast() {
         try {
+            val now = System.currentTimeMillis()
+            val shouldSend = synchronized(this) {
+                if (now - lastRestartBroadcastAt < RESTART_BROADCAST_MIN_INTERVAL_MS) {
+                    false
+                } else {
+                    lastRestartBroadcastAt = now
+                    true
+                }
+            }
+
+            if (!shouldSend) {
+                val nowSkip = System.currentTimeMillis()
+                if (nowSkip - lastRestartBroadcastSkipLogAt >= RESTART_BROADCAST_MIN_INTERVAL_MS) {
+                    lastRestartBroadcastSkipLogAt = nowSkip
+                    Log.runtime(TAG, "restart广播发送过于频繁，已跳过")
+                }
+                return
+            }
             ApplicationHookConstants.appContext?.sendBroadcast(
                 Intent("com.eg.android.AlipayGphone.sesame.restart")
             )

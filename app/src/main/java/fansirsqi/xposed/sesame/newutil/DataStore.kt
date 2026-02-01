@@ -7,8 +7,17 @@ import com.fasterxml.jackson.core.util.DefaultIndenter
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
+import java.nio.file.ClosedWatchServiceException
 import java.nio.file.StandardWatchEventKinds
+import java.nio.file.WatchService
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import java.util.concurrent.locks.LockSupport
@@ -18,10 +27,22 @@ import kotlin.concurrent.write
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 
 object DataStore {
+    private const val SAVE_DEBOUNCE_MS = 1_500L
+
     private val mapper = jacksonObjectMapper()
     private val data = ConcurrentHashMap<String, Any>()
     private val lock = ReentrantReadWriteLock()
     private lateinit var storageFile: File
+
+    private val saveScope = CoroutineScope(
+        Dispatchers.IO + SupervisorJob() + CoroutineName("DataStoreSaver")
+    )
+
+    @Volatile
+    private var pendingSaveJob: Job? = null
+
+    @Volatile
+    private var watchService: WatchService? = null
 
     fun init(dir: File) {
         storageFile = File(dir, "DataStore.json").apply {
@@ -31,7 +52,7 @@ object DataStore {
         
         // 初始化完成后，如果内存中有数据（可能是初始化前保存的），立即写入磁盘
         if (data.isNotEmpty()) {
-            saveToDisk()
+            flushPendingSave()
         }
         
         // ✅ minSdk 26+: 直接使用NIO WatchService
@@ -74,7 +95,7 @@ object DataStore {
             else -> clazz.getDeclaredConstructor().newInstance()
         }
         data[key] = default
-        saveToDisk()
+        scheduleSave()
         default
     }
 
@@ -85,7 +106,7 @@ object DataStore {
         data[key]?.let { return mapper.convertValue(it, typeRef) }
         val default: T = createDefault(typeRef)
         data[key] = default
-        saveToDisk()
+        scheduleSave()
         default
     }
 
@@ -128,17 +149,59 @@ object DataStore {
             return
         }
         val tempFile = File(storageFile.parentFile, storageFile.name + ".tmp")
+        val bakFile = File(storageFile.parentFile, storageFile.name + ".bak")
         try {
             tempFile.writeText(mapper.writer(prettyPrinter).writeValueAsString(data))
-            if (storageFile.exists()) {
-                storageFile.delete()
+
+            if (bakFile.exists()) {
+                bakFile.delete()
             }
-            tempFile.renameTo(storageFile)
+
+            if (storageFile.exists() && !storageFile.renameTo(bakFile)) {
+                tempFile.delete()
+                return
+            }
+
+            if (!tempFile.renameTo(storageFile)) {
+                if (bakFile.exists()) {
+                    bakFile.renameTo(storageFile)
+                }
+                tempFile.delete()
+                return
+            }
+
+            if (bakFile.exists()) {
+                bakFile.delete()
+            }
         } catch (e: Exception) {
             if (tempFile.exists()) {
                 tempFile.delete()
             }
         }
+    }
+
+    private fun scheduleSave() {
+        if (!::storageFile.isInitialized) {
+            return
+        }
+        pendingSaveJob?.cancel()
+        pendingSaveJob = saveScope.launch {
+            delay(SAVE_DEBOUNCE_MS)
+            saveToDisk()
+        }
+    }
+
+    fun flushPendingSave() {
+        pendingSaveJob?.cancel()
+        pendingSaveJob = null
+        saveToDisk()
+    }
+
+    fun shutdown() {
+        pendingSaveJob?.cancel()
+        pendingSaveJob = null
+        watchService?.close()
+        watchService = null
     }
 
     private fun startWatcher() {
@@ -159,14 +222,22 @@ object DataStore {
     @RequiresApi(Build.VERSION_CODES.O)
     fun startWatcherNio() = thread(isDaemon = true) {
         val path = storageFile.toPath().parent
+        watchService?.close()
         val watch = path.fileSystem.newWatchService()
+        watchService = watch
         path.register(watch, StandardWatchEventKinds.ENTRY_MODIFY)
         while (true) {
-            val key = watch.take()
-            key.pollEvents().forEach {
-                if (it.context().toString() == storageFile.name) loadFromDisk()
+            try {
+                val key = watch.take()
+                key.pollEvents().forEach {
+                    if (it.context().toString() == storageFile.name) loadFromDisk()
+                }
+                key.reset()
+            } catch (_: ClosedWatchServiceException) {
+                return@thread
+            } catch (_: InterruptedException) {
+                return@thread
             }
-            key.reset()
         }
     }
 
@@ -175,11 +246,11 @@ object DataStore {
     /* -------------------------------------------------- */
     fun put(key: String, value: Any) = lock.write {
         data[key] = value
-        saveToDisk()
+        scheduleSave()
     }
 
     fun remove(key: String) = lock.write {
         data.remove(key)
-        saveToDisk()
+        scheduleSave()
     }
 }

@@ -17,6 +17,24 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 
+private const val REQUEST_LOG_LIMIT = 1024
+private const val RESPONSE_LOG_LIMIT = 4096
+
+private fun truncateForLog(value: String?, limit: Int): String {
+    if (value == null) return ""
+    if (value.length <= limit) return value
+    return value.substring(0, limit) + "..."
+}
+
+private fun getErrorValueAsString(obj: Any, key: String): String {
+    return runCatching {
+        XposedHelpers.callMethod(obj, "getString", key) as? String
+    }.getOrNull()?.takeIf { it.isNotBlank() }
+        ?: runCatching {
+            XposedHelpers.callMethod(obj, "get", key)?.toString()
+        }.getOrNull().orEmpty()
+}
+
 /**
  * 新版RPC接口，支持最低支付宝版本v10.3.96.8100
  * 记录RPC抓包，支持最低支付宝版本v10.3.96.8100
@@ -42,8 +60,15 @@ class NewRpcBridge : RpcBridge {
     private val lastNullResponseLogAtMs = ConcurrentHashMap<String, Long>()
     private val nullResponseLogIntervalMs = NULL_RESPONSE_LOG_INTERVAL_MS
 
-    private val lastErrorSummaryLogAtMs = ConcurrentHashMap<String, Long>()
-    private val errorSummaryLogIntervalMs = ERROR_SUMMARY_LOG_INTERVAL_MS
+    private data class ErrorSummaryWindowStat(
+        var windowStartMs: Long,
+        var count: Int
+    )
+
+    private val errorSummaryWindowStats = ConcurrentHashMap<String, ErrorSummaryWindowStat>()
+    private val errorSummaryWindowMs = ERROR_SUMMARY_WINDOW_MS
+    private val lastCaptureLogAtMs = ConcurrentHashMap<String, Long>()
+    private val captureLogIntervalMs = CAPTURE_LOG_INTERVAL_MS
 
     private val lastErrorNotifyAtMs = AtomicLong(0)
     private val errorNotifyIntervalMs = ERROR_NOTIFY_INTERVAL_MS
@@ -59,44 +84,6 @@ class NewRpcBridge : RpcBridge {
      */
     private fun shouldShowErrorLog(methodName: String?): Boolean {
         return methodName != null && !silentErrorMethods.contains(methodName)
-    }
-
-    /**
-     * 记录RPC请求返回null的原因
-     *
-     * @param rpcEntity RPC请求实体
-     * @param reason 返回null的原因
-     * @param count 当前重试次数
-     */
-    private fun logNullResponse(rpcEntity: RpcEntity?, reason: String, count: Int) {
-        val methodName = rpcEntity?.requestMethod ?: "unknown"
-        if (shouldShowErrorLog(methodName)) {
-            val now = System.currentTimeMillis()
-            val last = lastNullResponseLogAtMs[methodName]
-            if (last == null || now - last >= nullResponseLogIntervalMs) {
-                lastNullResponseLogAtMs[methodName] = now
-                Log.error(TAG, "RPC返回null | 方法: $methodName | 原因: $reason | 重试: $count")
-            }
-        }
-    }
-
-    private fun logErrorSummary(methodName: String, errorCode: String, errorMessage: String) {
-        if (!shouldShowErrorLog(methodName)) return
-
-        val key = "$methodName|$errorCode"
-        val now = System.currentTimeMillis()
-        val last = lastErrorSummaryLogAtMs[key]
-        if (last == null || now - last >= errorSummaryLogIntervalMs) {
-            lastErrorSummaryLogAtMs[key] = now
-            Log.error(TAG, "RPC错误 | 方法: $methodName | 错误: $errorCode/$errorMessage")
-        }
-    }
-
-    private fun shouldNotifyNow(lastMs: AtomicLong, intervalMs: Long): Boolean {
-        val now = System.currentTimeMillis()
-        val last = lastMs.get()
-        if (now - last < intervalMs) return false
-        return lastMs.compareAndSet(last, now)
     }
 
     override fun getVersion(): RpcVersion = RpcVersion.NEW
@@ -294,16 +281,8 @@ class NewRpcBridge : RpcBridge {
                                             ) {
                                                 rpcEntity.setError()
                                                 val methodName = rpcEntity.requestMethod ?: "unknown"
-                                                val errorCode = runCatching {
-                                                    XposedHelpers.callMethod(obj, "getString", "error") as? String
-                                                }.getOrNull().orEmpty()
-                                                val errorMessage = runCatching {
-                                                    XposedHelpers.callMethod(
-                                                        obj,
-                                                        "getString",
-                                                        "errorMessage"
-                                                    ) as? String
-                                                }.getOrNull().orEmpty()
+                                                val errorCode = getErrorValueAsString(obj, "error")
+                                                val errorMessage = getErrorValueAsString(obj, "errorMessage")
 
                                                 val isMarkedNetworkError =
                                                     errorMark.contains(errorCode) ||
@@ -311,11 +290,24 @@ class NewRpcBridge : RpcBridge {
                                                 if (isMarkedNetworkError) {
                                                     logErrorSummary(methodName, errorCode, errorMessage)
                                                 } else if (shouldShowErrorLog(methodName)) {
-                                                    Log.error(
-                                                        TAG,
-                                                        "new rpc response1 | id: ${rpcEntity.hashCode()} | method: ${rpcEntity.requestMethod}\n " +
-                                                            "args: ${rpcEntity.requestData} |\n data: ${rpcEntity.responseString}"
-                                                    )
+                                                    val message = buildString {
+                                                        append("new rpc response1 | id: ")
+                                                        append(rpcEntity.hashCode())
+                                                        append(" | method: ")
+                                                        append(rpcEntity.requestMethod)
+                                                        append("\n")
+                                                        append("args: ")
+                                                        append(truncateForLog(rpcEntity.requestData, REQUEST_LOG_LIMIT))
+                                                        append(" |\n")
+                                                        append("data: ")
+                                                        append(
+                                                            truncateForLog(
+                                                                rpcEntity.responseString,
+                                                                RESPONSE_LOG_LIMIT
+                                                            )
+                                                        )
+                                                    }
+                                                    Log.error(TAG, message)
                                                 }
                                             }
                                         } catch (e: Exception) {
@@ -344,18 +336,29 @@ class NewRpcBridge : RpcBridge {
                     }
 
                     try {
-                        val errorCode = XposedHelpers.callMethod(
-                            rpcEntity.responseObject,
-                            "getString",
-                            "error"
-                        ) as? String ?: ""
-                        val errorMessage = XposedHelpers.callMethod(
-                            rpcEntity.responseObject,
-                            "getString",
-                            "errorMessage"
-                        ) as? String ?: ""
+                        val responseObj = rpcEntity.responseObject
+                        val errorCode =
+                            if (responseObj != null) getErrorValueAsString(responseObj, "error") else ""
+                        val errorMessage =
+                            if (responseObj != null) getErrorValueAsString(responseObj, "errorMessage") else ""
                         val response = rpcEntity.responseString
                         val methodName = rpcEntity.requestMethod
+
+                        if (errorCode == "1009") {
+                            if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
+                                Notify.updateStatusText("需要验证后继续执行")
+                                if (BaseModel.errNotify.value == true &&
+                                    shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
+                                ) {
+                                    Notify.sendErrorNotification(
+                                        "${TimeUtil.getTimeStr()} | 需要验证后继续执行",
+                                        response
+                                    )
+                                }
+                            }
+                            logNullResponse(rpcEntity, "需要验证: $errorCode/$errorMessage", count)
+                            return null
+                        }
 
                         if (errorMark.contains(errorCode) || errorStringMark.contains(errorMessage)) {
                             val currentErrorCount = maxErrorCount.incrementAndGet()
@@ -378,9 +381,11 @@ class NewRpcBridge : RpcBridge {
                                         response
                                     )
                                 }
-                                if (BaseModel.timeoutRestart.value == true &&
-                                    shouldNotifyNow(lastReloginAtMs, reloginIntervalMs)
-                                ) {
+                                val shouldTryRelogin =
+                                    BaseModel.timeoutRestart.value == true &&
+                                        shouldNotifyNow(lastReloginAtMs, reloginIntervalMs) &&
+                                        errorCode != "1004"
+                                if (shouldTryRelogin) {
                                     Log.record(TAG, "尝试重新登录")
                                     fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
                                 }
@@ -419,18 +424,100 @@ class NewRpcBridge : RpcBridge {
         } finally {
             // 仅在调试模式下打印堆栈
             if (BaseModel.debugMode.value == true) {
-                Log.system(TAG, "New RPC\n方法: ${rpcEntity.requestMethod}\n参数: ${rpcEntity.requestData}\n数据: ${rpcEntity.responseString}")
-                Log.printStack(TAG)
+                val methodName = rpcEntity.requestMethod ?: "unknown"
+                val now = System.currentTimeMillis()
+                val last = lastCaptureLogAtMs[methodName]
+                if (last == null || now - last >= captureLogIntervalMs) {
+                    lastCaptureLogAtMs[methodName] = now
+                    val captureMessage = buildString {
+                        append("New RPC\n")
+                        append("方法: ")
+                        append(methodName)
+                        append("\n")
+                        append("参数: ")
+                        append(truncateForLog(rpcEntity.requestData, REQUEST_LOG_LIMIT))
+                        append("\n")
+                        append("数据: ")
+                        append(
+                            truncateForLog(
+                                rpcEntity.responseString,
+                                RESPONSE_LOG_LIMIT
+                            )
+                        )
+                    }
+                    Log.capture(TAG, captureMessage)
+                    Log.printStack(TAG)
+                }
             }
         }
+    }
+
+    private fun logNullResponse(rpcEntity: RpcEntity?, reason: String, count: Int) {
+        val methodName = rpcEntity?.requestMethod ?: "unknown"
+        if (shouldShowErrorLog(methodName)) {
+            val now = System.currentTimeMillis()
+            val last = lastNullResponseLogAtMs[methodName]
+            if (last == null || now - last >= nullResponseLogIntervalMs) {
+                lastNullResponseLogAtMs[methodName] = now
+                Log.error(TAG, "RPC返回null | 方法: $methodName | 原因: $reason | 重试: $count")
+            }
+        }
+    }
+
+    private fun logErrorSummary(methodName: String, errorCode: String, errorMessage: String) {
+        if (!shouldShowErrorLog(methodName)) return
+
+        val key = "$methodName|$errorCode"
+        val now = System.currentTimeMillis()
+        val stat = errorSummaryWindowStats.computeIfAbsent(key) {
+            ErrorSummaryWindowStat(windowStartMs = now, count = 0)
+        }
+
+        var summaryLog: String? = null
+        var shouldLogDetail = false
+        synchronized(stat) {
+            if (now - stat.windowStartMs >= errorSummaryWindowMs) {
+                summaryLog = buildString {
+                    append("RPC错误汇总 | 方法: ")
+                    append(methodName)
+                    append(" | 错误: ")
+                    append(errorCode)
+                    append("/")
+                    append(errorMessage)
+                    append(" | 次数: ")
+                    append(stat.count)
+                    append(" | 窗口: ")
+                    append(errorSummaryWindowMs)
+                    append("ms")
+                }
+                stat.windowStartMs = now
+                stat.count = 0
+                shouldLogDetail = true
+            } else if (stat.count == 0) {
+                shouldLogDetail = true
+            }
+            stat.count++
+        }
+        summaryLog?.let { Log.error(TAG, it) }
+        if (shouldLogDetail) {
+            Log.error(TAG, "RPC错误 | 方法: $methodName | 错误: $errorCode/$errorMessage")
+        }
+    }
+
+    private fun shouldNotifyNow(lastMs: AtomicLong, intervalMs: Long): Boolean {
+        val now = System.currentTimeMillis()
+        val last = lastMs.get()
+        if (now - last < intervalMs) return false
+        return lastMs.compareAndSet(last, now)
     }
 
     companion object {
         private val TAG = NewRpcBridge::class.java.simpleName
 
         private const val NULL_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
-        private const val ERROR_SUMMARY_LOG_INTERVAL_MS: Long = 30_000L
+        private const val ERROR_SUMMARY_WINDOW_MS: Long = 10 * 60_000L
         private const val ERROR_NOTIFY_INTERVAL_MS: Long = 60_000L
         private const val RELOGIN_INTERVAL_MS: Long = 120_000L
+        private const val CAPTURE_LOG_INTERVAL_MS: Long = 2_000L
     }
 }

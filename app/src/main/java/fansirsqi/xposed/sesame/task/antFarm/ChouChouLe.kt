@@ -29,6 +29,9 @@ class ChouChouLe {
     fun chouchoule() {
         try {
             val response = AntFarmRpcCall.queryLoveCabin(UserMap.currentUid ?: return)
+            if (response.isBlank()) {
+                return
+            }
             val jo = JSONObject(response)
             if (!ResChecker.checkRes(TAG, jo)) {
                 return
@@ -57,27 +60,29 @@ class ChouChouLe {
         do {
             doubleCheck = false
             try {
-                val jo = JSONObject(AntFarmRpcCall.chouchouleListFarmTask(drawType))
-                if (!ResChecker.checkRes(TAG, jo)) {
-                    Log.error(TAG, if (drawType == "ipDraw") "IP抽抽乐任务列表获取失败" else "抽抽乐任务列表获取失败")
-                    continue
-                }
-                val farmTaskList = jo.getJSONArray("farmTaskList")
-                val tasks = parseTasks(farmTaskList)
-                for (task in tasks) {
-                    if (TaskStatus.FINISHED.name == task.taskStatus) {
-                        if (task.awardType == "ALLPURPOSE" && task.awardCount + AntFarm.foodStock > AntFarm.foodStockLimit) {
-                            Log.record(TAG, "抽抽乐任务[${task.title}]的奖励领取后会使饲料超出上限，暂不领取")
-                            continue
-                        }
-                        if (receiveTaskAward(drawType, task.taskId)) {
-                            GlobalThreadPools.sleepCompat(5 * 1000L)
-                            doubleCheck = true
-                        }
-                    } else if (TaskStatus.TODO.name == task.taskStatus) {
-                        if (task.getRemainingTimes() > 0 && "DONATION" != task.innerAction) {
-                            if (doChouTask(drawType, task)) {
-                                doubleCheck = true
+                val listResp = AntFarmRpcCall.chouchouleListFarmTask(drawType)
+                if (listResp.isNotBlank()) {
+                    val jo = JSONObject(listResp)
+                    if (!ResChecker.checkRes(TAG, jo)) {
+                        Log.error(TAG, if (drawType == "ipDraw") "IP抽抽乐任务列表获取失败" else "抽抽乐任务列表获取失败")
+                    } else {
+                        val farmTaskList = jo.getJSONArray("farmTaskList")
+                        val tasks = parseTasks(farmTaskList)
+                        for (task in tasks) {
+                            if (TaskStatus.FINISHED.name == task.taskStatus) {
+                                val wouldOverflow = task.awardType == "ALLPURPOSE" &&
+                                    task.awardCount + AntFarm.foodStock > AntFarm.foodStockLimit
+                                if (wouldOverflow) {
+                                    Log.record(TAG, "抽抽乐任务[${task.title}]的奖励领取后会使饲料超出上限，暂不领取")
+                                } else if (receiveTaskAward(drawType, task.taskId)) {
+                                    GlobalThreadPools.sleepCompat(5 * 1000L)
+                                    doubleCheck = true
+                                }
+                            } else if (TaskStatus.TODO.name == task.taskStatus) {
+                                val canDoTask = task.getRemainingTimes() > 0 && "DONATION" != task.innerAction
+                                if (canDoTask && doChouTask(drawType, task)) {
+                                    doubleCheck = true
+                                }
                             }
                         }
                     }
@@ -116,6 +121,9 @@ class ChouChouLe {
     private fun doChouTask(drawType: String, task: TaskInfo): Boolean {
         return try {
             val s = AntFarmRpcCall.chouchouleDoFarmTask(drawType, task.taskId)
+            if (s.isBlank()) {
+                return false
+            }
             val jo = JSONObject(s)
             if (ResChecker.checkRes(TAG, jo)) {
                 Log.farm("${if (drawType == "ipDraw") "IP抽抽乐" else "抽抽乐"}🧾️[任务: ${task.title}]")
@@ -130,7 +138,11 @@ class ChouChouLe {
 
     private fun receiveTaskAward(drawType: String, taskId: String): Boolean {
         return try {
-            val jo = JSONObject(AntFarmRpcCall.chouchouleReceiveFarmTaskAward(drawType, taskId))
+            val resp = AntFarmRpcCall.chouchouleReceiveFarmTaskAward(drawType, taskId)
+            if (resp.isBlank()) {
+                return false
+            }
+            val jo = JSONObject(resp)
             ResChecker.checkRes(TAG, jo)
         } catch (t: Throwable) {
             Log.printStackTrace("receiveFarmTaskAward err:", t)
@@ -140,7 +152,11 @@ class ChouChouLe {
 
     private fun handleIpDraw() {
         try {
-            val jo = JSONObject(AntFarmRpcCall.queryDrawMachineActivity())
+            val resp = AntFarmRpcCall.queryDrawMachineActivity()
+            if (resp.isBlank()) {
+                return
+            }
+            val jo = JSONObject(resp)
             if (!ResChecker.checkRes(TAG, jo)) return
 
             val activity = jo.getJSONObject("drawMachineActivity")
@@ -162,7 +178,12 @@ class ChouChouLe {
 
     private fun handleDailyDraw() {
         try {
-            val jo = JSONObject(AntFarmRpcCall.enterDrawMachine())
+            val resp = AntFarmRpcCall.enterDrawMachine()
+            if (resp.isBlank()) {
+                Log.record(TAG, "抽奖活动进入失败")
+                return
+            }
+            val jo = JSONObject(resp)
             if (!ResChecker.checkRes(TAG, jo)) {
                 Log.record(TAG, "抽奖活动进入失败")
                 return

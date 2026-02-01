@@ -362,6 +362,10 @@ class AlarmScheduler(private val context: Context) {
     private suspend fun executeBackupTaskSuspend() = withContext(Dispatchers.Main) {
         executionMutex.withLock {
             try {
+                if (fansirsqi.xposed.sesame.hook.ApplicationHookConstants.taskRunnerRunningCount.get() > 0) {
+                    Log.record(TAG, "任务执行器正在运行，备份任务跳过执行。")
+                    return@withLock
+                }
                 val  aTask=  fansirsqi.xposed.sesame.hook.ApplicationHookConstants.mainTask
                 // 检查主任务是否已在运行
                 if (aTask is BaseTask) {

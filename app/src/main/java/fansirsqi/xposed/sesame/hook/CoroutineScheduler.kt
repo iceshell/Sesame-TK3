@@ -127,6 +127,11 @@ class CoroutineScheduler(private val context: Context) {
                 getTaskMethod.isAccessible = true
                 val mainTask = getTaskMethod.invoke(null)
                 
+                if (ApplicationHookConstants.taskRunnerRunningCount.get() > 0) {
+                    Log.record(TAG, "任务执行器正在运行，跳过执行")
+                    return@withLock
+                }
+
                 // 检查主任务是否已在运行
                 if (mainTask is BaseTask) {
                     val taskThread = mainTask.thread

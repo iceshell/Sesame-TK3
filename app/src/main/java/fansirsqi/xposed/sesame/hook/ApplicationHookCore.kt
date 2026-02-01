@@ -31,6 +31,9 @@ import java.util.Calendar
  */
 object ApplicationHookCore {
     private const val TAG = "ApplicationHook"
+
+    private const val USER_ID_RETRY_COUNT = 3
+    private const val USER_ID_RETRY_DELAY_MS = 150L
     
     // AlarmScheduler管理器
     private val alarmManager = AlarmSchedulerManager()
@@ -259,9 +262,20 @@ object ApplicationHookCore {
 
             if (force) {
                 val classLoader = ApplicationHookConstants.classLoader ?: return false
-                val userId = HookUtil.getUserId(classLoader)
-                
-                if (userId == null) {
+                var userId: String? = UserMap.currentUid
+                if (userId.isNullOrEmpty()) {
+                    repeat(USER_ID_RETRY_COUNT) {
+                        userId = HookUtil.getUserId(classLoader)
+                        if (!userId.isNullOrEmpty()) return@repeat
+                        try {
+                            Thread.sleep(USER_ID_RETRY_DELAY_MS)
+                        } catch (_: InterruptedException) {
+                            return@repeat
+                        }
+                    }
+                }
+
+                if (userId.isNullOrEmpty()) {
                     Log.record(TAG, "initHandler: 用户未登录")
                     Toast.show("用户未登录")
                     return false
@@ -392,6 +406,17 @@ object ApplicationHookCore {
                 if (service != null) {
                     stopHandler()
                     BaseModel.destroyData()
+                    try {
+                        Status.flushPendingSave()
+                    } catch (t: Throwable) {
+                        Log.printStackTrace(TAG, "flushPendingSave err", t)
+                    }
+                    try {
+                        DataStore.flushPendingSave()
+                        DataStore.shutdown()
+                    } catch (t: Throwable) {
+                        Log.printStackTrace(TAG, "DataStore shutdown err", t)
+                    }
                     Status.unload()
                     Notify.stop()
                     RpcIntervalLimit.clearIntervalLimit()

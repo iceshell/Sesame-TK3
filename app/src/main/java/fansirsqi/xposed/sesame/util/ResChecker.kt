@@ -3,6 +3,7 @@ package fansirsqi.xposed.sesame.util
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.regex.Pattern
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * 响应检查工具类
@@ -14,17 +15,31 @@ object ResChecker {
     private val silentFailureCodes = setOf(
         "400000012",
         "2600000014",
-        "400000040"
+        "400000040",
+		"NEED_UPGRADE_VILLAGE",
+		"FAMILY12"
     )
     private val silentFailureKeywords = listOf(
         "权益获取次数超过上限",
         "抽奖活动已结束",
         "不支持rpc调用"
     )
+    private data class CheckFailedWindowStat(
+        var windowStartMs: Long,
+        var count: Int
+    )
+
+    private val checkFailedWindowStats = ConcurrentHashMap<String, CheckFailedWindowStat>()
+    private const val CHECK_FAILED_SUMMARY_WINDOW_MS = 10 * 60_000L
     
     /**
      * 核心检查逻辑
      */
+    @Suppress(
+        "LongMethod",
+        "CyclomaticComplexMethod",
+        "ReturnCount"
+    )
     private fun core(tag: String, jo: JSONObject): Boolean {
         return try {
             // 检查 success 或 isSuccess 字段为 true
@@ -86,7 +101,36 @@ object ResChecker {
             // 获取调用栈信息以确定错误来源
             val stackTrace = Thread.currentThread().stackTrace
             val callerInfo = getString(stackTrace)
-            Log.error(tag, "Check failed: [来源: $callerInfo] $jo")
+            val key = "$tag|$code"
+            val now = System.currentTimeMillis()
+            val stat = checkFailedWindowStats.computeIfAbsent(key) {
+                CheckFailedWindowStat(windowStartMs = now, count = 0)
+            }
+
+            var summaryLog: String? = null
+            var shouldLogDetail = false
+            synchronized(stat) {
+                if (now - stat.windowStartMs >= CHECK_FAILED_SUMMARY_WINDOW_MS) {
+                    summaryLog = buildString {
+                        append("Check failed summary: code=")
+                        append(code)
+                        append(" count=")
+                        append(stat.count)
+                        append(" windowMs=")
+                        append(CHECK_FAILED_SUMMARY_WINDOW_MS)
+                    }
+                    stat.windowStartMs = now
+                    stat.count = 0
+                    shouldLogDetail = true
+                } else if (stat.count == 0) {
+                    shouldLogDetail = true
+                }
+                stat.count++
+            }
+            summaryLog?.let { Log.error(tag, it) }
+            if (shouldLogDetail) {
+                Log.error(tag, "Check failed: [来源: $callerInfo] $jo")
+            }
             false
         } catch (t: Throwable) {
             Log.printStackTrace(tag, "Error checking JSON success:", t)

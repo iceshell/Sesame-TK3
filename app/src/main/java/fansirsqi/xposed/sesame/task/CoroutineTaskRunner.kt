@@ -1,6 +1,7 @@
 package fansirsqi.xposed.sesame.task
 
 import android.annotation.SuppressLint
+import fansirsqi.xposed.sesame.hook.ApplicationHookConstants
 import fansirsqi.xposed.sesame.model.BaseModel
 import fansirsqi.xposed.sesame.model.Model
 import fansirsqi.xposed.sesame.util.Log
@@ -89,6 +90,7 @@ class CoroutineTaskRunner(allModels: List<Model>) {
         rounds: Int = BaseModel.taskExecutionRounds.value ?: 1
     ) {
         runnerScope.launch {
+            ApplicationHookConstants.markTaskRunnerStart()
             if (isFirst) {
                 resetCounters()
             }
@@ -104,6 +106,7 @@ class CoroutineTaskRunner(allModels: List<Model>) {
                 printExecutionSummary(startTime, endTime)
                 // 清空恢复尝试计数
                 recoveryAttempts.clear()
+                ApplicationHookConstants.markTaskRunnerFinish()
             }
         }
     }

@@ -9,6 +9,13 @@ import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.StringUtil
 import fansirsqi.xposed.sesame.util.TimeUtil
 import fansirsqi.xposed.sesame.util.maps.UserMap
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 import java.util.concurrent.ConcurrentHashMap
@@ -66,6 +73,18 @@ class Status {
 
     companion object {
         private val TAG = Status::class.java.simpleName
+
+        private const val SAVE_DEBOUNCE_MS = 1_500L
+
+        private val saveScope = CoroutineScope(
+            Dispatchers.IO + SupervisorJob() + CoroutineName("StatusSaver")
+        )
+
+        @Volatile
+        private var pendingSaveJob: Job? = null
+
+        @Volatile
+        private var saveGeneration: Long = 0L
         
         @JvmStatic
         val INSTANCE = Status()
@@ -412,6 +431,9 @@ class Status {
                 Log.runtime(TAG, "用户为空，状态加载失败")
                 throw RuntimeException("用户为空，状态加载失败")
             }
+
+            invalidatePendingSaves()
+
             try {
                 val statusFile = Files.getStatusFile(currentUid) ?: throw RuntimeException("无法获取状态文件")
                 if (statusFile.exists()) {
@@ -469,6 +491,7 @@ class Status {
         @JvmStatic
         @Synchronized
         fun unload() {
+            invalidatePendingSaves()
             try {
                 JsonUtil.copyMapper().updateValue(INSTANCE, Status())
             } catch (e: JsonMappingException) {
@@ -479,17 +502,72 @@ class Status {
         @JvmStatic
         @Synchronized
         fun save() {
-            save(Calendar.getInstance())
+            scheduleSave(Calendar.getInstance())
         }
 
         @JvmStatic
         @Synchronized
         fun save(nowCalendar: Calendar) {
+            scheduleSave(nowCalendar)
+        }
+
+        @JvmStatic
+        @Synchronized
+        fun flushPendingSave() {
+            val gen = saveGeneration
+            pendingSaveJob?.cancel()
+            pendingSaveJob = null
+            doSave(Calendar.getInstance(), gen)
+        }
+
+        @Synchronized
+        private fun invalidatePendingSaves() {
+            saveGeneration += 1
+            pendingSaveJob?.cancel()
+            pendingSaveJob = null
+        }
+
+        @Synchronized
+        private fun scheduleSave(nowCalendar: Calendar) {
             val currentUid = UserMap.currentUid
             if (currentUid.isNullOrEmpty()) {
                 Log.record(TAG, "用户为空，状态保存失败")
                 throw RuntimeException("用户为空，状态保存失败")
             }
+
+            val gen = saveGeneration
+            val calendarSnapshot = (nowCalendar.clone() as Calendar)
+
+            pendingSaveJob?.cancel()
+            pendingSaveJob = saveScope.launch {
+                delay(SAVE_DEBOUNCE_MS)
+                runCatching {
+                    doSave(calendarSnapshot, gen)
+                }.onFailure {
+                    Log.printStackTrace(TAG, it)
+                }
+            }
+        }
+
+        @Synchronized
+        private fun doSave(nowCalendar: Calendar, gen: Long) {
+            if (gen != saveGeneration) return
+
+            val currentUid = UserMap.currentUid
+            var canSave = true
+            if (currentUid.isNullOrEmpty()) {
+                Log.record(TAG, "用户为空，状态保存失败")
+                canSave = false
+            }
+
+            val statusFile = if (canSave) Files.getStatusFile(currentUid!!) else null
+            if (canSave && statusFile == null) {
+                Log.record(TAG, "无法获取状态文件")
+                canSave = false
+            }
+
+            if (!canSave || statusFile == null) return
+
             if (updateDay(nowCalendar)) {
                 Log.runtime(TAG, "重置 statistics.json")
             } else {
@@ -498,11 +576,11 @@ class Status {
             val lastSaveTime = INSTANCE.saveTime
             try {
                 INSTANCE.saveTime = System.currentTimeMillis()
-                val statusFile = Files.getStatusFile(currentUid) ?: throw RuntimeException("无法获取状态文件")
                 Files.write2File(JsonUtil.formatJson(INSTANCE), statusFile)
             } catch (e: Exception) {
                 INSTANCE.saveTime = lastSaveTime
-                throw e
+                Log.printStackTrace(TAG, e)
+                Log.record(TAG, "状态保存失败")
             }
         }
 

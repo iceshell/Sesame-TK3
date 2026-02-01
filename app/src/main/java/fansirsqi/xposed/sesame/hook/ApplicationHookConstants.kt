@@ -214,6 +214,23 @@ object ApplicationHookConstants {
     @Volatile
     @JvmStatic
     var nextExecutionTime: Long = 0
+
+    // CoroutineTaskRunner 运行计数（用于阻止 AlarmScheduler 备份重启误伤正在运行的任务）
+    @JvmStatic
+    val taskRunnerRunningCount: AtomicInteger = AtomicInteger(0)
+
+    @JvmStatic
+    fun markTaskRunnerStart() {
+        taskRunnerRunningCount.incrementAndGet()
+    }
+
+    @JvmStatic
+    fun markTaskRunnerFinish() {
+        val newValue = taskRunnerRunningCount.decrementAndGet()
+        if (newValue < 0) {
+            taskRunnerRunningCount.set(0)
+        }
+    }
     
     // Xposed Interface
     @JvmStatic

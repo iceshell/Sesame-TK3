@@ -12,6 +12,7 @@ import android.content.pm.PackageInfo
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.Process
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -35,7 +36,77 @@ import fansirsqi.xposed.sesame.util.Notify
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import io.github.libxposed.api.XposedModuleInterface
 import org.luckypray.dexkit.DexKitBridge
+import java.io.File
 import java.util.Calendar
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicLong
+
+private fun getCurrentProcessName(context: Context): String {
+    return try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            Application.getProcessName()
+        } else {
+            val pid = Process.myPid()
+            val cmdlineFile = File("/proc/$pid/cmdline")
+            if (cmdlineFile.exists()) {
+                cmdlineFile.readText().trim('\u0000')
+            } else {
+                context.packageName
+            }
+        }
+    } catch (_: Exception) {
+        context.packageName
+    }
+}
+
+private fun isMainProcess(context: Context): Boolean {
+    val processName = getCurrentProcessName(context)
+    return processName == General.PACKAGE_NAME
+}
+
+private object EntryDispatcher {
+    private const val TAG = "ApplicationHook"
+    private const val MIN_ENTRY_INTERVAL_MS = 1_500L
+
+    private val lastEntryAtMsByAction = ConcurrentHashMap<String, AtomicLong>()
+
+    private val entryExecutor = Executors.newSingleThreadExecutor { r ->
+        Thread(r, "SesameEntry").apply { isDaemon = true }
+    }
+
+    fun submit(action: String, block: () -> Unit) {
+        try {
+            entryExecutor.submit {
+                val thread = Thread.currentThread()
+                val oldName = thread.name
+                thread.name = "SesameEntry:$action"
+                try {
+                    runCatching { block() }
+                        .onFailure { Log.printStackTrace(TAG, it) }
+                } finally {
+                    thread.name = oldName
+                }
+            }
+        } catch (e: java.util.concurrent.RejectedExecutionException) {
+            Log.printStackTrace(TAG, e)
+        }
+    }
+
+    fun submitDebounced(action: String, block: () -> Unit) {
+        val now = System.currentTimeMillis()
+        val lastEntryAtMs = lastEntryAtMsByAction.getOrPut(action) { AtomicLong(0) }
+        val last = lastEntryAtMs.get()
+        if (now - last < MIN_ENTRY_INTERVAL_MS) {
+            Log.runtime(TAG, "入口处理过于频繁，已跳过: $action")
+            return
+        }
+        if (!lastEntryAtMs.compareAndSet(last, now)) {
+            return
+        }
+        submit(action, block)
+    }
+}
 
 /**
  * ApplicationHook 入口类
@@ -44,6 +115,18 @@ import java.util.Calendar
 class ApplicationHookEntry {
     companion object {
         private const val TAG = "ApplicationHook"
+
+        @Volatile
+        private var broadcastReceiverRegistered: Boolean = false
+
+        @Volatile
+        private var broadcastReceiverSkipLogged: Boolean = false
+
+        private val broadcastReceiverInstance: AlipayBroadcastReceiver by lazy {
+            AlipayBroadcastReceiver()
+        }
+
+ 
         
         /**
          * ✅ 原有新版入口：LibXposed / LSPosed ≥ 1.9 使用
@@ -218,7 +301,12 @@ class ApplicationHookEntry {
                             val targetUid = ApplicationHookUtils.getUserId()
                             Log.runtime(TAG, "onResume targetUid: $targetUid")
                             
-                            if (targetUid == null) {
+                            val currentUid = UserMap.currentUid
+                            val resolvedUid = targetUid
+                                ?: currentUid
+                                ?: HookUtil.getUserId(classLoader)
+
+                            if (resolvedUid == null) {
                                 Log.record(TAG, "onResume:用户未登录")
                                 Toast.show("用户未登录")
                                 Log.clearCurrentUser()
@@ -226,7 +314,7 @@ class ApplicationHookEntry {
                             }
                             
                             if (!ApplicationHookConstants.init) {
-                                Log.setCurrentUser(targetUid)
+                                Log.setCurrentUser(resolvedUid)
                                 
                                 if (ApplicationHookConstants.service == null) {
                                     Log.runtime(TAG, "onResume: service未就绪，等待下次触发")
@@ -241,20 +329,19 @@ class ApplicationHookEntry {
                                 }
                                 return
                             }
-                            
-                            val currentUid = UserMap.currentUid
+
                             Log.runtime(TAG, "onResume currentUid: $currentUid")
-                            
-                            if (targetUid != currentUid) {
+
+                            if (resolvedUid != currentUid) {
                                 if (currentUid != null) {
                                     // 用户切换日志
                                     Log.record(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                                     Log.record(TAG, "🔄 检测到用户切换")
                                     Log.record(TAG, "   旧用户: $currentUid")
-                                    Log.record(TAG, "   新用户: $targetUid")
+                                    Log.record(TAG, "   新用户: $resolvedUid")
                                     Log.record(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                                     
-                                    Log.setCurrentUser(targetUid)
+                                    Log.setCurrentUser(resolvedUid)
                                     ApplicationHookCore.initHandler(true)
                                     ApplicationHookConstants.setLastExecTime(0)
                                     
@@ -267,13 +354,18 @@ class ApplicationHookEntry {
                             
                             if (ApplicationHookConstants.offline) {
                                 ApplicationHookConstants.offline = false
-                                ApplicationHookCore.execHandler()
-                                (param.thisObject as Activity).finish()
+                                val activity = param.thisObject as Activity
+                                EntryDispatcher.submitDebounced("onResume") {
+                                    ApplicationHookCore.execHandler()
+                                    ApplicationHookConstants.mainHandler?.post { activity.finish() }
+                                }
                                 Log.runtime(TAG, "Activity reLogin")
                                 return
                             }
                             
-                            ApplicationHookCore.execHandler()
+                            EntryDispatcher.submitDebounced("onResume") {
+                                ApplicationHookCore.execHandler()
+                            }
                             Log.runtime(TAG, "hook onResume after end")
                         }
                     }
@@ -426,7 +518,9 @@ class ApplicationHookEntry {
                             } catch (ignore: Throwable) {
                             }
                             
-                            ApplicationHookUtils.restartByBroadcast()
+                            EntryDispatcher.submitDebounced("serviceOnDestroyRestart") {
+                                ApplicationHookUtils.restartByBroadcast()
+                            }
                         }
                     }
                 )
@@ -442,17 +536,42 @@ class ApplicationHookEntry {
         @SuppressLint("UnspecifiedRegisterReceiverFlag")
         private fun registerBroadcastReceiver(context: Context) {
             try {
+                val appContext = context.applicationContext ?: context
+
+                if (!isMainProcess(appContext)) {
+                    if (!broadcastReceiverSkipLogged) {
+                        broadcastReceiverSkipLogged = true
+                        val processName = getCurrentProcessName(appContext)
+                        Log.runtime(TAG, "非主进程跳过注册Sesame广播: $processName")
+                    }
+                    return
+                }
+
+                val markerKey = "sesame_broadcast_receiver_registered"
+                val alreadyRegistered = XposedHelpers.getAdditionalInstanceField(appContext, markerKey) as? Boolean
+                if (alreadyRegistered == true) {
+                    return
+                }
+
+                if (broadcastReceiverRegistered) {
+                    return
+                }
+
                 val intentFilter = createIntentFilter()
                 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    context.registerReceiver(
-                        AlipayBroadcastReceiver(),
+                    appContext.registerReceiver(
+                        broadcastReceiverInstance,
                         intentFilter,
                         Context.RECEIVER_EXPORTED
                     )
                 } else {
-                    context.registerReceiver(AlipayBroadcastReceiver(), intentFilter)
+                    appContext.registerReceiver(broadcastReceiverInstance, intentFilter)
                 }
+
+                broadcastReceiverRegistered = true
+
+                XposedHelpers.setAdditionalInstanceField(appContext, markerKey, true)
                 
                 Log.runtime(TAG, "hook registerBroadcastReceiver successfully")
             } catch (th: Throwable) {
@@ -481,6 +600,10 @@ class ApplicationHookEntry {
     class AlipayBroadcastReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             try {
+                val appContext = context.applicationContext ?: context
+                if (!isMainProcess(appContext)) {
+                    return
+                }
                 val action = intent.action
                 Log.runtime(TAG, "Alipay got Broadcast $action intent:$intent")
                 
@@ -490,9 +613,7 @@ class ApplicationHookEntry {
                             Log.printStack(TAG)
                         }
                         val configReload = intent.getBooleanExtra("configReload", false)
-                        Thread {
-                            ApplicationHookCore.initHandler(!configReload)
-                        }.start()
+                        EntryDispatcher.submitDebounced("restart") { ApplicationHookCore.initHandler(!configReload) }
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.execute" -> {
@@ -502,16 +623,20 @@ class ApplicationHookEntry {
                         if (intent.getBooleanExtra("alarm_triggered", false)) {
                             ApplicationHookConstants.setAlarmTriggeredFlag(true)
                         }
-                        Thread {
-                            ApplicationHookCore.initHandler(false)
-                        }.start()
+                        EntryDispatcher.submitDebounced("execute") {
+                            if (ApplicationHookConstants.init) {
+                                ApplicationHookCore.execHandler()
+                            } else {
+                                ApplicationHookCore.initHandler(true)
+                            }
+                        }
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.reLogin" -> {
                         if (BaseModel.debugMode.value == true) {
                             Log.printStack(TAG)
                         }
-                        Thread { ApplicationHookCore.reLogin() }.start()
+                        EntryDispatcher.submitDebounced("reLogin") { ApplicationHookCore.reLogin() }
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.status" -> {
@@ -558,23 +683,16 @@ class ApplicationHookEntry {
                         val alarmManager = ApplicationHookCore.getAlarmManager()
                         if (alarmManager.isAlarmSchedulerAvailable) {
                             val requestCode = intent.getIntExtra("request_code", -1)
-                            val alarmThread = Thread {
+                            EntryDispatcher.submit("alarm_$requestCode") {
                                 alarmManager.handleAlarmTrigger(requestCode)
-                            }.apply {
-                                name = "AlarmTriggered_$requestCode"
                             }
-                            alarmThread.start()
-                            Log.record(TAG, "闹钟广播触发，创建处理线程: ${alarmThread.name}")
+                            Log.record(TAG, "闹钟广播触发，已提交串行处理: AlarmTriggered_$requestCode")
                         }
                     }
                 }
             } catch (t: Throwable) {
                 Log.printStackTrace(TAG, "AlipayBroadcastReceiver.onReceive err:", t)
             }
-        }
-
-        companion object {
-            private const val TAG = "ApplicationHook"
         }
     }
 }

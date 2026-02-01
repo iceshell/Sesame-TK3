@@ -19,6 +19,11 @@ import java.io.File
 object Logback {
     
     private var LOG_DIR: String? = null
+
+    private const val MAX_FILE_SIZE = "10MB"
+    private const val TOTAL_SIZE_CAP_CRITICAL = "50MB"
+    private const val TOTAL_SIZE_CAP_NORMAL = "30MB"
+    private const val TOTAL_SIZE_CAP_VERBOSE = "20MB"
     
     @JvmField
     val logNames = listOf(
@@ -81,11 +86,16 @@ object Logback {
         }
         
         // 2. 配置滚动策略
+        val totalSizeCap = when (logName) {
+            "runtime", "system", "record", "error" -> TOTAL_SIZE_CAP_CRITICAL
+            "debug", "capture" -> TOTAL_SIZE_CAP_VERBOSE
+            else -> TOTAL_SIZE_CAP_NORMAL
+        }
         val satbrp = SizeAndTimeBasedRollingPolicy<ILoggingEvent>().apply {
             context = loggerContext
             fileNamePattern = LOG_DIR + "bak/" + logName + "-%d{yyyy-MM-dd}.%i.log"
-            setMaxFileSize(FileSize.valueOf("50MB"))
-            setTotalSizeCap(FileSize.valueOf("100MB"))
+            setMaxFileSize(FileSize.valueOf(MAX_FILE_SIZE))
+            setTotalSizeCap(FileSize.valueOf(totalSizeCap))
             maxHistory = 7
             isCleanHistoryOnStart = true
             setParent(rfa)

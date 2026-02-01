@@ -34,6 +34,8 @@ object Log {
     // 错误去重机制：记录错误特征和出现次数
     private val errorCountMap = ConcurrentHashMap<String, AtomicInteger>()
     private const val MAX_DUPLICATE_ERRORS = 3 // 最多打印3次相同错误
+    private val lastPrintStackAtMs = ConcurrentHashMap<String, Long>()
+    private const val PRINT_STACK_INTERVAL_MS = 30_000L
 
     init {
         try {
@@ -74,7 +76,6 @@ object Log {
 
     @JvmStatic
     fun runtime(msg: String) {
-        system(msg)
         if (BaseModel.runtimeLog.value == true || BuildConfig.DEBUG) {
             RUNTIME_LOGGER.info("$TAG{}", msg)
         }
@@ -254,8 +255,12 @@ object Log {
 
     @JvmStatic
     fun printStack(TAG: String) {
+        val now = System.currentTimeMillis()
+        val last = lastPrintStackAtMs[TAG]
+        if (last != null && now - last < PRINT_STACK_INTERVAL_MS) return
+        lastPrintStackAtMs[TAG] = now
         val stackTrace = "stack: ${AndroidLog.getStackTraceString(Exception("获取当前堆栈$TAG:"))}"
-        system(stackTrace)
+        capture(stackTrace)
     }
 
     /**

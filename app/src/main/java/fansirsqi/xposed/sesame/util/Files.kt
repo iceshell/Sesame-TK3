@@ -445,12 +445,43 @@ object Files {
     fun write2File(s: String, f: File): Boolean {
         if (beforWrite(f)) return false
         return try {
-            FileWriter(f, false).use { fw ->
+            val parent = f.parentFile
+            if (parent != null && !parent.exists()) {
+                ensureDir(parent)
+            }
+
+            val tmp = File(f.parentFile, "${f.name}.tmp")
+            val bak = File(f.parentFile, "${f.name}.bak")
+
+            FileWriter(tmp, false).use { fw ->
                 fw.write(s)
                 fw.flush()
-                true
             }
-        } catch (e: IOException) {
+
+            if (bak.exists() && !bak.delete()) {
+                Log.runtime(TAG, "Failed to delete stale backup file: ${bak.absolutePath}")
+            }
+
+            var ok = true
+            if (f.exists() && !f.renameTo(bak)) {
+                if (!tmp.delete()) {
+                    Log.runtime(TAG, "Failed to delete temp file after backup failure: ${tmp.absolutePath}")
+                }
+                ok = false
+            } else if (!tmp.renameTo(f)) {
+                if (bak.exists()) {
+                    bak.renameTo(f)
+                }
+                if (tmp.exists() && !tmp.delete()) {
+                    Log.runtime(TAG, "Failed to delete temp file after rename failure: ${tmp.absolutePath}")
+                }
+                ok = false
+            } else if (bak.exists() && !bak.delete()) {
+                Log.runtime(TAG, "Failed to delete backup file: ${bak.absolutePath}")
+            }
+
+            ok
+        } catch (e: Exception) {
             Log.printStackTrace(TAG, e)
             false
         }
