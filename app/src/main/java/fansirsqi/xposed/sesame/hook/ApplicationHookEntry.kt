@@ -349,7 +349,7 @@ class ApplicationHookEntry {
                             }
                             
                             if (ApplicationHookConstants.offline) {
-                                ApplicationHookConstants.offline = false
+                                ApplicationHookConstants.exitOffline()
                                 val activity = param.thisObject as Activity
                                 EntryDispatcher.submitDebounced("onResume") {
                                     ApplicationHookConstants.setPendingTrigger(

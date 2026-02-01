@@ -186,7 +186,7 @@ class NewRpcBridge : RpcBridge {
         var localLoader = loader
         var localBridgeCallbackClazzArray = bridgeCallbackClazzArray
 
-        if (fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
+        if (fansirsqi.xposed.sesame.hook.ApplicationHookConstants.shouldBlockRpc()) {
             return null
         }
 
@@ -367,7 +367,11 @@ class NewRpcBridge : RpcBridge {
                             if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
                                 var enteredOffline = false
                                 if (currentErrorCount > setMaxErrorCount) {
-                                    fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline = true
+                                    val cooldownMs = maxOf(
+                                        BaseModel.checkInterval.value?.toLong() ?: 180000L,
+                                        180000L
+                                    )
+                                    fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
                                     enteredOffline = true
                                     Notify.updateStatusText("网络连接异常，已进入离线模式")
                                     if (BaseModel.errNotify.value == true) {

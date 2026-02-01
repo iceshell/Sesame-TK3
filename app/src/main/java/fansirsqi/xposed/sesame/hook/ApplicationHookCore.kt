@@ -374,7 +374,7 @@ object ApplicationHookCore {
                 Toast.show("芝麻粒-TK 加载成功✨")
             }
 
-            ApplicationHookConstants.offline = false
+            ApplicationHookConstants.exitOffline()
             execHandler()
             ApplicationHookConstants.setInit(true)
             return true

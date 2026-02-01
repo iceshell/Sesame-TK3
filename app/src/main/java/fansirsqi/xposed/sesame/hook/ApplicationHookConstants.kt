@@ -118,6 +118,40 @@ object ApplicationHookConstants {
     @Volatile
     @JvmStatic
     var offline: Boolean = false
+
+    @Volatile
+    @JvmStatic
+    var offlineUntilMs: Long = 0L
+
+    @JvmStatic
+    fun enterOffline(cooldownMs: Long) {
+        offline = true
+        offlineUntilMs = if (cooldownMs > 0) {
+            System.currentTimeMillis() + cooldownMs
+        } else {
+            0L
+        }
+    }
+
+    @JvmStatic
+    fun exitOffline() {
+        offline = false
+        offlineUntilMs = 0L
+    }
+
+    @JvmStatic
+    fun shouldBlockRpc(): Boolean {
+        if (!offline) return false
+
+        val untilMs = offlineUntilMs
+        if (untilMs <= 0L) return true
+
+        val now = System.currentTimeMillis()
+        if (now < untilMs) return true
+
+        exitOffline()
+        return false
+    }
     
     // 闹钟触发标志
     @Volatile
