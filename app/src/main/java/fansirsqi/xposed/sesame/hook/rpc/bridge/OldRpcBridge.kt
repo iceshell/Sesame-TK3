@@ -7,6 +7,8 @@ import fansirsqi.xposed.sesame.hook.rpc.intervallimit.RpcIntervalLimit
 import fansirsqi.xposed.sesame.model.BaseModel
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.Notify
+import fansirsqi.xposed.sesame.util.RandomUtil
+import fansirsqi.xposed.sesame.util.CoroutineUtils
 import fansirsqi.xposed.sesame.util.StringUtil
 import fansirsqi.xposed.sesame.util.TimeUtil
 import org.json.JSONException
@@ -23,6 +25,17 @@ class OldRpcBridge : RpcBridge {
     private var rpcCallMethod: Method? = null
     private var getResponseMethod: Method? = null
     private var curH5PageImpl: Any? = null
+
+    private fun computeRetryDelayMs(retryInterval: Int, attempt: Int): Long {
+        val baseMs = when {
+            retryInterval > 0 -> retryInterval.toLong()
+            else -> 600L
+        } + RandomUtil.delay().toLong()
+
+        val attemptExp = (attempt - 1).coerceAtLeast(0).coerceAtMost(4)
+        val factor = 1L shl attemptExp
+        return minOf(baseMs * factor, 15000L)
+    }
 
     override fun getVersion(): RpcVersion = RpcVersion.NEW
 
@@ -121,6 +134,9 @@ class OldRpcBridge : RpcBridge {
                 return processResponse(rpcEntity, response, id, method, args, retryInterval)
             } catch (t: Throwable) {
                 handleError(rpcEntity, t, method, id, args)
+                if (it < tryCount - 1) {
+                    CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, it + 1))
+                }
             }
         }
         return null
