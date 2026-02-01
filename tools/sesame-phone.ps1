@@ -17,20 +17,62 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-function Ensure-Device {
+function Test-DeviceConnected {
     $devices = & adb devices | Select-String -Pattern '\tdevice$'
     if (-not $devices) {
         throw 'No adb device connected (adb devices shows no "device")'
     }
 }
 
-Ensure-Device
+Test-DeviceConnected
 
 function New-RunFolder {
     New-Item -ItemType Directory -Force -Path $LocalRoot | Out-Null
     $runFolder = Join-Path $LocalRoot ("run_" + (Get-Date -Format 'yyyyMMdd_HHmmss'))
     New-Item -ItemType Directory -Force -Path $runFolder | Out-Null
     return $runFolder
+}
+
+function Write-GrepSummary {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$File,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Title,
+
+        [Parameter(Mandatory = $true)]
+        [string[]]$Patterns,
+
+        [int]$MaxLines = 8
+    )
+
+    if (-not (Test-Path $File)) {
+        Write-Output ("[Summary] {0}: file not found: {1}" -f $Title, $File)
+        return
+    }
+
+    $lines = Get-Content -Path $File -ErrorAction Stop
+    $allMatches = @()
+
+    foreach ($p in $Patterns) {
+        $m = $lines | Select-String -Pattern $p
+        if ($m) {
+            $allMatches += $m
+        }
+    }
+
+    $count = if ($allMatches) { $allMatches.Count } else { 0 }
+    Write-Output ("[Summary] {0}: {1}" -f $Title, $count)
+
+    if ($count -gt 0) {
+        $allMatches | Select-Object -First $MaxLines | ForEach-Object {
+            Write-Output ("  {0}:{1}: {2}" -f (Split-Path -Leaf $File), $_.LineNumber, $_.Line)
+        }
+        if ($count -gt $MaxLines) {
+            Write-Output ("  ... ({0} more)" -f ($count - $MaxLines))
+        }
+    }
 }
 
 switch ($Command) {
@@ -123,6 +165,21 @@ switch ($Command) {
 
         $logcatFile = Join-Path $runFolder 'logcat.txt'
         & adb logcat -d | Out-File -FilePath $logcatFile -Encoding utf8
+
+        $runtimeFile = Join-Path $runFolder 'runtime.log'
+        $recordFile = Join-Path $runFolder 'record.log'
+        $errorFile = Join-Path $runFolder 'error.log'
+
+        Write-Output "================ Summary (regress) ================"
+        Write-GrepSummary -File $runtimeFile -Title 'execute broadcast received' -Patterns @('Alipay got Broadcast com\.eg\.android\.AlipayGphone\.sesame\.execute')
+        Write-GrepSummary -File $runtimeFile -Title 'alarm short-interval skip' -Patterns @('闹钟触发间隔较短')
+        Write-GrepSummary -File $runtimeFile -Title 'entry debounced skip' -Patterns @('入口处理过于频繁')
+        Write-GrepSummary -File $runtimeFile -Title 'child task cancelled' -Patterns @('子任务协程被取消', '子任务被取消')
+        Write-GrepSummary -File $runtimeFile -Title 'exceptions (runtime)' -Patterns @('NullPointerException', 'FATAL EXCEPTION', 'Exception')
+        Write-GrepSummary -File $recordFile -Title 'task runner summary (record.log)' -Patterns @('协程任务执行统计摘要', '任务\[.*\]执行', '执行超时', '执行失败')
+        Write-GrepSummary -File $errorFile -Title 'errors (error.log)' -Patterns @('.+')
+        Write-GrepSummary -File $logcatFile -Title 'logcat exceptions' -Patterns @('FATAL EXCEPTION', 'NullPointerException')
+        Write-Output "===================================================="
 
         Write-Output $runFolder
         break

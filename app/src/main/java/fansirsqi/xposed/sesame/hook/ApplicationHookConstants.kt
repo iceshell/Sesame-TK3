@@ -16,6 +16,7 @@ import io.github.libxposed.api.XposedInterface
 import java.lang.reflect.Method
 import java.util.Calendar
 import java.util.concurrent.atomic.AtomicInteger
+ import java.util.concurrent.atomic.AtomicReference
 
 /**
  * ApplicationHook 常量和静态字段
@@ -127,6 +128,31 @@ object ApplicationHookConstants {
     @JvmStatic
     fun setAlarmTriggeredFlag(value: Boolean) {
         alarmTriggeredFlag = value
+    }
+
+    enum class TriggerSource {
+        ALARM,
+        EXECUTE_BROADCAST,
+        ON_RESUME,
+        UNKNOWN
+    }
+
+    data class TriggerInfo(
+        val source: TriggerSource,
+        val requestCode: Int = -1,
+        val isBackupAlarm: Boolean = false
+    )
+
+    private val pendingTrigger = AtomicReference<TriggerInfo?>(null)
+
+    @JvmStatic
+    fun setPendingTrigger(triggerInfo: TriggerInfo) {
+        pendingTrigger.set(triggerInfo)
+    }
+
+    @JvmStatic
+    fun consumePendingTrigger(): TriggerInfo? {
+        return pendingTrigger.getAndSet(null)
     }
     
     // 重登录计数

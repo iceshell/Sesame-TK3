@@ -356,14 +356,24 @@ class ApplicationHookEntry {
                                 ApplicationHookConstants.offline = false
                                 val activity = param.thisObject as Activity
                                 EntryDispatcher.submitDebounced("onResume") {
+                                    ApplicationHookConstants.setPendingTrigger(
+                                        ApplicationHookConstants.TriggerInfo(
+                                            source = ApplicationHookConstants.TriggerSource.ON_RESUME
+                                        )
+                                    )
                                     ApplicationHookCore.execHandler()
                                     ApplicationHookConstants.mainHandler?.post { activity.finish() }
                                 }
-                                Log.runtime(TAG, "Activity reLogin")
+                                
                                 return
                             }
                             
                             EntryDispatcher.submitDebounced("onResume") {
+                                ApplicationHookConstants.setPendingTrigger(
+                                    ApplicationHookConstants.TriggerInfo(
+                                        source = ApplicationHookConstants.TriggerSource.ON_RESUME
+                                    )
+                                )
                                 ApplicationHookCore.execHandler()
                             }
                             Log.runtime(TAG, "hook onResume after end")
@@ -416,7 +426,12 @@ class ApplicationHookEntry {
                             
                             val mainTask = BaseTask.newInstance("MAIN_TASK") {
                                 try {
-                                    val isAlarmTriggered = ApplicationHookConstants.alarmTriggeredFlag
+                                    val trigger = ApplicationHookConstants.consumePendingTrigger()
+                                    val triggerSource = trigger?.source
+                                        ?: ApplicationHookConstants.TriggerSource.UNKNOWN
+
+                                    val isAlarmTriggered = ApplicationHookConstants.alarmTriggeredFlag ||
+                                        (triggerSource == ApplicationHookConstants.TriggerSource.ALARM)
                                     if (isAlarmTriggered) {
                                         ApplicationHookConstants.setAlarmTriggeredFlag(false)
                                     }
@@ -438,12 +453,16 @@ class ApplicationHookEntry {
                                         if (lastExecTime == 0L) {
                                             Log.record(TAG, "▶️ 首次手动触发，开始运行")
                                         } else {
-                                            if (BaseModel.manualTriggerAutoSchedule.value == true) {
-                                                Log.record(TAG, "手动APP触发，已开启")
-                                                TaskRunnerAdapter().run()
-                                            } else {
-                                                Log.record(TAG, "手动APP触发，已关闭")
-                                                return@newInstance
+                                            val shouldApplyManualGate =
+                                                triggerSource == ApplicationHookConstants.TriggerSource.ON_RESUME
+                                            if (shouldApplyManualGate) {
+                                                if (BaseModel.manualTriggerAutoSchedule.value == true) {
+                                                    Log.record(TAG, "手动APP触发，已开启")
+                                                    TaskRunnerAdapter().run()
+                                                } else {
+                                                    Log.record(TAG, "手动APP触发，已关闭")
+                                                    return@newInstance
+                                                }
                                             }
                                         }
                                     }
@@ -620,9 +639,26 @@ class ApplicationHookEntry {
                         if (BaseModel.debugMode.value == true) {
                             Log.printStack(TAG)
                         }
-                        if (intent.getBooleanExtra("alarm_triggered", false)) {
+
+                        val isAlarmTriggered = intent.getBooleanExtra("alarm_triggered", false)
+                        if (isAlarmTriggered) {
                             ApplicationHookConstants.setAlarmTriggeredFlag(true)
                         }
+
+                        val requestCode = intent.getIntExtra("request_code", -1)
+                        val isBackupAlarm = intent.getBooleanExtra("is_backup_alarm", false)
+                        ApplicationHookConstants.setPendingTrigger(
+                            ApplicationHookConstants.TriggerInfo(
+                                source = if (isAlarmTriggered) {
+                                    ApplicationHookConstants.TriggerSource.ALARM
+                                } else {
+                                    ApplicationHookConstants.TriggerSource.EXECUTE_BROADCAST
+                                },
+                                requestCode = requestCode,
+                                isBackupAlarm = isBackupAlarm
+                            )
+                        )
+
                         EntryDispatcher.submitDebounced("execute") {
                             if (ApplicationHookConstants.init) {
                                 ApplicationHookCore.execHandler()
