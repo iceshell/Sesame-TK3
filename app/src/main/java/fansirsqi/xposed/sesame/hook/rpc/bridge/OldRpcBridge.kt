@@ -37,7 +37,7 @@ class OldRpcBridge : RpcBridge {
         return minOf(baseMs * factor, 15000L)
     }
 
-    override fun getVersion(): RpcVersion = RpcVersion.NEW
+    override fun getVersion(): RpcVersion = RpcVersion.OLD
 
     /**
      * 加载RPC所需的类和方法
