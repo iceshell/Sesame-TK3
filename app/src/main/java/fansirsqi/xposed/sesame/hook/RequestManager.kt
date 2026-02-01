@@ -5,8 +5,8 @@ import androidx.annotation.RequiresPermission
 import fansirsqi.xposed.sesame.entity.RpcEntity
 import fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge
 import fansirsqi.xposed.sesame.util.Log
-import fansirsqi.xposed.sesame.util.NetworkUtils
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
 
 /**
  * @author Byseven
@@ -16,8 +16,10 @@ import java.util.concurrent.ConcurrentHashMap
 @Suppress("TooManyFunctions")
 object RequestManager {
     private val lastEmptyResponseLogAtMs = ConcurrentHashMap<String, Long>()
+    private val lastRpcBridgeNullLogAtMs = AtomicLong(0)
 
     private const val EMPTY_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
+    private const val RPC_BRIDGE_NULL_LOG_INTERVAL_MS: Long = 5_000L
 
     private fun shouldLogEmptyResponse(method: String?): Boolean {
         val key = method ?: "unknown"
@@ -25,6 +27,17 @@ object RequestManager {
         val last = lastEmptyResponseLogAtMs[key]
         return if (last == null || now - last >= EMPTY_RESPONSE_LOG_INTERVAL_MS) {
             lastEmptyResponseLogAtMs[key] = now
+            true
+        } else {
+            false
+        }
+    }
+
+    private fun shouldLogRpcBridgeNull(): Boolean {
+        val now = System.currentTimeMillis()
+        val last = lastRpcBridgeNullLogAtMs.get()
+        return if (last == 0L || now - last >= RPC_BRIDGE_NULL_LOG_INTERVAL_MS) {
+            lastRpcBridgeNullLogAtMs.set(now)
             true
         } else {
             false
@@ -51,20 +64,16 @@ object RequestManager {
 
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     private fun getRpcBridge(): RpcBridge? {
-        if (!NetworkUtils.isNetworkAvailable()) {
-            Log.record("网络未连接，等待5秒")
-            fansirsqi.xposed.sesame.util.CoroutineUtils.sleepCompat(5000)
-            if (!NetworkUtils.isNetworkAvailable()) {
-                val networkType = NetworkUtils.getNetworkType()
-                Log.record("网络仍未连接，当前网络类型: $networkType，放弃本次请求...")
-                return null
-            }
+        if (ApplicationHookConstants.shouldBlockRpc()) {
+            return null
         }
-        var rpcBridge = ApplicationHookConstants.rpcBridge
+
+        val rpcBridge = ApplicationHookConstants.rpcBridge
         if (rpcBridge == null) {
-            Log.record("RpcBridge 为空，等待5秒")
-            fansirsqi.xposed.sesame.util.CoroutineUtils.sleepCompat(5000)
-            rpcBridge = ApplicationHookConstants.rpcBridge
+            if (shouldLogRpcBridgeNull()) {
+                Log.runtime("RequestManager", "RpcBridge 为空，跳过本次请求")
+            }
+            return null
         }
         return rpcBridge
     }
