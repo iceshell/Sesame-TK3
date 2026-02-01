@@ -76,6 +76,58 @@ class NewRpcBridge : RpcBridge {
     private val lastReloginAtMs = AtomicLong(0)
     private val reloginIntervalMs = RELOGIN_INTERVAL_MS
 
+    private fun offlineCooldownMs(): Long {
+        return maxOf(
+            BaseModel.checkInterval.value?.toLong() ?: 180000L,
+            180000L
+        )
+    }
+
+    private fun handleAuthLikeError(
+        rpcEntity: RpcEntity,
+        methodName: String?,
+        statusText: String,
+        notifyTitle: String,
+        response: String,
+        reason: String,
+        count: Int
+    ): RpcEntity? {
+        if (!shouldShowErrorLog(methodName)) {
+            logNullResponse(rpcEntity, reason, count)
+            return null
+        }
+
+        maxErrorCount.set(0)
+        val wasOffline = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline
+        val cooldownMs = offlineCooldownMs()
+        if (!wasOffline) {
+            Notify.updateStatusText(statusText)
+            if (BaseModel.errNotify.value == true &&
+                shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
+            ) {
+                Notify.sendErrorNotification(
+                    "${TimeUtil.getTimeStr()} | $notifyTitle",
+                    response
+                )
+            }
+        }
+
+        if (!wasOffline) {
+            fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
+        }
+
+        val shouldTryRelogin =
+            BaseModel.timeoutRestart.value == true &&
+                shouldNotifyNow(lastReloginAtMs, reloginIntervalMs)
+        if (!wasOffline && shouldTryRelogin) {
+            Log.record(TAG, "尝试重新登录")
+            fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
+        }
+
+        logNullResponse(rpcEntity, reason, count)
+        return null
+    }
+
     /**
      * 检查指定的RPC方法是否应该显示错误日志
      *
@@ -346,72 +398,27 @@ class NewRpcBridge : RpcBridge {
                         val methodName = rpcEntity.requestMethod
 
                         if (errorCode == "1009") {
-                            maxErrorCount.set(0)
-                            val wasOffline = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline
-                            val cooldownMs = maxOf(
-                                BaseModel.checkInterval.value?.toLong() ?: 180000L,
-                                180000L
+                            return handleAuthLikeError(
+                                rpcEntity = rpcEntity,
+                                methodName = methodName,
+                                statusText = "需要验证后继续执行",
+                                notifyTitle = "需要验证后继续执行",
+                                response = response,
+                                reason = "需要验证: $errorCode/$errorMessage",
+                                count = count
                             )
-                            if (!wasOffline) {
-                                Notify.updateStatusText("需要验证后继续执行")
-                                if (BaseModel.errNotify.value == true &&
-                                    shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
-                                ) {
-                                    Notify.sendErrorNotification(
-                                        "${TimeUtil.getTimeStr()} | 需要验证后继续执行",
-                                        response
-                                    )
-                                }
-                            }
-
-                            if (!wasOffline) {
-                                fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
-                            }
-
-                            val shouldTryRelogin =
-                                BaseModel.timeoutRestart.value == true &&
-                                    shouldNotifyNow(lastReloginAtMs, reloginIntervalMs)
-                            if (!wasOffline && shouldTryRelogin) {
-                                Log.record(TAG, "尝试重新登录")
-                                fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
-                            }
-                            logNullResponse(rpcEntity, "需要验证: $errorCode/$errorMessage", count)
-                            return null
                         }
 
                         if (errorCode == "2000" && errorMessage.contains("登录超时")) {
-                            maxErrorCount.set(0)
-                            val wasOffline = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline
-                            val cooldownMs = maxOf(
-                                BaseModel.checkInterval.value?.toLong() ?: 180000L,
-                                180000L
+                            return handleAuthLikeError(
+                                rpcEntity = rpcEntity,
+                                methodName = methodName,
+                                statusText = "登录超时",
+                                notifyTitle = "登录超时",
+                                response = response,
+                                reason = "登录超时: $errorCode/$errorMessage",
+                                count = count
                             )
-                            if (!wasOffline) {
-                                Notify.updateStatusText("登录超时")
-                                if (BaseModel.errNotify.value == true &&
-                                    shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
-                                ) {
-                                    Notify.sendErrorNotification(
-                                        "${TimeUtil.getTimeStr()} | 登录超时",
-                                        response
-                                    )
-                                }
-                            }
-
-                            if (!wasOffline) {
-                                fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
-                            }
-
-                            val shouldTryRelogin =
-                                BaseModel.timeoutRestart.value == true &&
-                                    shouldNotifyNow(lastReloginAtMs, reloginIntervalMs)
-                            if (!wasOffline && shouldTryRelogin) {
-                                Log.record(TAG, "尝试重新登录")
-                                fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
-                            }
-
-                            logNullResponse(rpcEntity, "登录超时: $errorCode/$errorMessage", count)
-                            return null
                         }
 
                         if (errorMark.contains(errorCode) || errorStringMark.contains(errorMessage)) {
@@ -424,11 +431,9 @@ class NewRpcBridge : RpcBridge {
                             if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
                                 var enteredOffline = false
                                 if (currentErrorCount > setMaxErrorCount) {
-                                    val cooldownMs = maxOf(
-                                        BaseModel.checkInterval.value?.toLong() ?: 180000L,
-                                        180000L
+                                    fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(
+                                        offlineCooldownMs()
                                     )
-                                    fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
                                     enteredOffline = true
                                     Notify.updateStatusText("网络连接异常，已进入离线模式")
                                     if (BaseModel.errNotify.value == true) {
