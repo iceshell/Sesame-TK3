@@ -31,9 +31,6 @@ import java.util.Calendar
  */
 object ApplicationHookCore {
     private const val TAG = "ApplicationHook"
-
-    private const val USER_ID_RETRY_COUNT = 3
-    private const val USER_ID_RETRY_DELAY_MS = 150L
     
     // AlarmScheduler管理器
     private val alarmManager = AlarmSchedulerManager()
@@ -262,18 +259,11 @@ object ApplicationHookCore {
 
             if (force) {
                 val classLoader = ApplicationHookConstants.classLoader ?: return false
-                var userId: String? = UserMap.currentUid
-                if (userId.isNullOrEmpty()) {
-                    repeat(USER_ID_RETRY_COUNT) {
-                        userId = HookUtil.getUserId(classLoader)
-                        if (!userId.isNullOrEmpty()) return@repeat
-                        try {
-                            Thread.sleep(USER_ID_RETRY_DELAY_MS)
-                        } catch (_: InterruptedException) {
-                            return@repeat
-                        }
-                    }
-                }
+                val userId = UserSessionProvider.resolveUserId(
+                    classLoader = classLoader,
+                    retryCount = 3,
+                    retryDelayMs = 150L
+                )
 
                 if (userId.isNullOrEmpty()) {
                     Log.record(TAG, "initHandler: 用户未登录")
@@ -379,6 +369,7 @@ object ApplicationHookCore {
                 // 初始化日志 - 完成
                 Log.record(TAG, "━━━━━━━━━━ 初始化完成 ━━━━━━━━━━")
                 Log.record(TAG, "✅ 芝麻粒-TK 加载成功✨")
+                Log.record(TAG, "[SESAME_TK_READY]")
                 Log.record(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                 Toast.show("芝麻粒-TK 加载成功✨")
             }
@@ -462,9 +453,19 @@ object ApplicationHookCore {
      */
     @JvmStatic
     fun execHandler() {
+        if (ApplicationHookConstants.taskRunnerRunningCount.get() > 0) {
+            Log.runtime(TAG, "execHandler: 检测到任务执行中，跳过本次触发")
+            return
+        }
+
         val mainTask = ApplicationHookConstants.mainTask
         if (mainTask == null) {
             Log.runtime(TAG, "⚠️ mainTask未初始化，跳过执行")
+            return
+        }
+
+        if (mainTask.thread?.isAlive == true) {
+            Log.runtime(TAG, "execHandler: mainTask线程运行中，跳过本次触发")
             return
         }
         
@@ -478,6 +479,24 @@ object ApplicationHookCore {
         }
         
         mainTask.startTask(false)
+    }
+
+    @JvmStatic
+    fun execOrInit(
+        forceInit: Boolean = true,
+        allowDeferWhenServiceNotReady: Boolean = false
+    ): Boolean {
+        if (ApplicationHookConstants.init) {
+            execHandler()
+            return true
+        }
+
+        if (allowDeferWhenServiceNotReady && ApplicationHookConstants.service == null) {
+            Log.runtime(TAG, "execOrInit: service未就绪，等待下次触发")
+            return false
+        }
+
+        return initHandler(forceInit)
     }
 
     /**

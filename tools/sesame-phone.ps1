@@ -12,16 +12,72 @@ param(
     [int]$TailLines = 120,
 
     [int]$WaitAfterStartSec = 3,
-    [int]$WaitAfterExecuteSec = 3
+    [int]$WaitAfterExecuteSec = 3,
+
+    [switch]$DoubleExecuteStress
 )
 
 $ErrorActionPreference = 'Stop'
+
+$utf8 = [System.Text.UTF8Encoding]::new()
+$OutputEncoding = $utf8
+[Console]::OutputEncoding = $utf8
+[Console]::InputEncoding = $utf8
 
 function Test-DeviceConnected {
     $devices = & adb devices | Select-String -Pattern '\tdevice$'
     if (-not $devices) {
         throw 'No adb device connected (adb devices shows no "device")'
     }
+}
+
+function Clear-RemoteLogs {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RemoteRoot
+    )
+
+    $files = @(
+        "$RemoteRoot/log/runtime.log",
+        "$RemoteRoot/log/record.log",
+        "$RemoteRoot/log/error.log"
+    )
+
+    foreach ($f in $files) {
+        & adb shell "cat /dev/null > '$f'" 2>$null
+    }
+}
+
+function Wait-RemoteRuntimeLog {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RemoteRuntimeFile,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Pattern,
+
+        [int]$TimeoutSec = 20,
+
+        [int]$PollIntervalMs = 800
+    )
+
+    $deadline = (Get-Date).AddSeconds($TimeoutSec)
+    while ((Get-Date) -lt $deadline) {
+        try {
+            $found = & adb shell sh -c "grep -F '$Pattern' '$RemoteRuntimeFile' 2>/dev/null | tail -n 1" 2>$null
+            if ($found) {
+                return $true
+            }
+
+            $tail = & adb shell tail -n 1200 $RemoteRuntimeFile 2>$null
+            if ($tail -and ($tail | Select-String -SimpleMatch -Pattern $Pattern)) {
+                return $true
+            }
+        } catch {
+        }
+        Start-Sleep -Milliseconds $PollIntervalMs
+    }
+    return $false
 }
 
 Test-DeviceConnected
@@ -31,6 +87,14 @@ function New-RunFolder {
     $runFolder = Join-Path $LocalRoot ("run_" + (Get-Date -Format 'yyyyMMdd_HHmmss'))
     New-Item -ItemType Directory -Force -Path $runFolder | Out-Null
     return $runFolder
+}
+
+function New-StringFromCodePoints {
+    param(
+        [Parameter(Mandatory = $true)]
+        [int[]]$CodePoints
+    )
+    return -join ($CodePoints | ForEach-Object { [char]$_ })
 }
 
 function Write-GrepSummary {
@@ -44,6 +108,8 @@ function Write-GrepSummary {
         [Parameter(Mandatory = $true)]
         [string[]]$Patterns,
 
+        [switch]$SimpleMatch,
+
         [int]$MaxLines = 8
     )
 
@@ -52,11 +118,11 @@ function Write-GrepSummary {
         return
     }
 
-    $lines = Get-Content -Path $File -ErrorAction Stop
+    $lines = Get-Content -Path $File -Encoding utf8 -ErrorAction Stop
     $allMatches = @()
 
     foreach ($p in $Patterns) {
-        $m = $lines | Select-String -Pattern $p
+        $m = $lines | Select-String -Pattern $p -SimpleMatch:$SimpleMatch
         if ($m) {
             $allMatches += $m
         }
@@ -67,7 +133,8 @@ function Write-GrepSummary {
 
     if ($count -gt 0) {
         $allMatches | Select-Object -First $MaxLines | ForEach-Object {
-            Write-Output ("  {0}:{1}: {2}" -f (Split-Path -Leaf $File), $_.LineNumber, $_.Line)
+            $safeLine = ($_.Line -replace "[\r\n]+", " ")
+            Write-Output ("  {0}:{1}: {2}" -f (Split-Path -Leaf $File), $_.LineNumber, $safeLine)
         }
         if ($count -gt $MaxLines) {
             Write-Output ("  ... ({0} more)" -f ($count - $MaxLines))
@@ -149,12 +216,31 @@ switch ($Command) {
     'regress' {
         $runFolder = New-RunFolder
 
+        & adb logcat -c
+
+        Clear-RemoteLogs -RemoteRoot $RemoteRoot
+
         & adb shell am force-stop com.eg.android.AlipayGphone
         Start-Sleep -Seconds $WaitAfterStartSec
         & adb shell monkey -p com.eg.android.AlipayGphone -c android.intent.category.LAUNCHER 1
         Start-Sleep -Seconds $WaitAfterStartSec
 
-        & adb shell am broadcast -a com.eg.android.AlipayGphone.sesame.execute --ez alarm_triggered true
+        $remoteRuntimeFile = "$RemoteRoot/log/runtime.log"
+        $ready = Wait-RemoteRuntimeLog -RemoteRuntimeFile $remoteRuntimeFile -Pattern '[SESAME_TK_READY]' -TimeoutSec 25
+        if (-not $ready) {
+            Write-Output "[regress] WARN: broadcast receiver not ready after timeout, still sending execute"
+        } else {
+            Write-Output "[regress] OK: broadcast receiver ready"
+        }
+
+        if ($DoubleExecuteStress) {
+            Write-Output "[regress] Stress: sending execute twice"
+            & adb shell am broadcast -a com.eg.android.AlipayGphone.sesame.execute --ez alarm_triggered false
+            Start-Sleep -Milliseconds 200
+            & adb shell am broadcast -a com.eg.android.AlipayGphone.sesame.execute --ez alarm_triggered false
+        } else {
+            & adb shell am broadcast -a com.eg.android.AlipayGphone.sesame.execute --ez alarm_triggered false
+        }
         Start-Sleep -Seconds $WaitAfterExecuteSec
 
         & adb pull "$RemoteRoot/log/runtime.log" (Join-Path $runFolder 'runtime.log')
@@ -170,15 +256,38 @@ switch ($Command) {
         $recordFile = Join-Path $runFolder 'record.log'
         $errorFile = Join-Path $runFolder 'error.log'
 
+        $pExecSkipRunning = "execHandler: " + (New-StringFromCodePoints @(
+            0x68C0,0x6D4B,0x5230,0x4EFB,0x52A1,0x6267,0x884C,0x4E2D,0xFF0C,0x8DF3,0x8FC7,0x672C,0x6B21,0x89E6,0x53D1
+        ))
+        $pExecSkipMainTaskThreadAlive = "execHandler: mainTask" + (New-StringFromCodePoints @(
+            0x7EBF,0x7A0B,0x8FD0,0x884C,0x4E2D,0xFF0C,0x8DF3,0x8FC7,0x672C,0x6B21,0x89E6,0x53D1
+        ))
+        $pAlarmShortIntervalSkip = New-StringFromCodePoints @(
+            0x95F9,0x949F,0x89E6,0x53D1,0x95F4,0x9694,0x8F83,0x77ED
+        )
+        $pEntryDebouncedSkip = New-StringFromCodePoints @(
+            0x5165,0x53E3,0x5904,0x7406,0x8FC7,0x4E8E,0x9891,0x7E41
+        )
+        $pChildTaskCoroutineCancelled = New-StringFromCodePoints @(
+            0x5B50,0x4EFB,0x52A1,0x534F,0x7A0B,0x88AB,0x53D6,0x6D88
+        )
+        $pChildTaskCancelled = New-StringFromCodePoints @(
+            0x5B50,0x4EFB,0x52A1,0x88AB,0x53D6,0x6D88
+        )
+
         Write-Output "================ Summary (regress) ================"
-        Write-GrepSummary -File $runtimeFile -Title 'execute broadcast received' -Patterns @('Alipay got Broadcast com\.eg\.android\.AlipayGphone\.sesame\.execute')
-        Write-GrepSummary -File $runtimeFile -Title 'alarm short-interval skip' -Patterns @('闹钟触发间隔较短')
-        Write-GrepSummary -File $runtimeFile -Title 'entry debounced skip' -Patterns @('入口处理过于频繁')
-        Write-GrepSummary -File $runtimeFile -Title 'child task cancelled' -Patterns @('子任务协程被取消', '子任务被取消')
+        Write-GrepSummary -File $runtimeFile -Title 'execute broadcast received' -Patterns @('Alipay got Broadcast com.eg.android.AlipayGphone.sesame.execute') -SimpleMatch
+        Write-GrepSummary -File $runtimeFile -Title 'execHandler running skip' -Patterns @(
+            $pExecSkipRunning,
+            $pExecSkipMainTaskThreadAlive
+        ) -SimpleMatch
+        Write-GrepSummary -File $runtimeFile -Title 'alarm short-interval skip' -Patterns @($pAlarmShortIntervalSkip) -SimpleMatch
+        Write-GrepSummary -File $runtimeFile -Title 'entry debounced skip' -Patterns @($pEntryDebouncedSkip) -SimpleMatch
+        Write-GrepSummary -File $runtimeFile -Title 'child task cancelled' -Patterns @($pChildTaskCoroutineCancelled, $pChildTaskCancelled) -SimpleMatch
         Write-GrepSummary -File $runtimeFile -Title 'exceptions (runtime)' -Patterns @('NullPointerException', 'FATAL EXCEPTION', 'Exception')
         Write-GrepSummary -File $recordFile -Title 'task runner summary (record.log)' -Patterns @('协程任务执行统计摘要', '任务\[.*\]执行', '执行超时', '执行失败')
         Write-GrepSummary -File $errorFile -Title 'errors (error.log)' -Patterns @('.+')
-        Write-GrepSummary -File $logcatFile -Title 'logcat exceptions' -Patterns @('FATAL EXCEPTION', 'NullPointerException')
+        Write-GrepSummary -File $logcatFile -Title 'logcat exceptions' -Patterns @('FATAL EXCEPTION', 'NullPointerException') -SimpleMatch
         Write-Output "===================================================="
 
         Write-Output $runFolder

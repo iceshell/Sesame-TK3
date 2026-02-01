@@ -10,8 +10,11 @@ import fansirsqi.xposed.sesame.data.General
 import fansirsqi.xposed.sesame.util.AssetUtil
 import fansirsqi.xposed.sesame.util.Detector
 import fansirsqi.xposed.sesame.util.Log
+import fansirsqi.xposed.sesame.util.maps.UserMap
 import java.io.File
 import java.lang.reflect.InvocationTargetException
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicReference
 
 /**
  * ApplicationHook 工具方法
@@ -244,6 +247,75 @@ object ApplicationHookUtils {
         } catch (th: Throwable) {
             Log.runtime(TAG, "发送执行广播时出错:")
             Log.printStackTrace(TAG, th)
+        }
+    }
+}
+
+object UserSessionProvider {
+    private const val DEFAULT_ALLOW_STALE_MS = 10_000L
+
+    private val lastKnownUserId: AtomicReference<String?> = AtomicReference(null)
+    private val lastKnownUserIdAtMs: AtomicLong = AtomicLong(0L)
+
+    @JvmStatic
+    fun recordUserId(userId: String?) {
+        val normalized = userId?.takeIf { it.isNotBlank() } ?: return
+        lastKnownUserId.set(normalized)
+        lastKnownUserIdAtMs.set(System.currentTimeMillis())
+        UserMap.setCurrentUserId(normalized)
+    }
+
+    @JvmStatic
+    fun resolveUserId(
+        classLoader: ClassLoader,
+        retryCount: Int,
+        retryDelayMs: Long,
+        allowStaleMs: Long = DEFAULT_ALLOW_STALE_MS,
+        fallbackToCurrentUid: Boolean = true,
+    ): String? {
+        val currentUid = UserMap.currentUid?.takeIf { it.isNotBlank() }
+        if (currentUid != null) {
+            recordUserId(currentUid)
+            return currentUid
+        }
+
+        val uidFromService = ApplicationHookUtils.getUserId()?.takeIf { it.isNotBlank() }
+        if (uidFromService != null) {
+            recordUserId(uidFromService)
+            return uidFromService
+        }
+
+        var uidFromHook: String? = null
+        val attempts = (retryCount.coerceAtLeast(0) + 1)
+        repeat(attempts) { attempt ->
+            if (attempt > 0 && retryDelayMs > 0) {
+                try {
+                    Thread.sleep(retryDelayMs)
+                } catch (_: InterruptedException) {
+                }
+            }
+            uidFromHook = HookUtil.getUserId(classLoader)?.takeIf { it.isNotBlank() }
+            if (uidFromHook != null) {
+                return@repeat
+            }
+        }
+        if (uidFromHook != null) {
+            recordUserId(uidFromHook)
+            return uidFromHook
+        }
+
+        val last = lastKnownUserId.get()?.takeIf { it.isNotBlank() }
+        if (last != null) {
+            val ageMs = System.currentTimeMillis() - lastKnownUserIdAtMs.get()
+            if (ageMs in 0..allowStaleMs) {
+                return last
+            }
+        }
+
+        return if (fallbackToCurrentUid) {
+            UserMap.currentUid?.takeIf { it.isNotBlank() }
+        } else {
+            null
         }
     }
 }

@@ -89,25 +89,33 @@ class CoroutineTaskRunner(allModels: List<Model>) {
         isFirst: Boolean = true,
         rounds: Int = BaseModel.taskExecutionRounds.value ?: 1
     ) {
-        runnerScope.launch {
-            ApplicationHookConstants.markTaskRunnerStart()
-            if (isFirst) {
-                resetCounters()
+        ApplicationHookConstants.markTaskRunnerStart()
+        val job = try {
+            runnerScope.launch {
+                if (isFirst) {
+                    resetCounters()
+                }
+
+                val startTime = System.currentTimeMillis()
+
+                try {
+                    executeTasksWithMode(rounds)
+                } catch (e: Exception) {
+                    Log.printStackTrace(TAG, "任务执行异常", e)
+                } finally {
+                    val endTime = System.currentTimeMillis()
+                    printExecutionSummary(startTime, endTime)
+                    // 清空恢复尝试计数
+                    recoveryAttempts.clear()
+                }
             }
-            
-            val startTime = System.currentTimeMillis()
-            
-            try {
-                executeTasksWithMode(rounds)
-            } catch (e: Exception) {
-                Log.printStackTrace(TAG, "任务执行异常", e)
-            } finally {
-                val endTime = System.currentTimeMillis()
-                printExecutionSummary(startTime, endTime)
-                // 清空恢复尝试计数
-                recoveryAttempts.clear()
-                ApplicationHookConstants.markTaskRunnerFinish()
-            }
+        } catch (t: Throwable) {
+            ApplicationHookConstants.markTaskRunnerFinish()
+            throw t
+        }
+
+        job.invokeOnCompletion {
+            ApplicationHookConstants.markTaskRunnerFinish()
         }
     }
 

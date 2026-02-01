@@ -332,6 +332,7 @@ class NewRpcBridge : RpcBridge {
                     }
 
                     if (!rpcEntity.hasError) {
+                        maxErrorCount.set(0)
                         return rpcEntity
                     }
 
@@ -345,6 +346,7 @@ class NewRpcBridge : RpcBridge {
                         val methodName = rpcEntity.requestMethod
 
                         if (errorCode == "1009") {
+                            maxErrorCount.set(0)
                             if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
                                 Notify.updateStatusText("需要验证后继续执行")
                                 if (BaseModel.errNotify.value == true &&
@@ -363,8 +365,10 @@ class NewRpcBridge : RpcBridge {
                         if (errorMark.contains(errorCode) || errorStringMark.contains(errorMessage)) {
                             val currentErrorCount = maxErrorCount.incrementAndGet()
                             if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
+                                var enteredOffline = false
                                 if (currentErrorCount > setMaxErrorCount) {
                                     fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline = true
+                                    enteredOffline = true
                                     Notify.updateStatusText("网络连接异常，已进入离线模式")
                                     if (BaseModel.errNotify.value == true) {
                                         Notify.sendErrorNotification(
@@ -373,6 +377,7 @@ class NewRpcBridge : RpcBridge {
                                         )
                                     }
                                 }
+
                                 if (BaseModel.errNotify.value == true &&
                                     shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
                                 ) {
@@ -381,15 +386,18 @@ class NewRpcBridge : RpcBridge {
                                         response
                                     )
                                 }
+
                                 val shouldTryRelogin =
                                     BaseModel.timeoutRestart.value == true &&
                                         shouldNotifyNow(lastReloginAtMs, reloginIntervalMs) &&
-                                        errorCode != "1004"
+                                        errorCode != "1004" &&
+                                        !enteredOffline
                                 if (shouldTryRelogin) {
                                     Log.record(TAG, "尝试重新登录")
                                     fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
                                 }
                             }
+
                             logNullResponse(rpcEntity, "网络错误: $errorCode/$errorMessage", count)
                             return null
                         }

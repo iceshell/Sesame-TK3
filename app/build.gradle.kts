@@ -62,6 +62,8 @@ tasks.register("checkAll") {
 }
 var isCIBuild: Boolean = System.getenv("CI").toBoolean()
 
+val versionNameBaseDefault = "0.6.1"
+
 abstract class GenerateReleaseRcTask : DefaultTask() {
     @get:Input
     abstract val versionNameBase: Property<String>
@@ -174,7 +176,7 @@ android {
         }
 
         val buildTag = "release"
-        val versionNameBase = providers.gradleProperty("versionNameBase").orElse("0.6.0").get()
+        val versionNameBase = providers.gradleProperty("versionNameBase").orElse(versionNameBaseDefault).get()
         versionName = versionNameBase
         versionCode = computeVersionCode(versionNameBase)
 
@@ -260,7 +262,7 @@ val rcCounterFile = layout.buildDirectory.file("rc/rc-counter.properties")
 val releaseRcTextFile = layout.buildDirectory.file("rc/release-rc.txt")
 
 tasks.register<GenerateReleaseRcTask>("generateReleaseRc") {
-    versionNameBase.set(providers.gradleProperty("versionNameBase").orElse("0.6.0"))
+    versionNameBase.set(providers.gradleProperty("versionNameBase").orElse(versionNameBaseDefault))
     counterFile.set(rcCounterFile)
     rcOutputFile.set(releaseRcTextFile)
     outputs.upToDateWhen { false }
@@ -270,7 +272,7 @@ tasks.register<CopyReleaseApkWithRcTask>("copyReleaseApkWithRc") {
     dependsOn("assembleRelease")
     dependsOn("generateReleaseRc")
     sourceApkFile.set(layout.buildDirectory.file("outputs/apk/release/app-release.apk"))
-    versionNameBase.set(providers.gradleProperty("versionNameBase").orElse("0.6.0"))
+    versionNameBase.set(providers.gradleProperty("versionNameBase").orElse(versionNameBaseDefault))
     rcFile.set(releaseRcTextFile)
 }
 

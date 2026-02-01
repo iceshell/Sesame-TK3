@@ -298,13 +298,14 @@ class ApplicationHookEntry {
                         override fun afterHookedMethod(param: MethodHookParam) {
                             Log.runtime(TAG, "hook onResume after start")
                             
-                            val targetUid = ApplicationHookUtils.getUserId()
-                            Log.runtime(TAG, "onResume targetUid: $targetUid")
-                            
                             val currentUid = UserMap.currentUid
-                            val resolvedUid = targetUid
-                                ?: currentUid
-                                ?: HookUtil.getUserId(classLoader)
+                            val resolvedUid = UserSessionProvider.resolveUserId(
+                                classLoader = classLoader,
+                                retryCount = 2,
+                                retryDelayMs = 100L
+                            )
+
+                            Log.runtime(TAG, "onResume resolvedUid: $resolvedUid")
 
                             if (resolvedUid == null) {
                                 Log.record(TAG, "onResume:用户未登录")
@@ -315,18 +316,12 @@ class ApplicationHookEntry {
                             
                             if (!ApplicationHookConstants.init) {
                                 Log.setCurrentUser(resolvedUid)
-                                
-                                if (ApplicationHookConstants.service == null) {
-                                    Log.runtime(TAG, "onResume: service未就绪，等待下次触发")
-                                    return
-                                }
-                                
-                                if (ApplicationHookCore.initHandler(true)) {
-                                    ApplicationHookConstants.setInit(true)
-                                    Log.runtime(TAG, "initHandler success")
-                                } else {
-                                    Log.runtime(TAG, "initHandler failed")
-                                }
+
+                                val initOk = ApplicationHookCore.execOrInit(
+                                    forceInit = true,
+                                    allowDeferWhenServiceNotReady = true
+                                )
+                                Log.runtime(TAG, if (initOk) { "execOrInit success" } else { "execOrInit deferred/failed" })
                                 return
                             }
 
@@ -342,6 +337,7 @@ class ApplicationHookEntry {
                                     Log.record(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                                     
                                     Log.setCurrentUser(resolvedUid)
+                                    UserSessionProvider.recordUserId(resolvedUid)
                                     ApplicationHookCore.initHandler(true)
                                     ApplicationHookConstants.setLastExecTime(0)
                                     
@@ -374,7 +370,7 @@ class ApplicationHookEntry {
                                         source = ApplicationHookConstants.TriggerSource.ON_RESUME
                                     )
                                 )
-                                ApplicationHookCore.execHandler()
+                                ApplicationHookCore.execOrInit()
                             }
                             Log.runtime(TAG, "hook onResume after end")
                         }
@@ -458,7 +454,6 @@ class ApplicationHookEntry {
                                             if (shouldApplyManualGate) {
                                                 if (BaseModel.manualTriggerAutoSchedule.value == true) {
                                                     Log.record(TAG, "手动APP触发，已开启")
-                                                    TaskRunnerAdapter().run()
                                                 } else {
                                                     Log.record(TAG, "手动APP触发，已关闭")
                                                     return@newInstance
@@ -473,15 +468,23 @@ class ApplicationHookEntry {
 
                                     if (isAlarmTriggered && timeSinceLastExec < MIN_EXEC_INTERVAL) {
                                         Log.record(TAG, "⚠️ 闹钟触发间隔较短(${timeSinceLastExec}ms)，跳过执行，安排下次执行")
-                                        ApplicationHookCore.getAlarmManager().scheduleDelayedExecutionWithRetry(
-                                            BaseModel.checkInterval.value?.toLong() ?: 180000L,
-                                            "跳过执行后的重新调度"
-                                        )
+                                        val hasRunningTask = ApplicationHookConstants.taskRunnerRunningCount.get() > 0
+                                        val hasNextSchedule = ApplicationHookConstants.nextExecutionTime > currentTime
+                                        if (!hasRunningTask && !hasNextSchedule) {
+                                            ApplicationHookCore.getAlarmManager().scheduleDelayedExecutionWithRetry(
+                                                BaseModel.checkInterval.value?.toLong() ?: 180000L,
+                                                "跳过执行后的重新调度"
+                                            )
+                                        }
                                         return@newInstance
                                     }
 
                                     val currentUid = UserMap.currentUid
-                                    val targetUid = HookUtil.getUserId(classLoader)
+                                    val targetUid = UserSessionProvider.resolveUserId(
+                                        classLoader = classLoader,
+                                        retryCount = 1,
+                                        retryDelayMs = 100L
+                                    )
                                     
                                     if (targetUid == null || targetUid != currentUid) {
                                         Log.record(TAG, "用户切换或为空，重新登录")
@@ -555,7 +558,7 @@ class ApplicationHookEntry {
         @SuppressLint("UnspecifiedRegisterReceiverFlag")
         private fun registerBroadcastReceiver(context: Context) {
             try {
-                val appContext = context.applicationContext ?: context
+                val appContext = runCatching { context.applicationContext }.getOrNull() ?: context
 
                 if (!isMainProcess(appContext)) {
                     if (!broadcastReceiverSkipLogged) {
@@ -568,31 +571,25 @@ class ApplicationHookEntry {
 
                 val markerKey = "sesame_broadcast_receiver_registered"
                 val alreadyRegistered = XposedHelpers.getAdditionalInstanceField(appContext, markerKey) as? Boolean
-                if (alreadyRegistered == true) {
-                    return
+                if (alreadyRegistered != true && !broadcastReceiverRegistered) {
+                    val intentFilter = createIntentFilter()
+                    
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        appContext.registerReceiver(
+                            broadcastReceiverInstance,
+                            intentFilter,
+                            Context.RECEIVER_EXPORTED
+                        )
+                    } else {
+                        appContext.registerReceiver(broadcastReceiverInstance, intentFilter)
+                    }
+
+                    broadcastReceiverRegistered = true
+
+                    XposedHelpers.setAdditionalInstanceField(appContext, markerKey, true)
+                    
+                    Log.runtime(TAG, "hook registerBroadcastReceiver successfully")
                 }
-
-                if (broadcastReceiverRegistered) {
-                    return
-                }
-
-                val intentFilter = createIntentFilter()
-                
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    appContext.registerReceiver(
-                        broadcastReceiverInstance,
-                        intentFilter,
-                        Context.RECEIVER_EXPORTED
-                    )
-                } else {
-                    appContext.registerReceiver(broadcastReceiverInstance, intentFilter)
-                }
-
-                broadcastReceiverRegistered = true
-
-                XposedHelpers.setAdditionalInstanceField(appContext, markerKey, true)
-                
-                Log.runtime(TAG, "hook registerBroadcastReceiver successfully")
             } catch (th: Throwable) {
                 Log.runtime(TAG, "hook registerBroadcastReceiver err:")
                 Log.printStackTrace(TAG, th)
@@ -619,7 +616,7 @@ class ApplicationHookEntry {
     class AlipayBroadcastReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             try {
-                val appContext = context.applicationContext ?: context
+                val appContext = runCatching { context.applicationContext }.getOrNull() ?: context
                 if (!isMainProcess(appContext)) {
                     return
                 }
@@ -660,11 +657,7 @@ class ApplicationHookEntry {
                         )
 
                         EntryDispatcher.submitDebounced("execute") {
-                            if (ApplicationHookConstants.init) {
-                                ApplicationHookCore.execHandler()
-                            } else {
-                                ApplicationHookCore.initHandler(true)
-                            }
+                            ApplicationHookCore.execOrInit()
                         }
                     }
                     
