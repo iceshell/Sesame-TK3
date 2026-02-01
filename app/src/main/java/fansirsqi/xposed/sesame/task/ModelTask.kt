@@ -148,7 +148,7 @@ abstract class ModelTask : Model() {
         val childId = childTask.id
         
         // 取消已存在的同ID任务
-        childTaskMap[childId]?.cancel()
+        childTaskMap[childId]?.cancel(ChildModelTask.CancelReason.REPLACED)
         
         // 设置父任务引用
         childTask.modelTask = this
@@ -167,7 +167,9 @@ abstract class ModelTask : Model() {
                 if (e.javaClass.name.contains("CancellationException") || 
                     e.message?.contains("cancelled") == true ||
                     e.message?.contains("StandaloneCoroutine") == true) {
-                    Log.runtime("子任务协程被取消: $taskName-$childId - ${e.message}")
+                    if (!childTask.isReplacedCancellation()) {
+                        Log.runtime("子任务协程被取消: $taskName-$childId - ${e.message}")
+                    }
                     // 协程取消是正常现象，不需要打印堆栈
                 } else {
                     Log.printStackTrace("子任务执行异常1: $taskName-$childId", e)
@@ -206,7 +208,7 @@ abstract class ModelTask : Model() {
      */
     suspend fun removeChildTask(childId: String) {
         childTaskMap[childId]?.let { childTask ->
-            childTask.cancel()
+            childTask.cancel(ChildModelTask.CancelReason.STOPPED)
             childTaskMap.remove(childId)
         }
     }
@@ -312,7 +314,7 @@ abstract class ModelTask : Model() {
         // 取消所有子任务
         childTaskMap.values.forEach { childTask ->
             try {
-                childTask.cancel()
+                childTask.cancel(ChildModelTask.CancelReason.STOPPED)
             } catch (e: Exception) {
                 Log.printStackTrace("取消子任务异常", e)
             }
@@ -403,6 +405,15 @@ abstract class ModelTask : Model() {
         var isCancelled: Boolean = false
             private set
 
+        /** 取消原因：用于区分“替换任务”这种正常取消，避免刷屏 */
+        @Volatile
+        private var cancelReason: CancelReason = CancelReason.STOPPED
+
+        enum class CancelReason {
+            STOPPED,
+            REPLACED
+        }
+
         // 兼容构造函数
         constructor(id: String, runnable: Runnable?) : this(
             id = if (id.isNullOrEmpty()) "task-${System.currentTimeMillis()}" else id,
@@ -446,7 +457,9 @@ abstract class ModelTask : Model() {
             } catch (e: CancellationException) {
                 // 任务被取消是正常的协程控制流程，记录日志但不需要打印堆栈
                 val parentTaskName = modelTask?.getName() ?: "未知任务"
-                Log.runtime("子任务被取消: $parentTaskName-$id")
+                if (!isReplacedCancellation()) {
+                    Log.runtime("子任务被取消: $parentTaskName-$id")
+                }
                 // 不重新抛出异常，让任务正常结束
                 return
             } catch (e: Exception) {
@@ -455,7 +468,9 @@ abstract class ModelTask : Model() {
                 if (e.javaClass.name.contains("CancellationException") || 
                     e.message?.contains("cancelled") == true ||
                     e.message?.contains("StandaloneCoroutine") == true) {
-                    Log.runtime("子任务协程被取消: $parentTaskName-$id - ${e.message}")
+                    if (!isReplacedCancellation()) {
+                        Log.runtime("子任务协程被取消: $parentTaskName-$id - ${e.message}")
+                    }
                     // 协程取消是正常现象，不需要打印堆栈
                     return
                 } else {
@@ -496,8 +511,17 @@ abstract class ModelTask : Model() {
          * 取消子任务
          */
         fun cancel() {
+            cancel(CancelReason.STOPPED)
+        }
+
+        fun cancel(reason: CancelReason) {
+            cancelReason = reason
             isCancelled = true
             job?.cancel()
+        }
+
+        fun isReplacedCancellation(): Boolean {
+            return cancelReason == CancelReason.REPLACED
         }
     }
 
