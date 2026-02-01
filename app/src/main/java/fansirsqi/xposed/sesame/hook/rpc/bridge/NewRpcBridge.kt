@@ -48,7 +48,7 @@ class NewRpcBridge : RpcBridge {
     private val maxErrorCount = AtomicInteger(0)
     private val setMaxErrorCount: Int = BaseModel.setMaxErrorCount.value ?: 10
 
-    private val errorMark = arrayListOf("1004", "1009", "2000", "46", "48")
+    private val errorMark = arrayListOf("1004", "46", "48")
     private val errorStringMark = arrayListOf("繁忙", "拒绝", "网络不可用", "重试")
 
     // 需要屏蔽错误日志的RPC方法列表
@@ -347,7 +347,12 @@ class NewRpcBridge : RpcBridge {
 
                         if (errorCode == "1009") {
                             maxErrorCount.set(0)
-                            if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
+                            val wasOffline = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline
+                            val cooldownMs = maxOf(
+                                BaseModel.checkInterval.value?.toLong() ?: 180000L,
+                                180000L
+                            )
+                            if (!wasOffline) {
                                 Notify.updateStatusText("需要验证后继续执行")
                                 if (BaseModel.errNotify.value == true &&
                                     shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
@@ -358,12 +363,64 @@ class NewRpcBridge : RpcBridge {
                                     )
                                 }
                             }
+
+                            if (!wasOffline) {
+                                fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
+                            }
+
+                            val shouldTryRelogin =
+                                BaseModel.timeoutRestart.value == true &&
+                                    shouldNotifyNow(lastReloginAtMs, reloginIntervalMs)
+                            if (!wasOffline && shouldTryRelogin) {
+                                Log.record(TAG, "尝试重新登录")
+                                fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
+                            }
                             logNullResponse(rpcEntity, "需要验证: $errorCode/$errorMessage", count)
                             return null
                         }
 
+                        if (errorCode == "2000" && errorMessage.contains("登录超时")) {
+                            maxErrorCount.set(0)
+                            val wasOffline = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline
+                            val cooldownMs = maxOf(
+                                BaseModel.checkInterval.value?.toLong() ?: 180000L,
+                                180000L
+                            )
+                            if (!wasOffline) {
+                                Notify.updateStatusText("登录超时")
+                                if (BaseModel.errNotify.value == true &&
+                                    shouldNotifyNow(lastErrorNotifyAtMs, errorNotifyIntervalMs)
+                                ) {
+                                    Notify.sendErrorNotification(
+                                        "${TimeUtil.getTimeStr()} | 登录超时",
+                                        response
+                                    )
+                                }
+                            }
+
+                            if (!wasOffline) {
+                                fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
+                            }
+
+                            val shouldTryRelogin =
+                                BaseModel.timeoutRestart.value == true &&
+                                    shouldNotifyNow(lastReloginAtMs, reloginIntervalMs)
+                            if (!wasOffline && shouldTryRelogin) {
+                                Log.record(TAG, "尝试重新登录")
+                                fansirsqi.xposed.sesame.hook.ApplicationHookUtils.reLoginByBroadcast()
+                            }
+
+                            logNullResponse(rpcEntity, "登录超时: $errorCode/$errorMessage", count)
+                            return null
+                        }
+
                         if (errorMark.contains(errorCode) || errorStringMark.contains(errorMessage)) {
-                            val currentErrorCount = maxErrorCount.incrementAndGet()
+                            val shouldCountError = shouldShowErrorLog(methodName)
+                            val currentErrorCount = if (shouldCountError) {
+                                maxErrorCount.incrementAndGet()
+                            } else {
+                                0
+                            }
                             if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
                                 var enteredOffline = false
                                 if (currentErrorCount > setMaxErrorCount) {
