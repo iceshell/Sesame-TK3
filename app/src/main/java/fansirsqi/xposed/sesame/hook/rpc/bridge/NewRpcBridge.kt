@@ -83,6 +83,21 @@ class NewRpcBridge : RpcBridge {
         )
     }
 
+    private fun computeRetryDelayMs(retryInterval: Int, attempt: Int): Long {
+        val baseMs = when {
+            retryInterval < 0 -> (600L + RandomUtil.delay().toLong())
+            retryInterval > 0 -> retryInterval.toLong()
+            else -> (600L + RandomUtil.delay().toLong())
+        }
+
+        val errorExp = maxErrorCount.get().coerceAtLeast(0).coerceAtMost(4)
+        val attemptExp = (attempt - 1).coerceAtLeast(0).coerceAtMost(2)
+        val totalExp = (errorExp + attemptExp).coerceAtMost(5)
+        val factor = 1L shl totalExp
+
+        return minOf(baseMs * factor, 15000L)
+    }
+
     private fun handleAuthLikeError(
         rpcEntity: RpcEntity,
         methodName: String?,
@@ -271,7 +286,7 @@ class NewRpcBridge : RpcBridge {
 
         try {
             var count = 0
-            do {
+            requestLoop@ do {
                 count++
                 try {
                     val requestMethod = rpcEntity.requestMethod ?: run {
@@ -380,6 +395,10 @@ class NewRpcBridge : RpcBridge {
 
                     if (!rpcEntity.hasResult) {
                         logNullResponse(rpcEntity, "无响应结果", count)
+                        if (count < tryCount) {
+                            CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
+                            continue@requestLoop
+                        }
                         return null
                     }
 
@@ -465,6 +484,10 @@ class NewRpcBridge : RpcBridge {
                             }
 
                             logNullResponse(rpcEntity, "网络错误: $errorCode/$errorMessage", count)
+                            if (count < tryCount) {
+                                CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
+                                continue@requestLoop
+                            }
                             return null
                         }
                         return rpcEntity
@@ -476,9 +499,8 @@ class NewRpcBridge : RpcBridge {
                         Log.printStackTrace(e)
                     }
 
-                    when {
-                        retryInterval < 0 -> CoroutineUtils.sleepCompat((600 + RandomUtil.delay()).toLong())
-                        retryInterval > 0 -> CoroutineUtils.sleepCompat(retryInterval.toLong())
+                    if (count < tryCount) {
+                        CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
                     }
                 } catch (t: Throwable) {
                     Log.error(
@@ -486,9 +508,9 @@ class NewRpcBridge : RpcBridge {
                         "new rpc request | id: ${rpcEntity.hashCode()} | method: ${rpcEntity.requestMethod} err:"
                     )
                     Log.printStackTrace(t)
-                    when {
-                        retryInterval < 0 -> CoroutineUtils.sleepCompat((600 + RandomUtil.delay()).toLong())
-                        retryInterval > 0 -> CoroutineUtils.sleepCompat(retryInterval.toLong())
+
+                    if (count < tryCount) {
+                        CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
                     }
                 }
             } while (count < tryCount)
