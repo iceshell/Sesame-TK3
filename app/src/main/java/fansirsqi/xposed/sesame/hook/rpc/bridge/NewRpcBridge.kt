@@ -88,7 +88,7 @@ class NewRpcBridge : RpcBridge {
         methodName: String?,
         statusText: String,
         notifyTitle: String,
-        response: String,
+        response: String?,
         reason: String,
         count: Int
     ): RpcEntity? {
@@ -107,7 +107,7 @@ class NewRpcBridge : RpcBridge {
             ) {
                 Notify.sendErrorNotification(
                     "${TimeUtil.getTimeStr()} | $notifyTitle",
-                    response
+                    response.orEmpty()
                 )
             }
         }
