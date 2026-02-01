@@ -422,13 +422,13 @@ class NewRpcBridge : RpcBridge {
                         }
 
                         if (errorMark.contains(errorCode) || errorStringMark.contains(errorMessage)) {
-                            val shouldCountError = shouldShowErrorLog(methodName)
-                            val currentErrorCount = if (shouldCountError) {
+                            val shouldHandleRecovery = shouldShowErrorLog(methodName)
+                            val currentErrorCount = if (shouldHandleRecovery) {
                                 maxErrorCount.incrementAndGet()
                             } else {
                                 0
                             }
-                            if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
+                            if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline && shouldHandleRecovery) {
                                 var enteredOffline = false
                                 if (currentErrorCount > setMaxErrorCount) {
                                     fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(
