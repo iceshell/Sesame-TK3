@@ -30,7 +30,7 @@ interface RpcBridge {
      */
     fun requestString(method: String?, data: String?): String? {
         if (method == null || data == null) return null
-        return requestString(method, data, 3, 1500)
+        return requestString(method, data, 3, -1)
     }
 
     /**
@@ -43,7 +43,7 @@ interface RpcBridge {
      */
     fun requestString(method: String?, data: String?, relation: String?): String? {
         if (method == null || data == null) return null
-        return requestString(method, data, relation ?: "", 3, 1500)
+        return requestString(method, data, relation ?: "", 3, -1)
     }
 
     fun requestString(method: String?, data: String?, appName: String?, methodName: String?, facadeName: String?): String? {

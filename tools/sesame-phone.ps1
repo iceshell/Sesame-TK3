@@ -97,6 +97,122 @@ function New-StringFromCodePoints {
     return -join ($CodePoints | ForEach-Object { [char]$_ })
 }
 
+function Copy-RemoteTextFileRobust {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RemotePath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$LocalPath,
+
+        [int]$TimeoutSec = 12,
+
+        [int]$FallbackTimeoutSec = 10
+    )
+
+    try {
+        $fullLocalPath = $LocalPath
+        try {
+            $fullLocalPath = [System.IO.Path]::GetFullPath($LocalPath)
+        } catch {
+            $fullLocalPath = $LocalPath
+        }
+
+        $parent = Split-Path -Parent $fullLocalPath
+        if (-not [string]::IsNullOrWhiteSpace($parent)) {
+            New-Item -ItemType Directory -Force -Path $parent | Out-Null
+        }
+
+        Write-Output ("[regress] pull: {0}" -f $RemotePath)
+
+        $pullOk = $false
+        try {
+            $proc = Start-Process -FilePath "adb" -ArgumentList @("pull", $RemotePath, $fullLocalPath) -NoNewWindow -PassThru
+            if ($proc.WaitForExit($TimeoutSec * 1000)) {
+                $pullOk = ($proc.ExitCode -eq 0)
+            } else {
+                try { $proc.Kill() } catch { }
+                $pullOk = $false
+            }
+        } catch {
+            $pullOk = $false
+        }
+
+        if ($pullOk) {
+            $checkPath = $fullLocalPath
+            $len = 0
+            for ($i = 0; $i -lt 5; $i++) {
+                try {
+                    if (Test-Path -LiteralPath $checkPath) {
+                        $len = (Get-Item -LiteralPath $checkPath).Length
+                    }
+                } catch {
+                    $len = 0
+                }
+
+                if ($len -gt 0) {
+                    return
+                }
+                Start-Sleep -Milliseconds 120
+            }
+        }
+
+        $existingLen = 0
+        try {
+            if (Test-Path -LiteralPath $fullLocalPath) {
+                $existingLen = (Get-Item -LiteralPath $fullLocalPath).Length
+            }
+        } catch {
+            $existingLen = 0
+        }
+
+        Write-Output ("[regress] pull fallback(cat): {0}" -f $RemotePath)
+        $tmpOut = [System.IO.Path]::GetTempFileName()
+        $tmpErr = [System.IO.Path]::GetTempFileName()
+        try {
+            $catProc = Start-Process -FilePath "adb" -ArgumentList @("shell", "sh", "-c", "cat '$RemotePath' 2>/dev/null") -NoNewWindow -PassThru -RedirectStandardOutput $tmpOut -RedirectStandardError $tmpErr
+            if (-not $catProc.WaitForExit($FallbackTimeoutSec * 1000)) {
+                try { $catProc.Kill() } catch { }
+            }
+        } catch {
+        }
+
+        try {
+            $tmpLen = 0
+            if (Test-Path -LiteralPath $tmpOut) {
+                $tmpLen = (Get-Item -LiteralPath $tmpOut).Length
+            }
+
+            if ($tmpLen -gt 0) {
+                $lines = Get-Content -Path $tmpOut -Encoding utf8
+                [System.IO.File]::WriteAllLines($fullLocalPath, $lines, $utf8)
+            } else {
+                if (-not (Test-Path -LiteralPath $fullLocalPath) -and ($existingLen -le 0)) {
+                    New-Item -ItemType File -Force -Path $fullLocalPath | Out-Null
+                }
+            }
+        } catch {
+            if (-not (Test-Path -LiteralPath $fullLocalPath) -and ($existingLen -le 0)) {
+                try { New-Item -ItemType File -Force -Path $fullLocalPath | Out-Null } catch { }
+            }
+        } finally {
+            try { Remove-Item -Force $tmpOut -ErrorAction SilentlyContinue } catch { }
+            try { Remove-Item -Force $tmpErr -ErrorAction SilentlyContinue } catch { }
+        }
+    } catch {
+        try {
+            $fallbackPath = $LocalPath
+            try {
+                $fallbackPath = [System.IO.Path]::GetFullPath($LocalPath)
+            } catch {
+                $fallbackPath = $LocalPath
+            }
+            New-Item -ItemType File -Force -Path $fallbackPath | Out-Null
+        } catch {
+        }
+    }
+}
+
 function Write-GrepSummary {
     param(
         [Parameter(Mandatory = $true)]
@@ -216,6 +332,9 @@ switch ($Command) {
     'regress' {
         $runFolder = New-RunFolder
 
+        Write-Output ("[regress] script build: 20260202-1426")
+        Write-Output ("[regress] run folder: {0}" -f $runFolder)
+
         & adb logcat -c
 
         Clear-RemoteLogs -RemoteRoot $RemoteRoot
@@ -243,14 +362,28 @@ switch ($Command) {
         }
         Start-Sleep -Seconds $WaitAfterExecuteSec
 
-        & adb pull "$RemoteRoot/log/runtime.log" (Join-Path $runFolder 'runtime.log')
-        & adb pull "$RemoteRoot/log/record.log" (Join-Path $runFolder 'record.log')
-        & adb pull "$RemoteRoot/log/error.log" (Join-Path $runFolder 'error.log')
-        & adb pull "$RemoteRoot/config/DataStore.json" (Join-Path $runFolder 'DataStore.json')
-        & adb pull "$RemoteRoot/ModuleStatus.json" (Join-Path $runFolder 'ModuleStatus.json')
+        Write-Output "[regress] collecting files..."
+        Copy-RemoteTextFileRobust -RemotePath "$RemoteRoot/log/runtime.log" -LocalPath (Join-Path $runFolder 'runtime.log')
+        Write-Output "[regress] collected: runtime.log"
+        Copy-RemoteTextFileRobust -RemotePath "$RemoteRoot/log/record.log" -LocalPath (Join-Path $runFolder 'record.log')
+        Write-Output "[regress] collected: record.log"
+        Copy-RemoteTextFileRobust -RemotePath "$RemoteRoot/log/error.log" -LocalPath (Join-Path $runFolder 'error.log')
+        Write-Output "[regress] collected: error.log"
+        Copy-RemoteTextFileRobust -RemotePath "$RemoteRoot/config/DataStore.json" -LocalPath (Join-Path $runFolder 'DataStore.json')
+        Write-Output "[regress] collected: DataStore.json"
+        Copy-RemoteTextFileRobust -RemotePath "$RemoteRoot/ModuleStatus.json" -LocalPath (Join-Path $runFolder 'ModuleStatus.json')
+        Write-Output "[regress] collected: ModuleStatus.json"
 
+        Write-Output "[regress] dump logcat..."
         $logcatFile = Join-Path $runFolder 'logcat.txt'
-        & adb logcat -d | Out-File -FilePath $logcatFile -Encoding utf8
+        try {
+            $logcatProc = Start-Process -FilePath "adb" -ArgumentList @("logcat", "-d") -NoNewWindow -PassThru -RedirectStandardOutput $logcatFile -RedirectStandardError ([System.IO.Path]::GetTempFileName())
+            if (-not $logcatProc.WaitForExit(15000)) {
+                try { $logcatProc.Kill() } catch { }
+            }
+        } catch {
+            try { New-Item -ItemType File -Force -Path $logcatFile | Out-Null } catch { }
+        }
 
         $runtimeFile = Join-Path $runFolder 'runtime.log'
         $recordFile = Join-Path $runFolder 'record.log'

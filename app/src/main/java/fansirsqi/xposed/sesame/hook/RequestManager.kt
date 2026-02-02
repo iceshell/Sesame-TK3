@@ -85,7 +85,7 @@ object RequestManager {
         if (cached != null) return cached
         
         val rpcBridge = getRpcBridge() ?: return ""
-        val result = rpcBridge.requestString(rpcEntity, 3, 1200)
+        val result = rpcBridge.requestString(rpcEntity, 3, -1)
         val checkedResult = checkResult(result, rpcEntity.methodName)
         
         // 缓存成功的响应
