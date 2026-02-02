@@ -13,6 +13,7 @@ import fansirsqi.xposed.sesame.hook.rpc.bridge.RpcVersion
 import fansirsqi.xposed.sesame.hook.server.ModuleHttpServer
 import fansirsqi.xposed.sesame.model.BaseModel
 import fansirsqi.xposed.sesame.task.BaseTask
+import fansirsqi.xposed.sesame.util.Log
 import io.github.libxposed.api.XposedInterface
 import java.lang.reflect.Method
 import java.util.Calendar
@@ -129,14 +130,40 @@ object ApplicationHookConstants {
     var offlineReason: String? = null
 
     @JvmStatic
+    val offlineEnterCount: AtomicInteger = AtomicInteger(0)
+
+    @JvmStatic
+    val offlineExitCount: AtomicInteger = AtomicInteger(0)
+
+    @Volatile
+    @JvmStatic
+    var lastOfflineEnterAtMs: Long = 0L
+
+    @Volatile
+    @JvmStatic
+    var lastOfflineExitAtMs: Long = 0L
+
+    @Volatile
+    @JvmStatic
+    var lastOfflineEnterReason: String? = null
+
+    @JvmStatic
     fun enterOffline(cooldownMs: Long) {
         enterOffline(cooldownMs, null)
     }
 
     @JvmStatic
     fun enterOffline(cooldownMs: Long, reason: String?) {
+        val wasOffline = offline
         offline = true
         offlineReason = reason
+
+        if (!wasOffline) {
+            offlineEnterCount.incrementAndGet()
+            lastOfflineEnterAtMs = System.currentTimeMillis()
+            lastOfflineEnterReason = reason
+        }
+
         offlineUntilMs = if (cooldownMs > 0) {
             System.currentTimeMillis() + cooldownMs
         } else {
@@ -154,9 +181,19 @@ object ApplicationHookConstants {
 
     @JvmStatic
     fun exitOffline() {
+        val now = System.currentTimeMillis()
+        val enterAtMs = lastOfflineEnterAtMs
+        val durationMs = if (enterAtMs > 0L) (now - enterAtMs).coerceAtLeast(0L) else -1L
+        val enterReason = offlineReason
+
         offline = false
         offlineUntilMs = 0L
         offlineReason = null
+
+        offlineExitCount.incrementAndGet()
+        lastOfflineExitAtMs = now
+
+        Log.record(TAG, "exitOffline: durationMs=$durationMs reason=${enterReason ?: "null"}")
     }
 
     @JvmStatic
