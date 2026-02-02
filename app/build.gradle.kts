@@ -64,6 +64,9 @@ var isCIBuild: Boolean = System.getenv("CI").toBoolean()
 
 val versionNameBaseDefault = "0.6.1"
 
+val rcCounterFile = layout.buildDirectory.file("rc/rc-counter.properties")
+val releaseRcTextFile = layout.buildDirectory.file("rc/release-rc.txt")
+
 abstract class GenerateReleaseRcTask : DefaultTask() {
     @get:Input
     abstract val versionNameBase: Property<String>
@@ -129,6 +132,21 @@ fun computeVersionCode(versionNameBase: String): Int {
     return major * 1_000_000 + minor * 1_000 + patch
 }
 
+fun computeNextReleaseRc(versionNameBase: String, counterFile: java.io.File): Int {
+    return runCatching {
+        val props = Properties()
+        if (counterFile.isFile) {
+            counterFile.inputStream().use { props.load(it) }
+        }
+
+        val storedVersion = props.getProperty("versionNameBase", "")
+        val lastRc = props.getProperty("lastRc", "0").toIntOrNull() ?: 0
+        if (storedVersion == versionNameBase) lastRc + 1 else 1
+    }.getOrElse {
+        1
+    }
+}
+
 configurations.matching { it.name == "composeMappingProducerClasspath" }.configureEach {
     resolutionStrategy.eachDependency {
         if (requested.group == "org.jetbrains.kotlin" && requested.name == "compose-group-mapping") {
@@ -177,8 +195,18 @@ android {
 
         val buildTag = "release"
         val versionNameBase = providers.gradleProperty("versionNameBase").orElse(versionNameBaseDefault).get()
-        versionName = versionNameBase
-        versionCode = computeVersionCode(versionNameBase)
+
+        val isReleaseRequested = gradle.startParameter.taskNames.any { it.contains("release", ignoreCase = true) }
+        val baseVersionCode = computeVersionCode(versionNameBase) * 100
+        if (isReleaseRequested) {
+            val nextRc = computeNextReleaseRc(versionNameBase, rcCounterFile.get().asFile).coerceIn(0, 99)
+            val rcText = nextRc.toString().padStart(2, '0')
+            versionName = "$versionNameBase-rc$rcText"
+            versionCode = baseVersionCode + nextRc
+        } else {
+            versionName = versionNameBase
+            versionCode = baseVersionCode
+        }
 
         buildConfigField("String", "BUILD_DATE", "\"$buildDate\"")
         buildConfigField("String", "BUILD_TIME", "\"$buildTime\"")
@@ -257,9 +285,6 @@ android {
         }
     }
 }
-
-val rcCounterFile = layout.buildDirectory.file("rc/rc-counter.properties")
-val releaseRcTextFile = layout.buildDirectory.file("rc/release-rc.txt")
 
 tasks.register<GenerateReleaseRcTask>("generateReleaseRc") {
     versionNameBase.set(providers.gradleProperty("versionNameBase").orElse(versionNameBaseDefault))
