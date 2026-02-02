@@ -17,6 +17,8 @@ import fansirsqi.xposed.sesame.util.Log
 import io.github.libxposed.api.XposedInterface
 import java.lang.reflect.Method
 import java.util.Calendar
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 
@@ -243,14 +245,48 @@ object ApplicationHookConstants {
         val isBackupAlarm: Boolean = false
     )
 
-    private val pendingTrigger = AtomicReference<TriggerInfo?>(null)
+    private val alarmTriggerOrderQueue = ConcurrentLinkedQueue<Int>()
+    private val alarmTriggersByRequestCode = ConcurrentHashMap<Int, TriggerInfo>()
+    private val pendingNonAlarmTrigger = AtomicReference<TriggerInfo?>(null)
 
     @JvmStatic
     fun setPendingTrigger(triggerInfo: TriggerInfo) {
+        if (triggerInfo.source == TriggerSource.ALARM) {
+            val requestCode = triggerInfo.requestCode
+            if (requestCode >= 0) {
+                while (true) {
+                    val current = alarmTriggersByRequestCode[requestCode]
+                    if (current == null) {
+                        val prev = alarmTriggersByRequestCode.putIfAbsent(requestCode, triggerInfo)
+                        if (prev == null) {
+                            alarmTriggerOrderQueue.add(requestCode)
+                            return
+                        }
+                        continue
+                    }
+
+                    val shouldReplace = current.isBackupAlarm && !triggerInfo.isBackupAlarm
+                    if (!shouldReplace) {
+                        return
+                    }
+
+                    val replaced = alarmTriggersByRequestCode.replace(requestCode, current, triggerInfo)
+                    if (replaced) {
+                        return
+                    }
+                }
+            }
+
+            val syntheticCode = (System.nanoTime() and 0x7FFFFFFF).toInt()
+            alarmTriggersByRequestCode[syntheticCode] = triggerInfo
+            alarmTriggerOrderQueue.add(syntheticCode)
+            return
+        }
+
         while (true) {
-            val current = pendingTrigger.get()
+            val current = pendingNonAlarmTrigger.get()
             if (current == null) {
-                if (pendingTrigger.compareAndSet(null, triggerInfo)) {
+                if (pendingNonAlarmTrigger.compareAndSet(null, triggerInfo)) {
                     return
                 }
                 continue
@@ -273,7 +309,7 @@ object ApplicationHookConstants {
                 return
             }
 
-            if (pendingTrigger.compareAndSet(current, triggerInfo)) {
+            if (pendingNonAlarmTrigger.compareAndSet(current, triggerInfo)) {
                 return
             }
         }
@@ -281,7 +317,20 @@ object ApplicationHookConstants {
 
     @JvmStatic
     fun consumePendingTrigger(): TriggerInfo? {
-        return pendingTrigger.getAndSet(null)
+        while (true) {
+            val requestCode = alarmTriggerOrderQueue.poll() ?: break
+            val alarmTrigger = alarmTriggersByRequestCode.remove(requestCode)
+            if (alarmTrigger != null) {
+                return alarmTrigger
+            }
+        }
+
+        return pendingNonAlarmTrigger.getAndSet(null)
+    }
+
+    @JvmStatic
+    fun hasPendingAlarmTriggers(): Boolean {
+        return alarmTriggerOrderQueue.isNotEmpty() || alarmTriggersByRequestCode.isNotEmpty()
     }
     
     // 重登录计数

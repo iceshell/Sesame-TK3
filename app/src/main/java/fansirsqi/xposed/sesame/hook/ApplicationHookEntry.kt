@@ -500,6 +500,17 @@ class ApplicationHookEntry {
                                     Log.printStackTrace(TAG, e)
                                 } finally {
                                     AlarmScheduler.releaseWakeLock()
+
+                                    if (ApplicationHookConstants.hasPendingAlarmTriggers()) {
+                                        ApplicationHookConstants.mainHandler?.postDelayed({
+                                            EntryDispatcher.submit("alarm_drain") {
+                                                ApplicationHookCore.execOrInit(
+                                                    forceInit = true,
+                                                    allowDeferWhenServiceNotReady = true
+                                                )
+                                            }
+                                        }, 200L)
+                                    }
                                 }
                             }
                             
@@ -606,6 +617,7 @@ class ApplicationHookEntry {
                 addAction("com.eg.android.AlipayGphone.sesame.reLogin")
                 addAction("com.eg.android.AlipayGphone.sesame.status")
                 addAction("com.eg.android.AlipayGphone.sesame.rpctest")
+                addCategory("fansirsqi.xposed.sesame.ALARM_CATEGORY")
             }
         }
     }
@@ -656,8 +668,17 @@ class ApplicationHookEntry {
                             )
                         )
 
-                        EntryDispatcher.submitDebounced("execute") {
-                            ApplicationHookCore.execOrInit()
+                        if (isAlarmTriggered) {
+                            EntryDispatcher.submit("execute_alarm") {
+                                ApplicationHookCore.execOrInit(
+                                    forceInit = true,
+                                    allowDeferWhenServiceNotReady = true
+                                )
+                            }
+                        } else {
+                            EntryDispatcher.submitDebounced("execute") {
+                                ApplicationHookCore.execOrInit()
+                            }
                         }
                     }
                     
@@ -708,14 +729,22 @@ class ApplicationHookEntry {
                     }
                     
                     else -> {
-                        // 处理闹钟相关的广播
-                        val alarmManager = ApplicationHookCore.getAlarmManager()
-                        if (alarmManager.isAlarmSchedulerAvailable) {
-                            val requestCode = intent.getIntExtra("request_code", -1)
-                            EntryDispatcher.submit("alarm_$requestCode") {
-                                alarmManager.handleAlarmTrigger(requestCode)
-                            }
-                            Log.record(TAG, "闹钟广播触发，已提交串行处理: AlarmTriggered_$requestCode")
+                        val requestCode = intent.getIntExtra("request_code", -1)
+                        val isBackupAlarm = intent.getBooleanExtra("is_backup_alarm", false)
+
+                        ApplicationHookConstants.setPendingTrigger(
+                            ApplicationHookConstants.TriggerInfo(
+                                source = ApplicationHookConstants.TriggerSource.ALARM,
+                                requestCode = requestCode,
+                                isBackupAlarm = isBackupAlarm
+                            )
+                        )
+
+                        EntryDispatcher.submit("execute_alarm") {
+                            ApplicationHookCore.execOrInit(
+                                forceInit = true,
+                                allowDeferWhenServiceNotReady = true
+                            )
                         }
                     }
                 }

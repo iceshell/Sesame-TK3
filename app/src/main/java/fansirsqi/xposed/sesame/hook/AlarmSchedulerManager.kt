@@ -135,9 +135,28 @@ class AlarmSchedulerManager {
      */
     fun handleAlarmTrigger(requestCode: Int) {
         executeWithAlarmScheduler("处理闹钟触发") { scheduler ->
-            scheduler.handleAlarmTrigger()
             scheduler.consumeAlarm(requestCode)
-            Log.record(ALARM_TAG, "✅ 闹钟触发处理完成: ID=$requestCode")
+
+            ApplicationHookConstants.setPendingTrigger(
+                ApplicationHookConstants.TriggerInfo(
+                    source = ApplicationHookConstants.TriggerSource.ALARM,
+                    requestCode = requestCode,
+                    isBackupAlarm = false
+                )
+            )
+
+            val triggerExec = Runnable {
+                ApplicationHookCore.execOrInit(
+                    forceInit = true,
+                    allowDeferWhenServiceNotReady = true
+                )
+            }
+            val posted = runCatching { mainHandler?.post(triggerExec) }.getOrNull() == true
+            if (!posted) {
+                runCatching { triggerExec.run() }
+            }
+
+            Log.record(ALARM_TAG, "✅ 闹钟触发处理完成(统一入口): ID=$requestCode")
         }
     }
 
