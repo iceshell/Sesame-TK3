@@ -194,7 +194,7 @@ class OldRpcBridge : RpcBridge {
 
         // 检查响应中的"memo"字段是否包含"系统繁忙"
         if (resultObject.optString("memo", "").contains("系统繁忙")) {
-            val cooldownMs = maxOf(BaseModel.checkInterval.value?.toLong() ?: 180000L, 180000L)
+            val cooldownMs = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.getOfflineCooldownMs()
             fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
             Notify.updateStatusText("系统繁忙，可能需要滑动验证")
             Log.record(TAG, "系统繁忙，可能需要滑动验证")
@@ -268,7 +268,7 @@ class OldRpcBridge : RpcBridge {
      */
     private fun handleLoginTimeout() {
         if (!fansirsqi.xposed.sesame.hook.ApplicationHookConstants.offline) {
-            val cooldownMs = maxOf(BaseModel.checkInterval.value?.toLong() ?: 180000L, 180000L)
+            val cooldownMs = fansirsqi.xposed.sesame.hook.ApplicationHookConstants.getOfflineCooldownMs()
             fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs)
             Notify.updateStatusText("登录超时")
             if (BaseModel.timeoutRestart.value == true) {

@@ -547,7 +547,7 @@ object ApplicationHookCore {
             val delayMillis = if (reLoginCount.get() < 5) {
                 reLoginCount.getAndIncrement() * 5000L
             } else {
-                maxOf(BaseModel.checkInterval.value?.toLong() ?: 180000L, 180_000)
+                ApplicationHookConstants.getOfflineCooldownMs()
             }
 
             // 使用统一的闹钟调度器

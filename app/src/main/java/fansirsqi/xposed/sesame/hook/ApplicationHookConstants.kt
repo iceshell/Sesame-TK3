@@ -11,12 +11,13 @@ import fansirsqi.xposed.sesame.hook.keepalive.AlipayComponentHelper
 import fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge
 import fansirsqi.xposed.sesame.hook.rpc.bridge.RpcVersion
 import fansirsqi.xposed.sesame.hook.server.ModuleHttpServer
+import fansirsqi.xposed.sesame.model.BaseModel
 import fansirsqi.xposed.sesame.task.BaseTask
 import io.github.libxposed.api.XposedInterface
 import java.lang.reflect.Method
 import java.util.Calendar
 import java.util.concurrent.atomic.AtomicInteger
- import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.atomic.AtomicReference
 
 /**
  * ApplicationHook 常量和静态字段
@@ -131,6 +132,14 @@ object ApplicationHookConstants {
         } else {
             0L
         }
+    }
+
+    @JvmStatic
+    fun getOfflineCooldownMs(): Long {
+        return maxOf(
+            BaseModel.checkInterval.value?.toLong() ?: 180000L,
+            180000L
+        )
     }
 
     @JvmStatic

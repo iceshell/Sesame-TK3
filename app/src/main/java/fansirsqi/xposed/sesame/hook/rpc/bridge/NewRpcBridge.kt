@@ -77,10 +77,7 @@ class NewRpcBridge : RpcBridge {
     private val reloginIntervalMs = RELOGIN_INTERVAL_MS
 
     private fun offlineCooldownMs(): Long {
-        return maxOf(
-            BaseModel.checkInterval.value?.toLong() ?: 180000L,
-            180000L
-        )
+        return fansirsqi.xposed.sesame.hook.ApplicationHookConstants.getOfflineCooldownMs()
     }
 
     private fun computeRetryDelayMs(retryInterval: Int, attempt: Int): Long {
