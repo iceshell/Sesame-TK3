@@ -127,14 +127,15 @@ class OldRpcBridge : RpcBridge {
         val args = rpcEntity.requestData
 
         val rpcMethod = method ?: return null
-        repeat(tryCount) {
+        val normalizedTryCount = tryCount.coerceAtLeast(1)
+        repeat(normalizedTryCount) {
             try {
                 RpcIntervalLimit.enterIntervalLimit(rpcMethod)
                 val response = invokeRpcCall(method, args)
                 return processResponse(rpcEntity, response, id, method, args, retryInterval)
             } catch (t: Throwable) {
                 handleError(rpcEntity, t, method, id, args)
-                if (it < tryCount - 1) {
+                if (it < normalizedTryCount - 1) {
                     CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, it + 1))
                 }
             }

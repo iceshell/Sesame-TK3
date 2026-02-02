@@ -254,6 +254,8 @@ class NewRpcBridge : RpcBridge {
             return null
         }
 
+        val normalizedTryCount = tryCount.coerceAtLeast(1)
+
         // 如果RPC组件未准备好，尝试重新初始化一次
         if (localNewRpcCallMethod == null) {
             Log.debug(TAG, "RPC方法为null，尝试重新初始化...")
@@ -392,7 +394,7 @@ class NewRpcBridge : RpcBridge {
 
                     if (!rpcEntity.hasResult) {
                         logNullResponse(rpcEntity, "无响应结果", count)
-                        if (count < tryCount) {
+                        if (count < normalizedTryCount) {
                             CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
                             continue@requestLoop
                         }
@@ -481,7 +483,7 @@ class NewRpcBridge : RpcBridge {
                             }
 
                             logNullResponse(rpcEntity, "网络错误: $errorCode/$errorMessage", count)
-                            if (count < tryCount) {
+                            if (count < normalizedTryCount) {
                                 CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
                                 continue@requestLoop
                             }
@@ -496,7 +498,7 @@ class NewRpcBridge : RpcBridge {
                         Log.printStackTrace(e)
                     }
 
-                    if (count < tryCount) {
+                    if (count < normalizedTryCount) {
                         CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
                     }
                 } catch (t: Throwable) {
@@ -506,13 +508,13 @@ class NewRpcBridge : RpcBridge {
                     )
                     Log.printStackTrace(t)
 
-                    if (count < tryCount) {
+                    if (count < normalizedTryCount) {
                         CoroutineUtils.sleepCompat(computeRetryDelayMs(retryInterval, count))
                     }
                 }
-            } while (count < tryCount)
+            } while (count < normalizedTryCount)
 
-            logNullResponse(rpcEntity, "重试次数耗尽", tryCount)
+            logNullResponse(rpcEntity, "重试次数耗尽", normalizedTryCount)
             return null
         } finally {
             // 仅在调试模式下打印堆栈
