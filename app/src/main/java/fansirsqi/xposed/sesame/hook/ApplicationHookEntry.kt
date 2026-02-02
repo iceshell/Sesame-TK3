@@ -617,7 +617,6 @@ class ApplicationHookEntry {
                 addAction("com.eg.android.AlipayGphone.sesame.reLogin")
                 addAction("com.eg.android.AlipayGphone.sesame.status")
                 addAction("com.eg.android.AlipayGphone.sesame.rpctest")
-                addCategory("fansirsqi.xposed.sesame.ALARM_CATEGORY")
             }
         }
     }

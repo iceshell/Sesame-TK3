@@ -313,22 +313,25 @@ object ApplicationHookCore {
 
                 // 检查service是否可用
                 val service = ApplicationHookConstants.service
+                val notifyContext = service ?: appContext
                 if (service == null) {
-                    Log.error(TAG, "initHandler: service为空，无法启动通知服务")
-                    Toast.show("服务未就绪，请重启支付宝")
-                    return false
+                    Log.error(TAG, "initHandler: service为空，通知能力将降级")
+                    Toast.show("服务未就绪，通知可能不可用")
                 }
 
-                Notify.start(service)
+                if (notifyContext != null) {
+                    Notify.start(notifyContext)
 
-                try {
-                    val pm = service.getSystemService(Context.POWER_SERVICE) as PowerManager
-                    val wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, service.javaClass.name)
-                    wakeLock.acquire(10 * 60 * 1000L) // 10分钟
-                    ApplicationHookConstants.setWakeLock(wakeLock)
-                } catch (t: Throwable) {
-                    Log.record(TAG, "唤醒锁申请失败:")
-                    Log.printStackTrace(t)
+                    try {
+                        val pm = notifyContext.getSystemService(Context.POWER_SERVICE) as PowerManager
+                        val wakeLockTag = service?.javaClass?.name ?: TAG
+                        val wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, wakeLockTag)
+                        wakeLock.acquire(10 * 60 * 1000L) // 10分钟
+                        ApplicationHookConstants.setWakeLock(wakeLock)
+                    } catch (t: Throwable) {
+                        Log.record(TAG, "唤醒锁申请失败:")
+                        Log.printStackTrace(t)
+                    }
                 }
 
                 setWakenAtTimeAlarm()
@@ -370,6 +373,7 @@ object ApplicationHookCore {
                 Log.record(TAG, "━━━━━━━━━━ 初始化完成 ━━━━━━━━━━")
                 Log.record(TAG, "✅ 芝麻粒-TK 加载成功✨")
                 Log.record(TAG, "[SESAME_TK_READY]")
+                Log.runtime(TAG, "[SESAME_TK_READY]")
                 Log.record(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                 Toast.show("芝麻粒-TK 加载成功✨")
             }
