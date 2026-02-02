@@ -557,7 +557,7 @@ object ApplicationHookCore {
                 setClassName(General.PACKAGE_NAME, General.CURRENT_USING_ACTIVITY)
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
             }
-            ApplicationHookConstants.enterOffline(delayMillis)
+            ApplicationHookConstants.enterOffline(delayMillis, "relogin")
             ApplicationHookConstants.appContext?.startActivity(intent)
         }
     }

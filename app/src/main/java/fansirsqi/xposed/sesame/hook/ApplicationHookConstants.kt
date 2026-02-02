@@ -124,9 +124,19 @@ object ApplicationHookConstants {
     @JvmStatic
     var offlineUntilMs: Long = 0L
 
+    @Volatile
+    @JvmStatic
+    var offlineReason: String? = null
+
     @JvmStatic
     fun enterOffline(cooldownMs: Long) {
+        enterOffline(cooldownMs, null)
+    }
+
+    @JvmStatic
+    fun enterOffline(cooldownMs: Long, reason: String?) {
         offline = true
+        offlineReason = reason
         offlineUntilMs = if (cooldownMs > 0) {
             System.currentTimeMillis() + cooldownMs
         } else {
@@ -146,6 +156,7 @@ object ApplicationHookConstants {
     fun exitOffline() {
         offline = false
         offlineUntilMs = 0L
+        offlineReason = null
     }
 
     @JvmStatic
