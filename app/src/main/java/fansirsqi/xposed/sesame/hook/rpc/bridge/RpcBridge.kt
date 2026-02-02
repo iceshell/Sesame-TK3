@@ -6,6 +6,11 @@ import fansirsqi.xposed.sesame.entity.RpcEntity
  * RPC桥接接口
  */
 interface RpcBridge {
+    companion object {
+        const val DEFAULT_TRY_COUNT: Int = 3
+        const val DEFAULT_RETRY_INTERVAL: Int = -1
+    }
+
     fun getVersion(): RpcVersion
     
     @Throws(Exception::class)
@@ -19,7 +24,7 @@ interface RpcBridge {
     /**
      * 发送RPC请求并获取响应字符串（使用默认重试参数）
      */
-    fun requestString(rpcEntity: RpcEntity): String? = requestString(rpcEntity, 3, -1)
+    fun requestString(rpcEntity: RpcEntity): String? = requestString(rpcEntity, DEFAULT_TRY_COUNT, DEFAULT_RETRY_INTERVAL)
 
     /**
      * 发送RPC请求并获取响应字符串（使用默认重试参数）
@@ -30,7 +35,7 @@ interface RpcBridge {
      */
     fun requestString(method: String?, data: String?): String? {
         if (method == null || data == null) return null
-        return requestString(method, data, 3, -1)
+        return requestString(method, data, DEFAULT_TRY_COUNT, DEFAULT_RETRY_INTERVAL)
     }
 
     /**
@@ -43,12 +48,12 @@ interface RpcBridge {
      */
     fun requestString(method: String?, data: String?, relation: String?): String? {
         if (method == null || data == null) return null
-        return requestString(method, data, relation ?: "", 3, -1)
+        return requestString(method, data, relation ?: "", DEFAULT_TRY_COUNT, DEFAULT_RETRY_INTERVAL)
     }
 
     fun requestString(method: String?, data: String?, appName: String?, methodName: String?, facadeName: String?): String? {
         if (method == null || data == null) return null
-        return requestString(RpcEntity(method, data, appName, methodName, facadeName), 3, -1)
+        return requestString(RpcEntity(method, data, appName, methodName, facadeName), DEFAULT_TRY_COUNT, DEFAULT_RETRY_INTERVAL)
     }
 
     fun requestString(method: String?, data: String?, tryCount: Int, retryInterval: Int): String? {
@@ -63,7 +68,7 @@ interface RpcBridge {
 
     fun requestObject(method: String?, data: String?, relation: String?): RpcEntity? {
         if (method == null || data == null) return null
-        return requestObject(method, data, relation ?: "", 3, -1)
+        return requestObject(method, data, relation ?: "", DEFAULT_TRY_COUNT, DEFAULT_RETRY_INTERVAL)
     }
 
     fun requestObject(method: String?, data: String?, tryCount: Int, retryInterval: Int): RpcEntity? {

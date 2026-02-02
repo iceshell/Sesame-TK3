@@ -17,9 +17,11 @@ import java.util.concurrent.atomic.AtomicLong
 object RequestManager {
     private val lastEmptyResponseLogAtMs = ConcurrentHashMap<String, Long>()
     private val lastRpcBridgeNullLogAtMs = AtomicLong(0)
+    private val lastRpcBlockedLogAtMs = AtomicLong(0)
 
     private const val EMPTY_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
     private const val RPC_BRIDGE_NULL_LOG_INTERVAL_MS: Long = 5_000L
+    private const val RPC_BLOCKED_LOG_INTERVAL_MS: Long = 5_000L
 
     private fun shouldLogEmptyResponse(method: String?): Boolean {
         val key = method ?: "unknown"
@@ -38,6 +40,17 @@ object RequestManager {
         val last = lastRpcBridgeNullLogAtMs.get()
         return if (last == 0L || now - last >= RPC_BRIDGE_NULL_LOG_INTERVAL_MS) {
             lastRpcBridgeNullLogAtMs.set(now)
+            true
+        } else {
+            false
+        }
+    }
+
+    private fun shouldLogRpcBlocked(): Boolean {
+        val now = System.currentTimeMillis()
+        val last = lastRpcBlockedLogAtMs.get()
+        return if (last == 0L || now - last >= RPC_BLOCKED_LOG_INTERVAL_MS) {
+            lastRpcBlockedLogAtMs.set(now)
             true
         } else {
             false
@@ -65,6 +78,11 @@ object RequestManager {
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     private fun getRpcBridge(): RpcBridge? {
         if (ApplicationHookConstants.shouldBlockRpc()) {
+            if (shouldLogRpcBlocked()) {
+                val untilMs = ApplicationHookConstants.offlineUntilMs
+                val remainMs = if (untilMs > 0L) (untilMs - System.currentTimeMillis()).coerceAtLeast(0L) else -1L
+                Log.runtime("RequestManager", "RPC 被离线冷却阻断 remainMs=$remainMs untilMs=$untilMs")
+            }
             return null
         }
 
@@ -85,7 +103,7 @@ object RequestManager {
         if (cached != null) return cached
         
         val rpcBridge = getRpcBridge() ?: return ""
-        val result = rpcBridge.requestString(rpcEntity, 3, -1)
+        val result = rpcBridge.requestString(rpcEntity, RpcBridge.DEFAULT_TRY_COUNT, RpcBridge.DEFAULT_RETRY_INTERVAL)
         val checkedResult = checkResult(result, rpcEntity.methodName)
         
         // 缓存成功的响应
