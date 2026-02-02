@@ -103,9 +103,13 @@ class AlarmScheduler(private val context: Context) {
         val intent = Intent(Actions.EXECUTE).apply {
             putExtra("alarm_triggered", true)
             putExtra("waken_at_time", true)
+            putExtra("request_code", requestCode)
+            putExtra("is_backup_alarm", false)
             if (!isMainAlarm) {
                 putExtra("waken_time", TimeUtil.getTimeStr(triggerAtMillis))
             }
+            setPackage(General.PACKAGE_NAME)
+            addCategory(Actions.ALARM_CATEGORY)
         }
         val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, pendingIntentFlags)
         return setAlarm(triggerAtMillis, pendingIntent, requestCode)
