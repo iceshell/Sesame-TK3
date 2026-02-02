@@ -385,13 +385,52 @@ switch ($Command) {
 
         Write-Output "[regress] dump logcat..."
         $logcatFile = Join-Path $runFolder 'logcat.txt'
+        $logcatFullFile = Join-Path $runFolder 'logcat_full.txt'
+
+        $targetPids = @()
         try {
-            $logcatProc = Start-Process -FilePath "adb" -ArgumentList @("logcat", "-d") -NoNewWindow -PassThru -RedirectStandardOutput $logcatFile -RedirectStandardError ([System.IO.Path]::GetTempFileName())
+            $alipayPidText = (& adb shell pidof com.eg.android.AlipayGphone 2>$null)
+            if ($alipayPidText) {
+                $targetPids += ($alipayPidText -split '\s+' | Where-Object { $_ -match '^\d+$' })
+            }
+        } catch {
+        }
+
+        try {
+            $modulePidText = (& adb shell pidof fansirsqi.xposed.sesame 2>$null)
+            if ($modulePidText) {
+                $targetPids += ($modulePidText -split '\s+' | Where-Object { $_ -match '^\d+$' })
+            }
+        } catch {
+        }
+
+        $targetPids = $targetPids | Select-Object -Unique
+
+        try {
+            $logcatProc = Start-Process -FilePath "adb" -ArgumentList @("logcat", "-d", "-v", "threadtime") -NoNewWindow -PassThru -RedirectStandardOutput $logcatFullFile -RedirectStandardError ([System.IO.Path]::GetTempFileName())
             if (-not $logcatProc.WaitForExit(15000)) {
                 try { $logcatProc.Kill() } catch { }
             }
         } catch {
-            try { New-Item -ItemType File -Force -Path $logcatFile | Out-Null } catch { }
+            try { New-Item -ItemType File -Force -Path $logcatFullFile | Out-Null } catch { }
+        }
+
+        try {
+            if ((Test-Path $logcatFullFile) -and ($targetPids.Count -gt 0)) {
+                $pidSet = @{}
+                foreach ($p in $targetPids) { $pidSet[$p] = $true }
+
+                $filtered = Get-Content -Path $logcatFullFile -Encoding utf8 | Where-Object {
+                    $m = [regex]::Match($_, '^\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\.\d+\s+(\d+)\s+')
+                    if (-not $m.Success) { return $false }
+                    return $pidSet.ContainsKey($m.Groups[1].Value)
+                }
+                [System.IO.File]::WriteAllLines($logcatFile, $filtered, $utf8)
+            } else {
+                Copy-Item -Force $logcatFullFile $logcatFile
+            }
+        } catch {
+            try { Copy-Item -Force $logcatFullFile $logcatFile } catch { }
         }
 
         $runtimeFile = Join-Path $runFolder 'runtime.log'
