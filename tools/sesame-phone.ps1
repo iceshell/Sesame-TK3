@@ -4,7 +4,7 @@ param(
     [string]$Command,
 
     [string]$RemoteRoot = '/sdcard/Android/media/com.eg.android.AlipayGphone/sesame-TK',
-    [string]$LocalRoot = (Join-Path $PSScriptRoot '..\log\phone'),
+    [string]$LocalRoot = '',
 
     [string]$LocalPath,
     [string]$RemotePath,
@@ -18,6 +18,15 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+
+if (-not $LocalRoot) {
+    $scriptRoot = $PSScriptRoot
+    if (-not $scriptRoot) {
+        $scriptRoot = (Get-Location).Path
+    }
+
+    $LocalRoot = (Join-Path $scriptRoot '..\log\phone')
+}
 
 $utf8 = [System.Text.UTF8Encoding]::new()
 $OutputEncoding = $utf8

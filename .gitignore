@@ -21,6 +21,8 @@ out/
 build/
 release/
 
+rc/rc-counter.properties
+
 # Legacy APK output (should not be committed)
 /app/apk/
 
