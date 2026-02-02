@@ -228,6 +228,15 @@ object ApplicationHookConstants {
         UNKNOWN
     }
 
+     private fun getTriggerPriority(source: TriggerSource): Int {
+         return when (source) {
+             TriggerSource.ALARM -> 3
+             TriggerSource.EXECUTE_BROADCAST -> 2
+             TriggerSource.ON_RESUME -> 1
+             TriggerSource.UNKNOWN -> 0
+         }
+     }
+
     data class TriggerInfo(
         val source: TriggerSource,
         val requestCode: Int = -1,
@@ -238,7 +247,36 @@ object ApplicationHookConstants {
 
     @JvmStatic
     fun setPendingTrigger(triggerInfo: TriggerInfo) {
-        pendingTrigger.set(triggerInfo)
+        while (true) {
+            val current = pendingTrigger.get()
+            if (current == null) {
+                if (pendingTrigger.compareAndSet(null, triggerInfo)) {
+                    return
+                }
+                continue
+            }
+
+            val currentPriority = getTriggerPriority(current.source)
+            val newPriority = getTriggerPriority(triggerInfo.source)
+
+            val shouldReplace = when {
+                newPriority > currentPriority -> true
+                newPriority < currentPriority -> false
+                current.source == TriggerSource.ALARM && triggerInfo.source == TriggerSource.ALARM -> {
+                    current.isBackupAlarm && !triggerInfo.isBackupAlarm
+                }
+                else -> true
+            }
+
+            if (!shouldReplace) {
+                Log.runtime(TAG, "忽略低优先级触发: new=${triggerInfo.source} current=${current.source}")
+                return
+            }
+
+            if (pendingTrigger.compareAndSet(current, triggerInfo)) {
+                return
+            }
+        }
     }
 
     @JvmStatic
