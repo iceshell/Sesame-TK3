@@ -7,14 +7,17 @@ import com.fasterxml.jackson.core.util.DefaultIndenter
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import java.io.File
 import java.nio.file.ClosedWatchServiceException
 import java.nio.file.StandardWatchEventKinds
@@ -23,9 +26,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import java.util.concurrent.locks.LockSupport
 import kotlin.concurrent.read
-import kotlin.concurrent.thread
 import kotlin.concurrent.write
-import com.fasterxml.jackson.databind.exc.MismatchedInputException
 
 object DataStore {
     private const val SAVE_DEBOUNCE_MS = 1_500L
@@ -41,6 +42,9 @@ object DataStore {
 
     @Volatile
     private var pendingSaveJob: Job? = null
+
+    @Volatile
+    private var watcherJob: Job? = null
 
     @Volatile
     private var watchService: WatchService? = null
@@ -201,44 +205,49 @@ object DataStore {
     fun shutdown() {
         pendingSaveJob?.cancel()
         pendingSaveJob = null
+        watcherJob?.cancel()
+        watcherJob = null
         saveScope.cancel()
         watchService?.close()
         watchService = null
     }
 
     private fun startWatcher() {
-        Thread {
+        watcherJob?.cancel()
+        watcherJob = GlobalThreadPools.execute(Dispatchers.IO) {
             var last = storageFile.lastModified()
-            while (true) {
+            while (isActive) {
                 LockSupport.parkNanos(1_000_000_000L)
-                if (Thread.interrupted()) return@Thread
                 val current = storageFile.lastModified()
                 if (current > last) {
                     last = current
                     loadFromDisk()
                 }
             }
-        }.apply { isDaemon = true }.start()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun startWatcherNio() = thread(isDaemon = true) {
-        val path = storageFile.toPath().parent
-        watchService?.close()
-        val watch = path.fileSystem.newWatchService()
-        watchService = watch
-        path.register(watch, StandardWatchEventKinds.ENTRY_MODIFY)
-        while (true) {
-            try {
-                val key = watch.take()
-                key.pollEvents().forEach {
-                    if (it.context().toString() == storageFile.name) loadFromDisk()
+    private fun startWatcherNio() {
+        watcherJob?.cancel()
+        watcherJob = GlobalThreadPools.execute(Dispatchers.IO) {
+            val path = storageFile.toPath().parent
+            watchService?.close()
+            val watch = path.fileSystem.newWatchService()
+            watchService = watch
+            path.register(watch, StandardWatchEventKinds.ENTRY_MODIFY)
+            while (isActive) {
+                try {
+                    val key = watch.take()
+                    key.pollEvents().forEach {
+                        if (it.context().toString() == storageFile.name) loadFromDisk()
+                    }
+                    key.reset()
+                } catch (_: ClosedWatchServiceException) {
+                    return@execute
+                } catch (_: InterruptedException) {
+                    return@execute
                 }
-                key.reset()
-            } catch (_: ClosedWatchServiceException) {
-                return@thread
-            } catch (_: InterruptedException) {
-                return@thread
             }
         }
     }

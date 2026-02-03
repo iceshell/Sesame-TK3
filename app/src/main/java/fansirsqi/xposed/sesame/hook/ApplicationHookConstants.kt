@@ -19,6 +19,7 @@ import java.lang.reflect.Method
 import java.util.Calendar
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
@@ -35,14 +36,46 @@ object ApplicationHookConstants {
 
     private val lastEntryAtMsByAction = ConcurrentHashMap<String, AtomicLong>()
 
-    private val entryExecutor = Executors.newSingleThreadExecutor { r ->
-        Thread(r, "SesameEntry").apply { isDaemon = true }
+    private val entryExecutorLock = Any()
+
+    @Volatile
+    private var entryExecutor: ExecutorService? = null
+
+    private fun newEntryExecutor(): ExecutorService {
+        return Executors.newSingleThreadExecutor { r ->
+            Thread(r, "SesameEntry").apply { isDaemon = true }
+        }
+    }
+
+    private fun getEntryExecutor(): ExecutorService {
+        val current = entryExecutor
+        if (current != null && !current.isShutdown && !current.isTerminated) {
+            return current
+        }
+        return synchronized(entryExecutorLock) {
+            val existing = entryExecutor
+            if (existing != null && !existing.isShutdown && !existing.isTerminated) {
+                existing
+            } else {
+                newEntryExecutor().also { entryExecutor = it }
+            }
+        }
+    }
+
+    @JvmStatic
+    fun shutdownEntryExecutor() {
+        val executorToShutdown = synchronized(entryExecutorLock) {
+            val existing = entryExecutor
+            entryExecutor = null
+            existing
+        }
+        executorToShutdown?.shutdown()
     }
 
     @JvmStatic
     fun submitEntry(action: String, block: () -> Unit) {
         try {
-            entryExecutor.submit {
+            getEntryExecutor().submit {
                 val thread = Thread.currentThread()
                 val oldName = thread.name
                 thread.name = "SesameEntry:$action"

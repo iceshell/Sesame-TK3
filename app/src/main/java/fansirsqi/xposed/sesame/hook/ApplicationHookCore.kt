@@ -434,6 +434,8 @@ object ApplicationHookCore {
                         ApplicationHookConstants.setRpcBridge(null)
                     }
                 }
+
+                ApplicationHookConstants.shutdownEntryExecutor()
             } else {
                 ModelTask.stopAllTask()
             }
