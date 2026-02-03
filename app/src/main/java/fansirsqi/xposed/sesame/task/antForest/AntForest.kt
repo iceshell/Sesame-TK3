@@ -3280,7 +3280,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 put("badForestTaskSet", badTaskSet) // 持久化
             }
 
-            while (true) {
+            while (!Thread.currentThread().isInterrupted) {
                 var doubleCheck = false // 标记是否需要再次检查任务
                 val s = AntForestRpcCall.queryTaskList() // 查询任务列表
                 val jo = JSONObject(s) // 解析响应为 JSON 对象
@@ -3848,7 +3848,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     Log.record(TAG, "赠送道具查询结果" + propListJo.getString("resultDesc"))
                 }
                 // 等待1.5秒后再继续
-            } while (true)
+            } while (!Thread.currentThread().isInterrupted)
         } catch (th: Throwable) {
             // 打印异常信息
             Log.runtime(TAG, "giveProp err")
@@ -3937,7 +3937,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                     Log.runtime(TAG, jo.getString("resultDesc"))
                 }
                 break // 完成一次巡护任务后退出循环
-            } while (true)
+            } while (!Thread.currentThread().isInterrupted)
         } catch (t: Throwable) {
             Log.runtime(TAG, "queryUserPatrol err")
             Log.printStackTrace(TAG, t) // 打印异常堆栈
@@ -3997,7 +3997,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
                 val materialType = materialInfo.optString("materialType", "image")
                 s = AntForestRpcCall.patrolKeepGoing(currentNode, patrolId, materialType)
                 GlobalThreadPools.sleepCompat(100) // 等待100毫秒后继续巡护
-            } while (true)
+            } while (!Thread.currentThread().isInterrupted)
         } catch (t: Throwable) {
             Log.runtime(TAG, "patrolKeepGoing err")
             Log.printStackTrace(TAG, t)
@@ -4134,7 +4134,7 @@ class AntForest : ModelTask(), EnergyCollectCallback {
     private fun combineAnimalPiece(animalId: Int) {
         var animalId = animalId
         try {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted) {
                 // 查询动物及碎片信息
                 val responseStr = AntForestRpcCall.queryAnimalAndPiece(animalId)
                 if (responseStr.isNullOrEmpty()) {

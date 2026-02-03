@@ -122,6 +122,9 @@ class ForestChouChouLe {
             var taskFailed = 0
 
             do {
+                if (Thread.currentThread().isInterrupted) {
+                    break
+                }
                 doublecheck = false
                 Log.record("$sceneName 第 ${loopCount + 1} 轮任务处理开始")
                 
@@ -217,8 +220,8 @@ class ForestChouChouLe {
                     Log.record("$sceneName 等待${loopDelay / 1000}秒后继续下一轮检查")
                     GlobalThreadPools.sleepCompat(loopDelay)
                 }
-                
-            } while (doublecheck && ++loopCount < MAX_LOOP)
+
+            } while (doublecheck && ++loopCount < MAX_LOOP && !Thread.currentThread().isInterrupted)
 
             if (taskCompleted > 0 || taskFailed > 0) {
                 Log.record(TAG, "$sceneName 📊 任务统计: 成功${taskCompleted}个, 失败${taskFailed}个")

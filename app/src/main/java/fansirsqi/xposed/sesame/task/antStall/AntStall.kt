@@ -1257,7 +1257,7 @@ class AntStall : ModelTask() {
                 return
             }
             record(TAG, "开始巡逻，寻找可贴罚单的好友...")
-            while (true) {
+            while (!Thread.currentThread().isInterrupted) {
                 try {
                     var str = AntStallRpcCall.nextTicketFriend()
                     var jsonObject = JsonUtil.parseJSONObjectOrNull(str) ?: return

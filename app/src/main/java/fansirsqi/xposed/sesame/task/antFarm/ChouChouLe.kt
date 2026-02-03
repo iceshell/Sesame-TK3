@@ -58,6 +58,9 @@ class ChouChouLe {
     private fun doChouchoule(drawType: String) {
         var doubleCheck: Boolean
         do {
+            if (Thread.currentThread().isInterrupted) {
+                break
+            }
             doubleCheck = false
             try {
                 val listResp = AntFarmRpcCall.chouchouleListFarmTask(drawType)
@@ -90,7 +93,7 @@ class ChouChouLe {
             } catch (t: Throwable) {
                 Log.printStackTrace("doChouchoule err:", t)
             }
-        } while (doubleCheck)
+        } while (doubleCheck && !Thread.currentThread().isInterrupted)
 
         if ("ipDraw" == drawType) {
             handleIpDraw()

@@ -205,7 +205,7 @@ class AntDodo : ModelTask() {
                 badTaskSet.addAll(presetBad)
                 DataStore.put("badDodoTaskList", badTaskSet)
             }
-            while (true) {
+            while (!Thread.currentThread().isInterrupted) {
                 var doubleCheck = false
                 val response = AntDodoRpcCall.taskList()
                 if (response.isNullOrEmpty()) {
@@ -282,7 +282,7 @@ class AntDodo : ModelTask() {
 
     private fun propList() {
         try {
-            th@ while (true) {
+            th@ while (!Thread.currentThread().isInterrupted) {
                 val response = AntDodoRpcCall.propList()
                 if (response.isNullOrEmpty()) {
                     Log.runtime(TAG, "propList返回空")
@@ -473,6 +473,9 @@ class AntDodo : ModelTask() {
             var hasMore: Boolean
             var pageStart = 0
             do {
+                if (Thread.currentThread().isInterrupted) {
+                    break
+                }
                 val bookListResponse = AntDodoRpcCall.queryBookList(9, pageStart)
                 if (bookListResponse.isNullOrEmpty()) {
                     Log.runtime(TAG, "queryBookList返回空")
@@ -505,7 +508,7 @@ class AntDodo : ModelTask() {
                     }
                     Log.forest("神奇物种🦕合成勋章[$ecosystem]")
                 }
-            } while (hasMore)
+            } while (hasMore && !Thread.currentThread().isInterrupted)
         } catch (t: Throwable) {
             Log.runtime(TAG, "generateBookMedal err:")
             Log.printStackTrace(TAG, t)

@@ -24,7 +24,9 @@ import fansirsqi.xposed.sesame.util.maps.IdMapManager
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import fansirsqi.xposed.sesame.util.ResChecker
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -718,7 +720,7 @@ class AntOcean : ModelTask() {
                 badTaskSet.addAll(presetBad)
                 DataStore.put("badOceanTaskSet", badTaskSet)
             }
-            while (true) {
+            while (currentCoroutineContext().isActive) {
                 var done = false
                 val s = AntOceanRpcCall.queryTaskList()
                 val jo = JsonUtil.parseJSONObjectOrNull(s) ?: break
@@ -783,7 +785,7 @@ class AntOcean : ModelTask() {
                             }
                         }
 
-                        GlobalThreadPools.sleepCompat(500)
+                        delay(500)
                     }
                 }
                 if (!done) break
@@ -925,7 +927,7 @@ class AntOcean : ModelTask() {
                     }
                     val str = "保护海洋生态🏖️[$itemName]#第${appliedTimes}次-获得奖励$award"
                     Log.forest(str)
-                    GlobalThreadPools.sleepCompat(300)
+                    delay(300)
                 } else {
                     Log.error("保护海洋生态🏖️[$itemName]#发生未知错误，停止申请")
                     break
@@ -934,7 +936,7 @@ class AntOcean : ModelTask() {
                 if (appliedTimes < 0) {
                     break
                 } else {
-                    GlobalThreadPools.sleepCompat(300)
+                    delay(300)
                 }
             }
         } catch (t: Throwable) {
@@ -1006,7 +1008,7 @@ class AntOcean : ModelTask() {
                         // 输出日志信息
                         Log.forest("神奇海洋🏖️[万能拼图]制作${exchangeNum}张,剩余${exchangedPieceNum}张碎片")
                         // 制作完成后休眠1秒钟
-                        GlobalThreadPools.sleepCompat(1000)
+                        delay(1000)
                     }
                 } else {
                     // 如果未成功获取道具列表，停止循环
@@ -1077,7 +1079,7 @@ class AntOcean : ModelTask() {
                                 if (ResChecker.checkRes(TAG, usePropResultObj)) {
                                     val userCount = idSet.size
                                     Log.forest("神奇海洋🏖️[万能拼图]使用${userCount}张，获得[$name]剩余${holdsNum}张")
-                                    GlobalThreadPools.sleepCompat(1000)
+                                    delay(1000)
                                     if (holdsNum <= 0) {
                                         break@th
                                     }

@@ -19,7 +19,9 @@ import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.data.Status
 import fansirsqi.xposed.sesame.util.TimeUtil
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 
 class GreenFinance : ModelTask() {
 
@@ -325,7 +327,7 @@ class GreenFinance : ModelTask() {
         }
         try {
             var startIndex = 0
-            while (true) {
+            while (currentCoroutineContext().isActive) {
                 val pageJo = queryRankingPage(startIndex) ?: break
                 val result = pageJo.optJSONObject("result") ?: break
                 if (result.optBoolean("lastPage")) {

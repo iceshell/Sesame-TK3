@@ -365,7 +365,7 @@ object ApplicationHookConstants {
             return
         }
 
-        while (true) {
+        while (!Thread.currentThread().isInterrupted) {
             val current = pendingNonAlarmTrigger.get()
             if (current == null) {
                 if (pendingNonAlarmTrigger.compareAndSet(null, triggerInfo)) {

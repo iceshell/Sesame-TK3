@@ -44,11 +44,15 @@ import fansirsqi.xposed.sesame.util.ResChecker
 import fansirsqi.xposed.sesame.util.StringUtil
 import fansirsqi.xposed.sesame.util.TimeCounter
 import fansirsqi.xposed.sesame.util.TimeUtil
+import fansirsqi.xposed.sesame.util.maps.CooperateMap
 import fansirsqi.xposed.sesame.util.maps.IdMapManager
 import fansirsqi.xposed.sesame.util.maps.ParadiseCoinBenefitIdMap
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -56,6 +60,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.util.Calendar
+import java.util.LinkedList
 import java.util.Locale
 import java.util.Objects
 import java.util.Random
@@ -1944,7 +1949,7 @@ class AntFarm : ModelTask() {
                 } finally {
                     delay(2000)
                 }
-            } while (true)
+            } while (currentCoroutineContext().isActive)
         } catch (e: CancellationException) {
             // 协程取消异常必须重新抛出，不能吞掉
             Log.debug(TAG, "recordFarmGame 协程被取消")

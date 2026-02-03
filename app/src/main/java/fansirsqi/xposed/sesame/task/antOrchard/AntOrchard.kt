@@ -137,7 +137,7 @@ class AntOrchard : ModelTask() {
 
     private fun orchardSpreadManure() {
         try {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted) {
                 try {
                     var jo = JSONObject(AntOrchardRpcCall.orchardIndex())
                     if ("100" != jo.getString("resultCode")) {
