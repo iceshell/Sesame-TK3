@@ -19,7 +19,9 @@ import java.lang.reflect.Method
 import java.util.Calendar
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.atomic.AtomicReference
 
 /**
@@ -28,6 +30,48 @@ import java.util.concurrent.atomic.AtomicReference
  */
 object ApplicationHookConstants {
     const val TAG = "ApplicationHook"
+
+    private const val MIN_ENTRY_INTERVAL_MS = 1_500L
+
+    private val lastEntryAtMsByAction = ConcurrentHashMap<String, AtomicLong>()
+
+    private val entryExecutor = Executors.newSingleThreadExecutor { r ->
+        Thread(r, "SesameEntry").apply { isDaemon = true }
+    }
+
+    @JvmStatic
+    fun submitEntry(action: String, block: () -> Unit) {
+        try {
+            entryExecutor.submit {
+                val thread = Thread.currentThread()
+                val oldName = thread.name
+                thread.name = "SesameEntry:$action"
+                try {
+                    runCatching { block() }
+                        .onFailure { Log.printStackTrace(TAG, it) }
+                } finally {
+                    thread.name = oldName
+                }
+            }
+        } catch (e: java.util.concurrent.RejectedExecutionException) {
+            Log.printStackTrace(TAG, e)
+        }
+    }
+
+    @JvmStatic
+    fun submitEntryDebounced(action: String, block: () -> Unit) {
+        val now = System.currentTimeMillis()
+        val lastEntryAtMs = lastEntryAtMsByAction.getOrPut(action) { AtomicLong(0) }
+        val last = lastEntryAtMs.get()
+        if (now - last < MIN_ENTRY_INTERVAL_MS) {
+            Log.runtime(TAG, "入口处理过于频繁，已跳过: $action")
+            return
+        }
+        if (!lastEntryAtMs.compareAndSet(last, now)) {
+            return
+        }
+        submitEntry(action, block)
+    }
     
     // 模块版本
     val modelVersion: String = BuildConfig.VERSION_NAME
@@ -245,41 +289,46 @@ object ApplicationHookConstants {
         val isBackupAlarm: Boolean = false
     )
 
-    private val alarmTriggerOrderQueue = ConcurrentLinkedQueue<Int>()
-    private val alarmTriggersByRequestCode = ConcurrentHashMap<Int, TriggerInfo>()
+    private val alarmTriggerQueue = ConcurrentLinkedQueue<TriggerInfo>()
     private val pendingNonAlarmTrigger = AtomicReference<TriggerInfo?>(null)
+
+    private val alarmQueueSize = AtomicInteger(0)
+    private val hasPendingNonAlarmTrigger = AtomicInteger(0)
+
+    private const val TRIGGER_LOG_INTERVAL_MS = 5_000L
+    private val lastTriggerEnqueueLogAtMs = AtomicLong(0)
+    private val lastTriggerDequeueLogAtMs = AtomicLong(0)
+
+    private fun tryLogTriggerEnqueue(triggerInfo: TriggerInfo) {
+        val now = System.currentTimeMillis()
+        val last = lastTriggerEnqueueLogAtMs.get()
+        if (now - last < TRIGGER_LOG_INTERVAL_MS) return
+        if (!lastTriggerEnqueueLogAtMs.compareAndSet(last, now)) return
+
+        Log.runtime(
+            TAG,
+            "trigger enqueue: src=${triggerInfo.source} rc=${triggerInfo.requestCode} backup=${triggerInfo.isBackupAlarm} alarmQ=${alarmQueueSize.get()} nonAlarm=${hasPendingNonAlarmTrigger.get()}"
+        )
+    }
+
+    private fun tryLogTriggerDequeue(triggerInfo: TriggerInfo) {
+        val now = System.currentTimeMillis()
+        val last = lastTriggerDequeueLogAtMs.get()
+        if (now - last < TRIGGER_LOG_INTERVAL_MS) return
+        if (!lastTriggerDequeueLogAtMs.compareAndSet(last, now)) return
+
+        Log.runtime(
+            TAG,
+            "trigger dequeue: src=${triggerInfo.source} rc=${triggerInfo.requestCode} backup=${triggerInfo.isBackupAlarm} alarmQ=${alarmQueueSize.get()} nonAlarm=${hasPendingNonAlarmTrigger.get()}"
+        )
+    }
 
     @JvmStatic
     fun setPendingTrigger(triggerInfo: TriggerInfo) {
         if (triggerInfo.source == TriggerSource.ALARM) {
-            val requestCode = triggerInfo.requestCode
-            if (requestCode >= 0) {
-                while (true) {
-                    val current = alarmTriggersByRequestCode[requestCode]
-                    if (current == null) {
-                        val prev = alarmTriggersByRequestCode.putIfAbsent(requestCode, triggerInfo)
-                        if (prev == null) {
-                            alarmTriggerOrderQueue.add(requestCode)
-                            return
-                        }
-                        continue
-                    }
-
-                    val shouldReplace = current.isBackupAlarm && !triggerInfo.isBackupAlarm
-                    if (!shouldReplace) {
-                        return
-                    }
-
-                    val replaced = alarmTriggersByRequestCode.replace(requestCode, current, triggerInfo)
-                    if (replaced) {
-                        return
-                    }
-                }
-            }
-
-            val syntheticCode = (System.nanoTime() and 0x7FFFFFFF).toInt()
-            alarmTriggersByRequestCode[syntheticCode] = triggerInfo
-            alarmTriggerOrderQueue.add(syntheticCode)
+            alarmTriggerQueue.add(triggerInfo)
+            alarmQueueSize.incrementAndGet()
+            tryLogTriggerEnqueue(triggerInfo)
             return
         }
 
@@ -287,6 +336,8 @@ object ApplicationHookConstants {
             val current = pendingNonAlarmTrigger.get()
             if (current == null) {
                 if (pendingNonAlarmTrigger.compareAndSet(null, triggerInfo)) {
+                    hasPendingNonAlarmTrigger.set(1)
+                    tryLogTriggerEnqueue(triggerInfo)
                     return
                 }
                 continue
@@ -310,6 +361,8 @@ object ApplicationHookConstants {
             }
 
             if (pendingNonAlarmTrigger.compareAndSet(current, triggerInfo)) {
+                hasPendingNonAlarmTrigger.set(1)
+                tryLogTriggerEnqueue(triggerInfo)
                 return
             }
         }
@@ -317,20 +370,23 @@ object ApplicationHookConstants {
 
     @JvmStatic
     fun consumePendingTrigger(): TriggerInfo? {
-        while (true) {
-            val requestCode = alarmTriggerOrderQueue.poll() ?: break
-            val alarmTrigger = alarmTriggersByRequestCode.remove(requestCode)
-            if (alarmTrigger != null) {
-                return alarmTrigger
-            }
+        val alarmTrigger = alarmTriggerQueue.poll()
+        if (alarmTrigger != null) {
+            alarmQueueSize.decrementAndGet()
+            tryLogTriggerDequeue(alarmTrigger)
+            return alarmTrigger
         }
-
-        return pendingNonAlarmTrigger.getAndSet(null)
+        val nonAlarm = pendingNonAlarmTrigger.getAndSet(null)
+        if (nonAlarm != null) {
+            hasPendingNonAlarmTrigger.set(0)
+            tryLogTriggerDequeue(nonAlarm)
+        }
+        return nonAlarm
     }
 
     @JvmStatic
     fun hasPendingAlarmTriggers(): Boolean {
-        return alarmTriggerOrderQueue.isNotEmpty() || alarmTriggersByRequestCode.isNotEmpty()
+        return alarmQueueSize.get() > 0
     }
     
     // 重登录计数

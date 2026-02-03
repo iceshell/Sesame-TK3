@@ -145,15 +145,11 @@ class AlarmSchedulerManager {
                 )
             )
 
-            val triggerExec = Runnable {
+            ApplicationHookConstants.submitEntry("execute_alarm") {
                 ApplicationHookCore.execOrInit(
                     forceInit = true,
                     allowDeferWhenServiceNotReady = true
                 )
-            }
-            val posted = runCatching { mainHandler?.post(triggerExec) }.getOrNull() == true
-            if (!posted) {
-                runCatching { triggerExec.run() }
             }
 
             Log.record(ALARM_TAG, "✅ 闹钟触发处理完成(统一入口): ID=$requestCode")

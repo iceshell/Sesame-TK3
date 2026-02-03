@@ -76,6 +76,10 @@ object Log {
 
     @JvmStatic
     fun runtime(msg: String) {
+        if (msg.contains("[SESAME_TK_READY]")) {
+            RUNTIME_LOGGER.info("$TAG{}", msg)
+            return
+        }
         if (BaseModel.runtimeLog.value == true || BuildConfig.DEBUG) {
             RUNTIME_LOGGER.info("$TAG{}", msg)
         }

@@ -38,9 +38,6 @@ import io.github.libxposed.api.XposedModuleInterface
 import org.luckypray.dexkit.DexKitBridge
 import java.io.File
 import java.util.Calendar
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.Executors
-import java.util.concurrent.atomic.AtomicLong
 
 private fun getCurrentProcessName(context: Context): String {
     return try {
@@ -63,49 +60,6 @@ private fun getCurrentProcessName(context: Context): String {
 private fun isMainProcess(context: Context): Boolean {
     val processName = getCurrentProcessName(context)
     return processName == General.PACKAGE_NAME
-}
-
-private object EntryDispatcher {
-    private const val TAG = "ApplicationHook"
-    private const val MIN_ENTRY_INTERVAL_MS = 1_500L
-
-    private val lastEntryAtMsByAction = ConcurrentHashMap<String, AtomicLong>()
-
-    private val entryExecutor = Executors.newSingleThreadExecutor { r ->
-        Thread(r, "SesameEntry").apply { isDaemon = true }
-    }
-
-    fun submit(action: String, block: () -> Unit) {
-        try {
-            entryExecutor.submit {
-                val thread = Thread.currentThread()
-                val oldName = thread.name
-                thread.name = "SesameEntry:$action"
-                try {
-                    runCatching { block() }
-                        .onFailure { Log.printStackTrace(TAG, it) }
-                } finally {
-                    thread.name = oldName
-                }
-            }
-        } catch (e: java.util.concurrent.RejectedExecutionException) {
-            Log.printStackTrace(TAG, e)
-        }
-    }
-
-    fun submitDebounced(action: String, block: () -> Unit) {
-        val now = System.currentTimeMillis()
-        val lastEntryAtMs = lastEntryAtMsByAction.getOrPut(action) { AtomicLong(0) }
-        val last = lastEntryAtMs.get()
-        if (now - last < MIN_ENTRY_INTERVAL_MS) {
-            Log.runtime(TAG, "入口处理过于频繁，已跳过: $action")
-            return
-        }
-        if (!lastEntryAtMs.compareAndSet(last, now)) {
-            return
-        }
-        submit(action, block)
-    }
 }
 
 /**
@@ -317,11 +271,13 @@ class ApplicationHookEntry {
                             if (!ApplicationHookConstants.init) {
                                 Log.setCurrentUser(resolvedUid)
 
-                                val initOk = ApplicationHookCore.execOrInit(
-                                    forceInit = true,
-                                    allowDeferWhenServiceNotReady = true
-                                )
-                                Log.runtime(TAG, if (initOk) { "execOrInit success" } else { "execOrInit deferred/failed" })
+                                ApplicationHookConstants.submitEntry("onResume_init") {
+                                    val initOk = ApplicationHookCore.execOrInit(
+                                        forceInit = true,
+                                        allowDeferWhenServiceNotReady = true
+                                    )
+                                    Log.runtime(TAG, if (initOk) { "execOrInit success" } else { "execOrInit deferred/failed" })
+                                }
                                 return
                             }
 
@@ -351,7 +307,7 @@ class ApplicationHookEntry {
                             if (ApplicationHookConstants.offline) {
                                 ApplicationHookConstants.exitOffline()
                                 val activity = param.thisObject as Activity
-                                EntryDispatcher.submitDebounced("onResume") {
+                                ApplicationHookConstants.submitEntryDebounced("onResume") {
                                     ApplicationHookConstants.setPendingTrigger(
                                         ApplicationHookConstants.TriggerInfo(
                                             source = ApplicationHookConstants.TriggerSource.ON_RESUME
@@ -364,7 +320,7 @@ class ApplicationHookEntry {
                                 return
                             }
                             
-                            EntryDispatcher.submitDebounced("onResume") {
+                            ApplicationHookConstants.submitEntryDebounced("onResume") {
                                 ApplicationHookConstants.setPendingTrigger(
                                     ApplicationHookConstants.TriggerInfo(
                                         source = ApplicationHookConstants.TriggerSource.ON_RESUME
@@ -425,6 +381,7 @@ class ApplicationHookEntry {
                                     val trigger = ApplicationHookConstants.consumePendingTrigger()
                                     val triggerSource = trigger?.source
                                         ?: ApplicationHookConstants.TriggerSource.UNKNOWN
+                                    val isBackupAlarmTrigger = trigger?.isBackupAlarm == true
 
                                     val isAlarmTriggered = ApplicationHookConstants.alarmTriggeredFlag ||
                                         (triggerSource == ApplicationHookConstants.TriggerSource.ALARM)
@@ -466,7 +423,7 @@ class ApplicationHookEntry {
                                     val MIN_EXEC_INTERVAL = 2000L
                                     val timeSinceLastExec = currentTime - ApplicationHookConstants.lastExecTime
 
-                                    if (isAlarmTriggered && timeSinceLastExec < MIN_EXEC_INTERVAL) {
+                                    if (isAlarmTriggered && isBackupAlarmTrigger && timeSinceLastExec < MIN_EXEC_INTERVAL) {
                                         Log.record(TAG, "⚠️ 闹钟触发间隔较短(${timeSinceLastExec}ms)，跳过执行，安排下次执行")
                                         val hasRunningTask = ApplicationHookConstants.taskRunnerRunningCount.get() > 0
                                         val hasNextSchedule = ApplicationHookConstants.nextExecutionTime > currentTime
@@ -503,7 +460,7 @@ class ApplicationHookEntry {
 
                                     if (ApplicationHookConstants.hasPendingAlarmTriggers()) {
                                         ApplicationHookConstants.mainHandler?.postDelayed({
-                                            EntryDispatcher.submit("alarm_drain") {
+                                            ApplicationHookConstants.submitEntry("alarm_drain") {
                                                 ApplicationHookCore.execOrInit(
                                                     forceInit = true,
                                                     allowDeferWhenServiceNotReady = true
@@ -551,7 +508,7 @@ class ApplicationHookEntry {
                             } catch (ignore: Throwable) {
                             }
                             
-                            EntryDispatcher.submitDebounced("serviceOnDestroyRestart") {
+                            ApplicationHookConstants.submitEntryDebounced("serviceOnDestroyRestart") {
                                 ApplicationHookUtils.restartByBroadcast()
                             }
                         }
@@ -640,7 +597,7 @@ class ApplicationHookEntry {
                             Log.printStack(TAG)
                         }
                         val configReload = intent.getBooleanExtra("configReload", false)
-                        EntryDispatcher.submitDebounced("restart") { ApplicationHookCore.initHandler(!configReload) }
+                        ApplicationHookConstants.submitEntryDebounced("restart") { ApplicationHookCore.initHandler(!configReload) }
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.execute" -> {
@@ -668,14 +625,14 @@ class ApplicationHookEntry {
                         )
 
                         if (isAlarmTriggered) {
-                            EntryDispatcher.submit("execute_alarm") {
+                            ApplicationHookConstants.submitEntry("execute_alarm") {
                                 ApplicationHookCore.execOrInit(
                                     forceInit = true,
                                     allowDeferWhenServiceNotReady = true
                                 )
                             }
                         } else {
-                            EntryDispatcher.submitDebounced("execute") {
+                            ApplicationHookConstants.submitEntryDebounced("execute") {
                                 ApplicationHookCore.execOrInit()
                             }
                         }
@@ -685,7 +642,7 @@ class ApplicationHookEntry {
                         if (BaseModel.debugMode.value == true) {
                             Log.printStack(TAG)
                         }
-                        EntryDispatcher.submitDebounced("reLogin") { ApplicationHookCore.reLogin() }
+                        ApplicationHookConstants.submitEntryDebounced("reLogin") { ApplicationHookCore.reLogin() }
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.status" -> {
@@ -739,7 +696,7 @@ class ApplicationHookEntry {
                             )
                         )
 
-                        EntryDispatcher.submit("execute_alarm") {
+                        ApplicationHookConstants.submitEntry("execute_alarm") {
                             ApplicationHookCore.execOrInit(
                                 forceInit = true,
                                 allowDeferWhenServiceNotReady = true

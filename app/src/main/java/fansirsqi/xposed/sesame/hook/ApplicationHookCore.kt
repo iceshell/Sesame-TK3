@@ -315,7 +315,7 @@ object ApplicationHookCore {
                 val service = ApplicationHookConstants.service
                 val notifyContext = service ?: appContext
                 if (service == null) {
-                    Log.error(TAG, "initHandler: service为空，通知能力将降级")
+                    Log.record(TAG, "initHandler: service为空，通知能力将降级")
                     Toast.show("服务未就绪，通知可能不可用")
                 }
 
