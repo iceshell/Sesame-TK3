@@ -5,10 +5,10 @@ import fansirsqi.xposed.sesame.task.reserve.ReserveRpcCall
 import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.ResChecker
+import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import kotlin.concurrent.thread
 
 /**
  * RPC调试工具类
@@ -17,7 +17,7 @@ class DebugRpc {
     fun getName(): String = "Rpc测试"
 
     fun start(broadcastFun: String, broadcastData: String, testType: String) {
-        thread {
+        GlobalThreadPools.execute(Dispatchers.IO) {
             when (testType) {
                 "Rpc" -> {
                     val result = test(broadcastFun, broadcastData)

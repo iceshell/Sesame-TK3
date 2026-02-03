@@ -43,7 +43,9 @@ import fansirsqi.xposed.sesame.ui.dto.ModelFieldInfoDto
 import fansirsqi.xposed.sesame.ui.dto.ModelFieldShowDto
 import fansirsqi.xposed.sesame.ui.dto.ModelGroupDto
 import fansirsqi.xposed.sesame.ui.widget.ListDialog
+import fansirsqi.xposed.sesame.util.Detector
 import fansirsqi.xposed.sesame.util.Files
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import fansirsqi.xposed.sesame.util.JsonUtil
 import fansirsqi.xposed.sesame.util.LanguageUtil
 import fansirsqi.xposed.sesame.util.Log
@@ -58,6 +60,7 @@ import fansirsqi.xposed.sesame.util.maps.ReserveaMap
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import fansirsqi.xposed.sesame.util.maps.VitalityRewardsMap
 import java.nio.charset.StandardCharsets
+import kotlinx.coroutines.Dispatchers
 
 class WebSettingsActivity : BaseActivity() {
     
@@ -143,7 +146,7 @@ class WebSettingsActivity : BaseActivity() {
             Log.runtime(TAG, "onCreate: 开始异步加载配置数据")
 
             // 在后台线程加载配置数据
-            Thread {
+            GlobalThreadPools.execute(Dispatchers.IO) {
                 try {
                     Log.runtime(TAG, "后台线程: 准备初始化Model")
                     Model.initAllModel()
@@ -200,7 +203,7 @@ class WebSettingsActivity : BaseActivity() {
                         finish()
                     }
                 }
-            }.start()
+            }
 
             Log.runtime(TAG, "onCreate: ✅ 异步加载已启动")
         } catch (e: Exception) {

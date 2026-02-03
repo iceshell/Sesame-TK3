@@ -29,11 +29,13 @@ import fansirsqi.xposed.sesame.hook.server.ModuleHttpServerManager
 import fansirsqi.xposed.sesame.model.BaseModel
 import fansirsqi.xposed.sesame.task.BaseTask
 import fansirsqi.xposed.sesame.task.TaskRunnerAdapter
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import fansirsqi.xposed.sesame.util.AssetUtil
 import fansirsqi.xposed.sesame.util.Detector
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.Notify
 import fansirsqi.xposed.sesame.util.maps.UserMap
+import kotlinx.coroutines.Dispatchers
 import io.github.libxposed.api.XposedModuleInterface
 import org.luckypray.dexkit.DexKitBridge
 import java.io.File
@@ -660,7 +662,7 @@ class ApplicationHookEntry {
                     }
                     
                     "com.eg.android.AlipayGphone.sesame.rpctest" -> {
-                        Thread {
+                        GlobalThreadPools.execute(Dispatchers.IO) {
                             try {
                                 val method = intent.getStringExtra("method")
                                 val data = intent.getStringExtra("data")
@@ -670,7 +672,7 @@ class ApplicationHookEntry {
                                 if (method != null && data != null && type != null) {
                                     if (type == "Rpc" && !BuildConfig.DEBUG && BaseModel.debugMode.value != true) {
                                         Log.runtime(TAG, "已拦截 Rpc 调试请求：非 Debug 构建且未开启 debugMode")
-                                        return@Thread
+                                        return@execute
                                     }
                                     val rpcInstance = DebugRpc()
                                     rpcInstance.start(method, data, type)
@@ -681,7 +683,7 @@ class ApplicationHookEntry {
                                 Log.runtime(TAG, "sesame 测试RPC请求失败:")
                                 Log.printStackTrace(TAG, th)
                             }
-                        }.start()
+                        }
                     }
                     
                     else -> {

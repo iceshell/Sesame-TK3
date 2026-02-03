@@ -56,12 +56,8 @@ object CoroutineUtils {
         dispatcher: CoroutineDispatcher = Dispatchers.Default,
         block: suspend CoroutineScope.() -> Unit
     ): Job {
-        return CoroutineScope(dispatcher + SupervisorJob()).launch {
-            try {
-                block()
-            } catch (e: Exception) {
-                Log.printStackTrace("协程执行异常", e)
-            }
+        return GlobalThreadPools.execute(dispatcher) {
+            block()
         }
     }
     

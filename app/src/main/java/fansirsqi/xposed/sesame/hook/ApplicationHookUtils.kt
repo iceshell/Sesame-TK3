@@ -9,6 +9,7 @@ import fansirsqi.xposed.sesame.BuildConfig
 import fansirsqi.xposed.sesame.data.General
 import fansirsqi.xposed.sesame.util.AssetUtil
 import fansirsqi.xposed.sesame.util.Detector
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.maps.UserMap
 import java.io.File
@@ -289,10 +290,7 @@ object UserSessionProvider {
         val attempts = (retryCount.coerceAtLeast(0) + 1)
         repeat(attempts) { attempt ->
             if (attempt > 0 && retryDelayMs > 0) {
-                try {
-                    Thread.sleep(retryDelayMs)
-                } catch (_: InterruptedException) {
-                }
+                GlobalThreadPools.sleepCompat(retryDelayMs)
             }
             uidFromHook = HookUtil.getUserId(classLoader)?.takeIf { it.isNotBlank() }
             if (uidFromHook != null) {

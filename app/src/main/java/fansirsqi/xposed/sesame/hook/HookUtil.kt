@@ -5,8 +5,10 @@ import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedHelpers
 import fansirsqi.xposed.sesame.data.General
 import fansirsqi.xposed.sesame.entity.UserEntity
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.maps.UserMap
+import kotlinx.coroutines.Dispatchers
 import org.json.JSONObject
 import java.util.concurrent.ConcurrentHashMap
 
@@ -84,7 +86,7 @@ object HookUtil {
                                     if (!dataIsNullValue) {
 
                                         // ✅ 异步处理抓包数据，避免阻塞RPC调用
-                                        Thread {
+                                        GlobalThreadPools.execute(Dispatchers.IO) {
                                             try {
                                                 val res = JSONObject().apply {
                                                     put("TimeStamp", time)
@@ -109,7 +111,7 @@ object HookUtil {
                                             } catch (e: Exception) {
                                                 Log.runtime(TAG, "异步记录抓包数据失败: ${e.message}")
                                             }
-                                        }.start()
+                                        }
                                     }
                                 } catch (e: Exception) {
                                     Log.runtime(TAG, "JSON 构建失败: ${e.message}")

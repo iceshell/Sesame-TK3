@@ -40,6 +40,7 @@ import fansirsqi.xposed.sesame.util.AssetUtil
 import fansirsqi.xposed.sesame.util.Detector
 import fansirsqi.xposed.sesame.util.FansirsqiUtil
 import fansirsqi.xposed.sesame.util.Files
+import fansirsqi.xposed.sesame.util.GlobalThreadPools
 import fansirsqi.xposed.sesame.util.Log
 import fansirsqi.xposed.sesame.util.PermissionUtil
 import fansirsqi.xposed.sesame.util.ToastUtil
@@ -47,6 +48,7 @@ import fansirsqi.xposed.sesame.util.maps.UserMap
 import kotlinx.coroutines.launch
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.Dispatchers
 
 //   欢迎自己打包 欢迎大佬pr
 //   项目开源且公益  维护都是自愿
@@ -409,7 +411,7 @@ class MainActivity : BaseActivity() {
         val length = options.size
         if (showDefaultOption && length > 0 && length < 3) {
             val timeoutMillis: Long = 800
-            Thread {
+            GlobalThreadPools.execute(Dispatchers.Default) {
                 try {
                     if (!latch.await(timeoutMillis, TimeUnit.MILLISECONDS)) {
                         runOnUiThread {
@@ -422,7 +424,7 @@ class MainActivity : BaseActivity() {
                 } catch (_: InterruptedException) {
                     Thread.currentThread().interrupt()
                 }
-            }.start()
+            }
         }
     }
 
