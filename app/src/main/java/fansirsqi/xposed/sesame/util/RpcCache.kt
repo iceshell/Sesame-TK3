@@ -1,6 +1,7 @@
 package fansirsqi.xposed.sesame.util
 
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.concurrent.read
 import kotlin.concurrent.write
@@ -19,6 +20,12 @@ import kotlin.concurrent.write
  * @date 2024-11-02
  */
 object RpcCache {
+
+    private val hitCount = AtomicLong(0)
+    private val missCount = AtomicLong(0)
+    private val putCount = AtomicLong(0)
+    private val evictCount = AtomicLong(0)
+    private val expiredRemoveCount = AtomicLong(0)
     
     /**
      * 缓存项数据类
@@ -65,16 +72,23 @@ object RpcCache {
         val key = generateKey(method, data)
         
         return lock.write {
-            val entry = cache[key] ?: return@write null
+            val entry = cache[key]
+            if (entry == null) {
+                missCount.incrementAndGet()
+                return@write null
+            }
             
             if (entry.isExpired()) {
                 cache.remove(key)
                 accessOrder.remove(key)
+                expiredRemoveCount.incrementAndGet()
+                missCount.incrementAndGet()
                 return@write null
             }
 
             entry.lastAccess = System.currentTimeMillis()
             accessOrder[key] = entry.lastAccess
+            hitCount.incrementAndGet()
             entry.value
         }
     }
@@ -88,6 +102,8 @@ object RpcCache {
      */
     fun put(method: String?, data: String?, value: String, ttl: Long = DEFAULT_TTL) {
         if (method == null || value.isEmpty()) return
+
+        putCount.incrementAndGet()
         
         val key = generateKey(method, data)
         
@@ -102,6 +118,7 @@ object RpcCache {
                     if (lruKey != null) {
                         cache.remove(lruKey)
                         accessOrder.remove(lruKey)
+                        evictCount.incrementAndGet()
                         Log.runtime("RpcCache", "LRU淘汰: $lruKey")
                     }
                 }
@@ -150,6 +167,10 @@ object RpcCache {
             cache.remove(it)
             accessOrder.remove(it)
         }
+
+        if (expiredKeys.isNotEmpty()) {
+            expiredRemoveCount.addAndGet(expiredKeys.size.toLong())
+        }
         
         if (expiredKeys.isNotEmpty()) {
             Log.runtime("RpcCache", "清除过期缓存: ${expiredKeys.size}个")
@@ -166,5 +187,17 @@ object RpcCache {
         return lock.read {
             "缓存项数: ${cache.size}/${MAX_CACHE_SIZE}, 命中率优化: LRU"
         }
+    }
+
+    fun getMetricsSnapshot(): Map<String, Any?> {
+        return linkedMapOf(
+            "size" to cache.size,
+            "maxSize" to MAX_CACHE_SIZE,
+            "hit" to hitCount.get(),
+            "miss" to missCount.get(),
+            "put" to putCount.get(),
+            "evict" to evictCount.get(),
+            "expiredRemove" to expiredRemoveCount.get()
+        )
     }
 }

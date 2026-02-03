@@ -3,6 +3,7 @@ package fansirsqi.xposed.sesame.hook.server
 import com.fasterxml.jackson.databind.ObjectMapper
 import fansirsqi.xposed.sesame.hook.server.handlers.HttpHandler
 import fansirsqi.xposed.sesame.hook.server.handlers.DebugHandler
+import fansirsqi.xposed.sesame.hook.server.handlers.StatusHandler
 import fansirsqi.xposed.sesame.util.Log
 import fi.iki.elonen.NanoHTTPD
 
@@ -19,12 +20,14 @@ class ModuleHttpServer(
     private val routes = mutableMapOf<String, HttpHandler>()
     private val pathDescriptions = mapOf(
         "/debugHandler" to "调试接口",
+        "/status" to "状态接口",
     )
 
     init {
         // 后续新增接口只需在这里注册即可
 
         register("/debugHandler", DebugHandler(secretToken))
+        register("/status", StatusHandler(secretToken))
     }
 
     private fun register(path: String, handler: HttpHandler) {

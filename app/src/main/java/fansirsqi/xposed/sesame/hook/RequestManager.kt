@@ -22,6 +22,14 @@ object RequestManager {
     private val lastRpcBridgeNullLogAtMs = AtomicLong(0)
     private val lastRpcBlockedLogAtMs = AtomicLong(0)
 
+    private val rpcRequestCount = AtomicLong(0)
+    private val rpcBlockedCount = AtomicLong(0)
+    private val rpcBridgeNullCount = AtomicLong(0)
+    private val inFlightCreatedCount = AtomicLong(0)
+    private val inFlightJoinedCount = AtomicLong(0)
+    private val rpcCacheHitCount = AtomicLong(0)
+    private val rpcCacheMissCount = AtomicLong(0)
+
     private val inFlight = ConcurrentHashMap<String, FutureTask<String>>()
 
     private const val EMPTY_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
@@ -107,11 +115,14 @@ object RequestManager {
         val existing = inFlight.putIfAbsent(key, task)
         val toWait = existing ?: task
         if (existing == null) {
+            inFlightCreatedCount.incrementAndGet()
             try {
                 task.run()
             } finally {
                 inFlight.remove(key, task)
             }
+        } else {
+            inFlightJoinedCount.incrementAndGet()
         }
 
         return try {
@@ -129,6 +140,7 @@ object RequestManager {
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     private fun getRpcBridge(): RpcBridge? {
         if (ApplicationHookConstants.shouldBlockRpc()) {
+            rpcBlockedCount.incrementAndGet()
             if (shouldLogRpcBlocked()) {
                 val untilMs = ApplicationHookConstants.offlineUntilMs
                 val remainMs = if (untilMs > 0L) (untilMs - System.currentTimeMillis()).coerceAtLeast(0L) else -1L
@@ -138,14 +150,17 @@ object RequestManager {
                     "RequestManager",
                     "RPC 被离线冷却阻断 remainMs=$remainMs untilMs=$untilMs reason=${reason ?: "null"} detail=${detail ?: "null"}"
                 )
+                ModuleStatusReporter.requestUpdate("rpc_blocked")
             }
             return null
         }
 
         val rpcBridge = ApplicationHookConstants.rpcBridge
         if (rpcBridge == null) {
+            rpcBridgeNullCount.incrementAndGet()
             if (shouldLogRpcBridgeNull()) {
                 Log.runtime("RequestManager", "RpcBridge 为空，跳过本次请求")
+                ModuleStatusReporter.requestUpdate("rpc_bridge_null")
             }
             return null
         }
@@ -153,7 +168,22 @@ object RequestManager {
     }
 
     @JvmStatic
+    fun getMetricsSnapshot(): Map<String, Any?> {
+        return linkedMapOf(
+            "requestCount" to rpcRequestCount.get(),
+            "blockedCount" to rpcBlockedCount.get(),
+            "bridgeNullCount" to rpcBridgeNullCount.get(),
+            "inFlightCurrent" to inFlight.size,
+            "inFlightCreated" to inFlightCreatedCount.get(),
+            "inFlightJoined" to inFlightJoinedCount.get(),
+            "cacheHit" to rpcCacheHitCount.get(),
+            "cacheMiss" to rpcCacheMissCount.get()
+        )
+    }
+
+    @JvmStatic
     fun requestString(rpcEntity: RpcEntity): String {
+        rpcRequestCount.incrementAndGet()
         val method = rpcEntity.requestMethod
         val data = rpcEntity.requestData
         val cacheKeyData = if (rpcEntity.requestRelation.isNullOrEmpty()) {
@@ -164,7 +194,11 @@ object RequestManager {
 
         if (shouldUseRpcCache(method)) {
             val cached = fansirsqi.xposed.sesame.util.RpcCache.get(method, cacheKeyData)
-            if (cached != null) return cached
+            if (cached != null) {
+                rpcCacheHitCount.incrementAndGet()
+                return cached
+            }
+            rpcCacheMissCount.incrementAndGet()
 
             val key = generateKey(method, cacheKeyData)
             return requestWithInFlight(key) {
@@ -185,6 +219,7 @@ object RequestManager {
 
     @JvmStatic
     fun requestString(rpcEntity: RpcEntity, tryCount: Int, retryInterval: Int): String {
+        rpcRequestCount.incrementAndGet()
         val rpcBridge = getRpcBridge() ?: return ""
         val result = rpcBridge.requestString(rpcEntity, tryCount, retryInterval)
         return checkResult(result, rpcEntity.requestMethod)
@@ -192,9 +227,14 @@ object RequestManager {
 
     @JvmStatic
     fun requestString(method: String?, data: String?): String {
+        rpcRequestCount.incrementAndGet()
         if (shouldUseRpcCache(method)) {
             val cached = fansirsqi.xposed.sesame.util.RpcCache.get(method, data)
-            if (cached != null) return cached
+            if (cached != null) {
+                rpcCacheHitCount.incrementAndGet()
+                return cached
+            }
+            rpcCacheMissCount.incrementAndGet()
 
             val key = generateKey(method, data)
             return requestWithInFlight(key) {

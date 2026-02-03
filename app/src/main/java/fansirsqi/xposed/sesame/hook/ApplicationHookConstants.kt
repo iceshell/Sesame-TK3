@@ -315,6 +315,8 @@ object ApplicationHookConstants {
                 detail = detail
             )
         )
+
+        ModuleStatusReporter.requestUpdate(if (wasOffline) "offline_refresh" else "offline_enter")
     }
 
     @JvmStatic
@@ -365,6 +367,14 @@ object ApplicationHookConstants {
         Log.record(
             TAG,
             "exitOffline: durationMs=$durationMs reason=${enterReason ?: "null"} detail=${enterDetail ?: "null"}"
+        )
+
+        ModuleStatusReporter.requestUpdate(
+            when (type) {
+                OfflineEventType.EXIT -> "offline_exit"
+                OfflineEventType.AUTO_EXIT -> "offline_auto_exit"
+                else -> "offline_exit"
+            }
         )
     }
 
