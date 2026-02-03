@@ -28,6 +28,7 @@ class BaseModel : Model() {
             addField(stayAwake)
             addField(manualTriggerAutoSchedule)
             addField(checkInterval)
+            addField(offlineCooldown)
             addField(taskExecutionRounds)
             addField(modelSleepTime)
             addField(execAtTimeList)
@@ -66,6 +67,11 @@ class BaseModel : Model() {
         @JvmStatic
         val checkInterval = IntegerModelField.MultiplyIntegerModelField(
             "checkInterval", "执行间隔(分钟)", 50, 1, 12 * 60, 60_000
+        )
+
+        @JvmStatic
+        val offlineCooldown = IntegerModelField.MultiplyIntegerModelField(
+            "offlineCooldown", "离线冷却(分钟,0=随执行间隔)", 0, 0, 24 * 60, 60_000
         )
         
         @JvmStatic

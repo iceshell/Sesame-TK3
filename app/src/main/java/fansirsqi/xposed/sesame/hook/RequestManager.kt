@@ -133,7 +133,11 @@ object RequestManager {
                 val untilMs = ApplicationHookConstants.offlineUntilMs
                 val remainMs = if (untilMs > 0L) (untilMs - System.currentTimeMillis()).coerceAtLeast(0L) else -1L
                 val reason = ApplicationHookConstants.offlineReason
-                Log.runtime("RequestManager", "RPC 被离线冷却阻断 remainMs=$remainMs untilMs=$untilMs reason=${reason ?: "null"}")
+                val detail = ApplicationHookConstants.offlineReasonDetail
+                Log.runtime(
+                    "RequestManager",
+                    "RPC 被离线冷却阻断 remainMs=$remainMs untilMs=$untilMs reason=${reason ?: "null"} detail=${detail ?: "null"}"
+                )
             }
             return null
         }

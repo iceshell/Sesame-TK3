@@ -34,6 +34,10 @@ object ApplicationHookConstants {
 
     private const val MIN_ENTRY_INTERVAL_MS = 1_500L
 
+    @Volatile
+    @JvmStatic
+    var nowProvider: () -> Long = { System.currentTimeMillis() }
+
     private val lastEntryAtMsByAction = ConcurrentHashMap<String, AtomicLong>()
 
     private val entryExecutorLock = Any()
@@ -208,6 +212,10 @@ object ApplicationHookConstants {
     @JvmStatic
     var offlineReason: String? = null
 
+    @Volatile
+    @JvmStatic
+    var offlineReasonDetail: String? = null
+
     @JvmStatic
     val offlineEnterCount: AtomicInteger = AtomicInteger(0)
 
@@ -226,6 +234,46 @@ object ApplicationHookConstants {
     @JvmStatic
     var lastOfflineEnterReason: String? = null
 
+    @Volatile
+    @JvmStatic
+    var lastOfflineEnterReasonDetail: String? = null
+
+    enum class OfflineEventType {
+        ENTER,
+        REFRESH,
+        EXIT,
+        AUTO_EXIT
+    }
+
+    data class OfflineEvent(
+        val type: OfflineEventType,
+        val atMs: Long,
+        val cooldownMs: Long,
+        val untilMs: Long,
+        val reason: String?,
+        val detail: String?
+    )
+
+    private const val OFFLINE_EVENT_MAX = 64
+    private val offlineEvents = ConcurrentLinkedQueue<OfflineEvent>()
+    private val offlineEventSize = AtomicInteger(0)
+
+    private fun addOfflineEvent(event: OfflineEvent) {
+        offlineEvents.add(event)
+        val size = offlineEventSize.incrementAndGet()
+        if (size <= OFFLINE_EVENT_MAX) return
+        while (offlineEventSize.get() > OFFLINE_EVENT_MAX) {
+            val removed = offlineEvents.poll() ?: break
+            offlineEventSize.decrementAndGet()
+            if (removed === event) break
+        }
+    }
+
+    @JvmStatic
+    fun getOfflineEventsSnapshot(): List<OfflineEvent> {
+        return offlineEvents.toList()
+    }
+
     @JvmStatic
     fun enterOffline(cooldownMs: Long) {
         enterOffline(cooldownMs, null)
@@ -233,25 +281,49 @@ object ApplicationHookConstants {
 
     @JvmStatic
     fun enterOffline(cooldownMs: Long, reason: String?) {
+        enterOffline(cooldownMs, reason, null)
+    }
+
+    @JvmStatic
+    fun enterOffline(cooldownMs: Long, reason: String?, detail: String?) {
         val wasOffline = offline
+        val now = nowProvider()
         offline = true
         offlineReason = reason
+        offlineReasonDetail = detail
 
         if (!wasOffline) {
             offlineEnterCount.incrementAndGet()
-            lastOfflineEnterAtMs = System.currentTimeMillis()
+            lastOfflineEnterAtMs = now
             lastOfflineEnterReason = reason
+            lastOfflineEnterReasonDetail = detail
         }
 
         offlineUntilMs = if (cooldownMs > 0) {
-            System.currentTimeMillis() + cooldownMs
+            now + cooldownMs
         } else {
             0L
         }
+
+        addOfflineEvent(
+            OfflineEvent(
+                type = if (wasOffline) OfflineEventType.REFRESH else OfflineEventType.ENTER,
+                atMs = now,
+                cooldownMs = cooldownMs,
+                untilMs = offlineUntilMs,
+                reason = reason,
+                detail = detail
+            )
+        )
     }
 
     @JvmStatic
     fun getOfflineCooldownMs(): Long {
+        val configured = BaseModel.offlineCooldown.value?.toLong() ?: 0L
+        if (configured > 0L) {
+            return maxOf(configured, 180000L)
+        }
+
         return maxOf(
             BaseModel.checkInterval.value?.toLong() ?: 180000L,
             180000L
@@ -260,19 +332,40 @@ object ApplicationHookConstants {
 
     @JvmStatic
     fun exitOffline() {
-        val now = System.currentTimeMillis()
+        exitOfflineInternal(OfflineEventType.EXIT)
+    }
+
+    private fun exitOfflineInternal(type: OfflineEventType) {
+        val now = nowProvider()
         val enterAtMs = lastOfflineEnterAtMs
         val durationMs = if (enterAtMs > 0L) (now - enterAtMs).coerceAtLeast(0L) else -1L
         val enterReason = offlineReason
 
+        val enterDetail = offlineReasonDetail
+
         offline = false
         offlineUntilMs = 0L
         offlineReason = null
+        offlineReasonDetail = null
 
         offlineExitCount.incrementAndGet()
         lastOfflineExitAtMs = now
 
-        Log.record(TAG, "exitOffline: durationMs=$durationMs reason=${enterReason ?: "null"}")
+        addOfflineEvent(
+            OfflineEvent(
+                type = type,
+                atMs = now,
+                cooldownMs = 0L,
+                untilMs = 0L,
+                reason = enterReason,
+                detail = enterDetail
+            )
+        )
+
+        Log.record(
+            TAG,
+            "exitOffline: durationMs=$durationMs reason=${enterReason ?: "null"} detail=${enterDetail ?: "null"}"
+        )
     }
 
     @JvmStatic
@@ -282,10 +375,10 @@ object ApplicationHookConstants {
         val untilMs = offlineUntilMs
         if (untilMs <= 0L) return true
 
-        val now = System.currentTimeMillis()
+        val now = nowProvider()
         if (now < untilMs) return true
 
-        exitOffline()
+        exitOfflineInternal(OfflineEventType.AUTO_EXIT)
         return false
     }
     

@@ -125,7 +125,11 @@ class NewRpcBridge : RpcBridge {
         }
 
         if (!wasOffline) {
-            fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(cooldownMs, notifyTitle)
+            fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(
+                cooldownMs,
+                "auth_like",
+                notifyTitle
+            )
         }
 
         val shouldTryRelogin =
@@ -451,7 +455,8 @@ class NewRpcBridge : RpcBridge {
                                 if (currentErrorCount > setMaxErrorCount) {
                                     fansirsqi.xposed.sesame.hook.ApplicationHookConstants.enterOffline(
                                         offlineCooldownMs(),
-                                        "network_error_threshold current=$currentErrorCount threshold=$setMaxErrorCount"
+                                        "network_error_threshold",
+                                        "current=$currentErrorCount threshold=$setMaxErrorCount"
                                     )
                                     enteredOffline = true
                                     Notify.updateStatusText("网络连接异常，已进入离线模式")
