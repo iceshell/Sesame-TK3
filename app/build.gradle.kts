@@ -62,7 +62,7 @@ tasks.register("checkAll") {
 }
 var isCIBuild: Boolean = System.getenv("CI").toBoolean()
 
-val versionNameBaseDefault = "0.6.2"
+val versionNameBaseDefault = "0.6.3"
 
 val rcCounterFile = rootProject.layout.projectDirectory.file("rc/rc-counter.properties")
 val releaseRcTextFile = layout.buildDirectory.file("rc/release-rc.txt")
