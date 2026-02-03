@@ -49,7 +49,8 @@ object RpcCache {
      * 生成缓存键
      */
     private fun generateKey(method: String?, data: String?): String {
-        return "${method}_${data.hashCode()}"
+        val dataHash = data?.hashCode() ?: 0
+        return "${method}_${dataHash}"
     }
     
     /**
@@ -63,25 +64,18 @@ object RpcCache {
         
         val key = generateKey(method, data)
         
-        return lock.read {
-            val entry = cache[key] ?: return null
+        return lock.write {
+            val entry = cache[key] ?: return@write null
             
-            if (!entry.isExpired()) {
-                // 更新LRU访问记录
-                lock.write {
-                    entry.lastAccess = System.currentTimeMillis()
-                    accessOrder[key] = entry.lastAccess
-                }
-                Log.runtime("RpcCache", "缓存命中: $method")
-                entry.value
-            } else {
-                // 清除过期缓存
-                lock.write {
-                    cache.remove(key)
-                    accessOrder.remove(key)
-                }
-                null
+            if (entry.isExpired()) {
+                cache.remove(key)
+                accessOrder.remove(key)
+                return@write null
             }
+
+            entry.lastAccess = System.currentTimeMillis()
+            accessOrder[key] = entry.lastAccess
+            entry.value
         }
     }
     
@@ -116,7 +110,6 @@ object RpcCache {
             val now = System.currentTimeMillis()
             cache[key] = CacheEntry(value, now, ttl, now)
             accessOrder[key] = now
-            Log.runtime("RpcCache", "缓存存入: $method, TTL: ${ttl}ms")
         }
     }
     
@@ -132,7 +125,6 @@ object RpcCache {
                 cache.remove(it)
                 accessOrder.remove(it)
             }
-            Log.runtime("RpcCache", "缓存清除: $method (${keysToRemove.size}个)")
         }
     }
     
@@ -143,7 +135,6 @@ object RpcCache {
         lock.write {
             cache.clear()
             accessOrder.clear()
-            Log.runtime("RpcCache", "缓存全部清除")
         }
     }
     

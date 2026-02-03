@@ -5,7 +5,10 @@ import androidx.annotation.RequiresPermission
 import fansirsqi.xposed.sesame.entity.RpcEntity
 import fansirsqi.xposed.sesame.hook.rpc.bridge.RpcBridge
 import fansirsqi.xposed.sesame.util.Log
+import java.util.concurrent.Callable
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.FutureTask
 import java.util.concurrent.atomic.AtomicLong
 
 /**
@@ -18,6 +21,8 @@ object RequestManager {
     private val lastEmptyResponseLogAtMs = ConcurrentHashMap<String, Long>()
     private val lastRpcBridgeNullLogAtMs = AtomicLong(0)
     private val lastRpcBlockedLogAtMs = AtomicLong(0)
+
+    private val inFlight = ConcurrentHashMap<String, FutureTask<String>>()
 
     private const val EMPTY_RESPONSE_LOG_INTERVAL_MS: Long = 5_000L
     private const val RPC_BRIDGE_NULL_LOG_INTERVAL_MS: Long = 5_000L
@@ -75,6 +80,52 @@ object RequestManager {
         return result
     }
 
+    private fun shouldUseRpcCache(method: String?): Boolean {
+        val m = method?.lowercase() ?: return false
+        val allow = m.contains("query") || m.contains("list") || m.contains("get")
+        if (!allow) return false
+
+        val deny = m.contains("send") ||
+            m.contains("finish") ||
+            m.contains("receive") ||
+            m.contains("draw") ||
+            m.contains("exchange") ||
+            m.contains("apply") ||
+            m.contains("submit") ||
+            m.contains("sign") ||
+            m.contains("use")
+        return !deny
+    }
+
+    private fun generateKey(method: String?, data: String?): String {
+        val dataHash = data?.hashCode() ?: 0
+        return "${method}_${dataHash}"
+    }
+
+    private fun requestWithInFlight(key: String, supplier: () -> String): String {
+        val task = FutureTask(Callable { supplier() })
+        val existing = inFlight.putIfAbsent(key, task)
+        val toWait = existing ?: task
+        if (existing == null) {
+            try {
+                task.run()
+            } finally {
+                inFlight.remove(key, task)
+            }
+        }
+
+        return try {
+            toWait.get()
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+            ""
+        } catch (e: ExecutionException) {
+            ""
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     private fun getRpcBridge(): RpcBridge? {
         if (ApplicationHookConstants.shouldBlockRpc()) {
@@ -99,47 +150,89 @@ object RequestManager {
 
     @JvmStatic
     fun requestString(rpcEntity: RpcEntity): String {
-        // 尝试从缓存获取
-        val cached = fansirsqi.xposed.sesame.util.RpcCache.get(rpcEntity.methodName, rpcEntity.requestData)
-        if (cached != null) return cached
-        
+        val method = rpcEntity.requestMethod
+        val data = rpcEntity.requestData
+        val cacheKeyData = if (rpcEntity.requestRelation.isNullOrEmpty()) {
+            data
+        } else {
+            (data ?: "") + "\u0001rel=" + rpcEntity.requestRelation
+        }
+
+        if (shouldUseRpcCache(method)) {
+            val cached = fansirsqi.xposed.sesame.util.RpcCache.get(method, cacheKeyData)
+            if (cached != null) return cached
+
+            val key = generateKey(method, cacheKeyData)
+            return requestWithInFlight(key) {
+                val rpcBridge = getRpcBridge() ?: return@requestWithInFlight ""
+                val result = rpcBridge.requestString(rpcEntity, RpcBridge.DEFAULT_TRY_COUNT, RpcBridge.DEFAULT_RETRY_INTERVAL)
+                val checkedResult = checkResult(result, method)
+                if (checkedResult.isNotEmpty()) {
+                    fansirsqi.xposed.sesame.util.RpcCache.put(method, cacheKeyData, checkedResult)
+                }
+                checkedResult
+            }
+        }
+
         val rpcBridge = getRpcBridge() ?: return ""
         val result = rpcBridge.requestString(rpcEntity, RpcBridge.DEFAULT_TRY_COUNT, RpcBridge.DEFAULT_RETRY_INTERVAL)
-        val checkedResult = checkResult(result, rpcEntity.methodName)
-        
-        // 缓存成功的响应
-        if (checkedResult.isNotEmpty()) {
-            fansirsqi.xposed.sesame.util.RpcCache.put(rpcEntity.methodName, rpcEntity.requestData, checkedResult)
-        }
-        return checkedResult
+        return checkResult(result, method)
     }
 
     @JvmStatic
     fun requestString(rpcEntity: RpcEntity, tryCount: Int, retryInterval: Int): String {
         val rpcBridge = getRpcBridge() ?: return ""
         val result = rpcBridge.requestString(rpcEntity, tryCount, retryInterval)
-        return checkResult(result, rpcEntity.methodName)
+        return checkResult(result, rpcEntity.requestMethod)
     }
 
     @JvmStatic
     fun requestString(method: String?, data: String?): String {
-        // 尝试从缓存获取
-        val cached = fansirsqi.xposed.sesame.util.RpcCache.get(method, data)
-        if (cached != null) return cached
-        
+        if (shouldUseRpcCache(method)) {
+            val cached = fansirsqi.xposed.sesame.util.RpcCache.get(method, data)
+            if (cached != null) return cached
+
+            val key = generateKey(method, data)
+            return requestWithInFlight(key) {
+                val rpcBridge = getRpcBridge() ?: return@requestWithInFlight ""
+                val result = rpcBridge.requestString(method, data)
+                val checkedResult = checkResult(result, method)
+                if (checkedResult.isNotEmpty()) {
+                    fansirsqi.xposed.sesame.util.RpcCache.put(method, data, checkedResult)
+                }
+                checkedResult
+            }
+        }
+
         val rpcBridge = getRpcBridge() ?: return ""
         val result = rpcBridge.requestString(method, data)
-        val checkedResult = checkResult(result, method)
-        
-        // 缓存成功的响应
-        if (checkedResult.isNotEmpty()) {
-            fansirsqi.xposed.sesame.util.RpcCache.put(method, data, checkedResult)
-        }
-        return checkedResult
+        return checkResult(result, method)
     }
 
     @JvmStatic
     fun requestString(method: String?, data: String?, relation: String?): String {
+        val cacheKeyData = if (relation.isNullOrEmpty()) {
+            data
+        } else {
+            (data ?: "") + "\u0001rel=" + relation
+        }
+
+        if (shouldUseRpcCache(method)) {
+            val cached = fansirsqi.xposed.sesame.util.RpcCache.get(method, cacheKeyData)
+            if (cached != null) return cached
+
+            val key = generateKey(method, cacheKeyData)
+            return requestWithInFlight(key) {
+                val rpcBridge = getRpcBridge() ?: return@requestWithInFlight ""
+                val result = rpcBridge.requestString(method, data, relation)
+                val checkedResult = checkResult(result, method)
+                if (checkedResult.isNotEmpty()) {
+                    fansirsqi.xposed.sesame.util.RpcCache.put(method, cacheKeyData, checkedResult)
+                }
+                checkedResult
+            }
+        }
+
         val rpcBridge = getRpcBridge() ?: return ""
         val result = rpcBridge.requestString(method, data, relation)
         return checkResult(result, method)
