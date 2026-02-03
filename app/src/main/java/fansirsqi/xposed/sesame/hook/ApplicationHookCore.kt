@@ -374,6 +374,7 @@ object ApplicationHookCore {
                 Log.record(TAG, "✅ 芝麻粒-TK 加载成功✨")
                 Log.record(TAG, "[SESAME_TK_READY]")
                 Log.runtime(TAG, "[SESAME_TK_READY]")
+                ModuleStatusReporter.requestUpdate("ready")
                 Log.record(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                 Toast.show("芝麻粒-TK 加载成功✨")
             }
